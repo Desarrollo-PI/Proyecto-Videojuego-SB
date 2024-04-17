@@ -4,10 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { Canvas } from "@react-three/fiber";
+import { Loader } from "@react-three/drei";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Canvas>
+      <App />
+    </Canvas>
+    <Loader />
   </React.StrictMode>
 );
 
