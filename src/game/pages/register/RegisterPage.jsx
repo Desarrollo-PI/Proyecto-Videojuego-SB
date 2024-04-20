@@ -1,10 +1,8 @@
 import React from 'react'
 import RegisterForm from './RegisterForm'
-import HeaderForm from '../HeaderForm'
 
 import { useAuth } from '../../../providers/auth/AuthProvider'
 import { useNavigate } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
 
 const RegisterPage = () => {
   const { register } = useAuth()
@@ -19,10 +17,9 @@ const RegisterPage = () => {
   }
 
   return (
-    <Container className="main-container">
-      <HeaderForm />
+    <>
       <RegisterForm onRegister={onRegister} onGoToLogin={onGoToLogin} />
-    </Container>
+    </>
   )
 }
 

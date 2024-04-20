@@ -11,7 +11,7 @@ const LoginForm = ({ onLogin, onGoToRegister }) => {
   }
 
   return (
-    <Container className="auth-form-container">
+    <div className="auth-form-container">
       <Form onSubmit={handleSubmit} className="auth-form">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>EMAIL</Form.Label>
@@ -38,7 +38,7 @@ const LoginForm = ({ onLogin, onGoToRegister }) => {
       <Button variant="secondary" onClick={onGoToRegister}>
         REGISTRATE
       </Button>
-    </Container>
+    </div>
   )
 }
 

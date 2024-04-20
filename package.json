@@ -10,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/three": "^0.162.0",
+    "bootstrap": "^5.3.3",
     "firebase": "^10.11.0",
     "howler": "^2.2.4",
     "leva": "^0.9.35",

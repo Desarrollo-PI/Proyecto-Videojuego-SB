@@ -17,7 +17,7 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
   }
 
   return (
-    <Container className="auth-form-container">
+    <div className="auth-form-container">
       <Form onSubmit={handleSubmit} className="auth-form">
         <Form.Group controlId="formBasicEmail">
           <Form.Label>EMAIL</Form.Label>
@@ -44,11 +44,11 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
       <Button
         variant="secondary"
         onClick={onGoToLogin}
-        style={{ marginTop: '30px' }}
+        style={{ marginTop: '35px' }}
       >
         VOVLVER
       </Button>
-    </Container>
+    </div>
   )
 }
 
