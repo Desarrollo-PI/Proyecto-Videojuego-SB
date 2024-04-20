@@ -1,29 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
 
-import { OrbitControls } from "@react-three/drei";
-import WorldLevelOne, {WorldLevelOneWithPhysisc} from "./game/levelOne/World";
-import WorldLevelFourth from "./game/levelFourth/World";
-import Lights from "./game/globals/Lights";
-import Environments from "./game/globals/Environments";
-import { Perf } from "r3f-perf";
-import { Suspense } from "react";
-import { Physics } from '@react-three/rapier';
+import RootProvider from './providers/RootProvider'
+import GameRouter from './routes/GameRouter'
 
 function App() {
   return (
-    <>
-      <OrbitControls  />
-      <Suspense fallback={null} >
-          <Lights />
-          <Environments />
-          <Physics debug>
-            <WorldLevelFourth />
-            {/* <WorldLevelOneWithPhysisc /> */}
-          </Physics>
-      </Suspense>
-    </>
-  ) ;
+    <RootProvider>
+      <GameRouter />
+    </RootProvider>
+  )
 }
 
-export default App;
+export default App

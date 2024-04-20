@@ -1,38 +1,155 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'HarryPotter';
+  src:
+    local('HarryPotter'),
+    url(../public/assets/fonts/HARRYP__.TTF) format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+  font-family: 'HarryPotter7';
+  src:
+    local('HarryPotter7'),
+    url(../public/assets/fonts/HarryPotter7.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+  font-family: 'BluuNext';
+  src:
+    local('BluuNext'),
+    url(../public/assets/fonts/BluuNext-Titling.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+@font-face {
+  font-family: 'SofiaPro';
+  src:
+    local('SofiaPro'),
+    url(../public/assets/fonts/sofiapro-light.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.main-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+  height: 100vh;
+  background-color: #10141b;
 }
 
-.App-link {
-  color: #61dafb;
+.auth-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  border-radius: 8px;
+  background-color: transparent;
+}
+
+.form-label {
+  font:
+    16px 'HarryPotter7',
+    sans-serif;
+  color: #ffffff;
+}
+
+.auth-form input[type='email'],
+.auth-form input[type='password'] {
+  width: calc(100% - 32px);
+  margin-bottom: 30px;
+  margin-top: 5px;
+  padding: 16px 16px;
+  font:
+    16px 'SofiaPro',
+    sans-serif;
+  border-radius: 4px;
+  border: 1px solid #ffffff;
+  background-color: #1C1E28;
+  color: #ffffff;
+}
+
+.auth-form-container button[type='submit'] {
+  background-color: #b0955e;
+  color: #ffffff;
+  font:
+    16px 'HarryPotter7',
+    sans-serif;
+  padding: 16px 60px;
+  margin-bottom: 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: #000 0px 0px 10px;
+}
+
+.auth-form-container button {
+  background-color: transparent;
+  color: #ffffff;
+  font:
+    16px 'HarryPotter7',
+    sans-serif;
+  padding: 16px 60px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  border: #ffffff 1px solid;
+  box-shadow: #000 0px 0px 10px;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.auth-form-container h2 {
+  color: #ffffff;
+  font:
+    16px 'HarryPotter7',
+    sans-serif;
+}
+
+.auth-form-container hr {
+  color: #ffffff;
+  width: 100%;
+}
+
+.auth-form button[type='submit']:hover {
+  background-color: #6e5729;
+  color: #ffffff;
+}
+
+.auth-form-container button:hover {
+  background-color: #ffffff;
+  color: #000;
+}
+
+
+/* Header */
+
+.auth-form-header {
+  color: #b0955e;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.auth-form-header h1 {
+  font:
+    90px 'HarryPotter',
+    sans-serif;
+  text-align: center;
+  margin: 0;
+}
+
+.auth-form-header h2 {
+  font:
+    24px 'HarryPotter7',
+    sans-serif;
+  text-align: center;
 }
