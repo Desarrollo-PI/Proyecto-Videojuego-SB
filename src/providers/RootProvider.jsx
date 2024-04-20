@@ -1,15 +1,13 @@
-import React from 'react';
-import { AuthProvider } from './auth/AuthProvider';
-import { MusicProvider } from './music/MusicProvider';
+import React from 'react'
+import { AuthProvider } from './auth/AuthProvider'
+import { MusicProvider } from './music/MusicProvider'
 
 const RootProvider = ({ children }) => {
-    return (
-        <AuthProvider>
-            <MusicProvider>
-            {children}
-            </MusicProvider>
-        </AuthProvider>
-    )
-    }
+  return (
+    <AuthProvider>
+      <MusicProvider>{children}</MusicProvider>
+    </AuthProvider>
+  )
+}
 
-export default RootProvider;
+export default RootProvider

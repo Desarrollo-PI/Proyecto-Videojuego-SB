@@ -12,13 +12,12 @@ export const MusicProvider = ({ children }) => {
   )
 
   useEffect(() => {
-    playSound();
+    playSound()
 
     return () => {
-      stopSound();
-    };
-  }, [sound]);
-
+      stopSound()
+    }
+  }, [sound])
 
   const playSound = () => {
     sound.play()

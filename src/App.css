@@ -34,20 +34,25 @@
   font-style: normal;
 }
 
+/* General */
+
 .main-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #10141b;
+  background-color: transparent;
 }
+
+/* Auth Form */
 
 .auth-form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: transparent;
 }
 
 .auth-form {
@@ -56,6 +61,7 @@
   width: 400px;
   border-radius: 8px;
   background-color: transparent;
+  margin: 16px 16px 16px 16px;
 }
 
 .form-label {
@@ -67,7 +73,7 @@
 
 .auth-form input[type='email'],
 .auth-form input[type='password'] {
-  width: calc(100% - 32px);
+  width: 100%;
   margin-bottom: 30px;
   margin-top: 5px;
   padding: 16px 16px;
@@ -76,7 +82,7 @@
     sans-serif;
   border-radius: 4px;
   border: 1px solid #ffffff;
-  background-color: #1C1E28;
+  background-color: #1c1e28;
   color: #ffffff;
 }
 
@@ -87,7 +93,6 @@
     16px 'HarryPotter7',
     sans-serif;
   padding: 16px 60px;
-  margin-bottom: 30px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
@@ -95,7 +100,7 @@
 }
 
 .auth-form-container button {
-  background-color: transparent;
+  background-color: #10141b;
   color: #ffffff;
   font:
     16px 'HarryPotter7',
@@ -106,14 +111,19 @@
   border-radius: 4px;
   border: #ffffff 1px solid;
   box-shadow: #000 0px 0px 10px;
-  transition: background-color 0.5s ease, color 0.5s ease;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
 .auth-form-container h2 {
+  background-color: #1c1e28;
   color: #ffffff;
   font:
     16px 'HarryPotter7',
     sans-serif;
+  padding-bottom: 16px;
+  margin-bottom: 0;
 }
 
 .auth-form-container hr {
@@ -130,7 +140,6 @@
   background-color: #ffffff;
   color: #000;
 }
-
 
 /* Header */
 
@@ -149,7 +158,76 @@
 
 .auth-form-header h2 {
   font:
-    24px 'HarryPotter7',
+    30px 'HarryPotter7',
     sans-serif;
   text-align: center;
+}
+
+/* Background */
+
+.background-container {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  overflow: hidden;
+  z-index: -1;
+  background-color: #10141b;
+}
+
+.castle {
+  width: 100%;
+  height: 100%;
+  background-image: url('../public/assets/img/hogwarts-img.png');
+  background-size: cover;
+  z-index: -1;
+  opacity: 1;
+}
+
+.background-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  opacity: 0;
+  animation: lightning 4s linear infinite;
+  z-index: -1;
+}
+
+@keyframes lightning {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.carousel-item {
+  overflow: hidden; /* Ocultar contenido que se desborda */
+}
+
+.carousel-item img {
+  border: 3px solid #ddd; /* Borde para destacar las vistas previas */
+  margin: 5px; /* Espacio entre las vistas previas */
+}
+
+.carousel-inner {
+  display: flex; /* Mostrar elementos de forma horizontal */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%; /* Ancho más pequeño para los controles de carrusel */
+}
+
+.carousel {
+  width: 1000px;
+  height: 400px;
 }

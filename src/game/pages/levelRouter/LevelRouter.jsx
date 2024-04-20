@@ -1,46 +1,37 @@
+import React, { useState } from 'react'
+import Carousel from 'react-bootstrap/Carousel'
+
 const LevelRouter = () => {
+  const [index, setIndex] = useState(0)
+
+  const handleSelect = (selectedIndex) => {
+    console.log(selectedIndex)
+    setIndex(selectedIndex)
+  }
+
   return (
-    <div>
-      <h1>Nivel 1</h1>
-      <h2>¿Quién es este personaje?</h2>
-      <img
-        src="https://i.pinimg.com/originals/6f/4d/1f/6f4d1f3b4f9d3f8b5f7b7c7e1c2f1f1e.jpg"
-        alt="Harry Potter"
-      />
-      <button>Harry Potter</button>
-      <button>Ron Weasley</button>
-      <button>Hermione Granger</button>
-
-      <h1>Nivel 2</h1>
-      <h2>¿Quién es este personaje?</h2>
-      <img
-        src="https://i.pinimg.com/originals/6f/4d/1f/6f4d1f3b4f9d3f8b5f7b7c7e1c2f1f1e.jpg"
-        alt="Harry Potter"
-      />
-      <button>Harry Potter</button>
-      <button>Ron Weasley</button>
-      <button>Hermione Granger</button>
-
-      <h1>Nivel 3</h1>
-      <h2>¿Quién es este personaje?</h2>
-      <img
-        src="https://i.pinimg.com/originals/6f/4d/1f/6f4d1f3b4f9d3f8b5f7b7c7e1c2f1f1e.jpg"
-        alt="Harry Potter"
-      />
-      <button>Harry Potter</button>
-      <button>Ron Weasley</button>
-      <button>Hermione Granger</button>
-
-      <h1>Nivel 4</h1>
-      <h2>¿Quién es este personaje?</h2>
-      <img
-        src="https://i.pinimg.com/originals/6f/4d/1f/6f4d1f3b4f9d3f8b5f7b7c7e1c2f1f1e.jpg"
-        alt="Harry Potter"
-      />
-      <button>Harry Potter</button>
-      <button>Ron Weasley</button>
-      <button>Hermione Granger</button>
-    </div>
+    <Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel.Item index={1}>
+        <Carousel.Caption>
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item index={2}>
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
   )
 }
 

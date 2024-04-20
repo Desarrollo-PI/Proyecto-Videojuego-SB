@@ -6,6 +6,7 @@ import LevelRouter from '../game/pages/levelRouter/LevelRouter'
 import LevelOnePage from '../game/pages/levelOne/LevelOnePage'
 import LevelFourthPage from '../game/pages/levelFourth/LevelFourthPage'
 import ProtectedRouter from './ProtectedRouter'
+import LayoutAuthForm from '../game/pages/layout/LayoutAuthForm'
 
 import { useAuth } from '../providers/auth/AuthProvider'
 
@@ -16,14 +17,28 @@ const GameRouter = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate replace to="/login" />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route
+          path="/login"
+          element={
+            <LayoutAuthForm>
+              <LoginPage />
+            </LayoutAuthForm>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <LayoutAuthForm>
+              <RegisterPage />
+            </LayoutAuthForm>
+          }
+        />
         <Route
           path="/level-router"
           element={
-            <ProtectedRouter>
+            <LayoutAuthForm>
               <LevelRouter />
-            </ProtectedRouter>
+            </LayoutAuthForm>
           }
         />
         <Route
