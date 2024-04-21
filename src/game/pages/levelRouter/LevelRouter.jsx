@@ -1,38 +1,65 @@
 import React, { useState } from 'react'
-import Carousel from 'react-bootstrap/Carousel'
+import LevelCarousel from './LevelCarousel'
+import { Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
-const LevelRouter = () => {
+const LevelRouterPage = () => {
+  const navigate = useNavigate()
+
   const [index, setIndex] = useState(0)
 
   const handleSelect = (selectedIndex) => {
-    console.log(selectedIndex)
     setIndex(selectedIndex)
   }
 
+  const onGoToFirsLevel = () => {
+    navigate('/level-one')
+  }
+
+  const onGoToSecondLevel = () => {
+    navigate('/lelvel-two')
+  }
+
+  const onGoToThirdLevel = () => {
+    navigate('/level-three')
+  }
+
+  const onGoToFourthLevel = () => {
+    navigate('/level-fourth')
+  }
+
+  const onGoToLogin = () => {
+    navigate('/login')
+  }
+
+  const handleGoToLevel = () => {
+    switch (index) {
+      case 0:
+        onGoToFirsLevel()
+        break
+      case 1:
+        onGoToSecondLevel()
+        break
+      case 2:
+        onGoToThirdLevel()
+        break
+      case 3:
+        onGoToFourthLevel()
+        break
+      default:
+        break
+    }
+  }
+
   return (
-    <Carousel activeIndex={index} onSelect={handleSelect}>
-      <Carousel.Item index={1}>
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item index={2}>
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+    <div className="level-selector-container">
+      <LevelCarousel
+        handleGoToLevel={handleGoToLevel}
+        handleSelect={handleSelect}
+        index={index}
+      />
+    </div>
   )
 }
 
-export default LevelRouter
+export default LevelRouterPage

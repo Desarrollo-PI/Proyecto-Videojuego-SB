@@ -9,9 +9,10 @@ const LoginPage = () => {
   const navigate = useNavigate()
 
   const onLogin = async (email, password) => {
-    login(email, password).then(() => {
-      onGoToMenuLevels()
-    })
+    //login(email, password).then(() => {
+    //onGoToMenuLevels()
+    //})
+    onGoToMenuLevels()
   }
 
   const onGoToRegister = () => {
