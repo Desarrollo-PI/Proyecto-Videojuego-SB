@@ -1,6 +1,6 @@
-import { Container } from 'react-bootstrap'
+import React from 'react'
 
-const HeaderForm = () => {
+const Header = () => {
   return (
     <div className="auth-form-header">
       <h1>EL RESCATE DE HOGWARTS</h1>
@@ -9,4 +9,4 @@ const HeaderForm = () => {
   )
 }
 
-export default HeaderForm
+export default Header

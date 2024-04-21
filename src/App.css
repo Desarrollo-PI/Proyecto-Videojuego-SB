@@ -17,6 +17,24 @@
 }
 
 @font-face {
+  font-family: 'HaveYouSeenHim';
+  src:
+    local('HaveYouSeenHim'),
+    url(../public/assets/fonts/purple-3.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Undesiared';
+  src:
+    local('Undesiared'),
+    url(../public/assets/fonts/tatu.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
   font-family: 'BluuNext';
   src:
     local('BluuNext'),
@@ -209,25 +227,240 @@
   }
 }
 
-.carousel-item {
-  overflow: hidden; /* Ocultar contenido que se desborda */
+/* Level Selector */
+
+.level-selector-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
 }
 
-.carousel-item img {
-  border: 3px solid #ddd; /* Borde para destacar las vistas previas */
-  margin: 5px; /* Espacio entre las vistas previas */
+.level-selector {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  border-radius: 8px;
+  background-color: transparent;
+  margin: 16px 16px 16px 16px;
+}
+
+.carousel-item h2 {
+  color: #ffffff;
+  font-weight: bold;
+  font:
+    40px 'HarryPotter',
+    sans-serif;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.carousel-item h3 {
+  color: #ffffff;
+  font-weight: bold;
+  font:
+    20px 'HarryPotter7',
+    sans-serif;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.level-selector-container button {
+  background-color: #b0955e;
+  color: #ffffff;
+  font:
+    16px 'HarryPotter7',
+    sans-serif;
+  padding: 16px 60px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+.level-selector-container button:hover {
+  background-color: #6e5729;
+  color: #ffffff;
 }
 
 .carousel-inner {
-  display: flex; /* Mostrar elementos de forma horizontal */
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  width: 5%; /* Ancho más pequeño para los controles de carrusel */
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .carousel {
-  width: 1000px;
-  height: 400px;
+  margin-top: 40px;
+  width: 600px;
+  height: 500px;
+}
+
+.carousel-item {
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.carousel-item:hover {
+  transform: scale(1.1);
+  color: #b0955e;
+}
+
+.carousel-caption {
+  bottom: initial;
+  top: 0;
+}
+
+/* Footer Buttons */
+
+.footer-settings-container {
+  position: fixed;
+  display: flex;
+  gap: 20px;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+.footer-logout-container {
+  position: fixed;
+  display: flex;
+  gap: 20px;
+  bottom: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+.footer-settings-container button,
+.footer-logout-container button {
+  background-color: #10141b;
+  color: #ffffff;
+  border: #ffffff 1px solid;
+  border-radius: 4px;
+  box-shadow: #000 0px 0px 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+.footer-settings-container button:hover,
+.footer-logout-container button:hover {
+  background-color: #ffffff;
+  color: #000;
+}
+
+/* Perfil */
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.profile-container button {
+  background-color: #10141b;
+  font-family: 'HarryPotter7', sans-serif;
+  padding: 16px 30px;
+  color: #ffffff;
+  border: #ffffff 1px solid;
+  border-radius: 4px;
+  box-shadow: #000 0px 0px 10px;
+  cursor: pointer;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+.profile-container button:hover {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.paper-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url('../public/assets/img/paper.png');
+  background-size: cover;
+  width: 700px;
+  height: 420px;
+  padding-top: 30px;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  padding: 0;
+}
+
+.line {
+  height: 4px;
+  width: 80%;
+  border: 0;
+  background: black;
+}
+
+.line-bold {
+  height: 4px;
+  width: 100%;
+  border: 0;
+  background: black;
+}
+
+.paper-container h1 {
+  font-family: 'Undesiared', sans-serif;
+  font-size: 30px;
+  color: #000;
+  margin-bottom: 10px;
+  text-align: start;
+  font-weight: bold;
+}
+
+.paper-container h2 {
+  margin-top: 20px;
+  font-family: 'HaveYouSeenHim', sans-serif;
+  font-size: 45px;
+  color: #000;
+  text-align: start;
+  font-weight: bold;
+}
+
+.paper-container h3 {
+  margin-top: 10px;
+  font-family: 'HaveYouSeenHim', sans-serif;
+  font-size: 25px;
+  color: #000;
+  text-align: start;
+  font-weight: bold;
+}
+
+.paper-container h4 {
+  margin-top: 10px;
+  font-family: 'HaveYouSeenHim', sans-serif;
+  font-size: 25px;
+  color: #000;
+  text-align: center;
+  font-weight: bold;
+}
+
+.paper-container h5 {
+  margin-top: 10px;
+  font-family: 'HaveYouSeenHim', sans-serif;
+  font-size: 30px;
+  color: #420808;
+  text-align: center;
+  font-weight: bold;
+}
+
+.stadistic-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

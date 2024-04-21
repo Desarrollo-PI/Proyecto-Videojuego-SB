@@ -4,6 +4,7 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth'
 
 const AuthContext = createContext(null)
@@ -76,6 +77,15 @@ export const AuthProvider = ({ children }) => {
     }
   }
 
+  const logout = async () => {
+    try {
+      await signOut(auth)
+      dispatch({ type: actionTypes.LOGOUT })
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const register = async (email, password) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password)
@@ -85,7 +95,7 @@ export const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ state, dispatch, login, register }}>
+    <AuthContext.Provider value={{ state, dispatch, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   )

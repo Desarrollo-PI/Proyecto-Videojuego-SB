@@ -1,6 +1,7 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
+import { useFrame } from '@react-three/fiber'
 
 const withPhysics = (Component) => (props) => {
   const ref = useRef()
@@ -11,7 +12,15 @@ const withPhysics = (Component) => (props) => {
   )
 }
 
-const WorldLevelOne = (props) => {
+const withRotation = (Component) => (props) => {
+  const ref = useRef()
+  useFrame(() => {
+    ref.current.rotation.y += 0.01
+  })
+  return <Component ref={ref} {...props} />
+}
+
+export const WorldLevelOne = (props) => {
   const { nodes, materials } = useGLTF(
     '/assets/models/worldLevelOne//LevelOneDraft600AALL.glb'
   )
