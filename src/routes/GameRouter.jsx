@@ -2,11 +2,11 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
 import LoginPage from '../game/pages/login/LoginPage'
 import RegisterPage from '../game/pages/register/RegisterPage'
+import ProfilePage from '../game/pages/profile/ProfilePage'
 import LevelRouter from '../game/pages/levelRouter/LevelRouter'
 import LevelOnePage from '../game/pages/levelOne/LevelOnePage'
 import LevelFourthPage from '../game/pages/levelFourth/LevelFourthPage'
-import ProtectedRouter from './ProtectedRouter'
-import LayoutAuthForm from '../game/pages/layout/LayoutAuthForm'
+import LayoutAuthForm from '../game/pages/layout/LayoutMain'
 
 import { useAuth } from '../providers/auth/AuthProvider'
 
@@ -34,6 +34,14 @@ const GameRouter = () => {
           }
         />
         <Route
+          path="/profile"
+          element={
+            <LayoutAuthForm>
+              <ProfilePage />
+            </LayoutAuthForm>
+          }
+        />
+        <Route
           path="/level-router"
           element={
             <LayoutAuthForm>
@@ -41,22 +49,8 @@ const GameRouter = () => {
             </LayoutAuthForm>
           }
         />
-        <Route
-          path="/level-one"
-          element={
-            <ProtectedRouter>
-              <LevelOnePage />
-            </ProtectedRouter>
-          }
-        />
-        <Route
-          path="/level-fourth"
-          element={
-            <ProtectedRouter>
-              <LevelFourthPage />
-            </ProtectedRouter>
-          }
-        />
+        <Route path="/level-one" element={<LevelOnePage />} />
+        <Route path="/level-fourth" element={<LevelFourthPage />} />
       </Routes>
     </BrowserRouter>
   )

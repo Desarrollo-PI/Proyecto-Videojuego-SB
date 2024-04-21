@@ -10,25 +10,28 @@ export const MusicProvider = ({ children }) => {
       loop: true,
     })
   )
+  const [isPlaying, setIsPlaying] = useState(true)
 
   useEffect(() => {
     playSound()
 
     return () => {
-      stopSound()
+      sound.stop()
     }
   }, [sound])
 
   const playSound = () => {
     sound.play()
+    setIsPlaying(true)
   }
 
-  const stopSound = () => {
-    sound.stop()
+  const pauseSound = () => {
+    sound.pause()
+    setIsPlaying(false)
   }
 
   return (
-    <MusicContext.Provider value={{ playSound, stopSound }}>
+    <MusicContext.Provider value={{ playSound, pauseSound, isPlaying }}>
       {children}
     </MusicContext.Provider>
   )

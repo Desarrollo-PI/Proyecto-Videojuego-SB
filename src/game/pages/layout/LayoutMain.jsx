@@ -1,12 +1,13 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
-import HeaderForm from './HeaderForm'
+import Header from './Header'
+import FooterButtons from './FooterButtons'
 
-const LayoutAuthForm = ({ children }) => {
+const LayoutMain = ({ children }) => {
   return (
     <div className="main-container">
-      <HeaderForm />
+      <Header />
       {children}
+      <FooterButtons />
       <div className="background-container">
         <div className="castle"></div>
       </div>
@@ -14,4 +15,4 @@ const LayoutAuthForm = ({ children }) => {
   )
 }
 
-export default LayoutAuthForm
+export default LayoutMain
