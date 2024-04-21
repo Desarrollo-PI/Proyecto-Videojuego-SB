@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 import LoginPage from '../game/pages/login/LoginPage'
 import RegisterPage from '../game/pages/register/RegisterPage'
 import LevelRouter from '../game/pages/levelRouter/LevelRouter'
+import LevelTwoPage from '../game/pages/levelTwo/LevelTwoPage'
 import LevelOnePage from '../game/pages/levelOne/LevelOnePage'
 import LevelFourthPage from '../game/pages/levelFourth/LevelFourthPage'
 import ProtectedRouter from './ProtectedRouter'
@@ -48,6 +49,13 @@ const GameRouter = () => {
               <LevelOnePage />
             </ProtectedRouter>
           }
+        />
+
+        <Route
+            path="/level-two"
+            element={
+                <LevelTwoPage />
+            }
         />
         <Route
           path="/level-fourth"
