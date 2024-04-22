@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import LevelCarousel from './LevelCarousel'
-import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 const LevelRouterPage = () => {
@@ -13,19 +12,19 @@ const LevelRouterPage = () => {
   }
 
   const onGoToFirsLevel = () => {
-    navigate('/level-one')
+    navigate('/level/one')
   }
 
   const onGoToSecondLevel = () => {
-    navigate('/lelvel-two')
+    navigate('/level/two')
   }
 
   const onGoToThirdLevel = () => {
-    navigate('/level-three')
+    navigate('/level/three')
   }
 
   const onGoToFourthLevel = () => {
-    navigate('/level-fourth')
+    navigate('/level/fourth')
   }
 
   const onGoToLogin = () => {

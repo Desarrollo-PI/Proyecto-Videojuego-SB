@@ -7,9 +7,10 @@ import LevelRouter from '../game/pages/levelRouter/LevelRouter'
 import LevelTwoPage from '../game/pages/levelTwo/LevelTwoPage'
 import LevelOnePage from '../game/pages/levelOne/LevelOnePage'
 import LevelFourthPage from '../game/pages/levelFourth/LevelFourthPage'
-import LayoutAuthForm from '../game/pages/layout/LayoutMain'
+import LayoutMain from '../game/pages/layout/LayoutMain'
 
 import { useAuth } from '../providers/auth/AuthProvider'
+import LayoutLevel from '../game/pages/layout/LayoutLevel'
 
 const GameRouter = () => {
   const { state } = useAuth()
@@ -17,42 +18,19 @@ const GameRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate replace to="/login" />} />
-        <Route
-          path="/login"
-          element={
-            <LayoutAuthForm>
-              <LoginPage />
-            </LayoutAuthForm>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <LayoutAuthForm>
-              <RegisterPage />
-            </LayoutAuthForm>
-          }
-        />
-        <Route
-          path="/profile"
-          element={
-            <LayoutAuthForm>
-              <ProfilePage />
-            </LayoutAuthForm>
-          }
-        />
-        <Route
-          path="/level-router"
-          element={
-            <LayoutAuthForm>
-              <LevelRouter />
-            </LayoutAuthForm>
-          }
-        />  
-        <Route path="/level-one" element={<LevelOnePage />} />
-        <Route path="/level-two" element={<LevelTwoPage />} />
-        <Route path="/level-fourth" element={<LevelFourthPage />} />
+        <Route path="/" element={<LayoutMain />}>
+          <Route path="/" element={<Navigate replace to="/login" />} />
+          <Route path="/login" element={<LoginPage />} />\
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/level-router" element={<LevelRouter />} />
+        </Route>
+        <Route path="/level" element={<LayoutLevel />}>
+          <Route path="" element={<Navigate replace to="/level-router" />} />
+          <Route path="one" element={<LevelOnePage />} />
+          <Route path="two" element={<LevelTwoPage />} />
+          <Route path="fourth" element={<LevelFourthPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   )
