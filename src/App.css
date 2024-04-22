@@ -464,3 +464,208 @@
   align-items: center;
   justify-content: center;
 }
+
+/* Game Indicators */
+
+.game-indicators-container {
+  width: 100vh;
+  height: 100vh;
+}
+
+.game-indicators-life {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  z-index: 998;
+}
+
+.life-bar {
+  width: 300px;
+  height: 40px;
+  background-color: #1c1e28;
+  border: #b0955e 6px solid;
+  box-shadow: #000 0px 0px 5px;
+}
+
+.life-bar-inner {
+  width: 100%;
+  height: 100%;
+  background-color: #b0955e;
+}
+
+.mana-bar {
+  width: 150px;
+  height: 25px;
+  background-color: #1c1e28;
+  box-shadow: #000 0px 0px 5px;
+}
+
+.mana-bar-inner {
+  width: 100%;
+  height: 100%;
+  background-color: #b0955e;
+}
+
+.game-indicators-spells {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  z-index: 998;
+}
+
+.choose-spell {
+  width: 100px;
+  height: 100px;
+  border: #b0955e 10px solid;
+  transform: rotate(45deg);
+  box-shadow: #000 0px 0px 5px;
+  margin-bottom: 40px;
+}
+
+.selected-spell {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transform: rotate(-45deg);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.selected-spell-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 90%;
+  font-family: 'HarryPotter7', sans-serif;
+  font-size: 10px;
+  color: #6e5729;
+  margin: 0;
+  padding: 20px;
+}
+
+.selected-spell-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  font-family: 'HarryPotter7', sans-serif;
+  font-size: 10px;
+  color: #6e5729;
+  margin: 0;
+  background-image: url('../public/assets/img/paper3.png');
+  background-size: cover;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.selected-spell h2 {
+  font-family: 'HarryPotter7', sans-serif;
+  font-size: 15px;
+  color: #000;
+  font-weight: bold;
+
+  margin: 0;
+}
+
+.options-spells {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-spell {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: #b0955e 10px solid;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.key-indicator {
+  position: absolute;
+  bottom: -20px;
+  left: -10px;
+  background-color: white;
+  color: black;
+  font-family: 'HarryPotter7', sans-serif;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: #6e5729 2px solid;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  box-shadow: #000 0px 0px 5px;
+}
+
+/* Menu Game */
+.menu-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.menu {
+  background-color: #1c1e28;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+}
+
+.menu-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-body button {
+  background-color: #10141b;
+  color: #ffffff;
+  font-family: 'HarryPotter7', sans-serif;
+  padding: 16px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: #000 0px 0px 5px;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+.menu-body button:hover {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.menu h2 {
+  margin-top: 0;
+  color: #b0955e;
+  font-family: 'HarryPotter7', sans-serif;
+  margin-bottom: 20px;
+}
