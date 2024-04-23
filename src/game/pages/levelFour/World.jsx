@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei'
 
 const WorldLevelFour = (props) => {
   const { nodes, materials } = useGLTF(
-    '/public/assets/models/worldLevelFour/LevelFour.glb'
+    '/assets/models/worldLevelFour/LevelFour.glb'
   )
   return (
     <group {...props} dispose={null}>
