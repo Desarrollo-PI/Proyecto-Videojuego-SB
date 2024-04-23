@@ -2,17 +2,34 @@ import { Html } from '@react-three/drei'
 
 import MenuGame from './MenuGame'
 
-const LifeBar = ({ life, maxLife }) => {
-  const lifePercentage = (life / maxLife) * 100
+import { FaHeart } from 'react-icons/fa'
+import { FaHeartBroken } from 'react-icons/fa'
+
+const HeartBar = ({ currentHearts, maxHearts }) => {
   return (
-    <div className="life-bar">
+    <div className="heart-bar">
+      {Array.from({ length: maxHearts }, (_, index) => (
+        <div key={index} className="heart">
+          {index < currentHearts ? (
+            <FaHeart color="#AF2929" size={50} className="heart" />
+          ) : (
+            <FaHeartBroken color="#1C1E28" size={50} className="heart" />
+          )}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+const HealthBar = ({ health, maxHealth }) => {
+  const healthPercentage = (health / maxHealth) * 100
+  return (
+    <div className="health-bar">
       <div
         style={{
-          width: `${lifePercentage}%`,
-          height: '100%',
-          backgroundColor: 'green',
-          bordeRadius: '10px',
+          width: `${healthPercentage}%`,
         }}
+        className="health-bar-inner"
       ></div>
     </div>
   )
@@ -25,10 +42,8 @@ const ManaBar = ({ mana, maxMana }) => {
       <div
         style={{
           width: `${manaPercentage}%`,
-          height: '100%',
-          backgroundColor: 'blue',
-          bordeRadius: '4px',
         }}
+        className="mana-bar-inner"
       ></div>
     </div>
   )
@@ -93,9 +108,12 @@ const GameIndicators = ({
   return (
     <Html fullscreen>
       <div className="game-indicators-container">
-        <div className="game-indicators-life">
-          <LifeBar life={80} maxLife={100} />
-          <ManaBar mana={50} maxMana={100} />
+        <div className="game-indicators-info">
+          <HeartBar currentHearts={1} maxHearts={3} />
+          <div className="game-indicators-health">
+            <HealthBar health={80} maxHealth={100} />
+            <ManaBar mana={50} maxMana={100} />
+          </div>
         </div>
         <div className="game-indicators-spells">
           <ChooseSpell selectedSpell={selectedSpell} />

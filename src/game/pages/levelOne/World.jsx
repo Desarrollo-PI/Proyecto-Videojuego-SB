@@ -12,17 +12,9 @@ const withPhysics = (Component) => (props) => {
   )
 }
 
-const withRotation = (Component) => (props) => {
-  const ref = useRef()
-  useFrame(() => {
-    ref.current.rotation.y += 0.01
-  })
-  return <Component ref={ref} {...props} />
-}
-
 export const WorldLevelOne = (props) => {
   const { nodes, materials } = useGLTF(
-    '/assets/models/worldLevelOne//LevelOneDraft600AALL.glb'
+    '/assets/models/worldLevelOne/LevelOneDraft600AALL.glb'
   )
   return (
     <group {...props} dispose={null}>
