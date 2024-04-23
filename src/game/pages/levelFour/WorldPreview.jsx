@@ -1,0 +1,228 @@
+import React, { useRef } from 'react'
+import { useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+
+const withRotation = (Component) => (props) => {
+  const ref = useRef()
+  const refWorld = useRef()
+  useFrame(() => {
+    ref.current.rotation.y += 0.005
+  })
+  return (
+    <mesh ref={ref}>
+      <Component ref={refWorld} {...props} />
+    </mesh>
+  )
+}
+
+const WorldLevelFourth = (props) => {
+  const { nodes, materials } = useGLTF('/assets/preview/LevelFourPreview.glb')
+  return (
+    <group {...props} dispose={null}>
+      <group position={[-109.558, 0, 176.031]}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002.geometry}
+          material={materials['grey.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_1.geometry}
+          material={materials.Dark_Stone}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_2.geometry}
+          material={materials.Stone}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_3.geometry}
+          material={materials.Cliff}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_4.geometry}
+          material={materials.Metal}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_5.geometry}
+          material={materials.Light}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_6.geometry}
+          material={materials['Material.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_7.geometry}
+          material={materials.DarkMetal}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_8.geometry}
+          material={materials.Fire}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_9.geometry}
+          material={materials['Material.002']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_10.geometry}
+          material={materials.blinn1SG}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_11.geometry}
+          material={materials['Wood.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_12.geometry}
+          material={materials['Stone.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_13.geometry}
+          material={materials['DarkWood.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_14.geometry}
+          material={materials['Wood.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_15.geometry}
+          material={materials.Green}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_16.geometry}
+          material={materials['DarkWood.002']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_17.geometry}
+          material={materials['Wood.002']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_18.geometry}
+          material={materials.mat9}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_19.geometry}
+          material={materials.Stone_Light}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_20.geometry}
+          material={materials['Wood.004']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_21.geometry}
+          material={materials['Main.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_22.geometry}
+          material={materials['Stone_Light.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_23.geometry}
+          material={materials['Wood.005']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_24.geometry}
+          material={materials['Wood.006']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_25.geometry}
+          material={materials['DarkWood.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_26.geometry}
+          material={materials['Metal.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_27.geometry}
+          material={materials['DarkMetal.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_28.geometry}
+          material={materials.mat20}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_29.geometry}
+          material={materials.mat19}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_30.geometry}
+          material={materials.mat22}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_31.geometry}
+          material={materials.Golden}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Floor002_32.geometry}
+          material={materials['Stone.004']}
+        />
+      </group>
+    </group>
+  )
+}
+
+useGLTF.preload('/LevelFourPreview.glb')
+
+export const WorldLevelFourWithRotation = withRotation(WorldLevelFourth)

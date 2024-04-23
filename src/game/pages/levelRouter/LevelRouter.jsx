@@ -24,7 +24,7 @@ const LevelRouterPage = () => {
   }
 
   const onGoToFourthLevel = () => {
-    navigate('/level/fourth')
+    navigate('/level/four')
   }
 
   const onGoToLogin = () => {

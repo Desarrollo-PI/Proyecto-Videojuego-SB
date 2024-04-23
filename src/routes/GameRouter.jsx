@@ -6,7 +6,7 @@ import ProfilePage from '../game/pages/profile/ProfilePage'
 import LevelRouter from '../game/pages/levelRouter/LevelRouter'
 import LevelTwoPage from '../game/pages/levelTwo/LevelTwoPage'
 import LevelOnePage from '../game/pages/levelOne/LevelOnePage'
-import LevelFourthPage from '../game/pages/levelFourth/LevelFourthPage'
+import LevelFourPage from '../game/pages/levelFour/LevelFourPage'
 import LayoutMain from '../game/pages/layout/LayoutMain'
 
 import { useAuth } from '../providers/auth/AuthProvider'
@@ -29,7 +29,7 @@ const GameRouter = () => {
           <Route path="" element={<Navigate replace to="/level-router" />} />
           <Route path="one" element={<LevelOnePage />} />
           <Route path="two" element={<LevelTwoPage />} />
-          <Route path="fourth" element={<LevelFourthPage />} />
+          <Route path="four" element={<LevelFourPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
