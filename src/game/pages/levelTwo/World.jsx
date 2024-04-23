@@ -2,6 +2,15 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
+const withPhysics = (Component) => (props) => {
+    const ref = useRef()
+    return (
+        <RigidBody ref={ref} {...props} type="fixed">
+            <Component {...props} />
+        </RigidBody>
+    )
+}
+
 const WorldLevelTwo = (props) => {
     const { nodes, materials } = useGLTF(
         '/assets/models/worldLevelTwo/LevelTwo.glb'
@@ -2207,4 +2216,6 @@ const WorldLevelTwo = (props) => {
 
 useGLTF.preload('/Cemetery.glb')
 
-export default WorldLevelTwo
+const WorldLevelTwoWithPhysics = withPhysics(WorldLevelTwo)
+
+export default WorldLevelTwoWithPhysics
