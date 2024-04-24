@@ -1,7 +1,7 @@
 import React from 'react'
 import { AuthProvider } from './auth/AuthProvider'
 import { MusicProvider } from './music/MusicProvider'
-import { MenuProvider } from './menuProvider/MenuProvider'
+import { MenuProvider } from './menu/MenuProvider'
 
 const RootProvider = ({ children }) => {
   return (

@@ -17,7 +17,8 @@ import { FaWandSparkles } from 'react-icons/fa6'
 
 import { useNavigate } from 'react-router-dom'
 
-import { useMenu } from '../../../providers/menuProvider/MenuProvider'
+import { useMenu } from '../../../providers/menu/MenuProvider'
+import { useMusic } from '../../../providers/music/MusicProvider'
 import { Outlet } from 'react-router-dom'
 
 const LayoutLevel = () => {
@@ -25,6 +26,7 @@ const LayoutLevel = () => {
     useMenu()
   const movements = useMovements()
   const navigate = useNavigate()
+  const { playSound } = useMusic()
 
   const _spells = [
     {
@@ -104,6 +106,7 @@ const LayoutLevel = () => {
   }, [])
 
   const handleExit = () => {
+    playSound()
     navigate('/level-router')
     closeMenu()
   }
