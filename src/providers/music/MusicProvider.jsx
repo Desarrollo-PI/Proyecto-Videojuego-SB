@@ -30,8 +30,12 @@ export const MusicProvider = ({ children }) => {
     setIsPlaying(false)
   }
 
+  const stopSound = () => {
+    sound.stop()
+  }
+
   return (
-    <MusicContext.Provider value={{ playSound, pauseSound, isPlaying }}>
+    <MusicContext.Provider value={{ playSound, pauseSound, stopSound, isPlaying }}>
       {children}
     </MusicContext.Provider>
   )
