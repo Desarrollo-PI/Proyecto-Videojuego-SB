@@ -9,8 +9,8 @@ export default function Environments() {
         background={false}
         ground={{
           height: 20,
-          scale: 300,
-          radius: 500,
+          scale: 500,
+          radius: 800,
         }}
       />
     </>
