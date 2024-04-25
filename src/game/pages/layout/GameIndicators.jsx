@@ -106,36 +106,34 @@ const GameIndicators = ({
   selectedSpellIndex,
 }) => {
   return (
-    <Html fullscreen>
-      <div className="game-indicators-container">
-        <div className="game-indicators-info">
-          <HeartBar currentHearts={1} maxHearts={3} />
-          <div className="game-indicators-health">
-            <HealthBar health={80} maxHealth={100} />
-            <ManaBar mana={50} maxMana={100} />
-          </div>
+    <div className="game-indicators-container">
+      <div className="game-indicators-info">
+        <HeartBar currentHearts={1} maxHearts={3} />
+        <div className="game-indicators-health">
+          <HealthBar health={80} maxHealth={100} />
+          <ManaBar mana={50} maxMana={100} />
         </div>
-        <div className="game-indicators-spells">
-          <ChooseSpell selectedSpell={selectedSpell} />
-          <div className="options-spells">
-            {spells.map(
-              (spell, index) =>
-                spell?.id !== selectedSpellIndex && (
-                  <OptionSpell key={spell.id} spell={spell} />
-                )
-            )}
-          </div>
-        </div>
-        <MenuGame
-          handleExit={handleExit}
-          isOpenMenu={isOpenMenu}
-          toggleSettings={toggleSettings}
-          toggleControls={toggleControls}
-          toggleMenu={toggleMenu}
-          closeMenu={closeMenu}
-        />
       </div>
-    </Html>
+      <div className="game-indicators-spells">
+        <ChooseSpell selectedSpell={selectedSpell} />
+        <div className="options-spells">
+          {spells.map(
+            (spell, index) =>
+              spell?.id !== selectedSpellIndex && (
+                <OptionSpell key={spell.id} spell={spell} />
+              )
+          )}
+        </div>
+      </div>
+      <MenuGame
+        handleExit={handleExit}
+        isOpenMenu={isOpenMenu}
+        toggleSettings={toggleSettings}
+        toggleControls={toggleControls}
+        toggleMenu={toggleMenu}
+        closeMenu={closeMenu}
+      />
+    </div>
   )
 }
 

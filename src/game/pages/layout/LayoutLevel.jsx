@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import { KeyboardControls, OrbitControls, Sky } from '@react-three/drei'
+import Controls from '../../globals/controls/Control'
 import { Suspense } from 'react'
 import { Physics } from '@react-three/rapier'
 import { Canvas } from '@react-three/fiber'
@@ -23,6 +24,8 @@ import { useNavigate } from 'react-router-dom'
 import { useMenu } from '../../../providers/menu/MenuProvider'
 import { useMusic } from '../../../providers/music/MusicProvider'
 import { Outlet } from 'react-router-dom'
+import Player from '../../globals/player/Player'
+import Ecctrl, { EcctrlAnimation } from "ecctrl";
 
 const LayoutLevel = () => {
   const { state, toggleMenu, toggleControls, toggleSettings, closeMenu } =
@@ -115,45 +118,56 @@ const LayoutLevel = () => {
   }
 
   return (
-    <KeyboardControls map={movements}>
-      <Canvas shadows dpr={[1, 1.5]}>
-        {/* <fog attach="fog" args={['#17171b', 30, 40]} /> */}
-        <color attach="background" args={['#17171b']} />
-        <directionalLight
-          castShadow
-          intensity={2}
-          position={[10, 6, 6]}
-          shadow-mapSize={[1024, 1024]}
-        >
-          <orthographicCamera
-            attach="shadow-camera"
-            left={-20}
-            right={20}
-            top={20}
-            bottom={-20}
-          />
-        </directionalLight>
-        <ambientLight intensity={0.25} />
-        <GameIndicators
-          handleExit={handleExit}
-          isOpenMenu={state.isOpenMenu}
-          toggleMenu={toggleMenu}
-          toggleControls={toggleControls}
-          toggleSettings={toggleSettings}
-          closeMenu={closeMenu}
-          spells={spells}
-          selectedSpell={selectedSpell}
-          selectedSpellIndex={selectedSpellIndex}
-        />
-        {!state.isOpenMenu && <OrbitControls />}
-        <Suspense fallback={null}>
-          <Physics>
-            <Outlet />
-          </Physics>
-        </Suspense>
-        <Environment preset="night" />
-      </Canvas>
-    </KeyboardControls>
+    <>
+      <GameIndicators 
+        handleExit={handleExit}
+        isOpenMenu={state.isOpenMenu}
+        toggleMenu={toggleMenu}
+        toggleControls={toggleControls}
+        toggleSettings={toggleSettings}
+        closeMenu={closeMenu}
+        spells={spells}
+        selectedSpell={selectedSpell}
+        selectedSpellIndex={selectedSpellIndex}
+      />
+      <KeyboardControls map={movements}>
+        <Canvas shadows dpr={[1, 1.5]} >
+          {/* <fog attach="fog" args={['#17171b', 30, 40]} /> */}
+          <color attach="background" args={['#17171b']} />
+          <directionalLight
+            castShadow
+            intensity={2}
+            position={[10, 6, 6]}
+            shadow-mapSize={[1024, 1024]}
+          >
+            <orthographicCamera
+              attach="shadow-camera"
+              left={-100}
+              right={100}
+              top={100}
+              bottom={-100}
+            />
+          </directionalLight>
+          <ambientLight intensity={0.25} />
+          <Suspense fallback={null}>
+            <Physics>
+              <Outlet />
+              <Ecctrl
+                camInitDis={-2}
+                camMaxDis={-2}
+                maxVelLimit={5}
+                jumpVel={4}
+                position={[0, 2, 0]}
+              >
+                <Player />
+              </Ecctrl>
+            </Physics>
+          </Suspense>
+          <Environment preset="night" />
+          <Controls />
+        </Canvas>
+      </KeyboardControls>
+    </>
   )
 }
 

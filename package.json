@@ -11,6 +11,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/three": "^0.162.0",
     "bootstrap": "^5.3.3",
+    "ecctrl": "^1.0.77",
     "firebase": "^10.11.0",
     "howler": "^2.2.4",
     "leva": "^0.9.35",

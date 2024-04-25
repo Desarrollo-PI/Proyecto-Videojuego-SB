@@ -2,12 +2,55 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
-const withPhysics = (Component) => (props) => {
+const withPhysics = (Component, ComponentFixed) => (props) => {
   const ref = useRef()
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelOne/LevelOne.glb'
+  )
   return (
-    <RigidBody ref={ref} {...props} type="fixed">
-      <Component {...props} />
-    </RigidBody>
+    <>
+      <RigidBody ref={ref} {...props} type="fixed">
+        <Component {...props} />
+      </RigidBody>
+      <RigidBody {...props} type="fixed" colliders='trimesh'>
+        <ComponentFixed {...props}/>
+      </RigidBody>
+    </>
+  )
+}
+
+export const WorldLevelOneFixed = (props) => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelOne/LevelOne.glb'
+  )
+  return (
+    <>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner001_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner001_2.geometry}
+        material={materials.mat22}
+      />
+      
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner_2.geometry}
+        material={materials.mat22}
+      />
+    </>
   )
 }
 
@@ -3338,30 +3381,6 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.StairsCorner_1.geometry}
-        material={materials.mat17}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.StairsCorner_2.geometry}
-        material={materials.mat22}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.StairsCorner001_1.geometry}
-        material={materials.mat17}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.StairsCorner001_2.geometry}
-        material={materials.mat22}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Pilar_1.geometry}
         material={materials['mat21.002']}
       />
@@ -3521,6 +3540,6 @@ export const WorldLevelOne = (props) => {
 
 useGLTF.preload('/LevelOne.glb')
 
-const WorldLevelOneWithPhysisc = withPhysics(WorldLevelOne)
+const WorldLevelOneWithPhysisc = withPhysics(WorldLevelOne, WorldLevelOneFixed)
 
 export default WorldLevelOneWithPhysisc
