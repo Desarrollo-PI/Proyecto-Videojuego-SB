@@ -1,7 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
-import Image from 'react-bootstrap/Image'
-import LevelOnePage from '../levelOne/LevelOnePage'
 import LevelOnePreview from '../levelOne/LevelOnePreview'
 import LevelFourPreview from '../levelFour/LevelFourPreview'
 
@@ -14,6 +12,7 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
       indicators={false}
     >
       <Carousel.Item onClick={handleGoToLevel}>
+        <LevelOnePreview />
         <Carousel.Caption>
           <h2>1</h2>
           <h3>NIVEL</h3>
