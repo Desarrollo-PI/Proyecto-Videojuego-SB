@@ -3,17 +3,13 @@ import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
 const withPhysics = (Component, ComponentFixed) => (props) => {
-  const ref = useRef()
-  const { nodes, materials } = useGLTF(
-    '/assets/models/worldLevelOne/LevelOne.glb'
-  )
   return (
     <>
-      <RigidBody ref={ref} {...props} type="fixed">
-        <Component {...props} />
+      <RigidBody type="fixed">
+        <Component />
       </RigidBody>
-      <RigidBody {...props} type="fixed" colliders='trimesh'>
-        <ComponentFixed {...props}/>
+      <RigidBody type="fixed" colliders="trimesh">
+        <ComponentFixed />
       </RigidBody>
     </>
   )
@@ -37,7 +33,7 @@ export const WorldLevelOneFixed = (props) => {
         geometry={nodes.StairsCorner001_2.geometry}
         material={materials.mat22}
       />
-      
+
       <mesh
         castShadow
         receiveShadow

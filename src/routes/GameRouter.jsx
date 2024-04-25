@@ -13,8 +13,6 @@ import { useAuth } from '../providers/auth/AuthProvider'
 import LayoutLevel from '../game/pages/layout/LayoutLevel'
 
 const GameRouter = () => {
-  const { state } = useAuth()
-
   return (
     <BrowserRouter>
       <Routes>
