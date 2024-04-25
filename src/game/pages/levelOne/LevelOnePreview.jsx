@@ -1,4 +1,4 @@
-import { WorldLevelOne } from './World'
+import { WorldLevelOneWithRotation } from './WorldPreview'
 
 import { Suspense } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
@@ -17,10 +17,10 @@ function FixedCamera({ position, lookAt }) {
 const LevelOnePreview = () => {
   return (
     <Canvas>
-      <FixedCamera position={[0, 50, 0]} lookAt={[0, 0, 0]} />
+      <FixedCamera position={[0, 60, 150]} lookAt={[0, 0, 0]} />
       <Suspense fallback={null}>
         <Lights />
-        <WorldLevelOne />
+        <WorldLevelOneWithRotation />
       </Suspense>
     </Canvas>
   )

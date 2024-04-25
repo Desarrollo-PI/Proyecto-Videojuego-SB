@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { KeyboardControls, OrbitControls } from '@react-three/drei'
+import { KeyboardControls, OrbitControls, Sky } from '@react-three/drei'
 import { Suspense } from 'react'
 import { Physics } from '@react-three/rapier'
 import { Canvas } from '@react-three/fiber'
@@ -9,6 +9,9 @@ import Lights from '../../globals/Lights'
 import Environments from '../../globals/Environments'
 import useMovements from '../../../utils/key-movements'
 import GameIndicators from '../layout/GameIndicators'
+import {
+  Environment,
+} from '@react-three/drei'
 
 import { GiBoltSpellCast } from 'react-icons/gi'
 import { GiFireSpellCast } from 'react-icons/gi'
@@ -113,7 +116,24 @@ const LayoutLevel = () => {
 
   return (
     <KeyboardControls map={movements}>
-      <Canvas shadows>
+      <Canvas shadows dpr={[1, 1.5]}>
+        {/* <fog attach="fog" args={['#17171b', 30, 40]} /> */}
+        <color attach="background" args={['#17171b']} />
+        <directionalLight
+          castShadow
+          intensity={2}
+          position={[10, 6, 6]}
+          shadow-mapSize={[1024, 1024]}
+        >
+          <orthographicCamera
+            attach="shadow-camera"
+            left={-20}
+            right={20}
+            top={20}
+            bottom={-20}
+          />
+        </directionalLight>
+        <ambientLight intensity={0.25} />
         <GameIndicators
           handleExit={handleExit}
           isOpenMenu={state.isOpenMenu}
@@ -127,12 +147,11 @@ const LayoutLevel = () => {
         />
         {!state.isOpenMenu && <OrbitControls />}
         <Suspense fallback={null}>
-          <Lights />
-          <Environments />
-          <Physics debug>
+          <Physics>
             <Outlet />
           </Physics>
         </Suspense>
+        <Environment preset="night" />
       </Canvas>
     </KeyboardControls>
   )
