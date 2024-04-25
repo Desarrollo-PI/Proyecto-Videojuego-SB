@@ -1,5 +1,5 @@
-import { useKeyboardControls } from '@react-three/drei'
-import { useAvatar } from '../../../context/AvatarContext'
+import { useKeyboardControls, OrbitControls } from '@react-three/drei'
+import { useAvatar } from '../../../providers/avatar/AvatarProvider'
 import { useEffect, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 
@@ -14,30 +14,30 @@ export default function Controls() {
       (state) =>
         state.forward || state.backward || state.leftward || state.rightward,
       (pressed) => {
-        setAvatar({ ...avatar, animation: pressed ? 'Running' : 'Idle' })
+        setAvatar({ ...avatar, animation: pressed ? 'Walking' : 'Idle' })
       }
     )
     return () => unsubscribe()
   }, [avatar, setAvatar, sub, get])
 
-  useEffect(() => {
-    if (play) {
-      runSound.currentTime = 0
-      runSound.volume = Math.random()
-      runSound.play()
-    } else {
-      runSound.pause()
-    }
-  }, [play])
+  // useEffect(() => {
+  //   if (play) {
+  //     runSound.currentTime = 0
+  //     runSound.volume = Math.random()
+  //     runSound.play()
+  //   } else {
+  //     runSound.pause()
+  //   }
+  // }, [play])
 
   useFrame(() => {
     const { forward, backward, leftward, rightward } = get()
     if (forward || backward || leftward || rightward) {
       setPlay(true)
-      socket.emit('moving-player', {
-        position: avatar.rigidBodyAvatarRef?.translation(),
-        rotation: avatar.rigidBodyAvatarRef?.rotation(),
-      })
+      // socket.emit('moving-player', {
+      //   position: avatar.rigidBodyAvatarRef?.translation(),
+      //   rotation: avatar.rigidBodyAvatarRef?.rotation(),
+      // })
     } else {
       setPlay(false)
     }

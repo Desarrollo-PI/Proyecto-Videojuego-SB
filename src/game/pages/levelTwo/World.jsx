@@ -6,9 +6,9 @@ import Lights from './Lights'
 const withPhysics = (Component) => (props) => {
   const ref = useRef()
   return (
-    // <RigidBody ref={ref} {...props} type="fixed">
-    <Component {...props} />
-    // </RigidBody>
+    <RigidBody ref={ref} {...props} type="fixed">
+      <Component {...props} />
+    </RigidBody>
   )
 }
 
