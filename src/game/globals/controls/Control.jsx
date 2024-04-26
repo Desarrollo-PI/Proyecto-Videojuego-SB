@@ -20,6 +20,39 @@ export default function Controls() {
     return () => unsubscribe()
   }, [avatar, setAvatar, sub, get])
 
+  useEffect(() => {
+    const unsubscribe = sub(
+      (state) =>
+        state.run && (state.forward || state.backward || state.leftward || state.rightward),
+      (pressed) => {
+        setAvatar({ ...avatar, animation: pressed ? 'Running' : 'Idle' })
+      }
+    )
+    return () => unsubscribe()
+  }, [avatar, setAvatar, sub, get])
+
+  useEffect(() => {
+    const unsubscribe = sub(
+      (state) =>
+        state.jump,
+      (pressed) => {
+        setAvatar({ ...avatar, animation: pressed ? 'Jumping' : 'Idle' })
+      }
+    )
+    return () => unsubscribe()
+  }, [avatar, setAvatar, sub, get])
+
+  useEffect(() => {
+    const unsubscribe = sub(
+      (state) =>
+        state.attack,
+      (pressed) => {
+        setAvatar({ ...avatar, animation: pressed ? 'Attacking' : 'Idle' })
+      },
+    )
+    return () => unsubscribe()
+  }, [avatar, setAvatar, sub, get])
+
   // useEffect(() => {
   //   if (play) {
   //     runSound.currentTime = 0

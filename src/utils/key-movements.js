@@ -10,6 +10,7 @@ export default function useMovements() {
     exit: 'exit',
     run: 'run',
     choseeSpell: 'choseSpell',
+    attack: 'attack',
   }
 
   const map = useMemo(() => {
@@ -22,6 +23,7 @@ export default function useMovements() {
       { name: MOVEMENTS.exit, keys: ['Escape'] },
       { name: MOVEMENTS.run, keys: ['Shift'] },
       { name: MOVEMENTS.choseeSpell, keys: ['Tab'] },
+      { name: MOVEMENTS.attack, keys: ['KeyF'] },
     ]
   }, [])
 

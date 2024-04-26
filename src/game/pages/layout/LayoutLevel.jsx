@@ -153,10 +153,12 @@ const LayoutLevel = () => {
             <Physics>
               <Outlet />
               <Ecctrl
-                camInitDis={-2}
-                camMaxDis={-2}
-                maxVelLimit={5}
-                jumpVel={4}
+                camInitDis={-3}
+                camMaxDis={-3}
+                maxVelLimit={1.6}
+                sprintMult={4}
+                jumpVel={5}
+                sprintJumpMult={1}
                 position={[0, 2, 0]}
               >
                 <Player />
