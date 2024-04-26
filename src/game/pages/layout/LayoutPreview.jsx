@@ -12,8 +12,14 @@ function FixedCamera({ position, lookAt }) {
   return null
 }
 
-const LayoutPreview = ({positionCamara, lookAt, positionDirectionalLight, intensityDirectionalLight, intensityAmbientLight, children}) => {
-
+const LayoutPreview = ({
+  positionCamara,
+  lookAt,
+  positionDirectionalLight,
+  intensityDirectionalLight,
+  intensityAmbientLight,
+  children,
+}) => {
   const previewLightsProps = {
     positionDirectionalLight,
     intensityDirectionalLight,
@@ -24,7 +30,7 @@ const LayoutPreview = ({positionCamara, lookAt, positionDirectionalLight, intens
     <Canvas>
       <FixedCamera position={positionCamara} lookAt={lookAt} />
       <Suspense fallback={null}>
-        <LightsEnvironment {...previewLightsProps}/>
+        <LightsEnvironment {...previewLightsProps} />
         {children}
       </Suspense>
     </Canvas>

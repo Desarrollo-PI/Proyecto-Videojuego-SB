@@ -27,7 +27,6 @@ const FooterButtons = () => {
       navigation('/login')
     })
   }
-  
 
   return (
     <>
@@ -39,7 +38,15 @@ const FooterButtons = () => {
         )}
         <Button
           variant="secundary"
-          onClick={isPlaying ? ()=>{mute()} : ()=>{unmute()}}
+          onClick={
+            isPlaying
+              ? () => {
+                  mute()
+                }
+              : () => {
+                  unmute()
+                }
+          }
         >
           {isPlaying ? <FaVolumeUp size={25} /> : <FaVolumeMute size={25} />}
         </Button>
