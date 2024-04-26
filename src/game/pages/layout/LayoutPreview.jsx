@@ -1,7 +1,10 @@
+import React from 'react'
 import { Suspense } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
+import Loader from './Loader'
 
 import LightsEnvironment from '../../globals/LightsEnvironment'
+import { Html } from '@react-three/drei'
 
 function FixedCamera({ position, lookAt }) {
   const { camera } = useThree()
@@ -29,7 +32,13 @@ const LayoutPreview = ({
   return (
     <Canvas>
       <FixedCamera position={positionCamara} lookAt={lookAt} />
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <Html>
+            <Loader />
+          </Html>
+        }
+      >
         <LightsEnvironment {...previewLightsProps} />
         {children}
       </Suspense>

@@ -1,6 +1,6 @@
-import { Html } from '@react-three/drei'
-
+import React from 'react'
 import MenuGame from './MenuGame'
+import ControlsGame from './ControlsGame'
 
 import { FaHeart } from 'react-icons/fa'
 import { FaHeartBroken } from 'react-icons/fa'
@@ -94,13 +94,13 @@ const OptionSpell = ({ spell }) => {
   )
 }
 
-const GameIndicators = ({
+const InterfaceGame = ({
   isOpenMenu,
+  isOpenControls,
   handleExit,
   toggleSettings,
   toggleControls,
   toggleMenu,
-  closeMenu,
   spells,
   selectedSpell,
   selectedSpellIndex,
@@ -131,10 +131,13 @@ const GameIndicators = ({
         toggleSettings={toggleSettings}
         toggleControls={toggleControls}
         toggleMenu={toggleMenu}
-        closeMenu={closeMenu}
+      />
+      <ControlsGame
+        isOpenControls={isOpenControls}
+        toggleControls={toggleControls}
       />
     </div>
   )
 }
 
-export default GameIndicators
+export default InterfaceGame
