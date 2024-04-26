@@ -23,7 +23,8 @@ export default function Controls() {
   useEffect(() => {
     const unsubscribe = sub(
       (state) =>
-        state.run && (state.forward || state.backward || state.leftward || state.rightward),
+        state.run &&
+        (state.forward || state.backward || state.leftward || state.rightward),
       (pressed) => {
         setAvatar({ ...avatar, animation: pressed ? 'Running' : 'Idle' })
       }
@@ -33,8 +34,7 @@ export default function Controls() {
 
   useEffect(() => {
     const unsubscribe = sub(
-      (state) =>
-        state.jump,
+      (state) => state.jump,
       (pressed) => {
         setAvatar({ ...avatar, animation: pressed ? 'Jumping' : 'Idle' })
       }
@@ -44,11 +44,10 @@ export default function Controls() {
 
   useEffect(() => {
     const unsubscribe = sub(
-      (state) =>
-        state.attack,
+      (state) => state.attack,
       (pressed) => {
         setAvatar({ ...avatar, animation: pressed ? 'Attacking' : 'Idle' })
-      },
+      }
     )
     return () => unsubscribe()
   }, [avatar, setAvatar, sub, get])

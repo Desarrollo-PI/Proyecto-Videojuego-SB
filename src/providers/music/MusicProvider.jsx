@@ -1,6 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import { Howl } from 'howler'
-import { is } from '@react-spring/shared'
 
 const MusicContext = createContext()
 

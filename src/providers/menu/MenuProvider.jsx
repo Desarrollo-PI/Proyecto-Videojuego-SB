@@ -30,6 +30,16 @@ const menuReducer = (state, action) => {
         ...state,
         isOpenMenu: false,
       }
+    case 'CLOSE_CONTROLS':
+      return {
+        ...state,
+        isOpenInstructions: false,
+      }
+    case 'CLOSE_SETTINGS':
+      return {
+        ...state,
+        isOpenSettings: false,
+      }
     default:
       return state
   }
@@ -54,11 +64,21 @@ export const MenuProvider = ({ children }) => {
     dispatch({ type: 'CLOSE_MENU' })
   }
 
+  const closeControls = () => {
+    dispatch({ type: 'CLOSE_CONTROLS' })
+  }
+
+  const closeSettings = () => {
+    dispatch({ type: 'CLOSE_SETTINGS' })
+  }
+
   const functions = {
     toggleMenu,
     toggleControls,
     toggleSettings,
     closeMenu,
+    closeControls,
+    closeSettings,
   }
 
   return (

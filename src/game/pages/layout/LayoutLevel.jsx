@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 
-import { KeyboardControls, Loader, OrbitControls, Sky } from '@react-three/drei'
+import { KeyboardControls, OrbitControls } from '@react-three/drei'
 import Controls from '../../globals/controls/Control'
 import { Suspense } from 'react'
 import { Physics } from '@react-three/rapier'
 import { Canvas } from '@react-three/fiber'
+import Loader from './Loader'
 
 import { Html } from '@react-three/drei'
 
 import useMovements from '../../../utils/key-movements'
-import GameIndicators from '../layout/GameIndicators'
+import InterfaceGame from './InterfaceGame'
 
 import { GiBoltSpellCast } from 'react-icons/gi'
 import { GiFireSpellCast } from 'react-icons/gi'
@@ -65,8 +66,15 @@ const LayoutLevel = () => {
     },
   ]
 
-  const { state, toggleMenu, toggleControls, toggleSettings, closeMenu } =
-    useMenu()
+  const {
+    state,
+    toggleMenu,
+    toggleControls,
+    toggleSettings,
+    closeMenu,
+    closeControls,
+    closeSettings,
+  } = useMenu()
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
@@ -78,6 +86,14 @@ const LayoutLevel = () => {
     icon: <FaWandSparkles color="white" size={50} />,
   })
   const [selectedSpellIndex, setSelectedSpellIndex] = useState(0)
+
+  useEffect(() => {
+    return () => {
+      closeMenu()
+      closeControls()
+      closeSettings()
+    }
+  }, [])
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -142,29 +158,24 @@ const LayoutLevel = () => {
   }
 
   return (
-    <>
-      <GameIndicators
-        handleExit={handleExit}
-        isOpenMenu={state.isOpenMenu}
-        toggleMenu={toggleMenu}
-        toggleControls={toggleControls}
-        toggleSettings={toggleSettings}
-        closeMenu={closeMenu}
-        spells={spells}
-        selectedSpell={selectedSpell}
-        selectedSpellIndex={selectedSpellIndex}
-      />
-      <KeyboardControls map={movements}>
-        <Canvas shadows dpr={[1, 1.5]}>
-          <StormEnvironment {...chooseProps()} />
-          <Suspense
-            fallback={
-              <Html>
-                <Loader />
-              </Html>
-            }
-          >
+    <Suspense fallback={<Loader hasText />}>
+      <>
+        <InterfaceGame
+          handleExit={handleExit}
+          isOpenMenu={state.isOpenMenu}
+          isOpenControls={state.isOpenControls}
+          toggleMenu={toggleMenu}
+          toggleControls={toggleControls}
+          toggleSettings={toggleSettings}
+          spells={spells}
+          selectedSpell={selectedSpell}
+          selectedSpellIndex={selectedSpellIndex}
+        />
+        <KeyboardControls map={movements}>
+          <Canvas shadows dpr={[1, 1.5]}>
+            <StormEnvironment {...chooseProps()} />
             <OrbitControls />
+            12123
             <Physics debug>
               <Outlet />
               <Ecctrl
@@ -176,14 +187,22 @@ const LayoutLevel = () => {
                 sprintJumpMult={1}
                 position={[0, 2, 0]}
               >
-                <Player />
+                <Suspense
+                  fallback={
+                    <Html>
+                      <Loader hasText />
+                    </Html>
+                  }
+                >
+                  <Player />
+                </Suspense>
               </Ecctrl>
             </Physics>
-          </Suspense>
-          <Controls />
-        </Canvas>
-      </KeyboardControls>
-    </>
+            <Controls />
+          </Canvas>
+        </KeyboardControls>
+      </>
+    </Suspense>
   )
 }
 

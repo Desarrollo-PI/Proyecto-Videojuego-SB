@@ -62,6 +62,9 @@ const LevelRouterPage = () => {
         handleSelect={handleSelect}
         index={index}
       />
+      <button className="play-button" onClick={handleGoToLevel}>
+        Jugar
+      </button>
     </div>
   )
 }
