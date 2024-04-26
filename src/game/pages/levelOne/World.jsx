@@ -3536,6 +3536,9 @@ export const WorldLevelOne = (props) => {
 
 useGLTF.preload('/LevelOne.glb')
 
-const WorldLevelOneWithPhysisc = withPhysics(WorldLevelOne, WorldLevelOneTrimesh)
+const WorldLevelOneWithPhysisc = withPhysics(
+  WorldLevelOne,
+  WorldLevelOneTrimesh
+)
 
 export default WorldLevelOneWithPhysisc

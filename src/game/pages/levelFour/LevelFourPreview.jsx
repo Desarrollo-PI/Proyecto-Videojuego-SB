@@ -1,9 +1,7 @@
 import { WorldLevelFourWithRotation } from './WorldPreview'
 
 const LevelFourPreview = () => {
-  return (
-    <WorldLevelFourWithRotation />
-  )
+  return <WorldLevelFourWithRotation />
 }
 
 export default LevelFourPreview

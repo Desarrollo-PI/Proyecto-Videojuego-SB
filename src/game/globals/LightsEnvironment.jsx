@@ -1,8 +1,10 @@
 import React from 'react'
 
-
-const LightsEnvironment = ({positionDirectionalLight, intensityDirectionalLight, intensityAmbientLight}) => {
-
+const LightsEnvironment = ({
+  positionDirectionalLight,
+  intensityDirectionalLight,
+  intensityAmbientLight,
+}) => {
   return (
     <>
       <directionalLight

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-import { KeyboardControls, OrbitControls, Sky } from '@react-three/drei'
+import { KeyboardControls, Loader, OrbitControls, Sky } from '@react-three/drei'
 import Controls from '../../globals/controls/Control'
 import { Suspense } from 'react'
 import { Physics } from '@react-three/rapier'
 import { Canvas } from '@react-three/fiber'
+
+import { Html } from '@react-three/drei'
 
 import useMovements from '../../../utils/key-movements'
 import GameIndicators from '../layout/GameIndicators'
@@ -24,7 +26,6 @@ import Ecctrl, { EcctrlAnimation } from 'ecctrl'
 import StormEnvironment from '../../globals/StormEnvironment'
 
 const LayoutLevel = () => {
-
   const lightsPropsLevelOne = {
     positionDirectionalLight: [20, 10, 0],
     intensityDirectionalLight: 2,
@@ -155,8 +156,14 @@ const LayoutLevel = () => {
       />
       <KeyboardControls map={movements}>
         <Canvas shadows dpr={[1, 1.5]}>
-          <StormEnvironment {...chooseProps()}/>
-          <Suspense fallback={null}>
+          <StormEnvironment {...chooseProps()} />
+          <Suspense
+            fallback={
+              <Html>
+                <Loader />
+              </Html>
+            }
+          >
             <OrbitControls />
             <Physics debug>
               <Outlet />
