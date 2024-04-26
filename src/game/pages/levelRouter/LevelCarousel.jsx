@@ -3,6 +3,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import Image from 'react-bootstrap/Image'
 import LevelOnePage from '../levelOne/LevelOnePage'
 import LevelOnePreview from '../levelOne/LevelOnePreview'
+import LevelTwoPreview from '../levelTwo/LevelTwoPreview'
 import LevelFourthPreview from '../levelFourth/LevelFourthPreview'
 
 const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
@@ -20,6 +21,7 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item onClick={handleGoToLevel}>
+        <LevelTwoPreview />
         <Carousel.Caption>
           <h2>2</h2>
           <h3>NIVEL</h3>
