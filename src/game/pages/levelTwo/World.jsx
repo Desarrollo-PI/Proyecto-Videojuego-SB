@@ -24,40 +24,6 @@ const WorldLevelTwo = (props) => {
                 <mesh
                     castShadow
                     receiveShadow
-                    geometry={nodes.Floor.geometry}
-                    material={materials['Material.001']}
-                />
-                <group position={[0, 0, -9.224]}>
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0.geometry}
-                        material={materials['Material.004']}
-                    />
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0001.geometry}
-                        material={materials['Material.004']}
-                    />
-                </group>
-                <group position={[0, 0, 35.617]}>
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0002.geometry}
-                        material={materials['Material.004']}
-                    />
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0003.geometry}
-                        material={materials['Material.004']}
-                    />
-                </group>
-                <mesh
-                    castShadow
-                    receiveShadow
                     geometry={nodes.SmallCemetary1.geometry}
                     material={materials.None}
                 />
@@ -73,15 +39,15 @@ const WorldLevelTwo = (props) => {
                     geometry={nodes.VerticalFence2.geometry}
                     material={materials.ma}
                 />
-                <group position={[0, 0, -21.832]} scale={[1, 1.2, 1]}>
-                    <mesh
-                        castShadow
-                        receiveShadow
-                        geometry={nodes.FranksC352SC130kDC32270kM2064k_0.geometry}
-                        material={materials['Franks.C352.SC130k.DC32270k.M2064k']}
-                        position={[0.564, 0, -8.504]}
-                    />
-                </group>
+                <mesh castShadow receiveShadow geometry={nodes.Cross1.geometry} material={materials.mat22} />
+                <mesh castShadow receiveShadow geometry={nodes.Cross2.geometry} material={materials.mat22} />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Floor.geometry}
+                    material={materials.CliffMaterial}
+                />
+                <mesh castShadow receiveShadow geometry={nodes.Ivy.geometry} material={materials.blinn1SG} />
                 <mesh
                     castShadow
                     receiveShadow
@@ -1069,9 +1035,32 @@ const WorldLevelTwo = (props) => {
                 <mesh
                     castShadow
                     receiveShadow
+                    geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0.geometry}
+                    material={materials['Material.004']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0001.geometry}
+                    material={materials['Material.004']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0002.geometry}
+                    material={materials['Material.004']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.AncientRuins_Sword_M_AncientRuins_Props_0003.geometry}
+                    material={materials['Material.004']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
                     geometry={nodes.polySurface53_lambert2_0.geometry}
                     material={materials['lambert2.001']}
-                    position={[0, 0, -16.881]}
                 />
                 <mesh
                     castShadow
@@ -2213,9 +2202,233 @@ const WorldLevelTwo = (props) => {
                     geometry={nodes.Cylinder001_Material002_0003.geometry}
                     material={materials['Material.006']}
                 />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.FranksC352SC130kDC32270kM2064k_0.geometry}
+                    material={materials['Franks.C352.SC130k.DC32270k.M2064k']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Checkpoint1.geometry}
+                    material={materials.Stone}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Checkpoint2.geometry}
+                    material={materials.Stone}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Checkpoint4.geometry}
+                    material={materials.Stone}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Checkpoint4001.geometry}
+                    material={materials.Stone}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.DeadLargeTree1.geometry}
+                    material={materials['HalloweenBits.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.DeadLargeTree2.geometry}
+                    material={materials['HalloweenBits.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.post_skull.geometry}
+                    material={materials['HalloweenBits.002']}>
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.post_skull_skull.geometry}
+                        material={materials['HalloweenBits.002']}
+                    />
+                </mesh>
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.post_skull001.geometry}
+                    material={materials['HalloweenBits.002']}>
+                    <mesh
+                        castShadow
+                        receiveShadow
+                        geometry={nodes.post_skull_skull001.geometry}
+                        material={materials['HalloweenBits.002']}
+                    />
+                </mesh>
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel.geometry}
+                    material={materials['DarkWood.001']}
+                />
+                <mesh castShadow receiveShadow geometry={nodes.Barrel_1.geometry} material={materials.Wood} />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel_2.geometry}
+                    material={materials['Stone.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel001.geometry}
+                    material={materials['DarkWood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel001_1.geometry}
+                    material={materials.Wood}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel001_2.geometry}
+                    material={materials['Stone.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel002.geometry}
+                    material={materials['DarkWood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel002_1.geometry}
+                    material={materials.Wood}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel002_2.geometry}
+                    material={materials['Stone.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate.geometry}
+                    material={materials['DarkWood.002']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate_1.geometry}
+                    material={materials['Wood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate001.geometry}
+                    material={materials['DarkWood.002']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate001_1.geometry}
+                    material={materials['Wood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate002.geometry}
+                    material={materials['DarkWood.002']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate002_1.geometry}
+                    material={materials['Wood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel004.geometry}
+                    material={materials['DarkWood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel004_1.geometry}
+                    material={materials.Wood}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel004_2.geometry}
+                    material={materials['Stone.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel005.geometry}
+                    material={materials['DarkWood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel005_1.geometry}
+                    material={materials.Wood}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Barrel005_2.geometry}
+                    material={materials['Stone.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate003.geometry}
+                    material={materials['DarkWood.002']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate003_1.geometry}
+                    material={materials['Wood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate004.geometry}
+                    material={materials['DarkWood.002']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate004_1.geometry}
+                    material={materials['Wood.001']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate005.geometry}
+                    material={materials['DarkWood.002']}
+                />
+                <mesh
+                    castShadow
+                    receiveShadow
+                    geometry={nodes.Crate005_1.geometry}
+                    material={materials['Wood.001']}
+                />
             </group>
         </>
     )
+
 }
 
 useGLTF.preload('/Cemetery.glb')
