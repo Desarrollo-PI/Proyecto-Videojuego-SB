@@ -6,33 +6,36 @@ import { Suspense } from 'react'
 import { Physics } from '@react-three/rapier'
 import { Canvas } from '@react-three/fiber'
 
-import Lights from '../../globals/Lights'
-import Environments from '../../globals/Environments'
 import useMovements from '../../../utils/key-movements'
 import GameIndicators from '../layout/GameIndicators'
-import {
-  Environment,
-} from '@react-three/drei'
 
 import { GiBoltSpellCast } from 'react-icons/gi'
 import { GiFireSpellCast } from 'react-icons/gi'
 import { GiIceSpellCast } from 'react-icons/gi'
 import { FaWandSparkles } from 'react-icons/fa6'
 
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useMenu } from '../../../providers/menu/MenuProvider'
 import { useMusic } from '../../../providers/music/MusicProvider'
 import { Outlet } from 'react-router-dom'
 import Player from '../../globals/player/Player'
-import Ecctrl, { EcctrlAnimation } from "ecctrl";
+import Ecctrl, { EcctrlAnimation } from 'ecctrl'
+import StormEnvironment from '../../globals/StormEnvironment'
 
 const LayoutLevel = () => {
-  const { state, toggleMenu, toggleControls, toggleSettings, closeMenu } =
-    useMenu()
-  const movements = useMovements()
-  const navigate = useNavigate()
-  const { playSound } = useMusic()
+
+  const lightsPropsLevelOne = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+  }
+
+  const lightsPropsLevelFour = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+  }
 
   const _spells = [
     {
@@ -60,6 +63,13 @@ const LayoutLevel = () => {
       key: '4',
     },
   ]
+
+  const { state, toggleMenu, toggleControls, toggleSettings, closeMenu } =
+    useMenu()
+  const movements = useMovements()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { playSound, stopSound } = useMusic()
 
   const [spells, setSpells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
@@ -112,14 +122,27 @@ const LayoutLevel = () => {
   }, [])
 
   const handleExit = () => {
-    playSound()
+    playSound('mainTheme')
+    stopSound('level')
+    stopSound('thunder')
     navigate('/level-router')
     closeMenu()
   }
 
+  const chooseProps = () => {
+    switch (location.pathname) {
+      case '/level/one':
+        return lightsPropsLevelOne
+      case '/level/four':
+        return lightsPropsLevelFour
+      default:
+        return lightsPropsLevelOne
+    }
+  }
+
   return (
     <>
-      <GameIndicators 
+      <GameIndicators
         handleExit={handleExit}
         isOpenMenu={state.isOpenMenu}
         toggleMenu={toggleMenu}
@@ -131,26 +154,11 @@ const LayoutLevel = () => {
         selectedSpellIndex={selectedSpellIndex}
       />
       <KeyboardControls map={movements}>
-        <Canvas shadows dpr={[1, 1.5]} >
-          {/* <fog attach="fog" args={['#17171b', 30, 40]} /> */}
-          <color attach="background" args={['#17171b']} />
-          <directionalLight
-            castShadow
-            intensity={2}
-            position={[10, 6, 6]}
-            shadow-mapSize={[1024, 1024]}
-          >
-            <orthographicCamera
-              attach="shadow-camera"
-              left={-100}
-              right={100}
-              top={100}
-              bottom={-100}
-            />
-          </directionalLight>
-          <ambientLight intensity={0.25} />
+        <Canvas shadows dpr={[1, 1.5]}>
+          <StormEnvironment {...chooseProps()}/>
           <Suspense fallback={null}>
-            <Physics>
+            <OrbitControls />
+            <Physics debug>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
@@ -165,7 +173,6 @@ const LayoutLevel = () => {
               </Ecctrl>
             </Physics>
           </Suspense>
-          <Environment preset="night" />
           <Controls />
         </Canvas>
       </KeyboardControls>

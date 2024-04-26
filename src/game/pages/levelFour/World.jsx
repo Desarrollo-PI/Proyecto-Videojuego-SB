@@ -1,5 +1,41 @@
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
+import { RigidBody } from '@react-three/rapier'
+
+const withPhysics = (Component, ComponentFixed) => (props) => {
+  return (
+    <>
+      <RigidBody type="fixed">
+        <Component />
+      </RigidBody>
+      <RigidBody type="fixed" colliders="trimesh">
+        <ComponentFixed />
+      </RigidBody>
+    </>
+  )
+}
+
+export const WorldLevelFourTrimesh = (props) => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelFour/LevelFour.glb'
+  )
+  return (
+    <>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Castle.geometry}
+        material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bridge.geometry}
+        material={materials['grey.001']}
+      />
+    </>
+  )
+}
 
 const WorldLevelFour = (props) => {
   const { nodes, materials } = useGLTF(
@@ -29,12 +65,6 @@ const WorldLevelFour = (props) => {
         castShadow
         receiveShadow
         geometry={nodes.Floor005.geometry}
-        material={materials['grey.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Bridge.geometry}
         material={materials['grey.001']}
       />
       <mesh
@@ -3189,4 +3219,6 @@ const WorldLevelFour = (props) => {
 
 useGLTF.preload('/LevelFour.glb')
 
-export default WorldLevelFour
+const WorldLevelFourWithPhysisc = withPhysics(WorldLevelFour, WorldLevelFourTrimesh)
+
+export default WorldLevelFourWithPhysisc

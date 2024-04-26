@@ -1,13 +1,15 @@
-import { useEffect, useRef } from "react";
-import { useAvatar } from "../../../providers/avatar/AvatarProvider";
-import { useAnimations, useGLTF } from "@react-three/drei";
+import { useEffect, useRef } from 'react'
+import { useAvatar } from '../../../providers/avatar/AvatarProvider'
+import { useAnimations, useGLTF } from '@react-three/drei'
 
 export default function Player() {
-	const playerBodyRef = useRef()
-	const playerRef = useRef()
-	const { avatar, setAvatar } = useAvatar()
-	const { nodes, materials, animations } = useGLTF('/assets/models/characters/avatar/Auror.glb')
-	const { actions } = useAnimations(animations, playerRef)
+  const playerBodyRef = useRef()
+  const playerRef = useRef()
+  const { avatar, setAvatar } = useAvatar()
+  const { nodes, materials, animations } = useGLTF(
+    '/assets/models/characters/avatar/Auror.glb'
+  )
+  const { actions } = useAnimations(animations, playerRef)
 
 	useEffect(() => {
 		actions["Attacking"].timeScale = 2
@@ -95,6 +97,5 @@ export default function Player() {
 		</group>
 	)
 }
-
 
 useGLTF.preload('/Auror.glb')
