@@ -13,7 +13,7 @@ import { useAuth } from '../../../providers/auth/AuthProvider'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const FooterButtons = () => {
-  const { playSound, pauseSound, isPlaying } = useMusic()
+  const { mute, unmute, isPlaying } = useMusic()
   const { user, logout } = useAuth()
   const location = useLocation()
   const navigation = useNavigate()
@@ -27,6 +27,7 @@ const FooterButtons = () => {
       navigation('/login')
     })
   }
+  
 
   return (
     <>
@@ -38,7 +39,7 @@ const FooterButtons = () => {
         )}
         <Button
           variant="secundary"
-          onClick={isPlaying ? pauseSound : playSound}
+          onClick={isPlaying ? ()=>{mute()} : ()=>{unmute()}}
         >
           {isPlaying ? <FaVolumeUp size={25} /> : <FaVolumeMute size={25} />}
         </Button>

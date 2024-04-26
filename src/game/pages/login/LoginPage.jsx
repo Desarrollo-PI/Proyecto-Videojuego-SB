@@ -3,10 +3,12 @@ import LoginForm from './LoginForm'
 
 import { useAuth } from '../../../providers/auth/AuthProvider'
 import { useNavigate } from 'react-router-dom'
+import { useMusic } from '../../../providers/music/MusicProvider'
 
 const LoginPage = () => {
   const { login } = useAuth()
   const navigate = useNavigate()
+  const { playSound } = useMusic()
 
   const onLogin = async (email, password) => {
     //login(email, password).then(() => {
@@ -20,6 +22,7 @@ const LoginPage = () => {
   }
 
   const onGoToMenuLevels = () => {
+    playSound('mainTheme')
     navigate('/level-router')
   }
 

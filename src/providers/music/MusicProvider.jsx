@@ -1,54 +1,90 @@
-import React, { createContext, useState, useContext, useEffect } from 'react'
-import { Howl } from 'howler'
+import React, { createContext, useState, useContext, useEffect } from 'react';
+import { Howl } from 'howler';
+import { is } from '@react-spring/shared';
 
-const MusicContext = createContext()
+const MusicContext = createContext();
+
+const initialState = {
+  mainTheme: new Howl({
+    src: ['/assets/music/main-theme.mp3'],
+    loop: true,
+  }),
+  thunder: new Howl({
+    src: ['/assets/sounds/thunder.mp3'],
+    loop: true,
+  }),
+  level: new Howl({
+    src: ['/assets/music/level-theme.mp3'],
+    loop: true,
+  }),
+};
 
 export const MusicProvider = ({ children }) => {
-  const [sound] = useState(
-    new Howl({
-      src: ['/assets/music/main-theme.mp3'],
-      loop: true,
-    })
-  )
-  const [isPlaying, setIsPlaying] = useState(true)
+  const [sounds, setSounds] = useState(initialState);
+  const [activeSound, setActiveSound] = useState([]);
+  const [isPlaying, setIsPlaying] = useState(true);
 
-  useEffect(() => {
-    playSound()
-
-    return () => {
-      sound.stop()
+  const playSound = (soundKey) => {
+    if (sounds[soundKey] && isPlaying) {
+      sounds[soundKey].play();
+      setActiveSound([...activeSound, soundKey])
     }
-  }, [sound])
+  };
 
-  const playSound = () => {
-    sound.play()
-    setIsPlaying(true)
+  const pauseSound = (soundKey) => {
+    if (sounds[soundKey]) {
+      sounds[soundKey].pause();
+    }
+  };
+
+  const stopSound = (soundKey) => {
+    if (sounds[soundKey]) {
+      sounds[soundKey].stop();
+      setActiveSound(activeSound.filter((sound) => sound !== soundKey));
+    }
+  };
+
+  const unmute = () => {
+    if (!isPlaying) {
+      setIsPlaying(true);
+      activeSound.forEach((sound) => {
+        sounds[sound].play();
+      });
+    }
   }
 
-  const pauseSound = () => {
-    sound.pause()
-    setIsPlaying(false)
-  }
-
-  const stopSound = () => {
-    sound.stop()
+  const mute = () => {
+    if (isPlaying) {
+      setIsPlaying(false);
+      activeSound.forEach((sound) => {
+        sounds[sound].pause();
+      });
+    }
   }
 
   return (
     <MusicContext.Provider
-      value={{ playSound, pauseSound, stopSound, isPlaying }}
+      value={{
+        playSound,
+        pauseSound,
+        stopSound,
+        unmute,
+        mute,
+        isPlaying,
+        activeSound,
+      }}
     >
       {children}
     </MusicContext.Provider>
-  )
-}
+  );
+};
 
 export const useMusic = () => {
-  const context = useContext(MusicContext)
+  const context = useContext(MusicContext);
 
   if (!context) {
-    throw new Error('useMusic must be used within a MusicProvider')
+    throw new Error('useMusic must be used within a MusicProvider');
   }
 
-  return context
-}
+  return context;
+};

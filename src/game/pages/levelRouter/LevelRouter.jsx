@@ -5,7 +5,7 @@ import { useMusic } from '../../../providers/music/MusicProvider'
 
 const LevelRouterPage = () => {
   const navigate = useNavigate()
-  const { stopSound } = useMusic()
+  const { stopSound, playSound } = useMusic()
 
   const [index, setIndex] = useState(0)
 
@@ -34,7 +34,9 @@ const LevelRouterPage = () => {
   }
 
   const handleGoToLevel = () => {
-    stopSound()
+    stopSound('mainTheme')
+    playSound('level')
+    playSound('thunder')
     switch (index) {
       case 0:
         onGoToFirsLevel()

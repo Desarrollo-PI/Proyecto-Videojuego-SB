@@ -20,7 +20,7 @@ const StormEnvironment = ({positionDirectionalLight, intensityDirectionalLight, 
       }, 300)
     }
 
-    const intervalId = setInterval(simulateLightning, 3000)
+    const intervalId = setInterval(simulateLightning, 7500)
 
     return () => clearInterval(intervalId)
   }, [])

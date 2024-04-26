@@ -2,20 +2,20 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
-const withPhysics = (Component, ComponentFixed) => (props) => {
+const withPhysics = (Component, ComponentTrimesh) => (props) => {
   return (
     <>
       <RigidBody type="fixed">
         <Component />
       </RigidBody>
       <RigidBody type="fixed" colliders="trimesh">
-        <ComponentFixed />
+        <ComponentTrimesh />
       </RigidBody>
     </>
   )
 }
 
-export const WorldLevelOneFixed = (props) => {
+export const WorldLevelOneTrimesh = (props) => {
   const { nodes, materials } = useGLTF(
     '/assets/models/worldLevelOne/LevelOne.glb'
   )
@@ -3536,6 +3536,6 @@ export const WorldLevelOne = (props) => {
 
 useGLTF.preload('/LevelOne.glb')
 
-const WorldLevelOneWithPhysisc = withPhysics(WorldLevelOne, WorldLevelOneFixed)
+const WorldLevelOneWithPhysisc = withPhysics(WorldLevelOne, WorldLevelOneTrimesh)
 
 export default WorldLevelOneWithPhysisc

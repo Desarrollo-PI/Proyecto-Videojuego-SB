@@ -69,7 +69,7 @@ const LayoutLevel = () => {
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
-  const { playSound } = useMusic()
+  const { playSound, stopSound } = useMusic()
 
   const [spells, setSpells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
@@ -122,7 +122,9 @@ const LayoutLevel = () => {
   }, [])
 
   const handleExit = () => {
-    playSound()
+    playSound('mainTheme')
+    stopSound('level')
+    stopSound('thunder')
     navigate('/level-router')
     closeMenu()
   }
@@ -156,9 +158,9 @@ const LayoutLevel = () => {
           <StormEnvironment {...chooseProps()}/>
           <Suspense fallback={null}>
             <OrbitControls />
-            <Physics>
+            <Physics debug>
               <Outlet />
-              {/* <Ecctrl
+              <Ecctrl
                 camInitDis={-2}
                 camMaxDis={-2}
                 maxVelLimit={5}
@@ -166,7 +168,7 @@ const LayoutLevel = () => {
                 position={[0, 2, 0]}
               >
                 <Player />
-              </Ecctrl> */}
+              </Ecctrl>
             </Physics>
           </Suspense>
           <Controls />
