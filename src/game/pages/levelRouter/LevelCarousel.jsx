@@ -2,6 +2,7 @@ import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import LevelOnePreview from '../levelOne/LevelOnePreview'
 import LevelTwoPreview from '../levelTwo/LevelTwoPreview'
+import LevelThreePreview from '../levelThree/LevelThreePreview'
 import LevelFourPreview from '../levelFour/LevelFourPreview'
 
 import LayoutPreview from '../layout/LayoutPreview'
@@ -21,8 +22,16 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
     positionDirectionalLight: [20, 10, 0],
     intensityDirectionalLight: 2,
     intensityAmbientLight: 0.5,
-    }   
+    }
 
+  const previewLightsLevelThreeProps = {
+      positionCamara: [-70, 50, 70],
+      lookAt: [0, 0, 0],
+      positionDirectionalLight: [20, 10, 0],
+      intensityDirectionalLight: 2,
+      intensityAmbientLight: 0.5,
+    }
+    
   const previewLightsLevelFourProps = {
     positionCamara: [-100, 400, 300],
     lookAt: [0, 0, 0],
@@ -57,6 +66,9 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item onClick={handleGoToLevel}>
+      <LayoutPreview {...previewLightsLevelThreeProps}>
+          <LevelThreePreview />
+        </LayoutPreview>
         <Carousel.Caption>
           <h2>3</h2>
           <h3>NIVEL</h3>
