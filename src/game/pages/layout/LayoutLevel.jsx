@@ -3,8 +3,14 @@ import { Suspense } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
-import { KeyboardControls, OrbitControls } from '@react-three/drei'
-import { Html } from '@react-three/drei'
+import {
+  Center,
+  Float,
+  KeyboardControls,
+  OrbitControls,
+  Text3D,
+} from '@react-three/drei'
+import { Text } from '@react-three/drei'
 
 import Controls from '../../globals/controls/Control'
 import InterfaceGame from './InterfaceGame'
@@ -157,6 +163,21 @@ const LayoutLevel = () => {
     }
   }
 
+  const chooseText = () => {
+    switch (location.pathname) {
+      case '/level/one':
+        return 'NIVEL 1'
+      case '/level/two':
+        return 'NIVEL 2'
+      case '/level/three':
+        return 'NIVEL 3'
+      case '/level/four':
+        return 'NIVEL 4'
+      default:
+        return 'BIENVENIDO'
+    }
+  }
+
   return (
     <Suspense fallback={<Loader hasText />}>
       <>
@@ -173,10 +194,36 @@ const LayoutLevel = () => {
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>
+            {location.pathname === '/level/one' && (
+              <Float speed={10} rotationIntensity={0.1} floatIntensity={2}>
+                <Center>
+                  
+                </Center>
+                <Text
+                  position={[-8, 3, 0]}
+                  fontSize={0.5}
+                  anchorX="center"
+                  anchorY="middle"
+                  rotation={[0, Math.PI / 2, 0]}
+                  textAlign='center'
+                >
+                  W - Mover arriba{'\n'}S - Mover abajo{'\n'}A - Mover izquierda
+                  {'\n'}D - Mover derecha{'\n'}F - Lanzar hechizo{'\n'}
+                  Espacio - Saltar
+                </Text>
+              </Float>
+            )}
+            <Float>
+              <Center position={[0, 7, -5]}>
+                <Text3D font="/assets/fonts/HarryPotter7_Regular.json">
+                  <meshStandardMaterial attach="material" color="#b0955e" />
+                  {chooseText()}
+                </Text3D>
+              </Center>
+            </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            12123
-            <Physics debug>
+            <Physics>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
@@ -187,15 +234,7 @@ const LayoutLevel = () => {
                 sprintJumpMult={1}
                 position={[0, 2, 0]}
               >
-                <Suspense
-                  fallback={
-                    <Html>
-                      <Loader hasText />
-                    </Html>
-                  }
-                >
-                  <Player />
-                </Suspense>
+                <Player />
               </Ecctrl>
             </Physics>
             <Controls />
