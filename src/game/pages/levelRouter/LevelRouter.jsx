@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import LevelCarousel from './LevelCarousel'
 import { useNavigate } from 'react-router-dom'
+import { useMusic } from '../../../providers/music/MusicProvider'
 
 const LevelRouterPage = () => {
   const navigate = useNavigate()
+  const { stopSound, playSound } = useMusic()
 
   const [index, setIndex] = useState(0)
 
@@ -24,7 +26,7 @@ const LevelRouterPage = () => {
   }
 
   const onGoToFourthLevel = () => {
-    navigate('/level/fourth')
+    navigate('/level/four')
   }
 
   const onGoToLogin = () => {
@@ -32,6 +34,9 @@ const LevelRouterPage = () => {
   }
 
   const handleGoToLevel = () => {
+    stopSound('mainTheme')
+    playSound('level')
+    playSound('thunder')
     switch (index) {
       case 0:
         onGoToFirsLevel()
@@ -57,6 +62,9 @@ const LevelRouterPage = () => {
         handleSelect={handleSelect}
         index={index}
       />
+      <button className="play-button" onClick={handleGoToLevel}>
+        Jugar
+      </button>
     </div>
   )
 }

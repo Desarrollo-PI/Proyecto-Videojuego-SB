@@ -1,30 +1,49 @@
 import React, { useEffect, useState } from 'react'
-
-import { KeyboardControls, OrbitControls } from '@react-three/drei'
 import { Suspense } from 'react'
-import { Physics } from '@react-three/rapier'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
+import { Physics } from '@react-three/rapier'
+import {
+  Center,
+  Float,
+  KeyboardControls,
+  OrbitControls,
+  Text3D,
+} from '@react-three/drei'
+import { Text } from '@react-three/drei'
 
-import Lights from '../../globals/Lights'
-import Environments from '../../globals/Environments'
-import useMovements from '../../../utils/key-movements'
-import GameIndicators from '../layout/GameIndicators'
+import Controls from '../../globals/controls/Control'
+import InterfaceGame from './InterfaceGame'
+import Loader from './Loader'
+import Player from '../../globals/player/Player'
+import Ecctrl, { EcctrlAnimation } from 'ecctrl'
+import StormEnvironment from '../../globals/StormEnvironment'
 
-import { GiBoltSpellCast } from 'react-icons/gi'
-import { GiFireSpellCast } from 'react-icons/gi'
-import { GiIceSpellCast } from 'react-icons/gi'
-import { FaWandSparkles } from 'react-icons/fa6'
-
-import { useNavigate } from 'react-router-dom'
-
-import { useMenu } from '../../../providers/menuProvider/MenuProvider'
+import { useMenu } from '../../../providers/menu/MenuProvider'
+import { useMusic } from '../../../providers/music/MusicProvider'
 import { Outlet } from 'react-router-dom'
 
+import useMovements from '../../../utils/key-movements'
+
+import {
+  GiBoltSpellCast,
+  GiFireSpellCast,
+  GiIceSpellCast,
+} from 'react-icons/gi'
+import { FaWandSparkles } from 'react-icons/fa6'
+
 const LayoutLevel = () => {
-  const { state, toggleMenu, toggleControls, toggleSettings, closeMenu } =
-    useMenu()
-  const movements = useMovements()
-  const navigate = useNavigate()
+  const lightsPropsLevelOne = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+  }
+
+  const lightsPropsLevelFour = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+  }
 
   const _spells = [
     {
@@ -53,12 +72,34 @@ const LayoutLevel = () => {
     },
   ]
 
+  const {
+    state,
+    toggleMenu,
+    toggleControls,
+    toggleSettings,
+    closeMenu,
+    closeControls,
+    closeSettings,
+  } = useMenu()
+  const movements = useMovements()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const { playSound, stopSound } = useMusic()
+
   const [spells, setSpells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
     ..._spells[0],
     icon: <FaWandSparkles color="white" size={50} />,
   })
   const [selectedSpellIndex, setSelectedSpellIndex] = useState(0)
+
+  useEffect(() => {
+    return () => {
+      closeMenu()
+      closeControls()
+      closeSettings()
+    }
+  }, [])
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -104,34 +145,103 @@ const LayoutLevel = () => {
   }, [])
 
   const handleExit = () => {
+    playSound('mainTheme')
+    stopSound('level')
+    stopSound('thunder')
     navigate('/level-router')
     closeMenu()
   }
 
+  const chooseProps = () => {
+    switch (location.pathname) {
+      case '/level/one':
+        return lightsPropsLevelOne
+      case '/level/four':
+        return lightsPropsLevelFour
+      default:
+        return lightsPropsLevelOne
+    }
+  }
+
+  const chooseText = () => {
+    switch (location.pathname) {
+      case '/level/one':
+        return 'NIVEL 1'
+      case '/level/two':
+        return 'NIVEL 2'
+      case '/level/three':
+        return 'NIVEL 3'
+      case '/level/four':
+        return 'NIVEL 4'
+      default:
+        return 'BIENVENIDO'
+    }
+  }
+
   return (
-    <KeyboardControls map={movements}>
-      <Canvas shadows>
-        <GameIndicators
+    <Suspense fallback={<Loader hasText />}>
+      <>
+        <InterfaceGame
           handleExit={handleExit}
           isOpenMenu={state.isOpenMenu}
+          isOpenControls={state.isOpenControls}
           toggleMenu={toggleMenu}
           toggleControls={toggleControls}
           toggleSettings={toggleSettings}
-          closeMenu={closeMenu}
           spells={spells}
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
         />
-        {!state.isOpenMenu && <OrbitControls />}
-        <Suspense fallback={null}>
-          <Lights />
-          <Environments />
-          <Physics debug>
-            <Outlet />
-          </Physics>
-        </Suspense>
-      </Canvas>
-    </KeyboardControls>
+        <KeyboardControls map={movements}>
+          <Canvas shadows dpr={[1, 1.5]}>
+            {location.pathname === '/level/one' && (
+              <Float speed={10} rotationIntensity={0.1} floatIntensity={2}>
+                <Center>
+                  
+                </Center>
+                <Text
+                  position={[-8, 3, 0]}
+                  fontSize={0.5}
+                  anchorX="center"
+                  anchorY="middle"
+                  rotation={[0, Math.PI / 2, 0]}
+                  textAlign='center'
+                >
+                  W - Mover arriba{'\n'}S - Mover abajo{'\n'}A - Mover izquierda
+                  {'\n'}D - Mover derecha{'\n'}F - Lanzar hechizo{'\n'}
+                  Espacio - Saltar
+                </Text>
+              </Float>
+            )}
+            <Float>
+              <Center position={[0, 7, -5]}>
+                <Text3D font="/assets/fonts/HarryPotter7_Regular.json">
+                  <meshStandardMaterial attach="material" color="#b0955e" />
+                  {chooseText()}
+                </Text3D>
+              </Center>
+            </Float>
+            <StormEnvironment {...chooseProps()} />
+            <OrbitControls />
+            <Physics>
+              <Outlet />
+              <Ecctrl
+                camInitDis={-3}
+                camMaxDis={-3}
+                maxVelLimit={1.6}
+                sprintMult={4}
+                jumpVel={5}
+                sprintJumpMult={1}
+                position={[0, 2, 0]}
+              >
+                <Player />
+              </Ecctrl>
+            </Physics>
+            <Controls />
+          </Canvas>
+        </KeyboardControls>
+      </>
+    </Suspense>
   )
 }
 

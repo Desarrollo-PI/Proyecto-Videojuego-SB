@@ -1,20 +1,17 @@
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom'
 
+import LayoutLevel from '../game/pages/layout/LayoutLevel'
+import LayoutMain from '../game/pages/layout/LayoutMain'
+
 import LoginPage from '../game/pages/login/LoginPage'
 import RegisterPage from '../game/pages/register/RegisterPage'
 import ProfilePage from '../game/pages/profile/ProfilePage'
 import LevelRouter from '../game/pages/levelRouter/LevelRouter'
 import LevelTwoPage from '../game/pages/levelTwo/LevelTwoPage'
 import LevelOnePage from '../game/pages/levelOne/LevelOnePage'
-import LevelFourthPage from '../game/pages/levelFourth/LevelFourthPage'
-import LayoutMain from '../game/pages/layout/LayoutMain'
-
-import { useAuth } from '../providers/auth/AuthProvider'
-import LayoutLevel from '../game/pages/layout/LayoutLevel'
+import LevelFourPage from '../game/pages/levelFour/LevelFourPage'
 
 const GameRouter = () => {
-  const { state } = useAuth()
-
   return (
     <BrowserRouter>
       <Routes>
@@ -29,7 +26,7 @@ const GameRouter = () => {
           <Route path="" element={<Navigate replace to="/level-router" />} />
           <Route path="one" element={<LevelOnePage />} />
           <Route path="two" element={<LevelTwoPage />} />
-          <Route path="fourth" element={<LevelFourthPage />} />
+          <Route path="four" element={<LevelFourPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

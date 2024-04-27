@@ -6,24 +6,12 @@ const MenuGame = ({
   toggleMenu,
   toggleControls,
   toggleSettings,
-  closeMenu,
 }) => {
   const handleKeyDown = (event) => {
     if (event.keyCode === 27) {
       toggleMenu()
     }
   }
-
-  const handlePopstate = () => {
-    closeMenu()
-  }
-
-  useEffect(() => {
-    window.addEventListener('popstate', handlePopstate)
-    return () => {
-      window.removeEventListener('popstate', handlePopstate)
-    }
-  }, [])
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown)

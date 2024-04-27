@@ -1,14 +1,17 @@
 import React from 'react'
 import { AuthProvider } from './auth/AuthProvider'
+import { AvatarProvider } from './avatar/AvatarProvider'
 import { MusicProvider } from './music/MusicProvider'
-import { MenuProvider } from './menuProvider/MenuProvider'
+import { MenuProvider } from './menu/MenuProvider'
 
 const RootProvider = ({ children }) => {
   return (
     <AuthProvider>
-      <MusicProvider>
-        <MenuProvider>{children}</MenuProvider>
-      </MusicProvider>
+      <AvatarProvider>
+        <MusicProvider>
+          <MenuProvider>{children}</MenuProvider>
+        </MusicProvider>
+      </AvatarProvider>
     </AuthProvider>
   )
 }

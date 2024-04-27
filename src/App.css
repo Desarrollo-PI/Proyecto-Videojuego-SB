@@ -293,7 +293,7 @@
 .carousel {
   margin-top: 40px;
   width: 600px;
-  height: 500px;
+  height: 400px;
 }
 
 .carousel-item {
@@ -309,6 +309,27 @@
 .carousel-caption {
   bottom: initial;
   top: 0;
+}
+
+.play-button {
+  background-color: #10141b;
+  color: #ffffff;
+  font:
+    16px 'HarryPotter7',
+    sans-serif;
+  padding: 16px 60px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  box-shadow: #000 0px 0px 10px;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+.play-button:hover {
+  background-color: #6e5729;
+  color: #ffffff;
 }
 
 /* Footer Buttons */
@@ -468,22 +489,36 @@
 /* Game Indicators */
 
 .game-indicators-container {
-  width: 100vh;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  user-select: none;
 }
 
-.game-indicators-life {
+.game-indicators-info {
   position: absolute;
   top: 0;
   left: 0;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: 20px;
   padding: 20px;
   z-index: 998;
 }
 
-.life-bar {
+.game-indicators-health {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.heart {
+  animation: pulse 2s infinite alternate;
+}
+
+.health-bar {
   width: 300px;
   height: 40px;
   background-color: #1c1e28;
@@ -491,10 +526,13 @@
   box-shadow: #000 0px 0px 5px;
 }
 
-.life-bar-inner {
-  width: 100%;
+.health-bar-inner {
   height: 100%;
-  background-color: #b0955e;
+  background-color: #155c27;
+  animation: increaseWidth 2s ease-in-out forwards;
+  transition:
+    width 0.5s ease-in-out,
+    background-color 0.5s ease-in-out;
 }
 
 .mana-bar {
@@ -505,9 +543,30 @@
 }
 
 .mana-bar-inner {
-  width: 100%;
   height: 100%;
-  background-color: #b0955e;
+  background-color: #222297;
+  animation: increaseWidth 2s ease-in-out forwards;
+  transition:
+    width 0.5s ease-in-out,
+    background-color 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes increaseWidth {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: var(width);
+  }
 }
 
 .game-indicators-spells {
@@ -668,4 +727,152 @@
   color: #b0955e;
   font-family: 'HarryPotter7', sans-serif;
   margin-bottom: 20px;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #10141b;
+}
+
+.loader {
+  display: flex;
+  animation: bounce 0.5s infinite alternate;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+.loader-text {
+  margin-top: 10px;
+  font-family: 'HarryPotter', sans-serif;
+  font-size: 60px;
+  color: #b0955e;
+  text-align: center;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.control {
+  background-color: #1c1e28;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.control-back {
+  background-color: transparent;
+  color: #b0955e;
+  padding: 0px;
+  border: none;
+  cursor: pointer;
+  transition: color 0.5s ease;
+}
+
+.control-back:hover {
+  color: #6e5729;
+}
+
+.control-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 400px;
+}
+
+.control-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.control-key {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b0955e;
+  font-family: 'HarryPotter7', sans-serif;
+  background-color: #10141b;
+  min-width: 28px;
+}
+
+.control-description {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: 'HarryPotter7', sans-serif;
+  color: #ffffff;
+  font-size: 10px;
+  justify-content: center;
+}
+
+.control h2 {
+  margin-top: 0;
+  color: #b0955e;
+  font-family: 'HarryPotter7', sans-serif;
+  text-align: center;
+}
+
+.control p {
+  margin-top: 20px;
+  font-family: 'HarryPotter7', sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.dialog {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1c1e28;
+  border: 6px solid #b0955e;
+  border-radius: 8px;
+  padding: 20px;
+  min-width: 40%;
+  max-width: 80%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 999;
+}
+
+.dialog-img {
+  position: absolute;
+  top: -20px;
+  right: 60px;
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.dialog-message {
+  font-size: 16px;
+  font-family: 'HarryPotter7', sans-serif;
+  color: #ffffff;
 }
