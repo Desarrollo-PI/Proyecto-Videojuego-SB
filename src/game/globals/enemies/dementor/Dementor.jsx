@@ -33,7 +33,7 @@ export function Dementor(props) {
 	})
 
 	return (
-		<group ref={dementorRef} {...props} dispose={null} position={props.position}>
+		<group ref={dementorRef} {...props} dispose={null} position={props.position} scale={[1.5,1.5,1.5]}>
 			<group name="Scene">
 				<group name="Esqueleto">
 					<skinnedMesh

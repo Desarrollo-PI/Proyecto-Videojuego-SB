@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
-import Lights from './Lights'
 
 const withPhysics = (Component) => (props) => {
     const ref = useRef()
@@ -19,7 +18,6 @@ const WorldLevelTwo = (props) => {
 
     return (
         <>
-            <Lights />
             <group {...props} dispose={null}>
                 <mesh
                     castShadow
