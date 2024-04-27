@@ -110,7 +110,6 @@ const InterfaceGame = ({
 
   useEffect(() => {
     const openDialog = (event) => {
-      console.log(event.key)
       if (event.key === 'p') {
         setIsOpenDialog(!isOpenDialog)
       }

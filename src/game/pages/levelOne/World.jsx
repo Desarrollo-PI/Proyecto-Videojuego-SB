@@ -1,16 +1,80 @@
-import React from 'react'
+import React, { useRef, createRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier'
+import { RigidBody, interactionGroups } from '@react-three/rapier'
 
-const withPhysics = (Component, ComponentTrimesh) => (props) => {
+const withPhysics =
+  (Component, ComponentTrimesh, ComponentDynamic) => (props) => {
+    return (
+      <>
+        <RigidBody type="fixed" collisionGroups={interactionGroups(0)}>
+          <Component />
+        </RigidBody>
+        <RigidBody type="fixed" colliders="trimesh">
+          <ComponentTrimesh />
+        </RigidBody>
+        <ComponentDynamic />
+      </>
+    )
+  }
+
+const BarrelsDynamic = (props) => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelOne/LevelOne.glb'
+  )
+
+  const arrLength = 13
+  const refs = useRef([])
+
+  if (refs.current.length !== arrLength) {
+    refs.current = Array(arrLength)
+      .fill()
+      .map((_, i) => refs.current[i] || createRef())
+  }
+
+  const onHitBox = (i) => {
+    refs.current[i].current.applyImpulse({ x: 0, y: -100, z: -10 }, true)
+  }
+
   return (
     <>
-      <RigidBody type="fixed">
-        <Component />
-      </RigidBody>
-      <RigidBody type="fixed" colliders="trimesh">
-        <ComponentTrimesh />
-      </RigidBody>
+      {refs.current.map((ref, index) => (
+        <RigidBody
+          key={index + 1}
+          ref={refs.current[index + 1]}
+          type="dynamic"
+          colliders="cuboid"
+          onCollisionEnter={null}
+          collisionGroups={interactionGroups(2, [0])}
+        >
+          <mesh
+            onClick={() => onHitBox(index + 1)}
+            castShadow
+            receiveShadow
+            geometry={nodes[`Barrel${index + 1}_1`].geometry}
+            material={materials['Wood.001']}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes[`Barrel${index + 1}_2`].geometry}
+            material={materials['Stone.001']}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes[`Barrel${index + 1}_3`].geometry}
+            material={materials['DarkWood.001']}
+          />
+        </RigidBody>
+      ))}
+    </>
+  )
+}
+
+const WorldLevelOneDynamic = () => {
+  return (
+    <>
+      <BarrelsDynamic />
     </>
   )
 }
@@ -24,19 +88,6 @@ export const WorldLevelOneTrimesh = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.StairsCorner001_1.geometry}
-        material={materials.mat17}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.StairsCorner001_2.geometry}
-        material={materials.mat22}
-      />
-
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.StairsCorner_1.geometry}
         material={materials.mat17}
       />
@@ -44,6 +95,18 @@ export const WorldLevelOneTrimesh = (props) => {
         castShadow
         receiveShadow
         geometry={nodes.StairsCorner_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner001_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner001_2.geometry}
         material={materials.mat22}
       />
     </>
@@ -56,18 +119,8 @@ export const WorldLevelOne = (props) => {
   )
   return (
     <group {...props} dispose={null}>
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cliff.geometry}
-        material={materials.Cliff}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Key.geometry}
-        material={materials.Golden}
-      />
+      <mesh castShadow receiveShadow geometry={nodes.Cliff.geometry} material={materials.Cliff} />
+      <mesh castShadow receiveShadow geometry={nodes.Key.geometry} material={materials.Golden} />
       <mesh
         castShadow
         receiveShadow
@@ -140,12 +193,7 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.Trashcan_Large011.geometry}
         material={materials.LightMetal}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fence.geometry}
-        material={materials.Fence01}
-      />
+      <mesh castShadow receiveShadow geometry={nodes.Fence.geometry} material={materials.Fence01} />
       <mesh
         castShadow
         receiveShadow
@@ -212,12 +260,7 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.Fence011.geometry}
         material={materials.Fence01}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ladder.geometry}
-        material={materials.brown}
-      />
+      <mesh castShadow receiveShadow geometry={nodes.Ladder.geometry} material={materials.brown} />
       <mesh
         castShadow
         receiveShadow
@@ -254,552 +297,12 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.RoofSide.geometry}
         material={materials['mat20.004']}
       />
-      <group
-        position={[26.327, 5.304, -20.268]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide004_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide004_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -35.954]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide003_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide003_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -26.999]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide002_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide002_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.334, -1.174]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide001_1.geometry}
-          material={materials['Material.001']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide001_2.geometry}
-          material={materials['mat21.004']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.334, -11.938]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -40.482]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide005_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide005_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -51.202]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide006_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide006_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -59.54]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide007_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide007_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -66.259]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide008_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide008_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -75.229]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide009_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide009_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -79.675]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide010_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide010_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -90.453]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide011_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide011_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -98.749]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide012_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide012_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -105.508]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide013_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide013_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[26.444, 5.304, -114.475]}
-        rotation={[0, Math.PI / 2, 0]}
-        scale={10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide014_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide014_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.348, -11.951]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide015_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide015_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.RoofSide001.geometry}
         material={materials['mat20.004']}
       />
-      <group
-        position={[-26.483, 5.348, -1.187]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide016_1.geometry}
-          material={materials['Material.001']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide016_2.geometry}
-          material={materials['mat21.004']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -27.012]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide017_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide017_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -35.967]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide018_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide018_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.367, 5.318, -20.281]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide019_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide019_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -40.452]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide020_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide020_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -51.207]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide021_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide021_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -66.302]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide023_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide023_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -59.544]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide024_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide024_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -75.278]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide025_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide025_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -79.681]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide026_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide026_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -90.457]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide027_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide027_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -98.81]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide028_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide028_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -105.515]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide029_1.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide029_2.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
-      <group
-        position={[-26.483, 5.319, -114.46]}
-        rotation={[Math.PI, Math.PI / 2, 0]}
-        scale={-10}
-      >
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide030.geometry}
-          material={materials['mat21.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.PilarSide030_1.geometry}
-          material={materials['Material.001']}
-        />
-      </group>
       <mesh
         castShadow
         receiveShadow
@@ -1109,240 +612,6 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cylinder037.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder037_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder037_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder001.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder001_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder001_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder002.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder002_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder002_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder003.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder003_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder003_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder004.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder004_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder004_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder005.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder005_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder005_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder006.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder006_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder006_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder007.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder007_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder007_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder008.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder008_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder008_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder009.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder009_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder009_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder010.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder010_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder010_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder011.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder011_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder011_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder012.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder012_1.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cylinder012_2.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Cube017.geometry}
         material={materials.DarkWood}
       />
@@ -1370,24 +639,14 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.Charco_1.geometry}
         material={materials['legs.001']}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Charco_2.geometry}
-        material={materials.legs}
-      />
+      <mesh castShadow receiveShadow geometry={nodes.Charco_2.geometry} material={materials.legs} />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Charco_3.geometry}
         material={materials.floor_is_wet_sign}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Charco_4.geometry}
-        material={materials.sign}
-      />
+      <mesh castShadow receiveShadow geometry={nodes.Charco_4.geometry} material={materials.sign} />
       <mesh
         castShadow
         receiveShadow
@@ -3491,6 +2750,198 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.PilarSide004_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide004_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide003_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide003_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide002_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide002_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide001_1.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide001_2.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide005_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide005_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide006_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide006_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide007_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide007_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide008_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide008_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide009_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide009_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide010_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide010_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide011_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide011_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide012_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide012_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide013_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide013_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide014_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide014_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide015_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide015_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.FloorTrain001_1.geometry}
         material={materials['mat19.003']}
       />
@@ -3515,6 +2966,54 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.PilarSide016_1.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide016_2.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide017_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide017_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide018_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide018_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide019_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide019_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.WallSide001_1.geometry}
         material={materials['Red.003']}
       />
@@ -3530,6 +3029,126 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.WallSide001_3.geometry}
         material={materials['mat17.004']}
       />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide020_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide020_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide021_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide021_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide023_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide023_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide024_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide024_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide025_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide025_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide026_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide026_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide027_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide027_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide028_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide028_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide029_1.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide029_2.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide030.geometry}
+        material={materials['mat21.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.PilarSide030_1.geometry}
+        material={materials['Material.001']}
+      />
     </group>
   )
 }
@@ -3538,7 +3157,8 @@ useGLTF.preload('/LevelOne.glb')
 
 const WorldLevelOneWithPhysisc = withPhysics(
   WorldLevelOne,
-  WorldLevelOneTrimesh
+  WorldLevelOneTrimesh,
+  WorldLevelOneDynamic
 )
 
 export default WorldLevelOneWithPhysisc
