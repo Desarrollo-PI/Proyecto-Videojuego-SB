@@ -16,7 +16,7 @@ import Controls from '../../globals/controls/Control'
 import InterfaceGame from './InterfaceGame'
 import Loader from './Loader'
 import Player from '../../globals/player/Player'
-import Ecctrl, { EcctrlAnimation } from 'ecctrl'
+import Ecctrl from 'ecctrl'
 import StormEnvironment from '../../globals/StormEnvironment'
 
 import { useMenu } from '../../../providers/menu/MenuProvider'
@@ -205,9 +205,9 @@ const LayoutLevel = () => {
                   rotation={[0, Math.PI / 2, 0]}
                   textAlign="center"
                 >
-                  W - Mover arriba{'\n'}S - Mover abajo{'\n'}A - Mover izquierda
+                  W - Mover adelante{'\n'}S - Mover atras{'\n'}A - Mover izquierda
                   {'\n'}D - Mover derecha{'\n'}F - Lanzar hechizo{'\n'}
-                  Espacio - Saltar
+                  Espacio - Saltar{'\n'}Shift - Correr{'\n'}Esc - Menu
                 </Text>
               </Float>
             )}
