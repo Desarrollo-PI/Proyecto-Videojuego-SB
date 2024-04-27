@@ -196,16 +196,14 @@ const LayoutLevel = () => {
           <Canvas shadows dpr={[1, 1.5]}>
             {location.pathname === '/level/one' && (
               <Float speed={10} rotationIntensity={0.1} floatIntensity={2}>
-                <Center>
-                  
-                </Center>
+                <Center></Center>
                 <Text
                   position={[-8, 3, 0]}
                   fontSize={0.5}
                   anchorX="center"
                   anchorY="middle"
                   rotation={[0, Math.PI / 2, 0]}
-                  textAlign='center'
+                  textAlign="center"
                 >
                   W - Mover arriba{'\n'}S - Mover abajo{'\n'}A - Mover izquierda
                   {'\n'}D - Mover derecha{'\n'}F - Lanzar hechizo{'\n'}
@@ -223,7 +221,7 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics>
+            <Physics debug>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
