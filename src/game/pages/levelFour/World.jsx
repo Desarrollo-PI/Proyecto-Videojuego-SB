@@ -1,5 +1,83 @@
 import React from 'react'
 import { useGLTF } from '@react-three/drei'
+import { RigidBody } from '@react-three/rapier'
+
+const withPhysics = (Component, ComponentFixed) => (props) => {
+  return (
+    <>
+      <RigidBody type="fixed">
+        <Component />
+      </RigidBody>
+      <RigidBody type="fixed" colliders="trimesh">
+        <ComponentFixed />
+      </RigidBody>
+    </>
+  )
+}
+
+export const WorldLevelFourTrimesh = (props) => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelFour/LevelFour.glb'
+  )
+  return (
+    <>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bridge.geometry}
+        material={materials['grey.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Entrance_1.geometry}
+        material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Castle.geometry}
+        material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Castle001.geometry}
+        material={materials['Material.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Entrance_2.geometry}
+        material={materials.Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Entrance001_1.geometry}
+        material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Entrance001_2.geometry}
+        material={materials.Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor005.geometry}
+        material={materials['grey.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor005.geometry}
+        material={materials['grey.001']}
+      />
+    </>
+  )
+}
 
 const WorldLevelFour = (props) => {
   const { nodes, materials } = useGLTF(
@@ -28,67 +106,43 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Floor005.geometry}
-        material={materials['grey.001']}
+        geometry={nodes.Roof.geometry}
+        material={materials['Material.003']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Bridge.geometry}
-        material={materials['grey.001']}
+        geometry={nodes.Roof001.geometry}
+        material={materials['Material.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Roof002.geometry}
+        material={materials['Material.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Roof003.geometry}
+        material={materials['Material.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Roof004.geometry}
+        material={materials['Material.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Roof005.geometry}
+        material={materials['Material.003']}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Cliff.geometry}
-        material={materials.Cliff}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle.geometry}
-        material={materials.Dark_Stone}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle002.geometry}
-        material={materials['Material.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle003.geometry}
-        material={materials['Material.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle004.geometry}
-        material={materials['Material.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle005.geometry}
-        material={materials['Material.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle006.geometry}
-        material={materials['Material.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle007.geometry}
-        material={materials['Material.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cliff001.geometry}
         material={materials.Cliff}
       />
       <mesh
@@ -112,8 +166,44 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Castle008.geometry}
+        geometry={nodes.RoofMain.geometry}
         material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor_Wood_Broken001.geometry}
+        material={materials.Atlas}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor_Wood_Broken002.geometry}
+        material={materials.Atlas}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor_Wood_Broken003.geometry}
+        material={materials.Atlas}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor_Wood_Broken004.geometry}
+        material={materials.Atlas}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor_Wood_Broken005.geometry}
+        material={materials.Atlas}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor_Wood_Broken006.geometry}
+        material={materials.Atlas}
       />
       <mesh
         castShadow
@@ -283,30 +373,7 @@ const WorldLevelFour = (props) => {
         geometry={nodes.LightWindow027.geometry}
         material={materials['Material.002']}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Castle001.geometry}
-        material={materials['Material.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy001.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy002.geometry}
-        material={materials.blinn1SG}
-      />
+
       <mesh
         castShadow
         receiveShadow
@@ -413,42 +480,6 @@ const WorldLevelFour = (props) => {
         castShadow
         receiveShadow
         geometry={nodes.Ivy020.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy021.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy022.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy023.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy024.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy025.geometry}
-        material={materials.blinn1SG}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ivy026.geometry}
         material={materials.blinn1SG}
       />
       <mesh
@@ -595,26 +626,6 @@ const WorldLevelFour = (props) => {
         geometry={nodes.Bush005.geometry}
         material={materials.mat9}
       />
-      <group position={[-0.131, 0, -0.139]}>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Banner001_1.geometry}
-          material={materials.Wood}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Banner001_2.geometry}
-          material={materials['Metal.001']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Banner001_3.geometry}
-          material={materials.Main}
-        />
-      </group>
       <mesh
         castShadow
         receiveShadow
@@ -642,27 +653,58 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Entrance_1.geometry}
-        material={materials.Dark_Stone}
+        geometry={nodes.Bench.geometry}
+        material={materials.DarkWood}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Entrance_2.geometry}
-        material={materials.Stone}
+        geometry={nodes.Bench001.geometry}
+        material={materials.mat18}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Entrance001_1.geometry}
-        material={materials.Dark_Stone}
+        geometry={nodes.Bench002.geometry}
+        material={materials.DarkWood}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Entrance001_2.geometry}
-        material={materials.Stone}
+        geometry={nodes.Bench003.geometry}
+        material={materials.DarkWood}
       />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bench004.geometry}
+        material={materials.DarkWood}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bench005.geometry}
+        material={materials.DarkWood}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bench006.geometry}
+        material={materials.DarkWood}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bench007.geometry}
+        material={materials.DarkWood}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bench008.geometry}
+        material={materials.DarkWood}
+      />
+
       <mesh
         castShadow
         receiveShadow
@@ -864,114 +906,6 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel_1.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel_2.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel_3.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel001_1.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel001_2.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel001_3.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel002_1.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel002_2.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel002_3.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel003_1.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel003_2.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel003_3.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel004_1.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel004_2.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel004_3.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel005_1.geometry}
-        material={materials['Wood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel005_2.geometry}
-        material={materials['Stone.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Barrel005_3.geometry}
-        material={materials['DarkWood.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Barrel006_1.geometry}
         material={materials['Wood.001']}
       />
@@ -990,523 +924,649 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel007_1.geometry}
+        geometry={nodes.Barrel013_1.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel007_2.geometry}
+        geometry={nodes.Barrel013_2.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel007_3.geometry}
+        geometry={nodes.Barrel013_3.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel008_1.geometry}
+        geometry={nodes.Barrel015_1.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel008_2.geometry}
+        geometry={nodes.Barrel015_2.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel008_3.geometry}
+        geometry={nodes.Barrel015_3.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel009_1.geometry}
+        geometry={nodes.Barrel038.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel009_2.geometry}
+        geometry={nodes.Barrel038_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel009_3.geometry}
+        geometry={nodes.Barrel038_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel010_1.geometry}
+        geometry={nodes.Barrel039.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel010_2.geometry}
+        geometry={nodes.Barrel039_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel010_3.geometry}
+        geometry={nodes.Barrel039_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel011_1.geometry}
+        geometry={nodes.Barrel040.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel011_2.geometry}
+        geometry={nodes.Barrel040_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel011_3.geometry}
+        geometry={nodes.Barrel040_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel012_1.geometry}
+        geometry={nodes.Barrel041.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel012_2.geometry}
+        geometry={nodes.Barrel041_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel012_3.geometry}
+        geometry={nodes.Barrel041_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel014_1.geometry}
+        geometry={nodes.Barrel042.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel014_2.geometry}
+        geometry={nodes.Barrel042_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel014_3.geometry}
+        geometry={nodes.Barrel042_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel016_1.geometry}
+        geometry={nodes.Barrel043.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel016_2.geometry}
+        geometry={nodes.Barrel043_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel016_3.geometry}
+        geometry={nodes.Barrel043_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel017_1.geometry}
+        geometry={nodes.Barrel044.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel017_2.geometry}
+        geometry={nodes.Barrel044_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel017_3.geometry}
+        geometry={nodes.Barrel044_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel018_1.geometry}
+        geometry={nodes.Barrel045.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel018_2.geometry}
+        geometry={nodes.Barrel045_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel018_3.geometry}
+        geometry={nodes.Barrel045_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel019_1.geometry}
+        geometry={nodes.Barrel046.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel019_2.geometry}
+        geometry={nodes.Barrel046_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel019_3.geometry}
+        geometry={nodes.Barrel046_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel020_1.geometry}
+        geometry={nodes.Barrel047.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel020_2.geometry}
+        geometry={nodes.Barrel047_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel020_3.geometry}
+        geometry={nodes.Barrel047_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel021_1.geometry}
+        geometry={nodes.Barrel048.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel021_2.geometry}
+        geometry={nodes.Barrel048_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel021_3.geometry}
+        geometry={nodes.Barrel048_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel022_1.geometry}
+        geometry={nodes.Barrel049.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel022_2.geometry}
+        geometry={nodes.Barrel049_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel022_3.geometry}
+        geometry={nodes.Barrel049_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel023_1.geometry}
+        geometry={nodes.Barrel050.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel023_2.geometry}
+        geometry={nodes.Barrel050_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel023_3.geometry}
+        geometry={nodes.Barrel050_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel024_1.geometry}
+        geometry={nodes.Barrel051.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel024_2.geometry}
+        geometry={nodes.Barrel051_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel024_3.geometry}
+        geometry={nodes.Barrel051_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel025_1.geometry}
+        geometry={nodes.Barrel052.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel025_2.geometry}
+        geometry={nodes.Barrel052_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel025_3.geometry}
+        geometry={nodes.Barrel052_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel026_1.geometry}
+        geometry={nodes.Barrel053.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel026_2.geometry}
+        geometry={nodes.Barrel053_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel026_3.geometry}
+        geometry={nodes.Barrel053_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel027_1.geometry}
+        geometry={nodes.Barrel054.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel027_2.geometry}
+        geometry={nodes.Barrel054_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel027_3.geometry}
+        geometry={nodes.Barrel054_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel028_1.geometry}
+        geometry={nodes.Barrel055.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel028_2.geometry}
+        geometry={nodes.Barrel055_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel028_3.geometry}
+        geometry={nodes.Barrel055_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel029_1.geometry}
+        geometry={nodes.Barrel056.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel029_2.geometry}
+        geometry={nodes.Barrel056_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel029_3.geometry}
+        geometry={nodes.Barrel056_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel030_1.geometry}
+        geometry={nodes.Barrel057.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel030_2.geometry}
+        geometry={nodes.Barrel057_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel030_3.geometry}
+        geometry={nodes.Barrel057_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel031_1.geometry}
+        geometry={nodes.Barrel058.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel031_2.geometry}
+        geometry={nodes.Barrel058_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel031_3.geometry}
+        geometry={nodes.Barrel058_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel032_1.geometry}
+        geometry={nodes.Barrel059.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel032_2.geometry}
+        geometry={nodes.Barrel059_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel032_3.geometry}
+        geometry={nodes.Barrel059_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel033_1.geometry}
+        geometry={nodes.Barrel060.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel033_2.geometry}
+        geometry={nodes.Barrel060_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel033_3.geometry}
+        geometry={nodes.Barrel060_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel034_1.geometry}
+        geometry={nodes.Barrel061.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel034_2.geometry}
+        geometry={nodes.Barrel061_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel034_3.geometry}
+        geometry={nodes.Barrel061_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel035_1.geometry}
+        geometry={nodes.Barrel062.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel035_2.geometry}
+        geometry={nodes.Barrel062_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel035_3.geometry}
+        geometry={nodes.Barrel062_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel036.geometry}
+        geometry={nodes.Barrel063.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel036_1.geometry}
+        geometry={nodes.Barrel063_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel036_2.geometry}
+        geometry={nodes.Barrel063_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel037.geometry}
+        geometry={nodes.Barrel064.geometry}
         material={materials['Wood.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel037_1.geometry}
+        geometry={nodes.Barrel064_1.geometry}
         material={materials['Stone.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Barrel037_2.geometry}
+        geometry={nodes.Barrel064_2.geometry}
+        material={materials['DarkWood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel065.geometry}
+        material={materials['Wood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel065_1.geometry}
+        material={materials['Stone.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel065_2.geometry}
+        material={materials['DarkWood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel066.geometry}
+        material={materials['Wood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel066_1.geometry}
+        material={materials['Stone.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel066_2.geometry}
+        material={materials['DarkWood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel067.geometry}
+        material={materials['Wood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel067_1.geometry}
+        material={materials['Stone.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel067_2.geometry}
+        material={materials['DarkWood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel068.geometry}
+        material={materials['Wood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel068_1.geometry}
+        material={materials['Stone.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel068_2.geometry}
+        material={materials['DarkWood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel069.geometry}
+        material={materials['Wood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel069_1.geometry}
+        material={materials['Stone.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel069_2.geometry}
+        material={materials['DarkWood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel070.geometry}
+        material={materials['Wood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel070_1.geometry}
+        material={materials['Stone.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel070_2.geometry}
+        material={materials['DarkWood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel071.geometry}
+        material={materials['Wood.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel071_1.geometry}
+        material={materials['Stone.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Barrel071_2.geometry}
         material={materials['DarkWood.001']}
       />
       <mesh
@@ -1800,42 +1860,6 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box_1.geometry}
-        material={materials['DarkWood.002']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Box_2.geometry}
-        material={materials['Wood.002']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Box002_1.geometry}
-        material={materials['DarkWood.002']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Box002_2.geometry}
-        material={materials['Wood.002']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Box003_1.geometry}
-        material={materials['DarkWood.002']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Box003_2.geometry}
-        material={materials['Wood.002']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Box004_1.geometry}
         material={materials['DarkWood.002']}
       />
@@ -1848,404 +1872,374 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box001_1.geometry}
+        geometry={nodes.Box032.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box001_2.geometry}
+        geometry={nodes.Box032_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box005_1.geometry}
+        geometry={nodes.Box033.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box005_2.geometry}
+        geometry={nodes.Box033_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box006_1.geometry}
+        geometry={nodes.Box034.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box006_2.geometry}
+        geometry={nodes.Box034_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box007_1.geometry}
+        geometry={nodes.Box035.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box007_2.geometry}
+        geometry={nodes.Box035_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box008_1.geometry}
+        geometry={nodes.Box036.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box008_2.geometry}
+        geometry={nodes.Box036_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box009_1.geometry}
+        geometry={nodes.Box037.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box009_2.geometry}
+        geometry={nodes.Box037_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box010_1.geometry}
+        geometry={nodes.Box038.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box010_2.geometry}
+        geometry={nodes.Box038_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box011_1.geometry}
+        geometry={nodes.Box039.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box011_2.geometry}
+        geometry={nodes.Box039_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box012_1.geometry}
+        geometry={nodes.Box040.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box012_2.geometry}
+        geometry={nodes.Box040_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box013_1.geometry}
+        geometry={nodes.Box041.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box013_2.geometry}
+        geometry={nodes.Box041_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box014_1.geometry}
+        geometry={nodes.Box042.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box014_2.geometry}
+        geometry={nodes.Box042_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box015_1.geometry}
+        geometry={nodes.Box043.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box015_2.geometry}
+        geometry={nodes.Box043_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box016_1.geometry}
+        geometry={nodes.Box044.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box016_2.geometry}
+        geometry={nodes.Box044_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box017_1.geometry}
+        geometry={nodes.Box045.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box017_2.geometry}
+        geometry={nodes.Box045_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box018_1.geometry}
+        geometry={nodes.Box046.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box018_2.geometry}
+        geometry={nodes.Box046_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box019_1.geometry}
+        geometry={nodes.Box047.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box019_2.geometry}
+        geometry={nodes.Box047_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box020_1.geometry}
+        geometry={nodes.Box048.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box020_2.geometry}
+        geometry={nodes.Box048_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box021_1.geometry}
+        geometry={nodes.Box049.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box021_2.geometry}
+        geometry={nodes.Box049_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box022_1.geometry}
+        geometry={nodes.Box050.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box022_2.geometry}
+        geometry={nodes.Box050_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box023_1.geometry}
+        geometry={nodes.Box051.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box023_2.geometry}
+        geometry={nodes.Box051_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box024_1.geometry}
+        geometry={nodes.Box052.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box024_2.geometry}
+        geometry={nodes.Box052_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box025_1.geometry}
+        geometry={nodes.Box053.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box025_2.geometry}
+        geometry={nodes.Box053_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box026_1.geometry}
+        geometry={nodes.Box054.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box026_2.geometry}
+        geometry={nodes.Box054_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box027_1.geometry}
+        geometry={nodes.Box055.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box027_2.geometry}
+        geometry={nodes.Box055_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box028_1.geometry}
+        geometry={nodes.Box056.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box028_2.geometry}
+        geometry={nodes.Box056_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box029_1.geometry}
+        geometry={nodes.Box057.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box029_2.geometry}
+        geometry={nodes.Box057_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box030_1.geometry}
+        geometry={nodes.Box058.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box030_2.geometry}
+        geometry={nodes.Box058_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box031_1.geometry}
+        geometry={nodes.Box059.geometry}
         material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Box031_2.geometry}
+        geometry={nodes.Box059_1.geometry}
         material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.WallMain_1.geometry}
-        material={materials.Dark_Stone}
+        geometry={nodes.Box060.geometry}
+        material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.WallMain_2.geometry}
-        material={materials.Stone_Light}
+        geometry={nodes.Box060_1.geometry}
+        material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.WallMain_3.geometry}
-        material={materials['Wood.004']}
+        geometry={nodes.Box061.geometry}
+        material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.WallMain_4.geometry}
-        material={materials['Main.001']}
+        geometry={nodes.Box061_1.geometry}
+        material={materials['Wood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.WallMain002_1.geometry}
-        material={materials.Dark_Stone}
+        geometry={nodes.Box062.geometry}
+        material={materials['DarkWood.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.WallMain002_2.geometry}
-        material={materials.Stone_Light}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.WallMain002_3.geometry}
-        material={materials['Wood.004']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.WallMain002_4.geometry}
-        material={materials['Main.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.WallSecond_1.geometry}
-        material={materials.Dark_Stone}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.WallSecond_2.geometry}
-        material={materials['Stone_Light.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.WallSecond_3.geometry}
-        material={materials['Wood.005']}
+        geometry={nodes.Box062_1.geometry}
+        material={materials['Wood.002']}
       />
       <mesh
         castShadow
@@ -2610,6 +2604,90 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.WallMain_1.geometry}
+        material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallMain_2.geometry}
+        material={materials.Stone_Light}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallMain_3.geometry}
+        material={materials['Wood.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallMain_4.geometry}
+        material={materials['Main.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallMain002_1.geometry}
+        material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallMain002_2.geometry}
+        material={materials.Stone_Light}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallMain002_3.geometry}
+        material={materials['Wood.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallMain002_4.geometry}
+        material={materials['Main.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallSecond_1.geometry}
+        material={materials.Dark_Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallSecond_2.geometry}
+        material={materials['Stone_Light.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.WallSecond_3.geometry}
+        material={materials['Wood.005']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Banner001_1.geometry}
+        material={materials.Wood}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Banner001_2.geometry}
+        material={materials['Metal.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Banner001_3.geometry}
+        material={materials.Main}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.Banner002_1.geometry}
         material={materials.Wood}
       />
@@ -2808,380 +2886,674 @@ const WorldLevelFour = (props) => {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.Table004_1.geometry}
+        material={materials['Wood.007']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Table004_2.geometry}
+        material={materials.DarkWood}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Table004_3.geometry}
+        material={materials['DarkMetal.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.Chandelier_1.geometry}
-        material={materials.DD9944}
+        material={materials.Black_Cauldron}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Chandelier_2.geometry}
-        material={materials.FFFFFF}
+        material={materials.Cliff}
       />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Chandelier_3.geometry}
-        material={materials.FFEB3B}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fire001_1.geometry}
-        material={materials.mat14}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fire001_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire001_3.geometry}
-        material={materials.mat13}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fire001_4.geometry}
-        material={materials['Metal.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fire001_5.geometry}
-        material={materials.Metal}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fire001_6.geometry}
-        material={materials.Golden}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fire004_1.geometry}
+        geometry={nodes.Brazier004_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire004_2.geometry}
+        geometry={nodes.Brazier004_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire004_3.geometry}
+        geometry={nodes.Brazier004_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire004_4.geometry}
+        geometry={nodes.Brazier004_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire004_5.geometry}
+        geometry={nodes.Brazier004_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire004_6.geometry}
+        geometry={nodes.Brazier004_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire002_1.geometry}
+        geometry={nodes.Brazier003_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire002_2.geometry}
+        geometry={nodes.Brazier003_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire002_3.geometry}
+        geometry={nodes.Brazier003_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire002_4.geometry}
+        geometry={nodes.Brazier003_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire002_5.geometry}
+        geometry={nodes.Brazier003_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire002_6.geometry}
+        geometry={nodes.Brazier003_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire003_1.geometry}
+        geometry={nodes.Brazier001_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire003_2.geometry}
+        geometry={nodes.Brazier001_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire003_3.geometry}
+        geometry={nodes.Brazier001_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire003_4.geometry}
+        geometry={nodes.Brazier001_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire003_5.geometry}
+        geometry={nodes.Brazier001_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire003_6.geometry}
+        geometry={nodes.Brazier001_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire005_1.geometry}
+        geometry={nodes.Brazier002_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire005_2.geometry}
+        geometry={nodes.Brazier002_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire005_3.geometry}
+        geometry={nodes.Brazier002_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire005_4.geometry}
+        geometry={nodes.Brazier002_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire005_5.geometry}
+        geometry={nodes.Brazier002_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire005_6.geometry}
+        geometry={nodes.Brazier002_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire006_1.geometry}
+        geometry={nodes.Brazier005_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire006_2.geometry}
+        geometry={nodes.Brazier005_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire006_3.geometry}
+        geometry={nodes.Brazier005_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire006_4.geometry}
+        geometry={nodes.Brazier005_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire006_5.geometry}
+        geometry={nodes.Brazier005_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire006_6.geometry}
+        geometry={nodes.Brazier005_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire007_1.geometry}
+        geometry={nodes.Brazier006_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire007_2.geometry}
+        geometry={nodes.Brazier006_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire007_3.geometry}
+        geometry={nodes.Brazier006_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire007_4.geometry}
+        geometry={nodes.Brazier006_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire007_5.geometry}
+        geometry={nodes.Brazier006_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire007_6.geometry}
+        geometry={nodes.Brazier006_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire_1.geometry}
+        geometry={nodes.Brazier007_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire_2.geometry}
+        geometry={nodes.Brazier007_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire_3.geometry}
+        geometry={nodes.Brazier007_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire_4.geometry}
+        geometry={nodes.Brazier007_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire_5.geometry}
+        geometry={nodes.Brazier007_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire_6.geometry}
+        geometry={nodes.Brazier007_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire008_1.geometry}
+        geometry={nodes.Brazier_1.geometry}
         material={materials.mat14}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire008_2.geometry}
+        geometry={nodes.Brazier_2.geometry}
         material={materials.mat12}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire008_3.geometry}
+        geometry={nodes.Brazier_3.geometry}
         material={materials.mat13}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire008_4.geometry}
+        geometry={nodes.Brazier_4.geometry}
         material={materials['Metal.001']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire008_5.geometry}
+        geometry={nodes.Brazier_5.geometry}
         material={materials.Metal}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire008_6.geometry}
+        geometry={nodes.Brazier_6.geometry}
         material={materials.Golden}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire009_1.geometry}
-        material={materials.mat14}
+        geometry={nodes.Cauldron001_1.geometry}
+        material={materials.Green_Cauldron}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire009_2.geometry}
-        material={materials.mat12}
+        geometry={nodes.Cauldron001_2.geometry}
+        material={materials.Black_Cauldron}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire009_3.geometry}
-        material={materials.mat13}
+        geometry={nodes.Cauldron002_1.geometry}
+        material={materials.Green_Cauldron}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire009_4.geometry}
-        material={materials['Metal.001']}
+        geometry={nodes.Cauldron002_2.geometry}
+        material={materials.Black_Cauldron}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire009_5.geometry}
-        material={materials.Metal}
+        geometry={nodes.Cauldron003_1.geometry}
+        material={materials.Green_Cauldron}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Fire009_6.geometry}
-        material={materials.Golden}
+        geometry={nodes.Cauldron003_2.geometry}
+        material={materials.Black_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron004_1.geometry}
+        material={materials.Green_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron004_2.geometry}
+        material={materials.Black_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron005_1.geometry}
+        material={materials.Green_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron005_2.geometry}
+        material={materials.Black_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron006_1.geometry}
+        material={materials.Green_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron006_2.geometry}
+        material={materials.Black_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron007_1.geometry}
+        material={materials.Green_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron007_2.geometry}
+        material={materials.Black_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron008_1.geometry}
+        material={materials.Green_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron008_2.geometry}
+        material={materials.Black_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron_1.geometry}
+        material={materials.Green_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cauldron_2.geometry}
+        material={materials.Black_Cauldron}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library002_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library002_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library002_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library002_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library002_5.geometry}
+        material={materials['mat20.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library001_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library001_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library001_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library001_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library001_5.geometry}
+        material={materials['mat20.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library_5.geometry}
+        material={materials['mat20.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library003_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library003_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library003_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library003_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library003_5.geometry}
+        material={materials['mat20.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library004_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library004_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library004_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library004_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library004_5.geometry}
+        material={materials['mat20.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library005_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library005_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library005_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library005_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library005_5.geometry}
+        material={materials['mat20.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library006_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library006_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library006_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library006_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library006_5.geometry}
+        material={materials['mat20.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library007_1.geometry}
+        material={materials.mat8}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library007_2.geometry}
+        material={materials.mat21}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library007_3.geometry}
+        material={materials.mat4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library007_4.geometry}
+        material={materials['mat9.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Library007_5.geometry}
+        material={materials['mat20.001']}
       />
     </group>
   )
@@ -3189,4 +3561,9 @@ const WorldLevelFour = (props) => {
 
 useGLTF.preload('/LevelFour.glb')
 
-export default WorldLevelFour
+const WorldLevelFourWithPhysisc = withPhysics(
+  WorldLevelFour,
+  WorldLevelFourTrimesh
+)
+
+export default WorldLevelFourWithPhysisc

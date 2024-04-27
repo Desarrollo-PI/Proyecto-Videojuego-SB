@@ -1,7 +1,7 @@
-import WorldLevelFour from './World'
+import WorldLevelFourWithPhysisc from './World'
 
 const LevelFourPage = () => {
-  return <WorldLevelFour />
+  return <WorldLevelFourWithPhysisc />
 }
 
 export default LevelFourPage

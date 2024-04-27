@@ -1,25 +1,21 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
-const withPhysics = (Component, ComponentFixed) => (props) => {
-  const ref = useRef()
-  const { nodes, materials } = useGLTF(
-    '/assets/models/worldLevelOne/LevelOne.glb'
-  )
+const withPhysics = (Component, ComponentTrimesh) => (props) => {
   return (
     <>
-      <RigidBody ref={ref} {...props} type="fixed">
-        <Component {...props} />
+      <RigidBody type="fixed">
+        <Component />
       </RigidBody>
-      <RigidBody {...props} type="fixed" colliders='trimesh'>
-        <ComponentFixed {...props}/>
+      <RigidBody type="fixed" colliders="trimesh">
+        <ComponentTrimesh />
       </RigidBody>
     </>
   )
 }
 
-export const WorldLevelOneFixed = (props) => {
+export const WorldLevelOneTrimesh = (props) => {
   const { nodes, materials } = useGLTF(
     '/assets/models/worldLevelOne/LevelOne.glb'
   )
@@ -37,7 +33,7 @@ export const WorldLevelOneFixed = (props) => {
         geometry={nodes.StairsCorner001_2.geometry}
         material={materials.mat22}
       />
-      
+
       <mesh
         castShadow
         receiveShadow
@@ -3540,6 +3536,9 @@ export const WorldLevelOne = (props) => {
 
 useGLTF.preload('/LevelOne.glb')
 
-const WorldLevelOneWithPhysisc = withPhysics(WorldLevelOne, WorldLevelOneFixed)
+const WorldLevelOneWithPhysisc = withPhysics(
+  WorldLevelOne,
+  WorldLevelOneTrimesh
+)
 
 export default WorldLevelOneWithPhysisc
