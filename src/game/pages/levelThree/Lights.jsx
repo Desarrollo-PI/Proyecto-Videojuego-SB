@@ -3,48 +3,16 @@ import { Color } from 'three'
 const Lights = () => {
   return (
     <>
-      <ambientLight color={new Color('#B41CE5')} intensity={4} />
-      <directionalLight
-        intensity={2}
-        position={[0, 0.5, -100]}
-        castShadow={true}
-      />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[0.29, 2.8, -0.5]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[-16.5, 2.8, -0.5]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[-16.5, 3.7, -24]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[-11, 6.5, -25]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[10.5, 3.5, -25.5]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[2.6, 6.8, -35]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[10.8, 3.5, -49.6]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[17, 3.5, -45.3]} />
+      <pointLight distance={50} color={'#FFC300' } intensity={10} position={[16.5, 3.5, -21]} />
 
-      <pointLight intensity={5} position={[10, 0.5, 90]} />
-      <pointLight intensity={5} position={[-10, 0.5, 90]} />
-
-      <pointLight intensity={5} position={[10, 0.5, 75]} />
-      <pointLight intensity={5} position={[-10, 0.5, 75]} />
-
-      <pointLight intensity={5} position={[10, 0.5, 60]} />
-      <pointLight intensity={5} position={[-10, 0.5, 60]} />
-
-      <pointLight intensity={5} position={[10, 0.5, 45]} />
-      <pointLight intensity={5} position={[-10, 0.5, 45]} />
-
-      <pointLight intensity={5} position={[10, 0.5, 30]} />
-      <pointLight intensity={5} position={[-10, 0.5, 30]} />
-
-      <pointLight intensity={5} position={[10, 0.5, 15]} />
-      <pointLight intensity={5} position={[-10, 0.5, 15]} />
-
-      <pointLight intensity={5} position={[10, 0.5, -15]} />
-      <pointLight intensity={5} position={[-10, 0.5, -15]} />
-
-      <pointLight intensity={5} position={[10, 0.5, -30]} />
-      <pointLight intensity={5} position={[-10, 0.5, -30]} />
-
-      <pointLight intensity={5} position={[10, 0.5, -45]} />
-      <pointLight intensity={5} position={[-10, 0.5, -45]} />
-
-      <pointLight intensity={5} position={[10, 0.5, -60]} />
-      <pointLight intensity={5} position={[-10, 0.5, -60]} />
-
-      <pointLight intensity={5} position={[10, 0.5, -75]} />
-      <pointLight intensity={5} position={[-10, 0.5, -75]} />
-
-      <pointLight intensity={5} position={[10, 0.5, -90]} />
-      <pointLight intensity={5} position={[-10, 0.5, -90]} />
     </>
   )
 }

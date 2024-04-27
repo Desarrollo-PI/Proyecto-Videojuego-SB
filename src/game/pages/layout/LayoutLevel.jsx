@@ -230,7 +230,7 @@ const LayoutLevel = () => {
                 sprintMult={4}
                 jumpVel={5}
                 sprintJumpMult={1}
-                position={[0, 2, 0]}
+                position={[0, 2.5, 0]}
               >
                 <Player />
               </Ecctrl>
