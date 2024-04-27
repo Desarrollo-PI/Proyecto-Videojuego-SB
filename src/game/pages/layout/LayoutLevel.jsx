@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from 'react'
-
-import { KeyboardControls, OrbitControls } from '@react-three/drei'
-import Controls from '../../globals/controls/Control'
 import { Suspense } from 'react'
-import { Physics } from '@react-three/rapier'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
-import Loader from './Loader'
-
+import { Physics } from '@react-three/rapier'
+import { KeyboardControls, OrbitControls } from '@react-three/drei'
 import { Html } from '@react-three/drei'
 
-import useMovements from '../../../utils/key-movements'
+import Controls from '../../globals/controls/Control'
 import InterfaceGame from './InterfaceGame'
-
-import { GiBoltSpellCast } from 'react-icons/gi'
-import { GiFireSpellCast } from 'react-icons/gi'
-import { GiIceSpellCast } from 'react-icons/gi'
-import { FaWandSparkles } from 'react-icons/fa6'
-
-import { useLocation, useNavigate } from 'react-router-dom'
+import Loader from './Loader'
+import Player from '../../globals/player/Player'
+import Ecctrl, { EcctrlAnimation } from 'ecctrl'
+import StormEnvironment from '../../globals/StormEnvironment'
 
 import { useMenu } from '../../../providers/menu/MenuProvider'
 import { useMusic } from '../../../providers/music/MusicProvider'
 import { Outlet } from 'react-router-dom'
-import Player from '../../globals/player/Player'
-import Ecctrl, { EcctrlAnimation } from 'ecctrl'
-import StormEnvironment from '../../globals/StormEnvironment'
+
+import useMovements from '../../../utils/key-movements'
+
+import {
+  GiBoltSpellCast,
+  GiFireSpellCast,
+  GiIceSpellCast,
+} from 'react-icons/gi'
+import { FaWandSparkles } from 'react-icons/fa6'
 
 const LayoutLevel = () => {
   const lightsPropsLevelOne = {

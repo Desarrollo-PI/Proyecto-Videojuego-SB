@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import MenuGame from './MenuGame'
 import ControlsGame from './ControlsGame'
+import DialogBox from './DialogBox'
 
 import { FaHeart } from 'react-icons/fa'
 import { FaHeartBroken } from 'react-icons/fa'
@@ -105,6 +106,23 @@ const InterfaceGame = ({
   selectedSpell,
   selectedSpellIndex,
 }) => {
+  const [isOpenDialog, setIsOpenDialog] = useState(false)
+
+  useEffect(() => {
+    const openDialog = (event) => {
+      console.log(event.key)
+      if (event.key === 'p') {
+        setIsOpenDialog(!isOpenDialog)
+      }
+    }
+
+    document.addEventListener('keydown', openDialog)
+
+    return () => {
+      document.removeEventListener('keydown', openDialog)
+    }
+  }, [isOpenDialog])
+
   return (
     <div className="game-indicators-container">
       <div className="game-indicators-info">
@@ -135,6 +153,11 @@ const InterfaceGame = ({
       <ControlsGame
         isOpenControls={isOpenControls}
         toggleControls={toggleControls}
+      />
+      <DialogBox
+        message="Hola! Soy el Sombrero Seleccionador"
+        characterImage="/assets/img/sombrero-seleccionador-color.png"
+        isOpenDialog={isOpenDialog}
       />
     </div>
   )
