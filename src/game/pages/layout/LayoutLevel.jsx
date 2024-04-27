@@ -231,6 +231,8 @@ const LayoutLevel = () => {
                 jumpVel={5}
                 sprintJumpMult={1}
                 position={[0, 2.5, 0]}
+                characterInitDir={Math.PI}
+                camInitDir= {{ x: 0, y: Math.PI }}
               >
                 <Player />
               </Ecctrl>

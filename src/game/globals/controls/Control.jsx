@@ -11,42 +11,24 @@ export default function Controls() {
 
   useEffect(() => {
     const unsubscribe = sub(
-      (state) =>
-        state.forward || state.backward || state.leftward || state.rightward,
-      (pressed) => {
-        setAvatar({ ...avatar, animation: pressed ? 'Walking' : 'Idle' })
-      }
-    )
-    return () => unsubscribe()
-  }, [avatar, setAvatar, sub, get])
-
-  useEffect(() => {
-    const unsubscribe = sub(
-      (state) =>
-        state.run &&
-        (state.forward || state.backward || state.leftward || state.rightward),
-      (pressed) => {
-        setAvatar({ ...avatar, animation: pressed ? 'Running' : 'Idle' })
-      }
-    )
-    return () => unsubscribe()
-  }, [avatar, setAvatar, sub, get])
-
-  useEffect(() => {
-    const unsubscribe = sub(
-      (state) => state.jump,
-      (pressed) => {
-        setAvatar({ ...avatar, animation: pressed ? 'Jumping' : 'Idle' })
-      }
-    )
-    return () => unsubscribe()
-  }, [avatar, setAvatar, sub, get])
-
-  useEffect(() => {
-    const unsubscribe = sub(
-      (state) => state.attack,
-      (pressed) => {
-        setAvatar({ ...avatar, animation: pressed ? 'Attacking' : 'Idle' })
+      (state) => ({
+        walk: state.forward || state.backward || state.leftward || state.rightward,
+        run: state.run && (state.forward || state.backward || state.leftward || state.rightward),
+        jump: state.jump,
+        attack: state.attack
+      }),
+      ({ walk, run, jump, attack}) => {
+        if (jump) {
+          setAvatar({ ...avatar, animation: 'Jumping' })
+        } else if (run) {
+          setAvatar({ ...avatar, animation: 'Running' })
+        } else if (walk) {
+          setAvatar({ ...avatar, animation: 'Walking' })
+        } else if (attack) {
+          setAvatar({ ...avatar, animation: 'Attacking' })
+        } else {
+          setAvatar({ ...avatar, animation: 'Idle' })
+        }
       }
     )
     return () => unsubscribe()
