@@ -27,7 +27,8 @@ export const WorldLevelThreeFixed = (props) => {
 
   return (
     <>  
-                <group>
+      <Lights />
+          <group>
           <mesh geometry={nodes.GraveYard001_1.geometry} material={materials.grond} />
           <mesh geometry={nodes.GraveYard001_2.geometry} material={materials['Material.002']} />
           <mesh geometry={nodes.GraveYard001_3.geometry} material={materials['grond.001']} />
