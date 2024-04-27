@@ -23,7 +23,7 @@ export default function Player() {
     <group
       ref={playerRef}
       name="Scene"
-      scale={[0.7, 0.7, 0.7]}
+      scale={0.7}
       position={[0, -0.9, 0]}
     >
       <group
