@@ -88,23 +88,20 @@ export default function Player() {
           castShadow
           receiveShadow
         />
-        <group
-          name="Wand"
-          position={[-0.025, 0.106, 0.106]}
-          rotation={[-0.326, 0.836, 0.205]}
-          scale={0.792}
-        >
-          <mesh
-            name="Wand_1"
-            geometry={nodes.Wand_1.geometry}
-            material={materials.mat19}
-          />
-          <mesh
-            name="Wand_2"
-            geometry={nodes.Wand_2.geometry}
-            material={materials.mat20}
-          />
-        </group>
+        <group name="Wand">
+            <skinnedMesh
+              name="Wand_1"
+              geometry={nodes.Wand_1.geometry}
+              material={materials.mat19}
+              skeleton={nodes.Wand_1.skeleton}
+            />
+            <skinnedMesh
+              name="Wand_2"
+              geometry={nodes.Wand_2.geometry}
+              material={materials.mat20}
+              skeleton={nodes.Wand_2.skeleton}
+            />
+          </group>
         <primitive object={nodes.pelvis} />
       </group>
     </group>
