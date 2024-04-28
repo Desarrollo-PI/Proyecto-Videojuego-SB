@@ -318,6 +318,42 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.TrainRoof.geometry}
+        material={materials.ColorPalette}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrainChimney.geometry}
+        material={materials.ColorPalette}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrainRoof001.geometry}
+        material={materials.ColorPalette}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrainChimney001.geometry}
+        material={materials.ColorPalette}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrainChimney2.geometry}
+        material={materials.ColorPalette}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrainChimney2001.geometry}
+        material={materials.ColorPalette}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.Checkpoint.geometry}
         material={materials.Stone}
       />
