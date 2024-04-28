@@ -221,7 +221,7 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics>
+            <Physics debug>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
