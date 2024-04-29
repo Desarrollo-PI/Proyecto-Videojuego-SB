@@ -16,22 +16,22 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
     intensityAmbientLight: 0.5,
   }
 
-    const previewLightsLevelTwoProps = {
+  const previewLightsLevelTwoProps = {
     positionCamara: [-100, 50, 100],
     lookAt: [0, 0, 0],
     positionDirectionalLight: [20, 10, 0],
     intensityDirectionalLight: 2,
     intensityAmbientLight: 0.5,
-    }
+  }
 
   const previewLightsLevelThreeProps = {
-      positionCamara: [-70, 50, 70],
-      lookAt: [0, 0, 0],
-      positionDirectionalLight: [20, 10, 0],
-      intensityDirectionalLight: 2,
-      intensityAmbientLight: 0.5,
-    }
-    
+    positionCamara: [-70, 50, 70],
+    lookAt: [0, 0, 0],
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.5,
+  }
+
   const previewLightsLevelFourProps = {
     positionCamara: [-100, 400, 300],
     lookAt: [0, 0, 0],
@@ -66,7 +66,7 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item onClick={handleGoToLevel}>
-      <LayoutPreview {...previewLightsLevelThreeProps}>
+        <LayoutPreview {...previewLightsLevelThreeProps}>
           <LevelThreePreview />
         </LayoutPreview>
         <Carousel.Caption>
