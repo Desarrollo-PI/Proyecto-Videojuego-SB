@@ -205,7 +205,8 @@ const LayoutLevel = () => {
                   rotation={[0, Math.PI / 2, 0]}
                   textAlign="center"
                 >
-                  W - Mover adelante{'\n'}S - Mover atras{'\n'}A - Mover izquierda
+                  W - Mover adelante{'\n'}S - Mover atras{'\n'}A - Mover
+                  izquierda
                   {'\n'}D - Mover derecha{'\n'}F - Lanzar hechizo{'\n'}
                   Espacio - Saltar{'\n'}Shift - Correr{'\n'}Esc - Menu
                 </Text>
@@ -221,7 +222,7 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics debug>
+            <Physics>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
@@ -232,7 +233,7 @@ const LayoutLevel = () => {
                 sprintJumpMult={1}
                 position={[0, 2.5, 0]}
                 characterInitDir={Math.PI}
-                camInitDir= {{ x: 0, y: Math.PI }}
+                camInitDir={{ x: 0, y: Math.PI }}
               >
                 <Player />
               </Ecctrl>

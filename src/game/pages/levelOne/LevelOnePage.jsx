@@ -7,7 +7,6 @@ import { Troll } from '../../globals/enemies/troll/Troll'
 import { Witch } from '../../globals/enemies/witch/Witch'
 import { RigidBody } from '@react-three/rapier'
 
-
 const LevelOnePage = () => {
   return (
     <>

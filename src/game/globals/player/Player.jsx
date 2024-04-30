@@ -20,12 +20,7 @@ export default function Player() {
   }, [actions, avatar.animation])
 
   return (
-    <group
-      ref={playerRef}
-      name="Scene"
-      scale={0.7}
-      position={[0, -0.9, 0]}
-    >
+    <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
       <group
         name="Auror"
         position={[-0.059, -0.037, 0.097]}
@@ -89,19 +84,19 @@ export default function Player() {
           receiveShadow
         />
         <group name="Wand">
-            <skinnedMesh
-              name="Wand_1"
-              geometry={nodes.Wand_1.geometry}
-              material={materials.mat19}
-              skeleton={nodes.Wand_1.skeleton}
-            />
-            <skinnedMesh
-              name="Wand_2"
-              geometry={nodes.Wand_2.geometry}
-              material={materials.mat20}
-              skeleton={nodes.Wand_2.skeleton}
-            />
-          </group>
+          <skinnedMesh
+            name="Wand_1"
+            geometry={nodes.Wand_1.geometry}
+            material={materials.mat19}
+            skeleton={nodes.Wand_1.skeleton}
+          />
+          <skinnedMesh
+            name="Wand_2"
+            geometry={nodes.Wand_2.geometry}
+            material={materials.mat20}
+            skeleton={nodes.Wand_2.skeleton}
+          />
+        </group>
         <primitive object={nodes.pelvis} />
       </group>
     </group>

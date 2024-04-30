@@ -1,4 +1,4 @@
-import React, { useRef, createRef } from 'react'
+import React, { useRef, createRef, useMemo } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { RigidBody, interactionGroups } from '@react-three/rapier'
 
@@ -6,6 +6,9 @@ const withPhysics =
   (Component, ComponentTrimesh, ComponentDynamic) => (props) => {
     return (
       <>
+        <RigidBody type="fixed" collisionGroups={interactionGroups(0)}>
+          <Limits />
+        </RigidBody>
         <RigidBody type="fixed" collisionGroups={interactionGroups(0)}>
           <Component />
         </RigidBody>
@@ -17,7 +20,40 @@ const withPhysics =
     )
   }
 
-const BarrelsDynamic = (props) => {
+const Limits = () => {
+  const { nodes } = useGLTF('/assets/models/worldLevelOne/LevelOne.glb')
+
+  const geometries = [
+    nodes.Limit.geometry,
+    nodes.Limit001.geometry,
+    nodes.Limit002.geometry,
+    nodes.Limit003.geometry,
+    nodes.Limit004.geometry,
+    nodes.Limit005.geometry,
+    nodes.Limit006.geometry,
+    nodes.Limit007.geometry,
+    nodes.Limit008.geometry,
+    nodes.Limit009.geometry,
+  ]
+
+  const transparentMaterial = useMemo(() => <meshPhongMaterial transparent />)
+
+  return (
+    <>
+      {geometries.map((geometry, index) => (
+        <mesh
+          key={index}
+          castShadow
+          receiveShadow
+          geometry={geometry}
+          material={transparentMaterial}
+        />
+      ))}
+    </>
+  )
+}
+
+const BarrelsDynamic = () => {
   const { nodes, materials } = useGLTF(
     '/assets/models/worldLevelOne/LevelOne.glb'
   )
@@ -71,15 +107,64 @@ const BarrelsDynamic = (props) => {
   )
 }
 
-const WorldLevelOneDynamic = () => {
+const BoxesDynamic = () => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelOne/LevelOne.glb'
+  )
+
+  const arrLength = 10
+  const refs = useRef([])
+
+  if (refs.current.length !== arrLength) {
+    refs.current = Array(arrLength)
+      .fill()
+      .map((_, i) => refs.current[i] || createRef())
+  }
+
+  const onHitBox = (i) => {
+    refs.current[i].current.applyImpulse({ x: 0, y: -100, z: -10 }, true)
+  }
+
   return (
     <>
-      <BarrelsDynamic />
+      {refs.current.map((ref, index) => (
+        <RigidBody
+          key={index + 1}
+          ref={refs.current[index + 1]}
+          type="dynamic"
+          colliders="cuboid"
+          onCollisionEnter={null}
+          collisionGroups={interactionGroups(2, [0])}
+        >
+          <mesh
+            onClick={() => onHitBox(index + 1)}
+            castShadow
+            receiveShadow
+            geometry={nodes[`Box${index + 1}_1`].geometry}
+            material={materials.DarkWood}
+          />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes[`Box${index + 1}_2`].geometry}
+            material={materials.Wood}
+          />
+        </RigidBody>
+      ))}
     </>
   )
 }
 
-export const WorldLevelOneTrimesh = (props) => {
+const WorldLevelOneDynamic = () => {
+  return (
+    <>
+      <BarrelsDynamic />
+      <BoxesDynamic />
+    </>
+  )
+}
+
+const WorldLevelOneTrimesh = () => {
   const { nodes, materials } = useGLTF(
     '/assets/models/worldLevelOne/LevelOne.glb'
   )
@@ -109,6 +194,12 @@ export const WorldLevelOneTrimesh = (props) => {
         geometry={nodes.StairsCorner001_2.geometry}
         material={materials.mat22}
       />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Train.geometry}
+        material={materials.ColorPalette}
+      />
     </>
   )
 }
@@ -119,8 +210,18 @@ export const WorldLevelOne = (props) => {
   )
   return (
     <group {...props} dispose={null}>
-      <mesh castShadow receiveShadow geometry={nodes.Cliff.geometry} material={materials.Cliff} />
-      <mesh castShadow receiveShadow geometry={nodes.Key.geometry} material={materials.Golden} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cliff.geometry}
+        material={materials.Cliff}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Key.geometry}
+        material={materials.Golden}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -193,7 +294,12 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.Trashcan_Large011.geometry}
         material={materials.LightMetal}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Fence.geometry} material={materials.Fence01} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Fence.geometry}
+        material={materials.Fence01}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -260,7 +366,12 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.Fence011.geometry}
         material={materials.Fence01}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Ladder.geometry} material={materials.brown} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Ladder.geometry}
+        material={materials.brown}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -302,12 +413,6 @@ export const WorldLevelOne = (props) => {
         receiveShadow
         geometry={nodes.RoofSide001.geometry}
         material={materials['mat20.004']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Train.geometry}
-        material={materials.ColorPalette}
       />
       <mesh
         castShadow
@@ -540,149 +645,27 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Cube259.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube259_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube002.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube002_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube005.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube005_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube009.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube009_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube010.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube010_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube011.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube011_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube012.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube012_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube014.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube014_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube015.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube015_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube017.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube017_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube018.geometry}
-        material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Cube018_1.geometry}
-        material={materials.Wood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Charco_1.geometry}
         material={materials['legs.001']}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Charco_2.geometry} material={materials.legs} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Charco_2.geometry}
+        material={materials.legs}
+      />
       <mesh
         castShadow
         receiveShadow
         geometry={nodes.Charco_3.geometry}
         material={materials.floor_is_wet_sign}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Charco_4.geometry} material={materials.sign} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Charco_4.geometry}
+        material={materials.sign}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -1610,19 +1593,19 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.TrashContainer006.geometry}
+        geometry={nodes.TrashContainer006_1.geometry}
         material={materials.Green}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.TrashContainer006_1.geometry}
+        geometry={nodes.TrashContainer006_2.geometry}
         material={materials.DarkGrey}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.TrashContainer006_2.geometry}
+        geometry={nodes.TrashContainer006_3.geometry}
         material={materials.Grey}
       />
       <mesh
@@ -1682,19 +1665,55 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.TrashContainer007.geometry}
+        geometry={nodes.TrashContainer007_1.geometry}
         material={materials.Green}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.TrashContainer007_1.geometry}
+        geometry={nodes.TrashContainer007_2.geometry}
         material={materials.DarkGrey}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.TrashContainer007_2.geometry}
+        geometry={nodes.TrashContainer007_3.geometry}
+        material={materials.Grey}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer001_1.geometry}
+        material={materials.Green}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer001_2.geometry}
+        material={materials.DarkGrey}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer001_3.geometry}
+        material={materials.Grey}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer005_1.geometry}
+        material={materials.Green}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer005_2.geometry}
+        material={materials.DarkGrey}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer005_3.geometry}
         material={materials.Grey}
       />
       <mesh

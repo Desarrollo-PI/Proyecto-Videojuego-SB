@@ -44,7 +44,12 @@ export function WorldLevelThree(props) {
           geometry={nodes.Wall005.geometry}
           material={materials.Wall6}
         />
-        <mesh castShadow receiveShadow geometry={nodes.Wall.geometry} material={materials.Wall6} />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Wall.geometry}
+          material={materials.Wall6}
+        />
         <mesh
           castShadow
           receiveShadow

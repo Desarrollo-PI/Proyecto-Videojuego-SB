@@ -12,12 +12,18 @@ export default function Controls() {
   useEffect(() => {
     const unsubscribe = sub(
       (state) => ({
-        walk: state.forward || state.backward || state.leftward || state.rightward,
-        run: state.run && (state.forward || state.backward || state.leftward || state.rightward),
+        walk:
+          state.forward || state.backward || state.leftward || state.rightward,
+        run:
+          state.run &&
+          (state.forward ||
+            state.backward ||
+            state.leftward ||
+            state.rightward),
         jump: state.jump,
-        attack: state.attack
+        attack: state.attack,
       }),
-      ({ walk, run, jump, attack}) => {
+      ({ walk, run, jump, attack }) => {
         if (jump) {
           setAvatar({ ...avatar, animation: 'Jumping' })
         } else if (run) {
