@@ -82,6 +82,16 @@
   margin: 16px 16px 16px 16px;
 }
 
+.register-form {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  border-radius: 8px;
+  background-color: transparent;
+  margin: 16px 16px 16px 16px;
+  align-items: center;
+}
+
 .form-label {
   font:
     16px 'HarryPotter7',
@@ -90,7 +100,10 @@
 }
 
 .auth-form input[type='email'],
-.auth-form input[type='password'] {
+.auth-form input[type='password'],
+.register-form input[type='email'],
+.register-form input[type='password'],
+.register-form input[type='text'] {
   width: 100%;
   margin-bottom: 30px;
   margin-top: 5px;
@@ -246,24 +259,6 @@
   margin: 16px 16px 16px 16px;
 }
 
-.carousel-item h2 {
-  color: #ffffff;
-  font-weight: bold;
-  font:
-    40px 'HarryPotter',
-    sans-serif;
-  text-shadow: #000 0px 0px 10px;
-}
-
-.carousel-item h3 {
-  color: #ffffff;
-  font-weight: bold;
-  font:
-    20px 'HarryPotter7',
-    sans-serif;
-  text-shadow: #000 0px 0px 10px;
-}
-
 .level-selector-container button {
   background-color: #b0955e;
   color: #ffffff;
@@ -284,31 +279,48 @@
   color: #ffffff;
 }
 
-.carousel-inner {
+.level-carousel {
+  width: 600px;
+  height: 400px;
+}
+
+.level-carousel > .carousel-inner {
   display: flex;
   width: 100%;
   height: 100%;
 }
 
-.carousel {
-  margin-top: 40px;
-  width: 600px;
-  height: 400px;
-}
-
-.carousel-item {
+.level-carousel-item {
   cursor: pointer;
   transition: transform 0.5s ease;
 }
 
-.carousel-item:hover {
+.level-carousel-item:hover {
   transform: scale(1.1);
   color: #b0955e;
 }
 
-.carousel-caption {
+.level-carousel-item > .carousel-caption {
   bottom: initial;
   top: 0;
+}
+
+.level-carousel-item h2 {
+  color: #ffffff;
+  font-weight: bold;
+  font:
+    40px 'HarryPotter',
+    sans-serif;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.level-carousel-item h3 {
+  color: #ffffff;
+  font-weight: bold;
+  font:
+    20px 'HarryPotter7',
+    sans-serif;
+  text-shadow: #000 0px 0px 10px;
 }
 
 .play-button {
@@ -875,4 +887,9 @@
   font-size: 16px;
   font-family: 'HarryPotter7', sans-serif;
   color: #ffffff;
+}
+
+.house-carousel {
+  width: 250px;
+  height: 150px;
 }
