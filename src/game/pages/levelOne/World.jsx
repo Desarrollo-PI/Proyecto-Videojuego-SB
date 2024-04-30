@@ -1,6 +1,12 @@
 import React, { useRef, createRef, useMemo, useEffect, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody, interactionGroups, quat, vec3, euler } from '@react-three/rapier'
+import {
+  RigidBody,
+  interactionGroups,
+  quat,
+  vec3,
+  euler,
+} from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 
@@ -62,7 +68,7 @@ const Plataforms = () => {
 
   return (
     <>
-    <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.Plataform1_1.geometry}
@@ -187,46 +193,38 @@ const Plataforms = () => {
 }
 
 const Brick = (props) => {
+  const { initialPosition, moveDirection, maxPosition, speed } = props
 
-  const { initialPosition, moveDirection, maxPosition, speed } = props;
-
-  const { nodes, materials } = useGLTF(
-    '/assets/models/worldLevelOne/Brick.glb'
-  )
+  const { nodes, materials } = useGLTF('/assets/models/worldLevelOne/Brick.glb')
 
   const ref = useRef()
 
-  let mov;
+  let mov
   useFrame((_, delta) => {
-    const brick = ref.current;
+    const brick = ref.current
 
     if (brick) {
-      const position = vec3(brick.translation());
+      const position = vec3(brick.translation())
 
-      const z = position.z;
-      const x = position.x;
+      const z = position.z
+      const x = position.x
 
       if (moveDirection === 1) {
         if (position.z < maxPosition) {
           mov = speed
-        }
-        else if (position.z >= initialPosition[2]) {
+        } else if (position.z >= initialPosition[2]) {
           mov = -speed
         }
-      }
-      else if (moveDirection === 2) {
+      } else if (moveDirection === 2) {
         if (position.x <= maxPosition) {
           mov = speed
-        }
-        else if (position.x >= initialPosition[0]) {
+        } else if (position.x >= initialPosition[0]) {
           mov = -speed
         }
-      }
-      else if (moveDirection === 3) {
+      } else if (moveDirection === 3) {
         if (position.x >= maxPosition) {
           mov = -speed
-        }
-        else if (position.x <= initialPosition[0]) {
+        } else if (position.x <= initialPosition[0]) {
           mov = speed
         }
       }
@@ -236,26 +234,37 @@ const Brick = (props) => {
         newTranslation = {
           x: position.x,
           y: position.y,
-          z: position.z + mov
+          z: position.z + mov,
         }
-      }
-      else if (moveDirection === 2 || moveDirection === 3) {
+      } else if (moveDirection === 2 || moveDirection === 3) {
         newTranslation = {
           x: position.x + mov,
           y: position.y,
-          z: position.z
+          z: position.z,
         }
       }
 
-      brick.setTranslation(newTranslation, true);
+      brick.setTranslation(newTranslation, true)
     }
-  });
+  })
 
   return (
     <>
-      <RigidBody type='fixed' colliders="cuboid" ref={ref} gravityScale={0} position={initialPosition} angularVelocity={[0,0,0]} >
-        <group name='Brick'> 
-          <mesh castShadow receiveShadow geometry={nodes.Brick_1.geometry} material={materials.Red} />
+      <RigidBody
+        type="fixed"
+        colliders="cuboid"
+        ref={ref}
+        gravityScale={0}
+        position={initialPosition}
+        angularVelocity={[0, 0, 0]}
+      >
+        <group name="Brick">
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Brick_1.geometry}
+            material={materials.Red}
+          />
           <mesh
             castShadow
             receiveShadow
@@ -371,16 +380,55 @@ const BoxesDynamic = () => {
 }
 
 const WorldLevelOneDynamic = () => {
-
   const levelBricks = [
-    { initialPosition: [0, 8, -10.5], moveDirection: 1, maxPosition: -14.5, speed: 0.06 },
-    { initialPosition: [16, 7, -35.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
-    { initialPosition: [13, 7, -40.5], moveDirection: 3, maxPosition: 16, speed: 0.06 },
-    { initialPosition: [16, 7, -45.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
-    { initialPosition: [13, 7, -50.5], moveDirection: 3, maxPosition: 16, speed: 0.06 },
-    { initialPosition: [16, 7, -55.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
-    { initialPosition: [13, 7, -60.5], moveDirection: 3, maxPosition: 16, speed: 0.06 },
-    { initialPosition: [16, 7, -65.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
+    {
+      initialPosition: [0, 8, -10.5],
+      moveDirection: 1,
+      maxPosition: -14.5,
+      speed: 0.06,
+    },
+    {
+      initialPosition: [16, 7, -35.5],
+      moveDirection: 2,
+      maxPosition: 13,
+      speed: 0.06,
+    },
+    {
+      initialPosition: [13, 7, -40.5],
+      moveDirection: 3,
+      maxPosition: 16,
+      speed: 0.06,
+    },
+    {
+      initialPosition: [16, 7, -45.5],
+      moveDirection: 2,
+      maxPosition: 13,
+      speed: 0.06,
+    },
+    {
+      initialPosition: [13, 7, -50.5],
+      moveDirection: 3,
+      maxPosition: 16,
+      speed: 0.06,
+    },
+    {
+      initialPosition: [16, 7, -55.5],
+      moveDirection: 2,
+      maxPosition: 13,
+      speed: 0.06,
+    },
+    {
+      initialPosition: [13, 7, -60.5],
+      moveDirection: 3,
+      maxPosition: 16,
+      speed: 0.06,
+    },
+    {
+      initialPosition: [16, 7, -65.5],
+      moveDirection: 2,
+      maxPosition: 13,
+      speed: 0.06,
+    },
   ]
 
   const Bricks = () => {
@@ -391,9 +439,7 @@ const WorldLevelOneDynamic = () => {
         ))}
       </>
     )
-    
   }
-
 
   return (
     <>
@@ -423,7 +469,7 @@ const WorldLevelOneTrimesh = () => {
         geometry={nodes.StairsCorner1_2.geometry}
         material={materials.mat22}
       />
-            <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.StairsCorner2_1.geometry}
@@ -435,7 +481,7 @@ const WorldLevelOneTrimesh = () => {
         geometry={nodes.StairsCorner2_2.geometry}
         material={materials.mat22}
       />
-            <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.StairsCorner3_1.geometry}

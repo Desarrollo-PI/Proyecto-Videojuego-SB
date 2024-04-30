@@ -46,8 +46,9 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
       onSelect={handleSelect}
       interval={null}
       indicators={false}
+      className="level-carousel"
     >
-      <Carousel.Item onClick={handleGoToLevel}>
+      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
         <LayoutPreview {...previewLightsLevelOneProps}>
           <LevelOnePreview />
         </LayoutPreview>
@@ -56,7 +57,7 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
           <h3>NIVEL</h3>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item onClick={handleGoToLevel}>
+      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
         <LayoutPreview {...previewLightsLevelTwoProps}>
           <LevelTwoPreview />
         </LayoutPreview>
@@ -65,7 +66,7 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
           <h3>NIVEL</h3>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item onClick={handleGoToLevel}>
+      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
         <LayoutPreview {...previewLightsLevelThreeProps}>
           <LevelThreePreview />
         </LayoutPreview>
@@ -74,7 +75,7 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
           <h3>NIVEL</h3>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item onClick={handleGoToLevel}>
+      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
         <LayoutPreview {...previewLightsLevelFourProps}>
           <LevelFourPreview />
         </LayoutPreview>
