@@ -1,6 +1,8 @@
-import React, { useRef, createRef, useMemo } from 'react'
+import React, { useRef, createRef, useMemo, useEffect, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody, interactionGroups } from '@react-three/rapier'
+import { RigidBody, interactionGroups, quat, vec3, euler } from '@react-three/rapier'
+import { useFrame } from '@react-three/fiber'
+import * as THREE from 'three'
 
 const withPhysics =
   (Component, ComponentTrimesh, ComponentDynamic) => (props) => {
@@ -49,6 +51,219 @@ const Limits = () => {
           material={transparentMaterial}
         />
       ))}
+    </>
+  )
+}
+
+const Plataforms = () => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelOne/LevelOne.glb'
+  )
+
+  return (
+    <>
+    <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform1_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform1_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform2_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform2_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform3_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform3_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform4_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform4_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform5_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform5_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform6_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform6_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform7_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform7_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform8_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform8_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform9_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform9_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform10_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Plataform10_2.geometry}
+        material={materials.mat22}
+      />
+    </>
+  )
+}
+
+const Brick = (props) => {
+
+  const { initialPosition, moveDirection, maxPosition, speed } = props;
+
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelOne/Brick.glb'
+  )
+
+  const ref = useRef()
+
+  let mov;
+  useFrame((_, delta) => {
+    const brick = ref.current;
+
+    if (brick) {
+      const position = vec3(brick.translation());
+
+      const z = position.z;
+      const x = position.x;
+
+      if (moveDirection === 1) {
+        if (position.z < maxPosition) {
+          mov = speed
+        }
+        else if (position.z >= initialPosition[2]) {
+          mov = -speed
+        }
+      }
+      else if (moveDirection === 2) {
+        if (position.x <= maxPosition) {
+          mov = speed
+        }
+        else if (position.x >= initialPosition[0]) {
+          mov = -speed
+        }
+      }
+      else if (moveDirection === 3) {
+        if (position.x >= maxPosition) {
+          mov = -speed
+        }
+        else if (position.x <= initialPosition[0]) {
+          mov = speed
+        }
+      }
+
+      let newTranslation
+      if (moveDirection === 1) {
+        newTranslation = {
+          x: position.x,
+          y: position.y,
+          z: position.z + mov
+        }
+      }
+      else if (moveDirection === 2 || moveDirection === 3) {
+        newTranslation = {
+          x: position.x + mov,
+          y: position.y,
+          z: position.z
+        }
+      }
+
+      brick.setTranslation(newTranslation, true);
+    }
+  });
+
+  return (
+    <>
+      <RigidBody type='fixed' colliders="cuboid" ref={ref} gravityScale={0} position={initialPosition} angularVelocity={[0,0,0]} >
+        <group name='Brick'> 
+          <mesh castShadow receiveShadow geometry={nodes.Brick_1.geometry} material={materials.Red} />
+          <mesh
+            castShadow
+            receiveShadow
+            geometry={nodes.Brick_2.geometry}
+            material={materials.Red_Dark}
+          />
+        </group>
+      </RigidBody>
     </>
   )
 }
@@ -156,10 +371,36 @@ const BoxesDynamic = () => {
 }
 
 const WorldLevelOneDynamic = () => {
+
+  const levelBricks = [
+    { initialPosition: [0, 8, -10.5], moveDirection: 1, maxPosition: -14.5, speed: 0.06 },
+    { initialPosition: [16, 7, -35.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
+    { initialPosition: [13, 7, -40.5], moveDirection: 3, maxPosition: 16, speed: 0.06 },
+    { initialPosition: [16, 7, -45.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
+    { initialPosition: [13, 7, -50.5], moveDirection: 3, maxPosition: 16, speed: 0.06 },
+    { initialPosition: [16, 7, -55.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
+    { initialPosition: [13, 7, -60.5], moveDirection: 3, maxPosition: 16, speed: 0.06 },
+    { initialPosition: [16, 7, -65.5], moveDirection: 2, maxPosition: 13, speed: 0.06 },
+  ]
+
+  const Bricks = () => {
+    return (
+      <>
+        {levelBricks.map((brick, index) => (
+          <Brick key={index} {...brick} />
+        ))}
+      </>
+    )
+    
+  }
+
+
   return (
     <>
       <BarrelsDynamic />
       <BoxesDynamic />
+      <Plataforms />
+      {Bricks()}
     </>
   )
 }
@@ -173,25 +414,37 @@ const WorldLevelOneTrimesh = () => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.StairsCorner_1.geometry}
+        geometry={nodes.StairsCorner1_1.geometry}
         material={materials.mat17}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.StairsCorner_2.geometry}
+        geometry={nodes.StairsCorner1_2.geometry}
         material={materials.mat22}
       />
-      <mesh
+            <mesh
         castShadow
         receiveShadow
-        geometry={nodes.StairsCorner001_1.geometry}
+        geometry={nodes.StairsCorner2_1.geometry}
         material={materials.mat17}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.StairsCorner001_2.geometry}
+        geometry={nodes.StairsCorner2_2.geometry}
+        material={materials.mat22}
+      />
+            <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner3_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.StairsCorner3_2.geometry}
         material={materials.mat22}
       />
       <mesh
@@ -3204,6 +3457,7 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.PilarSide030_1.geometry}
         material={materials['Material.001']}
       />
+      <Plataforms />
     </group>
   )
 }
