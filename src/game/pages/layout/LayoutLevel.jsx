@@ -21,6 +21,7 @@ import StormEnvironment from '../../globals/StormEnvironment'
 
 import { useMenu } from '../../../providers/menu/MenuProvider'
 import { useMusic } from '../../../providers/music/MusicProvider'
+import { useAuth } from '../../../providers/auth/AuthProvider'
 import { Outlet } from 'react-router-dom'
 
 import useMovements from '../../../utils/key-movements'
@@ -81,6 +82,7 @@ const LayoutLevel = () => {
     closeControls,
     closeSettings,
   } = useMenu()
+  const { state: userState } = useAuth()
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
@@ -191,6 +193,7 @@ const LayoutLevel = () => {
           spells={spells}
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
+          maxHearts={userState.user.lives}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>

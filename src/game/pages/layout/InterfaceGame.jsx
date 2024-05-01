@@ -105,6 +105,10 @@ const InterfaceGame = ({
   spells,
   selectedSpell,
   selectedSpellIndex,
+  currentHearts,
+  maxHearts,
+  currentHealth,
+  maxHealth,
 }) => {
   const [isOpenDialog, setIsOpenDialog] = useState(false)
 
@@ -125,10 +129,10 @@ const InterfaceGame = ({
   return (
     <div className="game-indicators-container">
       <div className="game-indicators-info">
-        <HeartBar currentHearts={1} maxHearts={3} />
+        <HeartBar currentHearts={1} maxHearts={maxHearts} />
         <div className="game-indicators-health">
           <HealthBar health={80} maxHealth={100} />
-          <ManaBar mana={50} maxMana={100} />
+          {/* <ManaBar mana={50} maxMana={100} /> */}
         </div>
       </div>
       <div className="game-indicators-spells">
