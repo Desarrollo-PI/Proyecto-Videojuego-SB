@@ -11,10 +11,15 @@ const LoginPage = () => {
   const { playSound } = useMusic()
 
   const onLogin = async (email, password) => {
-    //login(email, password).then(() => {
-    //onGoToMenuLevels()
-    //})
-    onGoToMenuLevels()
+    login(email, password)
+      .then((res) => {
+        if (res.success) {
+          navigate('/level-router', { replace: true })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   const onGoToRegister = () => {

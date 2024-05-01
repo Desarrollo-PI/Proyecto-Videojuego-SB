@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Form, Row, Col } from 'react-bootstrap'
+import { Button, Form, Row, Col, InputGroup } from 'react-bootstrap'
 import HouseCarousel from './HouseCarousel'
+import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 
 const RegisterForm = ({ onRegister, onGoToLogin }) => {
   const [email, setEmail] = useState('')
@@ -8,13 +9,21 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
   const [name, setName] = useState('')
   const [hogwartsHouse, setHogwartsHouse] = useState(0)
 
+  const [showPassword, setShowPassword] = useState(false)
+
   const handleSelect = (selectedIndex) => {
     setHogwartsHouse(selectedIndex)
   }
 
   const handleSubmit = async (e) => {
+    const dataUser = {
+      email,
+      password,
+      name,
+      hogwartsHouse,
+    }
     e.preventDefault()
-    onRegister(email, password)
+    onRegister(dataUser)
       .then(() => {
         onGoToLogin()
       })
@@ -52,11 +61,27 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
               <Col xs={6}>
                 <Form.Group controlId="formBasicPassword">
                   <Form.Label>CONTRASENA</Form.Label>
-                  <Form.Control
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <InputGroup>
+                    <Form.Control
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="password"
+                    />
+                    <InputGroup.Text>
+                      <div className="password-toggle">
+                        {showPassword ? (
+                          <FaEyeSlash
+                            onClick={() => setShowPassword(!showPassword)}
+                          />
+                        ) : (
+                          <FaEye
+                            onClick={() => setShowPassword(!showPassword)}
+                          />
+                        )}
+                      </div>
+                    </InputGroup.Text>
+                  </InputGroup>
                 </Form.Group>
               </Col>
             </Row>
@@ -82,7 +107,7 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
           </Col>
         </Row>
 
-        <Button variant="primary" type="submit" style={{width: '50%'}}>
+        <Button variant="primary" type="submit" style={{ width: '50%' }}>
           REGISTRARSE
         </Button>
       </Form>

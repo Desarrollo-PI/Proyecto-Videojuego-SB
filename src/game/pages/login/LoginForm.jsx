@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, InputGroup } from 'react-bootstrap'
+import { FaEye, FaEyeSlash } from 'react-icons/fa6'
 
 const LoginForm = ({ onLogin, onGoToRegister }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const [showPassword, setShowPassword] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -23,13 +26,25 @@ const LoginForm = ({ onLogin, onGoToRegister }) => {
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
           <Form.Label>CONTRASENA</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <InputGroup>
+            <Form.Control
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="password"
+            />
+            <InputGroup.Text>
+              <div className="password-toggle">
+                {showPassword ? (
+                  <FaEyeSlash onClick={() => setShowPassword(!showPassword)} />
+                ) : (
+                  <FaEye onClick={() => setShowPassword(!showPassword)} />
+                )}
+              </div>
+            </InputGroup.Text>
+          </InputGroup>
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" style={{ marginTop: '30px' }}>
           INICIAR SESION
         </Button>
       </Form>

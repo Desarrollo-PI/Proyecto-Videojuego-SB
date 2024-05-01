@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../providers/auth/AuthProvider'
 
 const ProfilePage = () => {
-  const { user } = useAuth()
+  const { state } = useAuth()
   const navigation = useNavigate()
 
   const onGoToRouter = () => {
@@ -13,14 +13,14 @@ const ProfilePage = () => {
   }
 
   const choosenHouse = () => {
-    switch (user?.house) {
-      case 'Gryffindor':
+    switch (state.user.hogwartsHouse) {
+      case 0:
         return '../assets/img/hogwarts-houses/griffyndor.png'
-      case 'Hufflepuff':
+      case 3:
         return '../assets/img/hogwarts-houses/hufflepuff.png'
-      case 'Ravenclaw':
+      case 2:
         return '../assets/img/hogwarts-houses/ravenclaw.png'
-      case 'Slytherin':
+      case 1:
         return '../assets/img/hogwarts-houses/slytherin.png'
       default:
         return '../assets/img/hogwarts-houses/griffyndor.png'
@@ -52,17 +52,17 @@ const ProfilePage = () => {
             />
           </Col>
           <Col className="profile-info" xs={8}>
-            <h2>HARRY POTTER</h2>
+            <h2>{state.user.name.toUpperCase()}</h2>
             <div className="line-bold"></div>
-            <h3>HARRYPOTTER@GMAIL.COM</h3>
+            <h3>{state.user.email.toUpperCase()}</h3>
             <Row className="stadistic-info">
               <Col>
                 <h4>NIVEL:</h4>
-                <h5>1</h5>
+                <h5>{state.user.level}</h5>
               </Col>
               <Col>
                 <h4>ITEMS</h4>
-                <h5>1</h5>
+                <h5>{state.user.collectibles}</h5>
               </Col>
               <Col>
                 <Image
