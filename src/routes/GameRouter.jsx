@@ -12,6 +12,8 @@ import LevelThreePage from '../game/pages/levelThree/LevelThreePage'
 import LevelOnePage from '../game/pages/levelOne/LevelOnePage'
 import LevelFourPage from '../game/pages/levelFour/LevelFourPage'
 
+import ProtectedRouter from './ProtectedRouter'
+
 const GameRouter = () => {
   return (
     <BrowserRouter>
@@ -20,15 +22,57 @@ const GameRouter = () => {
           <Route path="/" element={<Navigate replace to="/login" />} />
           <Route path="/login" element={<LoginPage />} />\
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/level-router" element={<LevelRouter />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRouter>
+                <ProfilePage />
+              </ProtectedRouter>
+            }
+          />
+          <Route
+            path="/level-router"
+            element={
+              <ProtectedRouter>
+                <LevelRouter />
+              </ProtectedRouter>
+            }
+          />
         </Route>
         <Route path="/level" element={<LayoutLevel />}>
           <Route path="" element={<Navigate replace to="/level-router" />} />
-          <Route path="one" element={<LevelOnePage />} />
-          <Route path="two" element={<LevelTwoPage />} />
-          <Route path="three" element={<LevelThreePage />} />
-          <Route path="four" element={<LevelFourPage />} />
+          <Route
+            path="one"
+            element={
+              <ProtectedRouter>
+                <LevelOnePage />
+              </ProtectedRouter>
+            }
+          />
+          <Route
+            path="two"
+            element={
+              <ProtectedRouter>
+                <LevelTwoPage />
+              </ProtectedRouter>
+            }
+          />
+          <Route
+            path="three"
+            element={
+              <ProtectedRouter>
+                <LevelThreePage />
+              </ProtectedRouter>
+            }
+          />
+          <Route
+            path="four"
+            element={
+              <ProtectedRouter>
+                <LevelFourPage />
+              </ProtectedRouter>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

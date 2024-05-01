@@ -97,22 +97,44 @@
     16px 'HarryPotter7',
     sans-serif;
   color: #ffffff;
+  margin-bottom: 5px;
 }
 
 .auth-form input[type='email'],
-.auth-form input[type='password'],
 .register-form input[type='email'],
-.register-form input[type='password'],
-.register-form input[type='text'] {
+.register-form input[type='text']:not(.password) {
   width: 100%;
   margin-bottom: 30px;
-  margin-top: 5px;
   padding: 16px 16px;
   font:
     16px 'SofiaPro',
     sans-serif;
   border-radius: 4px;
   border: 1px solid #ffffff;
+  background-color: #1c1e28;
+  color: #ffffff;
+}
+
+.register-form .password,
+.auth-form .password {
+  padding: 16px 16px;
+  font:
+    16px 'SofiaPro',
+    sans-serif;
+  border-radius: 4px;
+  border: 1px solid #ffffff;
+  background-color: #1c1e28;
+  color: #ffffff;
+}
+
+.password-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-form .password:focus,
+.auth-form .password:focus {
   background-color: #1c1e28;
   color: #ffffff;
 }

@@ -8,8 +8,8 @@ const RegisterPage = () => {
   const { register } = useAuth()
   const navigate = useNavigate()
 
-  const onRegister = async (email, password) => {
-    register(email, password)
+  const onRegister = async (dataUser) => {
+    register(dataUser)
   }
 
   const onGoToLogin = () => {

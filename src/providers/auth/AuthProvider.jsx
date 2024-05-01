@@ -7,6 +7,8 @@ import {
   signOut,
 } from 'firebase/auth'
 
+import { createUser, getUser } from '../../db/user-collection'
+
 const AuthContext = createContext(null)
 
 const actionTypes = {
@@ -44,51 +46,65 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, initialState)
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const _user = {
-          uid: user.uid,
-          email: user.email,
+    const subscribe = onAuthStateChanged(auth, async (res) => {
+      if (res) {
+        const user = await getUser(res.email)
+        if (user.success) {
+          dispatch({ type: actionTypes.LOGIN, payload: user.data[0] })
+        } else {
+          dispatch({ type: actionTypes.LOGOUT })
         }
-        dispatch({ type: actionTypes.LOGIN, payload: _user })
       } else {
         dispatch({ type: actionTypes.LOGOUT })
       }
     })
 
     return () => {
-      unsubscribe()
+      subscribe()
     }
   }, [])
 
   const login = async (email, password) => {
     try {
-      signInWithEmailAndPassword(auth, email, password).then(
-        (userCredential) => {
-          const _user = {
-            uid: userCredential.user.uid,
-            email: userCredential.user.email,
-          }
-          dispatch({ type: actionTypes.LOGIN, payload: _user })
-        }
-      )
+      const res = await signInWithEmailAndPassword(auth, email, password)
+      return { success: true, user: res }
     } catch (error) {
-      console.error(error)
+      return { success: false, error }
     }
   }
 
   const logout = async () => {
     try {
       await signOut(auth)
-      dispatch({ type: actionTypes.LOGOUT })
+      return { success: true }
     } catch (error) {
-      console.error(error)
+      return { success: false, error }
     }
   }
 
-  const register = async (email, password) => {
+  const register = async (userData) => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
+      const res = await createUserWithEmailAndPassword(
+        auth,
+        userData?.email,
+        userData?.password
+      )
+      if (res.user) {
+        const user = {
+          uid: res.user.uid,
+          email: res.user.email,
+          name: userData.name,
+          hogwartsHouse: userData.hogwartsHouse,
+        }
+        const _res = await createUser(user)
+        if (_res.success) {
+          return { success: true }
+        } else {
+          return { success: false, error: _res.error }
+        }
+      } else {
+        return { success: false, error: 'Error creating user' }
+      }
     } catch (error) {
       console.error(error)
     }

@@ -14,7 +14,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 const FooterButtons = () => {
   const { mute, unmute, isPlaying } = useMusic()
-  const { user, logout } = useAuth()
+  const { logout } = useAuth()
   const location = useLocation()
   const navigation = useNavigate()
 
@@ -23,9 +23,13 @@ const FooterButtons = () => {
   }
 
   const onLogout = () => {
-    logout().then(() => {
-      navigation('/login')
-    })
+    logout()
+      .then(() => {
+        navigation('/login', { replace: true })
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   return (
