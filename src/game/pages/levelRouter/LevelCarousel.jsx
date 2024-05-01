@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import LevelOnePreview from '../levelOne/LevelOnePreview'
 import LevelTwoPreview from '../levelTwo/LevelTwoPreview'
@@ -7,7 +7,23 @@ import LevelFourPreview from '../levelFour/LevelFourPreview'
 
 import LayoutPreview from '../layout/LayoutPreview'
 
-const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
+import LockView from './LockView'
+
+const LevelCarousel = ({
+  handleGoToLevel,
+  handleSelect,
+  unlockLevel,
+  index,
+}) => {
+  const [isTransitioning, setIsTransitioning] = useState(false)
+
+  const handleCarouselTransition = (index, direction) => {
+    setIsTransitioning(true)
+    setTimeout(() => {
+      setIsTransitioning(false)
+    }, 600)
+  }
+
   const previewLightsLevelOneProps = {
     positionCamara: [0, 60, 150],
     lookAt: [0, 0, 0],
@@ -47,38 +63,63 @@ const LevelCarousel = ({ handleGoToLevel, handleSelect, index }) => {
       interval={null}
       indicators={false}
       className="level-carousel"
+      onSlide={handleCarouselTransition}
     >
-      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
-        <LayoutPreview {...previewLightsLevelOneProps}>
-          <LevelOnePreview />
-        </LayoutPreview>
+      <Carousel.Item
+        onClick={!unlockLevel() ? handleGoToLevel : null}
+        className={`level-carousel-item ${unlockLevel() ? 'disabled' : ''}`}
+      >
+        {unlockLevel() && !isTransitioning && <LockView />}
+        {!unlockLevel() && !isTransitioning && (
+          <LayoutPreview {...previewLightsLevelOneProps}>
+            <LevelOnePreview />
+          </LayoutPreview>
+        )}
         <Carousel.Caption>
           <h2>1</h2>
           <h3>NIVEL</h3>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
-        <LayoutPreview {...previewLightsLevelTwoProps}>
-          <LevelTwoPreview />
-        </LayoutPreview>
+      <Carousel.Item
+        onClick={!unlockLevel() ? handleGoToLevel : null}
+        className={`level-carousel-item ${unlockLevel() ? 'disabled' : ''}`}
+      >
+        {unlockLevel() && !isTransitioning && <LockView />}
+        {!unlockLevel() && !isTransitioning && (
+          <LayoutPreview {...previewLightsLevelTwoProps}>
+            <LevelTwoPreview />
+          </LayoutPreview>
+        )}
         <Carousel.Caption>
           <h2>2</h2>
           <h3>NIVEL</h3>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
-        <LayoutPreview {...previewLightsLevelThreeProps}>
-          <LevelThreePreview />
-        </LayoutPreview>
+      <Carousel.Item
+        onClick={!unlockLevel() ? handleGoToLevel : null}
+        className={`level-carousel-item ${unlockLevel() ? 'disabled' : ''}`}
+      >
+        {unlockLevel() && !isTransitioning && <LockView />}
+        {!unlockLevel() && !isTransitioning && (
+          <LayoutPreview {...previewLightsLevelThreeProps}>
+            <LevelThreePreview />
+          </LayoutPreview>
+        )}
         <Carousel.Caption>
           <h2>3</h2>
           <h3>NIVEL</h3>
         </Carousel.Caption>
       </Carousel.Item>
-      <Carousel.Item onClick={handleGoToLevel} className="level-carousel-item">
-        <LayoutPreview {...previewLightsLevelFourProps}>
-          <LevelFourPreview />
-        </LayoutPreview>
+      <Carousel.Item
+        onClick={!unlockLevel() ? handleGoToLevel : null}
+        className={`level-carousel-item ${unlockLevel() ? 'disabled' : ''}`}
+      >
+        {unlockLevel() && !isTransitioning && <LockView />}
+        {!unlockLevel() && !isTransitioning && (
+          <LayoutPreview {...previewLightsLevelFourProps}>
+            <LevelFourPreview />
+          </LayoutPreview>
+        )}
         <Carousel.Caption>
           <h2>4</h2>
           <h3>NIVEL</h3>
