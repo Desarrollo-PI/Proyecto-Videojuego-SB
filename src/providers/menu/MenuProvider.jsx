@@ -72,6 +72,12 @@ export const MenuProvider = ({ children }) => {
     dispatch({ type: 'CLOSE_SETTINGS' })
   }
 
+  const values = {
+    isOpenMenu: state.isOpenMenu,
+    isOpenControls: state.isOpenControls,
+    isOpenSettings: state.isOpenSettings,
+  }
+
   const functions = {
     toggleMenu,
     toggleControls,
@@ -82,7 +88,7 @@ export const MenuProvider = ({ children }) => {
   }
 
   return (
-    <MenuContext.Provider value={{ state, dispatch, ...functions }}>
+    <MenuContext.Provider value={{ state, dispatch, ...values, ...functions }}>
       {children}
     </MenuContext.Provider>
   )

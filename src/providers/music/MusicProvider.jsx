@@ -16,6 +16,9 @@ const initialState = {
     src: ['/assets/music/level-theme.mp3'],
     loop: true,
   }),
+  collect: new Howl({
+    src: ['/assets/sounds/collect.mp3'],
+  }),
 }
 
 export const MusicProvider = ({ children }) => {
@@ -61,16 +64,25 @@ export const MusicProvider = ({ children }) => {
     }
   }
 
+  const values = {
+    isPlaying,
+    activeSound,
+    sounds,
+  }
+
+  const functions = {
+    playSound,
+    pauseSound,
+    stopSound,
+    unmute,
+    mute,
+  }
+
   return (
     <MusicContext.Provider
       value={{
-        playSound,
-        pauseSound,
-        stopSound,
-        unmute,
-        mute,
-        isPlaying,
-        activeSound,
+        ...values,
+        ...functions,
       }}
     >
       {children}

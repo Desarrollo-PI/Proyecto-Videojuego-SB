@@ -1,17 +1,18 @@
 import WorldLevelOneWithPhysisc from './World'
 import Lights from './Lights'
+import Collectibles from './collectibles/Collectibles'
 import { Goblin } from '../../globals/enemies/goblin/Goblin'
 import { Skeleton } from '../../globals/enemies/skeleton/Skeleton'
 import { SkeletonMage } from '../../globals/enemies/skeletonMage/SkeletonMage'
 import { Troll } from '../../globals/enemies/troll/Troll'
 import { Witch } from '../../globals/enemies/witch/Witch'
-import { RigidBody } from '@react-three/rapier'
 
 const LevelOnePage = () => {
   return (
     <>
       <Lights />
       <WorldLevelOneWithPhysisc />
+      <Collectibles />
       <Goblin position={[-2.5, 0, -34]} action={1} />
       <Goblin position={[2.5, 0, -12]} action={1} />
       <Skeleton position={[0, 0, -75]} action={1} />

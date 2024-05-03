@@ -32,6 +32,7 @@ import {
   GiIceSpellCast,
 } from 'react-icons/gi'
 import { FaWandSparkles } from 'react-icons/fa6'
+import { useDialog } from '../../../providers/dialog/DialogProvider'
 
 const LayoutLevel = () => {
   const lightsPropsLevelOne = {
@@ -82,7 +83,11 @@ const LayoutLevel = () => {
     closeControls,
     closeSettings,
   } = useMenu()
-  const { state: userState } = useAuth()
+
+  const { isOpenDialog, message, closeDialog } = useDialog()
+
+  const { maxHearts } = useAuth()
+
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
@@ -100,6 +105,7 @@ const LayoutLevel = () => {
       closeMenu()
       closeControls()
       closeSettings()
+      closeDialog()
     }
   }, [])
 
@@ -193,7 +199,10 @@ const LayoutLevel = () => {
           spells={spells}
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
-          maxHearts={userState.user.lives}
+          maxHearts={maxHearts}
+          isOpenDialog={isOpenDialog}
+          closeDialog={closeDialog}
+          messageDialog={message}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>
@@ -225,7 +234,7 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics>
+            <Physics debug={true}>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}

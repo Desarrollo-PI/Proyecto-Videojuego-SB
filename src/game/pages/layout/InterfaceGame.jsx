@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import MenuGame from './MenuGame'
 import ControlsGame from './ControlsGame'
 import DialogBox from './DialogBox'
@@ -109,23 +109,10 @@ const InterfaceGame = ({
   maxHearts,
   currentHealth,
   maxHealth,
+  isOpenDialog,
+  closeDialog,
+  messageDialog,
 }) => {
-  const [isOpenDialog, setIsOpenDialog] = useState(false)
-
-  useEffect(() => {
-    const openDialog = (event) => {
-      if (event.key === 'p') {
-        setIsOpenDialog(!isOpenDialog)
-      }
-    }
-
-    document.addEventListener('keydown', openDialog)
-
-    return () => {
-      document.removeEventListener('keydown', openDialog)
-    }
-  }, [isOpenDialog])
-
   return (
     <div className="game-indicators-container">
       <div className="game-indicators-info">
@@ -158,9 +145,10 @@ const InterfaceGame = ({
         toggleControls={toggleControls}
       />
       <DialogBox
-        message="Hola! Soy el Sombrero Seleccionador"
+        message={messageDialog}
         characterImage="/assets/img/sombrero-seleccionador-color.png"
         isOpenDialog={isOpenDialog}
+        closeDialog={closeDialog}
       />
     </div>
   )
