@@ -6,12 +6,22 @@ import { SkeletonMage } from '../../globals/enemies/skeletonMage/SkeletonMage'
 import { Troll } from '../../globals/enemies/troll/Troll'
 import { Witch } from '../../globals/enemies/witch/Witch'
 import { RigidBody } from '@react-three/rapier'
+import {Sword} from './collectibles/Sword'
+import { Glasses } from './collectibles/Glasses'
+import { GreenPotion } from './collectibles/GreenPotion'
+import {ThunderLight} from './collectibles/ThunderLight'
+import {WitchHat} from './collectibles/WitchHat'
 
 const LevelOnePage = () => {
   return (
     <>
       <Lights />
       <WorldLevelOneWithPhysisc />
+      <Sword position={[0, 1, -5]} />
+      <GreenPotion position={[3, -1, -50]} />
+      <Glasses position={[-8, 1, -35]} />
+      <ThunderLight position={[13, -2.5, -45]} />
+      <WitchHat position={[12.5, 5, -115]} />
       <Goblin position={[-2.5, 0, -34]} action={1} />
       <Goblin position={[2.5, 0, -12]} action={1} />
       <Skeleton position={[0, 0, -75]} action={1} />
