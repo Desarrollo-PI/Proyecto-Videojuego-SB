@@ -5,12 +5,11 @@ import { Skeleton } from '../../globals/enemies/skeleton/Skeleton'
 import { SkeletonMage } from '../../globals/enemies/skeletonMage/SkeletonMage'
 import { Troll } from '../../globals/enemies/troll/Troll'
 import { Witch } from '../../globals/enemies/witch/Witch'
-import { RigidBody } from '@react-three/rapier'
-import {Sword} from './collectibles/Sword'
+import { Sword } from './collectibles/Sword'
 import { Glasses } from './collectibles/Glasses'
 import { GreenPotion } from './collectibles/GreenPotion'
-import {ThunderLight} from './collectibles/ThunderLight'
-import {WitchHat} from './collectibles/WitchHat'
+import { ThunderLight } from './collectibles/ThunderLight'
+import { WitchHat } from './collectibles/WitchHat'
 
 const LevelOnePage = () => {
   return (
@@ -21,7 +20,7 @@ const LevelOnePage = () => {
       <GreenPotion position={[14, 5.5, -85]} />
       <Glasses position={[-8, 1, -35]} />
       <ThunderLight position={[11.8, 9.6, -6.4]} />
-      <WitchHat position={[5, 1, -19]}/>
+      <WitchHat position={[5, 1, -19]} />
       <Goblin position={[-2.5, 0, -34]} action={1} />
       <Goblin position={[2.5, 0, -12]} action={1} />
       <Skeleton position={[0, 0, -75]} action={1} />
