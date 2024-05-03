@@ -888,6 +888,7 @@
   border-radius: 8px;
   padding: 20px;
   min-width: 40%;
+  width: auto;
   max-width: 80%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -897,18 +898,28 @@
 }
 
 .dialog-img {
-  position: absolute;
-  top: -20px;
-  right: 60px;
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
+  position: relative;
 }
 
 .dialog-message {
   font-size: 16px;
   font-family: 'HarryPotter7', sans-serif;
   color: #ffffff;
+}
+
+.dialog-continue {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  color: #ffffff;
+  font-family: 'HarryPotter7', sans-serif;
+  z-index: 999;
+  width: 20%;
+  text-shadow: #000 0px 0px 10px;
+}
+
+.dialog-continue strong {
+  color: #b0955e;
 }
 
 .house-carousel {

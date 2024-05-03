@@ -1,23 +1,31 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
-import { useState } from 'react'
+
+import collectibleRotation from '../../../../utils/collectible-rotation'
 
 export function Sword(props) {
-  const { nodes, materials } = useGLTF('/assets/models/collectibles/Sword.glb')
-  const groupRef = useRef()
+  const { name, isCollected, onCollect } = props
 
-  const [swordCollected, setSwordCollected] = useState(false)
+  const { nodes, materials } = useGLTF('/assets/models/collectibles/Sword.glb')
+
+  const swordRef = useRef()
+
+  const [swordCollected, setSwordCollected] = useState(isCollected)
 
   const handleSwordCollision = () => {
-    setSwordCollected(true) // Actualiza el estado cuando la espada es recogida
+    onCollect(name, 'collectibles_level_one', 'sword')
   }
 
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += 0.02 // Ajusta la velocidad y dirección de la rotación según tus necesidades
+  useEffect(() => {
+    if (isCollected) {
+      setSwordCollected(true)
     }
+  }, [isCollected])
+
+  useFrame(() => {
+    collectibleRotation(swordRef)
   })
 
   if (swordCollected) {
@@ -25,7 +33,7 @@ export function Sword(props) {
   }
 
   return (
-    <group ref={groupRef} {...props} dispose={null}>
+    <group ref={swordRef} {...props} dispose={null}>
       <RigidBody
         type={'fixed'}
         colliders="cuboid"

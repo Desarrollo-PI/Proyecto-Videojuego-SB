@@ -1,25 +1,33 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
-import { useState } from 'react'
+
+import collectibleRotation from '../../../../utils/collectible-rotation'
 
 export function GreenPotion(props) {
+  const { name, isCollected, onCollect } = props
+
   const { nodes, materials } = useGLTF(
     '/assets/models/collectibles/GreenPotion.glb'
   )
 
-  const [greenPotionCollected, setGreenPotionCollected] = useState(false)
+  const [greenPotionCollected, setGreenPotionCollected] = useState(isCollected)
 
-  const groupRef = useRef()
+  const greenPotionRef = useRef()
+
   const handleGreenPotionCollision = () => {
-    setGreenPotionCollected(true) // Actualiza el estado cuando la espada es recogida
+    onCollect(name, 'collectibles_level_one', 'greenPotion')
   }
 
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += 0.02 // Ajusta la velocidad y dirección de la rotación según tus necesidades
+  useEffect(() => {
+    if (isCollected) {
+      setGreenPotionCollected(true)
     }
+  }, [isCollected])
+
+  useFrame(() => {
+    collectibleRotation(greenPotionRef)
   })
 
   if (greenPotionCollected) {
@@ -27,7 +35,7 @@ export function GreenPotion(props) {
   }
 
   return (
-    <group ref={groupRef} {...props} dispose={null} scale={2}>
+    <group ref={greenPotionRef} {...props} dispose={null} scale={2}>
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
