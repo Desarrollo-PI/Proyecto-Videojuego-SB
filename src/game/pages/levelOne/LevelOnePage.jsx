@@ -18,10 +18,10 @@ const LevelOnePage = () => {
       <Lights />
       <WorldLevelOneWithPhysisc />
       <Sword position={[0, 1, -5]} />
-      <GreenPotion position={[3, -1, -50]} />
+      <GreenPotion position={[14, 5.5, -85]} />
       <Glasses position={[-8, 1, -35]} />
-      <ThunderLight position={[13, -2.5, -45]} />
-      <WitchHat position={[12.5, 5, -115]} />
+      <ThunderLight position={[11.8, 9.6, -6.4]} />
+      <WitchHat position={[5, 1, -19]}/>
       <Goblin position={[-2.5, 0, -34]} action={1} />
       <Goblin position={[2.5, 0, -12]} action={1} />
       <Skeleton position={[0, 0, -75]} action={1} />

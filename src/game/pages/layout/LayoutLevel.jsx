@@ -193,7 +193,7 @@ const LayoutLevel = () => {
           spells={spells}
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
-          maxHearts={userState.user.lives}
+          maxHearts={2}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>
@@ -225,7 +225,7 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics>
+            <Physics debug = {true}>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
