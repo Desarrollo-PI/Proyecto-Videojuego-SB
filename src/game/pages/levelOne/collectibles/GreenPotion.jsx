@@ -39,9 +39,10 @@ export function GreenPotion(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onCollisionEnter={() => {
+        onIntersectionEnter={() => {
           handleGreenPotionCollision()
         }}
+        sensor
       >
         <group>
           <group>

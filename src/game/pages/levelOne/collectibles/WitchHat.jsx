@@ -38,9 +38,10 @@ export function WitchHat(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onCollisionEnter={() => {
+        onIntersectionEnter={() => {
           handleWitchHatCollision()
         }}
+        sensor
       >
         <group>
           <group>

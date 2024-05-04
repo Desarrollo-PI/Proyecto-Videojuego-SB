@@ -10,16 +10,24 @@ export function Witch(props) {
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Witch.glb'
   )
-  const clone = useMemo(() => SkeletonUtils.clone(scene), [scene]);
-  const { nodes } = useGraph(clone);
+  const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
+  const { nodes } = useGraph(clone)
   const { actions } = useAnimations(animations, witchRef)
 
   function eulerToQuaternion(alpha, beta, gamma) {
-    var qx = Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) - Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2);
-    var qy = Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2) + Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2);
-    var qz = Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2) - Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2);
-    var qw = Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) + Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2);
-    return { x: qx, y: qy, z: qz, w: qw };
+    var qx =
+      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) -
+      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
+    var qy =
+      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2) +
+      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2)
+    var qz =
+      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2) -
+      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2)
+    var qw =
+      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) +
+      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
+    return { x: qx, y: qy, z: qz, w: qw }
   }
 
   useEffect(() => {
@@ -31,7 +39,11 @@ export function Witch(props) {
     if (magnitud == 0) {
       return vector
     }
-    var normalizedVector = { x: vector.x / magnitud, y: vector.y, z: vector.z / magnitud }
+    var normalizedVector = {
+      x: vector.x / magnitud,
+      y: vector.y,
+      z: vector.z / magnitud,
+    }
     return normalizedVector
   }
 
@@ -70,28 +82,31 @@ export function Witch(props) {
       }
 
       if (props.action == 0) {
-        if (position.x > (props.position[0] + 0.05)) {
+        if (position.x > props.position[0] + 0.05) {
           velocity.x = -1
-        } else if (position.x < (props.position[0] - 0.05)) {
+        } else if (position.x < props.position[0] - 0.05) {
           velocity.x = 1
         } else {
           velocity.x = 0
         }
-        if (position.z > (props.position[2] + 0.05)) {
+        if (position.z > props.position[2] + 0.05) {
           velocity.z = -1
-        } else if (position.z < (props.position[2] - 0.05)) {
+        } else if (position.z < props.position[2] - 0.05) {
           velocity.z = 1
         } else {
           velocity.z = 0
         }
         velocity = normalize(velocity)
-        witchBody.current.setLinvel({ x: velocity.x, y: velocity.y, z: velocity.z }, true)
+        witchBody.current.setLinvel(
+          { x: velocity.x, y: velocity.y, z: velocity.z },
+          true
+        )
       }
 
       if (props.action == 1) {
-        if (position.z <= (props.position[2] - 2)) {
+        if (position.z <= props.position[2] - 2) {
           velocity.z = 1
-        } else if (position.z >= (props.position[2] + 2)) {
+        } else if (position.z >= props.position[2] + 2) {
           velocity.z = -1
         } else {
           if (velocity.z > 0) {
@@ -100,15 +115,18 @@ export function Witch(props) {
             velocity.z = -1
           }
         }
-        if (position.x > (props.position[0] + 0.05)) {
+        if (position.x > props.position[0] + 0.05) {
           velocity.x = -1
-        } else if (position.x < (props.position[0] - 0.05)) {
+        } else if (position.x < props.position[0] - 0.05) {
           velocity.x = 1
         } else {
           velocity.x = 0
         }
         velocity = normalize(velocity)
-        witchBody.current.setLinvel({ x: velocity.x, y: velocity.y, z: velocity.z }, true)
+        witchBody.current.setLinvel(
+          { x: velocity.x, y: velocity.y, z: velocity.z },
+          true
+        )
       }
 
       var theta = 0
@@ -122,12 +140,17 @@ export function Witch(props) {
   })
 
   return (
-    <RigidBody ref={witchBody} position={props.position} type="dynamic" colliders={false}>
+    <RigidBody
+      ref={witchBody}
+      position={props.position}
+      type="dynamic"
+      colliders={false}
+    >
       <group
         ref={witchRef}
         {...props}
         dispose={null}
-        position={[0,-1,0]}
+        position={[0, -1, 0]}
         scale={0.25}
       >
         <group name="Scene">

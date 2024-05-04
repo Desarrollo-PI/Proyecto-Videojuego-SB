@@ -14,12 +14,14 @@ const dialogReducer = (state, action) => {
       return {
         ...state,
         isOpenDialog: true,
+        dialogType: action.payload.dialogType || null,
         message: action.payload.message,
       }
     case 'CLOSE_DIALOG':
       return {
         ...state,
         isOpenDialog: false,
+        dialogType: null,
         message: '',
       }
     default:
@@ -30,8 +32,11 @@ const dialogReducer = (state, action) => {
 export const DialogProvider = ({ children }) => {
   const [state, dispatch] = useReducer(dialogReducer, initialState)
 
-  const openDialog = (message) => {
-    dispatch({ type: 'OPEN_DIALOG', payload: { message } })
+  const openDialog = (message, dialogType) => {
+    dispatch({
+      type: 'OPEN_DIALOG',
+      payload: { message, dialogType: dialogType || null },
+    })
   }
 
   const closeDialog = () => {
