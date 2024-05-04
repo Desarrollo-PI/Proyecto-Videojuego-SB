@@ -13,7 +13,7 @@ import { useAuth } from '../../../providers/auth/AuthProvider'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 const FooterButtons = () => {
-  const { mute, unmute, isPlaying } = useMusic()
+  const { mute, unmute, isPlaying, handleSound } = useMusic()
   const { logout } = useAuth()
   const location = useLocation()
   const navigation = useNavigate()
@@ -25,6 +25,7 @@ const FooterButtons = () => {
   const onLogout = () => {
     logout()
       .then(() => {
+        handleSound([], ['mainTheme'])
         navigation('/login', { replace: true })
       })
       .catch((error) => {
@@ -40,20 +41,22 @@ const FooterButtons = () => {
             <GiWizardFace size={25} />
           </Button>
         )}
-        <Button
-          variant="secundary"
-          onClick={
-            isPlaying
-              ? () => {
-                  mute()
-                }
-              : () => {
-                  unmute()
-                }
-          }
-        >
-          {isPlaying ? <FaVolumeUp size={25} /> : <FaVolumeMute size={25} />}
-        </Button>
+        {location.pathname === '/level-router' && (
+          <Button
+            variant="secundary"
+            onClick={
+              isPlaying
+                ? () => {
+                    mute()
+                  }
+                : () => {
+                    unmute()
+                  }
+            }
+          >
+            {isPlaying ? <FaVolumeUp size={25} /> : <FaVolumeMute size={25} />}
+          </Button>
+        )}
       </div>
       <div className="footer-logout-container">
         {location.pathname === '/level-router' && (
