@@ -40,9 +40,10 @@ export function ThunderLight(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onCollisionEnter={() => {
+        onIntersectionEnter={() => {
           handleThunderLightCollision()
         }}
+        sensor
       >
         <group>
           <mesh

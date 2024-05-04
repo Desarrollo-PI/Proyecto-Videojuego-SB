@@ -37,9 +37,10 @@ export function Sword(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onCollisionEnter={() => {
+        onIntersectionEnter={() => {
           handleSwordCollision()
         }}
+        sensor
       >
         <group>
           <group>

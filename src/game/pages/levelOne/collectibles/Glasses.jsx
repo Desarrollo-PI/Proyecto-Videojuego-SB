@@ -38,9 +38,10 @@ export function Glasses(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onCollisionEnter={() => {
+        onIntersectionEnter={() => {
           handleGlassesCollision()
         }}
+        sensor
       >
         <group>
           <mesh
