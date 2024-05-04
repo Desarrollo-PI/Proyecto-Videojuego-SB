@@ -746,30 +746,6 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Checkpoint.geometry}
-        material={materials.Stone}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Checkpoint001.geometry}
-        material={materials.Stone}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Checkpoint002.geometry}
-        material={materials.Stone}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Checkpoint003.geometry}
-        material={materials.Stone}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.BenchLeft_1.geometry}
         material={materials['dark grey']}
       />

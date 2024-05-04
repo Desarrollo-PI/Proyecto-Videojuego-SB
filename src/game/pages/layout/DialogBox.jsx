@@ -1,11 +1,19 @@
 import React, { useEffect } from 'react'
 import { Image } from 'react-bootstrap'
 
-const DialogBox = ({ message, characterImage, isOpenDialog, closeDialog }) => {
+const DialogBox = ({
+  message,
+  characterImage,
+  isOpenDialog,
+  closeDialog,
+  dialogType,
+}) => {
   useEffect(() => {
     const onOpenDialog = (event) => {
-      if (event.key === 'p') {
-        console.log(isOpenDialog)
+      if (
+        event.key === 'p' ||
+        (event.key === 'e' && dialogType === 'checkpoint')
+      ) {
         if (isOpenDialog) {
           closeDialog()
         }
@@ -30,9 +38,11 @@ const DialogBox = ({ message, characterImage, isOpenDialog, closeDialog }) => {
           <Image src={characterImage} alt="Character" width={100} />
         </div>
       </div>
-      <div className="dialog-continue">
-        Presiona la tecla <strong>P</strong> para continuar...
-      </div>
+      {dialogType !== 'checkpoint' && (
+        <div className="dialog-continue">
+          Presiona la tecla <strong>P</strong> para continuar...
+        </div>
+      )}
     </>
   )
 }

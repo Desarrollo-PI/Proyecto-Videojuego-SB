@@ -84,7 +84,7 @@ const LayoutLevel = () => {
     closeSettings,
   } = useMenu()
 
-  const { isOpenDialog, message, closeDialog } = useDialog()
+  const { isOpenDialog, message, closeDialog, dialogType } = useDialog()
 
   const { loading, maxHearts } = useAuth()
 
@@ -205,6 +205,7 @@ const LayoutLevel = () => {
           isOpenDialog={isOpenDialog}
           closeDialog={closeDialog}
           messageDialog={message}
+          dialogType={dialogType}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>

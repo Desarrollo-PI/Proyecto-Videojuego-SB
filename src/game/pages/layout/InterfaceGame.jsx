@@ -112,6 +112,7 @@ const InterfaceGame = ({
   isOpenDialog,
   closeDialog,
   messageDialog,
+  dialogType,
 }) => {
   return (
     <div className="game-indicators-container">
@@ -149,6 +150,7 @@ const InterfaceGame = ({
         characterImage="/assets/img/sombrero-seleccionador-color.png"
         isOpenDialog={isOpenDialog}
         closeDialog={closeDialog}
+        dialogType={dialogType}
       />
     </div>
   )
