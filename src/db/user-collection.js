@@ -15,7 +15,16 @@ const userCollection = collection(db, 'users')
 const defaultUser = {
   level: 1,
   collectibles: 0,
-  nameCollectibles: [],
+  collectibles_level_one: {
+    glasses: false,
+    greenPotion: false,
+    sword: false,
+    thunderLight: false,
+    witchHat: false,
+  },
+  collectibles_level_two: {},
+  collectibles_level_three: {},
+  collectibles_level_four: {},
   lives: 3,
   pos_level_one: {
     x: 0,
@@ -99,7 +108,7 @@ export const updateUser = async (email, userData) => {
       }
     }
     const user = res.docs[0]
-    await updateDoc(userCollection.ref, userData)
+    await updateDoc(user.ref, userData)
     return {
       success: true,
     }

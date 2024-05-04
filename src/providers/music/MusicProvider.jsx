@@ -16,18 +16,65 @@ const initialState = {
     src: ['/assets/music/level-theme.mp3'],
     loop: true,
   }),
+  collect: new Howl({
+    src: ['/assets/sounds/collect.mp3'],
+  }),
 }
+
+const music = ['mainTheme', 'thunder', 'level']
+const soundsEffects = ['collect']
 
 export const MusicProvider = ({ children }) => {
   const [sounds, setSounds] = useState(initialState)
-  const [activeSound, setActiveSound] = useState([])
+  const [activeSounds, setActiveSounds] = useState([])
   const [isPlaying, setIsPlaying] = useState(true)
 
-  const playSound = (soundKey) => {
-    if (sounds[soundKey] && isPlaying) {
-      sounds[soundKey].play()
-      setActiveSound([...activeSound, soundKey])
+  useEffect(() => {
+    const activeSounds = JSON.parse(localStorage.getItem('activeSounds'))
+    const isPlaying = JSON.parse(localStorage.getItem('isPlaying'))
+    setIsPlaying(isPlaying ?? true)
+    if (activeSounds) {
+      setActiveSounds(activeSounds)
+      activeSounds.forEach((sound) => {
+        if (isPlaying) {
+          sounds[sound].stop()
+          sounds[sound].play()
+        }
+      })
     }
+  }, [])
+
+  const handleSound = (soundKeysActive, soundsKeysDesactive) => {
+    let _sounds = [...activeSounds]
+    if (soundKeysActive && soundKeysActive.length > 0) {
+      soundKeysActive.forEach((soundKey) => {
+        if (sounds[soundKey] && music.includes(soundKey)) {
+          if (isPlaying) {
+            sounds[soundKey].stop()
+            sounds[soundKey].play()
+          }
+          _sounds.push(soundKey)
+        }
+        if (sounds[soundKey] && soundsEffects.includes(soundKey)) {
+          if (isPlaying) {
+            sounds[soundKey].stop()
+            sounds[soundKey].play()
+          }
+        }
+      })
+    }
+
+    if (soundsKeysDesactive && soundsKeysDesactive.length > 0) {
+      soundsKeysDesactive.forEach((soundKey) => {
+        if (sounds[soundKey]) {
+          sounds[soundKey].stop()
+          _sounds = _sounds.filter((sound) => sound !== soundKey)
+        }
+      })
+    }
+
+    setActiveSounds(_sounds)
+    localStorage.setItem('activeSounds', JSON.stringify(_sounds))
   }
 
   const pauseSound = (soundKey) => {
@@ -36,41 +83,44 @@ export const MusicProvider = ({ children }) => {
     }
   }
 
-  const stopSound = (soundKey) => {
-    if (sounds[soundKey]) {
-      sounds[soundKey].stop()
-      setActiveSound(activeSound.filter((sound) => sound !== soundKey))
-    }
-  }
-
   const unmute = () => {
     if (!isPlaying) {
       setIsPlaying(true)
-      activeSound.forEach((sound) => {
+      activeSounds.forEach((sound) => {
         sounds[sound].play()
       })
+      localStorage.setItem('isPlaying', JSON.stringify(true))
     }
   }
 
   const mute = () => {
     if (isPlaying) {
       setIsPlaying(false)
-      activeSound.forEach((sound) => {
+      activeSounds.forEach((sound) => {
         sounds[sound].pause()
       })
+      localStorage.setItem('isPlaying', JSON.stringify(false))
     }
+  }
+
+  const values = {
+    isPlaying,
+    activeSound: activeSounds,
+    sounds,
+  }
+
+  const functions = {
+    handleSound,
+    pauseSound,
+    unmute,
+    mute,
   }
 
   return (
     <MusicContext.Provider
       value={{
-        playSound,
-        pauseSound,
-        stopSound,
-        unmute,
-        mute,
-        isPlaying,
-        activeSound,
+        ...values,
+        ...functions,
       }}
     >
       {children}
