@@ -117,7 +117,7 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
         onClick={onGoToLogin}
         style={{ marginTop: '35px' }}
       >
-        VOVLVER
+        VOLVER
       </Button>
     </div>
   )
