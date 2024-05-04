@@ -86,12 +86,12 @@ const LayoutLevel = () => {
 
   const { isOpenDialog, message, closeDialog } = useDialog()
 
-  const { maxHearts } = useAuth()
+  const { loading, maxHearts } = useAuth()
 
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
-  const { playSound, stopSound } = useMusic()
+  const { handleSound } = useMusic()
 
   const [spells, setSpells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
@@ -152,10 +152,10 @@ const LayoutLevel = () => {
     }
   }, [])
 
-  const handleExit = () => {
-    playSound('mainTheme')
-    stopSound('level')
-    stopSound('thunder')
+  const handleExit = async () => {
+    navigate('/level-router')
+    closeMenu()
+    handleSound(['mainTheme'], ['level', 'thunder'])
     navigate('/level-router')
     closeMenu()
   }
@@ -185,6 +185,8 @@ const LayoutLevel = () => {
         return 'BIENVENIDO'
     }
   }
+
+  if (loading) return <Loader hasText />
 
   return (
     <Suspense fallback={<Loader hasText />}>

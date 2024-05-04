@@ -11,11 +11,11 @@ import { useMusic } from '../../../../providers/music/MusicProvider'
 const Collectibles = () => {
   const { collectiblesLevelOne, onCollect } = useAuth()
   const { openDialog } = useDialog()
-  const { playSound } = useMusic()
+  const { handleSound } = useMusic()
 
   const handleOnCollect = (name, level, collectible) => {
     openDialog('!Has encontrado un coleccionable: ' + name + '!')
-    playSound('collect')
+    handleSound(['collect'])
     onCollect(level, collectible)
   }
 

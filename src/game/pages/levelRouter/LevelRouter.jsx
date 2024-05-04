@@ -6,7 +6,7 @@ import { useAuth } from '../../../providers/auth/AuthProvider'
 
 const LevelRouterPage = () => {
   const navigate = useNavigate()
-  const { stopSound, playSound } = useMusic()
+  const { handleSound } = useMusic()
 
   const [index, setIndex] = useState(0)
 
@@ -36,10 +36,8 @@ const LevelRouterPage = () => {
     navigate('/login')
   }
 
-  const handleGoToLevel = () => {
-    stopSound('mainTheme')
-    playSound('level')
-    playSound('thunder')
+  const handleGoToLevel = async () => {
+    handleSound(['level', 'thunder'], ['mainTheme'])
     switch (index) {
       case 0:
         onGoToFirsLevel()
