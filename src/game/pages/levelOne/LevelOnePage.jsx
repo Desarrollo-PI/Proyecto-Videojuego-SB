@@ -1,5 +1,7 @@
 import WorldLevelOneWithPhysisc from './World'
 import Lights from './Lights'
+import Collectibles from './collectibles/Collectibles'
+import Obstacles from './obstacles/Obstacles'
 import { Goblin } from '../../globals/enemies/goblin/Goblin'
 import { Skeleton } from '../../globals/enemies/skeleton/Skeleton'
 import { SkeletonMage } from '../../globals/enemies/skeletonMage/SkeletonMage'
@@ -11,7 +13,9 @@ const LevelOnePage = () => {
     <>
       <Lights />
       <WorldLevelOneWithPhysisc />
-      <Goblin position={[-2.5, 2.5, -12]} action={1} />
+      <Collectibles />
+      <Obstacles />
+      <Goblin position={[-2.5, 2.5, -34]} action={1} />
       <Goblin position={[2.5, 2.5, -12]} action={1} />
       <Skeleton position={[0, 0, -75]} action={1} />
       <SkeletonMage position={[2.5, 5, -53]} action={1} />

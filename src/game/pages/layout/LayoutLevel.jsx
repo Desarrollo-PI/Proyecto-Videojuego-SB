@@ -32,6 +32,7 @@ import {
   GiIceSpellCast,
 } from 'react-icons/gi'
 import { FaWandSparkles } from 'react-icons/fa6'
+import { useDialog } from '../../../providers/dialog/DialogProvider'
 
 const LayoutLevel = () => {
   const lightsPropsLevelOne = {
@@ -82,11 +83,15 @@ const LayoutLevel = () => {
     closeControls,
     closeSettings,
   } = useMenu()
-  const { state: userState } = useAuth()
+
+  const { isOpenDialog, message, closeDialog } = useDialog()
+
+  const { loading, maxHearts } = useAuth()
+
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
-  const { playSound, stopSound } = useMusic()
+  const { handleSound } = useMusic()
 
   const [spells, setSpells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
@@ -100,6 +105,7 @@ const LayoutLevel = () => {
       closeMenu()
       closeControls()
       closeSettings()
+      closeDialog()
     }
   }, [])
 
@@ -146,10 +152,10 @@ const LayoutLevel = () => {
     }
   }, [])
 
-  const handleExit = () => {
-    playSound('mainTheme')
-    stopSound('level')
-    stopSound('thunder')
+  const handleExit = async () => {
+    navigate('/level-router')
+    closeMenu()
+    handleSound(['mainTheme'], ['level', 'thunder'])
     navigate('/level-router')
     closeMenu()
   }
@@ -180,6 +186,8 @@ const LayoutLevel = () => {
     }
   }
 
+  if (loading) return <Loader hasText />
+
   return (
     <Suspense fallback={<Loader hasText />}>
       <>
@@ -193,7 +201,10 @@ const LayoutLevel = () => {
           spells={spells}
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
-          maxHearts={1}
+          maxHearts={maxHearts}
+          isOpenDialog={isOpenDialog}
+          closeDialog={closeDialog}
+          messageDialog={message}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>
@@ -225,7 +236,7 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics debug={false}>
+            <Physics>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
