@@ -193,7 +193,7 @@ const LayoutLevel = () => {
           spells={spells}
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
-          maxHearts={userState.user.lives}
+          maxHearts={1}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>
