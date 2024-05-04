@@ -518,12 +518,6 @@ export const WorldLevelOne = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.Key.geometry}
-        material={materials.Golden}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.Trashcan_Large.geometry}
         material={materials.LightMetal}
       />
@@ -646,12 +640,6 @@ export const WorldLevelOne = (props) => {
         receiveShadow
         geometry={nodes.Fence006.geometry}
         material={materials.Fence01}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Fence007.geometry}
-        material={materials.brown}
       />
       <mesh
         castShadow
@@ -922,24 +910,6 @@ export const WorldLevelOne = (props) => {
         receiveShadow
         geometry={nodes.BenchLeft013_2.geometry}
         material={materials.brown}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Lock_1.geometry}
-        material={materials['mat16.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Lock_2.geometry}
-        material={materials['mat17.003']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Lock_3.geometry}
-        material={materials['mat15.003']}
       />
       <mesh
         castShadow

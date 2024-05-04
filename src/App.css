@@ -895,6 +895,7 @@
   align-items: center;
   gap: 20px;
   z-index: 999;
+  justify-content: space-between;
 }
 
 .dialog-img {
