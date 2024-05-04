@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, async (res) => {
 
-      if (res && !state.user) {
+      if (res) {
         const user = await getUser(res.email)
         console.log(user)
         if (user.success) {
