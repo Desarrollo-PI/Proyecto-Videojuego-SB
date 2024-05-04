@@ -17,6 +17,7 @@ const actionTypes = {
   REGISTER: 'REGISTER',
   SET_USER: 'SET_USER',
   SET_COLLECTIBLES: 'SET_COLLECTIBLES',
+  SET_LOADING: 'SET_LOADING',
 }
 
 const initialState = {
@@ -54,6 +55,11 @@ const authReducer = (state, action) => {
           lives: action.payload.lives,
         },
       }
+    case actionTypes.SET_LOADING:
+      return {
+        ...state,
+        loading: action.payload,
+      }
     default:
       return state
   }
@@ -64,8 +70,10 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const subscribe = onAuthStateChanged(auth, async (res) => {
-      if (res) {
+
+      if (res && !state.user) {
         const user = await getUser(res.email)
+        console.log(user)
         if (user.success) {
           dispatch({ type: actionTypes.LOGIN, payload: user.data[0] })
         } else {
@@ -83,6 +91,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
+      dispatch({ type: actionTypes.SET_LOADING, payload: true })
       const res = await signInWithEmailAndPassword(auth, email, password)
       return { success: true, user: res }
     } catch (error) {
@@ -183,6 +192,8 @@ export const AuthProvider = ({ children }) => {
   ])
 
   const values = {
+    user: state.user,
+    loading: state.loading,
     maxHearts: state?.user?.lives,
     collectiblesLevelOne: state?.user?.collectibles_level_one,
     collectiblesLevelTo: state?.user?.collectibles_level_two,

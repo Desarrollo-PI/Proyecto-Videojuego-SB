@@ -86,7 +86,7 @@ const LayoutLevel = () => {
 
   const { isOpenDialog, message, closeDialog } = useDialog()
 
-  const { maxHearts } = useAuth()
+  const { loading, maxHearts } = useAuth()
 
   const movements = useMovements()
   const navigate = useNavigate()
@@ -185,6 +185,8 @@ const LayoutLevel = () => {
         return 'BIENVENIDO'
     }
   }
+
+  if (loading) return <Loader hasText />
 
   return (
     <Suspense fallback={<Loader hasText />}>

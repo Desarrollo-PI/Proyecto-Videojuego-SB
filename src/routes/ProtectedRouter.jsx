@@ -4,9 +4,13 @@ import { Navigate } from 'react-router-dom'
 import { useAuth } from '../providers/auth/AuthProvider'
 
 const ProtectedRouter = ({ children }) => {
-  const { state } = useAuth()
+  const { user, loading } = useAuth()
 
-  return state.user ? children : <Navigate replace to="/login" />
+  if (loading) {
+    return null
+  }
+
+  return user ? children : <Navigate replace to="/login" />
 }
 
 export default ProtectedRouter
