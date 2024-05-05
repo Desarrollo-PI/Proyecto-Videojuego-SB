@@ -5,6 +5,7 @@ import DialogBox from './DialogBox'
 
 import { FaHeart } from 'react-icons/fa'
 import { FaHeartBroken } from 'react-icons/fa'
+import { GiOpenTreasureChest } from 'react-icons/gi'
 
 const HeartBar = ({ currentHearts, maxHearts }) => {
   return (
@@ -95,6 +96,21 @@ const OptionSpell = ({ spell }) => {
   )
 }
 
+const LevelCollectibles = ({ collectibles }) => {
+  let collected = 0
+  for (const key in collectibles) {
+    if (collectibles[key]) {
+      collected += 1
+    }
+  }
+
+  return (
+    <div className="level-collectibles">
+      <GiOpenTreasureChest size={50} />5 / {collected}
+    </div>
+  )
+}
+
 const InterfaceGame = ({
   isOpenMenu,
   isOpenControls,
@@ -113,6 +129,7 @@ const InterfaceGame = ({
   closeDialog,
   messageDialog,
   dialogType,
+  collelctibles,
 }) => {
   return (
     <div className="game-indicators-container">
@@ -145,6 +162,7 @@ const InterfaceGame = ({
         isOpenControls={isOpenControls}
         toggleControls={toggleControls}
       />
+      <LevelCollectibles collectibles={collelctibles} />
       <DialogBox
         message={messageDialog}
         characterImage="/assets/img/sombrero-seleccionador-color.png"

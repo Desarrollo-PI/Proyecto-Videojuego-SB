@@ -93,6 +93,10 @@ const LayoutLevel = () => {
     posLevelTwo,
     posLevelThree,
     posLevelFour,
+    collectiblesLevelOne,
+    collectiblesLevelTwo,
+    collectiblesLevelThree,
+    collectiblesLevelFour,
   } = useAuth()
 
   const movements = useMovements()
@@ -197,6 +201,21 @@ const LayoutLevel = () => {
     }
   }
 
+  const chooseCollectibles = () => {
+    switch (location.pathname) {
+      case '/level/one':
+        return collectiblesLevelOne
+      case '/level/two':
+        return collectiblesLevelTwo
+      case '/level/three':
+        return collectiblesLevelThree
+      case '/level/four':
+        return collectiblesLevelFour
+      default:
+        return collectiblesLevelOne
+    }
+  }
+
   const chooseText = () => {
     switch (location.pathname) {
       case '/level/one':
@@ -232,6 +251,7 @@ const LayoutLevel = () => {
           closeDialog={closeDialog}
           messageDialog={message}
           dialogType={dialogType}
+          collelctibles={chooseCollectibles()}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>

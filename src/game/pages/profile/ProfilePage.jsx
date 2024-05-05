@@ -62,7 +62,7 @@ const ProfilePage = () => {
               </Col>
               <Col>
                 <h4>ITEMS</h4>
-                <h5>{state.user.collectibles}</h5>
+                <h5>20 / {state.user.collectibles}</h5>
               </Col>
               <Col>
                 <Image
