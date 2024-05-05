@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import Checkpoint from './Checkpoint'
 import { useDialog } from '../../../../providers/dialog/DialogProvider'
+import { useAuth } from '../../../../providers/auth/AuthProvider'
 
 const Checkpoints = () => {
   const { openDialog, closeDialog } = useDialog()
+  const { checkpointLevelOne, onTakeCheckpoint } = useAuth()
 
   const _isTakenCheckpoints = {
     1: false,
@@ -12,8 +14,9 @@ const Checkpoints = () => {
     4: false,
   }
 
-  const [isTakenCheckpoints, setIsTakenCheckpoints] =
-    useState(_isTakenCheckpoints)
+  const handleOnTakeCheckpoint = (numberCheckpoint, position) => {
+    onTakeCheckpoint('level_one', numberCheckpoint, position)
+  }
 
   const handleOpenDialogInRange = () => {
     openDialog(
@@ -41,32 +44,32 @@ const Checkpoints = () => {
     <>
       <Checkpoint
         numberCheckpoint={1}
-        itsTaken={isTakenCheckpoints[1]}
+        itsTaken={checkpointLevelOne[1]}
         position={[-4.16052, 1, -39.8772]}
-        setIsTakenCheckpoints={setIsTakenCheckpoints}
+        handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
 
       <Checkpoint
         numberCheckpoint={2}
-        itsTaken={isTakenCheckpoints[2]}
+        itsTaken={checkpointLevelOne[2]}
         position={[5.84319, 1, -54.4298]}
-        setIsTakenCheckpoints={setIsTakenCheckpoints}
+        handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoint
         numberCheckpoint={3}
-        itsTaken={isTakenCheckpoints[3]}
+        itsTaken={checkpointLevelOne[3]}
         position={[14.2202, -1.73976, 1.8868]}
-        setIsTakenCheckpoints={setIsTakenCheckpoints}
+        handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
 
       <Checkpoint
         numberCheckpoint={4}
-        itsTaken={isTakenCheckpoints[4]}
+        itsTaken={checkpointLevelOne[4]}
         position={[0, 1, -88.9431]}
-        setIsTakenCheckpoints={setIsTakenCheckpoints}
+        handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
     </>

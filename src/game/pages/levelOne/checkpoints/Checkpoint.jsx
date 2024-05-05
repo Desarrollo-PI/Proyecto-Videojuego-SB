@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
 const Checkpoint = (props) => {
-  const { numberCheckpoint, itsTaken, setIsTakenCheckpoints, dialogs } = props
+  const { numberCheckpoint, itsTaken, handleOnTakeCheckpoint, dialogs } = props
 
   const { nodes, materials } = useGLTF(
     '/assets/models/checkpoints/Checkpoint.glb'
@@ -38,10 +38,13 @@ const Checkpoint = (props) => {
 
   const onTakeCheckpoint = (event) => {
     if (event.keyCode === 69 && isInRange) {
-      setIsTakenCheckpoints((prev) => ({
-        ...prev,
-        [numberCheckpoint]: true,
-      }))
+      const position = {
+        x: refCheckpoint.current.translation().x,
+        y: 2.5,
+        z: refCheckpoint.current.translation().z - 1,
+      }
+
+      handleOnTakeCheckpoint(numberCheckpoint, position)
       setIsInRange(false)
       dialogs.handleOpenDialogTakeIt()
     }

@@ -25,6 +25,30 @@ const defaultUser = {
   collectibles_level_two: {},
   collectibles_level_three: {},
   collectibles_level_four: {},
+  checkpoint_level_one: {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  },
+  checkpoint_level_two: {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  },
+  checkpoint_level_three: {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  },
+  checkpoint_level_four: {
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  },
   lives: 3,
   pos_level_one: {
     x: 0,
