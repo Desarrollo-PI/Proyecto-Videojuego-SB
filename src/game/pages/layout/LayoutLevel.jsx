@@ -292,7 +292,7 @@ const LayoutLevel = () => {
                 sprintMult={4}
                 jumpVel={5}
                 sprintJumpMult={1}
-                position={choosePosition()}
+                position={choosePosition() || [0, 2.5, 0]}
                 characterInitDir={Math.PI}
                 camInitDir={{ x: 0, y: Math.PI }}
               >

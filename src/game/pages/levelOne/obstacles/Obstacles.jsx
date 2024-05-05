@@ -4,6 +4,7 @@ import Key from './Key'
 
 import { useDialog } from '../../../../providers/dialog/DialogProvider'
 import { useMusic } from '../../../../providers/music/MusicProvider'
+import Fences from './Fences'
 
 const Obstacles = () => {
   const { openDialog } = useDialog()
@@ -18,6 +19,7 @@ const Obstacles = () => {
 
   return (
     <>
+      <Fences />
       <Key
         keyCollected={keyCollected}
         handleKeyCollected={handleKeyCollected}
