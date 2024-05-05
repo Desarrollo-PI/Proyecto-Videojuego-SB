@@ -45,16 +45,6 @@ const authReducer = (state, action) => {
         ...state,
         user: action.payload,
       }
-    case actionTypes.SET_COLLECTIBLES:
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          [action.payload.collectible]: action.payload.collection,
-          collectibles: action.payload.collectibles,
-          lives: action.payload.lives,
-        },
-      }
     case actionTypes.SET_LOADING:
       return {
         ...state,
@@ -72,7 +62,6 @@ export const AuthProvider = ({ children }) => {
     const subscribe = onAuthStateChanged(auth, async (res) => {
       if (res) {
         const user = await getUser(res.email)
-        console.log(user)
         if (user.success) {
           dispatch({ type: actionTypes.LOGIN, payload: user.data[0] })
         } else {
@@ -165,13 +154,14 @@ export const AuthProvider = ({ children }) => {
     _user[level][collectible] = true
     _user.collectibles = _user.collectibles + 1
     _user.lives = upgrateHearts(_user, _user.collectibles)
-    const payload = {
-      collectible: level,
-      collection: _user[level],
-      collectibles: _user.collectibles,
-      lives: _user.lives,
-    }
-    dispatch({ type: actionTypes.SET_COLLECTIBLES, payload: payload })
+    dispatch({ type: actionTypes.SET_USER, payload: _user })
+  }
+
+  const onTakeCheckpoint = (level, checkpoint, position) => {
+    const _user = { ...state.user }
+    _user[`checkpoint_${level}`][checkpoint] = true
+    _user[`pos_${level}`] = position
+    editUser(_user)
   }
 
   useEffect(() => {
@@ -198,6 +188,14 @@ export const AuthProvider = ({ children }) => {
     collectiblesLevelTo: state?.user?.collectibles_level_two,
     collectiblesLevelThree: state?.user?.collectibles_level_three,
     collectiblesLevelFour: state?.user?.collectibles_level_four,
+    checkpointLevelOne: state?.user?.checkpoint_level_one,
+    checkpointLevelTwo: state?.user?.checkpoint_level_two,
+    checkpointLevelThree: state?.user?.checkpoint_level_three,
+    checkpointLevelFour: state?.user?.checkpoint_level_four,
+    posLevelOne: state?.user?.pos_level_one,
+    posLevelTwo: state?.user?.pos_level_two,
+    posLevelThree: state?.user?.pos_level_three,
+    posLevelFour: state?.user?.pos_level_four,
   }
 
   const functions = {
@@ -205,6 +203,7 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     onCollect,
+    onTakeCheckpoint,
   }
 
   return (

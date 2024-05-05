@@ -86,7 +86,14 @@ const LayoutLevel = () => {
 
   const { isOpenDialog, message, closeDialog, dialogType } = useDialog()
 
-  const { loading, maxHearts } = useAuth()
+  const {
+    loading,
+    maxHearts,
+    posLevelOne,
+    posLevelTwo,
+    posLevelThree,
+    posLevelFour,
+  } = useAuth()
 
   const movements = useMovements()
   const navigate = useNavigate()
@@ -158,6 +165,25 @@ const LayoutLevel = () => {
     handleSound(['mainTheme'], ['level', 'thunder'])
     navigate('/level-router')
     closeMenu()
+  }
+
+  const formatPosition = (pos) => {
+    return [pos.x, pos.y, pos.z]
+  }
+
+  const choosePosition = () => {
+    switch (location.pathname) {
+      case '/level/one':
+        return formatPosition(posLevelOne)
+      case '/level/two':
+        return formatPosition(posLevelTwo)
+      case '/level/three':
+        return formatPosition(posLevelThree)
+      case '/level/four':
+        return formatPosition(posLevelFour)
+      default:
+        return [0, 2.5, 0]
+    }
   }
 
   const chooseProps = () => {
@@ -246,7 +272,7 @@ const LayoutLevel = () => {
                 sprintMult={4}
                 jumpVel={5}
                 sprintJumpMult={1}
-                position={[0, 2.5, 0]}
+                position={choosePosition()}
                 characterInitDir={Math.PI}
                 camInitDir={{ x: 0, y: Math.PI }}
               >
