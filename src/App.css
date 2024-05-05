@@ -927,3 +927,19 @@
   width: 250px;
   height: 150px;
 }
+
+.level-collectibles {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 20px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 999;
+  color: #b0955e;
+  font-family: 'HarryPotter7', sans-serif;
+  font-size: 36px;
+  text-shadow: #000 0px 0px 10px;
+}
