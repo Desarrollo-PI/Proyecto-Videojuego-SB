@@ -102,14 +102,32 @@ const LayoutLevel = () => {
 
   const { player, setPlayer } = usePlayer()
 
-  useEffect(() => {
-    setPlayer({...player, hearts: maxHearts})
-  }, [maxHearts])
+  const { handleSound, pauseSound } = useMusic()
 
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
-  const { handleSound } = useMusic()
+
+  useEffect(() => {
+    setPlayer({ ...player, hearts: maxHearts })
+  }, [maxHearts])
+
+  useEffect(() => {
+    if (player.hearts === 1) {
+      handleSound(['heartbeat'])
+    }
+
+    if (player.hearts <= 0) {
+      closeDialog()
+      closeMenu()
+      closeControls()
+      closeSettings()
+      handleSound(['gameover'], ['heartbeat'])
+      pauseSound('level')
+    } else {
+      pauseSound('gameover')
+    }
+  }, [player.hearts])
 
   const [spells, setSpells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
@@ -176,6 +194,7 @@ const LayoutLevel = () => {
     handleSound(['mainTheme'], ['level', 'thunder'])
     navigate('/level-router')
     closeMenu()
+    pauseSound('gameover')
   }
 
   const formatPosition = (pos) => {
@@ -193,7 +212,7 @@ const LayoutLevel = () => {
       case '/level/four':
         return formatPosition(posLevelFour)
       default:
-        return [0, 2.5, 0]
+        return [0, 5, 0]
     }
   }
 
@@ -238,6 +257,38 @@ const LayoutLevel = () => {
     }
   }
 
+  const choosePropsECCtrl = () => {
+    if (player.hearts > 0 && !state.isOpenMenu) {
+      return {
+        camInitDis: -3,
+        camMaxDis: -3,
+        maxVelLimit: 1.6,
+        sprintMult: 4,
+        jumpVel: 5,
+        sprintJumpMult: 1,
+        position: choosePosition(),
+        characterInitDir: Math.PI,
+        camInitDir: { x: 0, y: Math.PI },
+        name: 'playerBody',
+        type: 'dynamic',
+      }
+    } else {
+      return {
+        camInitDis: -3,
+        camMaxDis: -3,
+        maxVelLimit: 0,
+        sprintMult: 0,
+        jumpVel: 0,
+        sprintJumpMult: 0,
+        position: choosePosition(),
+        characterInitDir: Math.PI,
+        camInitDir: { x: 0, y: Math.PI },
+        name: 'null',
+        type: 'fixed',
+      }
+    }
+  }
+
   if (loading) return <Loader hasText />
 
   return (
@@ -254,6 +305,8 @@ const LayoutLevel = () => {
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
           maxHearts={maxHearts}
+          currentHearts={player.hearts}
+          currentHealth={player.life}
           isOpenDialog={isOpenDialog}
           closeDialog={closeDialog}
           messageDialog={message}
@@ -264,7 +317,6 @@ const LayoutLevel = () => {
           <Canvas shadows dpr={[1, 1.5]}>
             {location.pathname === '/level/one' && (
               <Float speed={10} rotationIntensity={0.1} floatIntensity={2}>
-                <Center></Center>
                 <Text
                   position={[-8, 3, 0]}
                   fontSize={0.5}
@@ -290,24 +342,13 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics debug>
+            <Physics>
               <Outlet />
-              <Ecctrl
-                camInitDis={-3}
-                camMaxDis={-3}
-                maxVelLimit={1.6}
-                sprintMult={4}
-                jumpVel={5}
-                sprintJumpMult={1}
-                position={choosePosition()}
-                characterInitDir={Math.PI}
-                camInitDir={{ x: 0, y: Math.PI }}
-                name="playerBody"
-              >
-                <Player />
+              <Ecctrl {...choosePropsECCtrl()}>
+                <Player isPlayerDeath={player.currentHearts === 0} />
               </Ecctrl>
             </Physics>
-            <Controls />
+            {player.hearts > 0 && !state.isOpenMenu && <Controls />}
           </Canvas>
         </KeyboardControls>
       </>

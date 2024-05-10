@@ -2,13 +2,14 @@ import React, { useEffect } from 'react'
 
 const MenuGame = ({
   isOpenMenu,
+  isOpenGameOver,
   handleExit,
   toggleMenu,
   toggleControls,
   toggleSettings,
 }) => {
   const handleKeyDown = (event) => {
-    if (event.keyCode === 27) {
+    if (event.keyCode === 27 && !isOpenGameOver) {
       toggleMenu()
     }
   }
@@ -18,7 +19,7 @@ const MenuGame = ({
     return () => {
       window.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [isOpenGameOver])
 
   if (!isOpenMenu) return null
 
