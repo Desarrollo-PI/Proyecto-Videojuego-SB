@@ -16,6 +16,7 @@ export function PlayerProvider({ children }) {
     hearts: 1,
     life: 100,
     mana: 100,
+    spellExpelliarmus: false,
   })
 
   return (

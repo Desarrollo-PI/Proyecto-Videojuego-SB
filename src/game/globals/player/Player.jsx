@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 import { useAvatar } from '../../../providers/avatar/AvatarProvider'
 import { useAnimations, useGLTF } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { usePlayer } from '../../../providers/player/PlayerProvider'
 
 export default function Player() {
   const playerRef = useRef()
@@ -10,13 +12,25 @@ export default function Player() {
   )
   const { actions } = useAnimations(animations, playerRef)
 
+  const { player, setPlayer } = usePlayer()
+
   useEffect(() => {
     actions['Attacking'].timeScale = 2
+    actions['Attacking'].repetitions = 1
+    actions['Attacking'].clampWhenFinished = true
     actions[avatar.animation]?.reset().fadeIn(0.5).play()
     return () => {
       if (actions[avatar.animation]) actions[avatar.animation].fadeOut(0.5)
     }
   }, [actions, avatar.animation])
+
+  useFrame(() => {
+    if (avatar.animation == "Attacking" && !actions['Attacking'].isRunning()) {
+      actions['Attacking'].reset()
+      setPlayer({... player, spellExpelliarmus: true})
+    }
+
+  })
 
   return (
     <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
