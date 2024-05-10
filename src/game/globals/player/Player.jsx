@@ -4,7 +4,7 @@ import { useAnimations, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
 
-export default function Player() {
+export default function Player({ isPlayerDeath = false }) {
   const playerRef = useRef()
   const { avatar, setAvatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(
@@ -15,14 +15,18 @@ export default function Player() {
   const { player, setPlayer } = usePlayer()
 
   useEffect(() => {
-    actions['Attacking'].timeScale = 2
-    actions['Attacking'].repetitions = 1
-    actions['Attacking'].clampWhenFinished = true
-    actions[avatar.animation]?.reset().fadeIn(0.5).play()
-    return () => {
-      if (actions[avatar.animation]) actions[avatar.animation].fadeOut(0.5)
+    if (isPlayerDeath) {
+      return
+    } else {
+      actions['Attacking'].timeScale = 2
+      actions['Attacking'].repetitions = 1
+      actions['Attacking'].clampWhenFinished = true
+      actions[avatar.animation]?.reset().fadeIn(0.5).play()
+      return () => {
+        if (actions[avatar.animation]) actions[avatar.animation].fadeOut(0.5)
+      }
     }
-  }, [actions, avatar.animation])
+  }, [actions, avatar.animation, isPlayerDeath])
 
   useFrame(() => {
     if (avatar.animation == "Attacking" && !actions['Attacking'].isRunning()) {
