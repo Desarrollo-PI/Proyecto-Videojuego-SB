@@ -1,23 +1,21 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { useFrame, useGraph } from '@react-three/fiber'
 import { CuboidCollider, CylinderCollider, RigidBody } from '@react-three/rapier'
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js'
-import { usePlayer } from '../../../../providers/player/PlayerProvider'
 
 export function Goblin(props) {
   const goblinRef = useRef()
   const goblinBody = useRef()
-  let actualAction
-  let playerBody = null
-  let repetirAtaque = false
+  const [actualAction, setActualAction] = useState(null);
+  const [playerBody, setPlayerBody] = useState(null);
+  const [repetirAtaque, setRepetirAtaque] = useState(false);
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Goblin.glb'
   )
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
   const { actions } = useAnimations(animations, goblinRef)
-	const { player, setPlayer } = usePlayer()
 
   function eulerToQuaternion(alpha, beta, gamma) {
     var qx =
@@ -48,7 +46,7 @@ export function Goblin(props) {
     return normalizedVector
   }
 
-  function changeAnimation() {
+  function changeAnimation(actualAction) {
     Object.values(actions).forEach((action) => {
       action.stop()
     })
@@ -68,31 +66,31 @@ export function Goblin(props) {
 
   const verAlgo = (e) => {
     if (e.rigidBodyObject.name == "playerBody") {
-      playerBody = e.rigidBodyObject
-      actualAction = "Perseguir"
-      changeAnimation()
+      setPlayerBody(e.rigidBodyObject)
+      setActualAction("Perseguir")
+      changeAnimation("Perseguir")
     }
   }
 
   const dejarDeVer = (e) => {
     if (e.rigidBodyObject.name == "playerBody") {
-      actualAction = props.action
-      changeAnimation()
-      playerBody = null
+      setActualAction(props.action)
+      changeAnimation(props.action)
+      setPlayerBody(null)
     }
   }
 
   const tocarAlgo = (e) => {
     if (e.rigidBodyObject.name == "playerBody") {
-      repetirAtaque = true
-      actualAction = "Attack"
-      changeAnimation()
+      setRepetirAtaque(true)
+      setActualAction("Attack")
+      changeAnimation("Attack")
     }
   }
 
   const dejarDeTocar = (e) => {
     if (e.rigidBodyObject.name == "playerBody") {
-      repetirAtaque = false
+      setRepetirAtaque(false)
     }
   }
 
@@ -101,13 +99,12 @@ export function Goblin(props) {
   }, [goblinBody.current])
 
   useEffect(() => {
-    actualAction = props.action
-    changeAnimation()
+    setActualAction(props.action)
+    changeAnimation(props.action)
   }, [actions, props.action])
 
   useFrame(({ clock }, delta) => {
     if (goblinBody.current) {
-      console.log(actualAction, playerBody, repetirAtaque)
       const position = goblinBody.current.translation()
       var velocity = goblinBody.current.linvel()
       if (isNaN(velocity.x)) {
@@ -125,10 +122,10 @@ export function Goblin(props) {
           if (repetirAtaque) {
             actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].reset()
           } else {
-            actualAction = "Perseguir"
-            changeAnimation()
+            setActualAction("Perseguir")
+            changeAnimation("Perseguir")
           }
-          setPlayer({...player, life: player.life - 25})
+          props.quitarVida(25)
         }
 
         var posicionJugador = playerBody.position
@@ -174,8 +171,8 @@ export function Goblin(props) {
           true
         )
         if (actualAction != nextAction) {
-          actualAction = nextAction
-          changeAnimation()
+          setActualAction(nextAction)
+          changeAnimation(nextAction)
         }
       } else if (props.action == "Walk") {
         if (position.z <= props.position[2] - 2) {
