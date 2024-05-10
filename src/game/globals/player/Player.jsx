@@ -3,7 +3,6 @@ import { useAvatar } from '../../../providers/avatar/AvatarProvider'
 import { useAnimations, useGLTF } from '@react-three/drei'
 
 export default function Player() {
-  const playerBodyRef = useRef()
   const playerRef = useRef()
   const { avatar, setAvatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(

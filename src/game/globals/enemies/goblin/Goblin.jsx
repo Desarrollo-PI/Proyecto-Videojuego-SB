@@ -1,18 +1,23 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { useFrame, useGraph } from '@react-three/fiber'
-import { CuboidCollider, RigidBody } from '@react-three/rapier'
+import { CuboidCollider, CylinderCollider, RigidBody } from '@react-three/rapier'
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js'
+import { usePlayer } from '../../../../providers/player/PlayerProvider'
 
 export function Goblin(props) {
   const goblinRef = useRef()
   const goblinBody = useRef()
+  let actualAction
+  let playerBody = null
+  let repetirAtaque = false
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Goblin.glb'
   )
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
   const { actions } = useAnimations(animations, goblinRef)
+	const { player, setPlayer } = usePlayer()
 
   function eulerToQuaternion(alpha, beta, gamma) {
     var qx =
@@ -43,55 +48,123 @@ export function Goblin(props) {
     return normalizedVector
   }
 
+  function changeAnimation() {
+    Object.values(actions).forEach((action) => {
+      action.stop()
+    })
+    if (actualAction == "Idle") {
+      actions['EnemyArmature|EnemyArmature|EnemyArmature|Idle'].play()
+    } else if (actualAction == "Walk") {
+      actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
+    } else if (actualAction == "Attack") {
+      actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].repetitions = 1
+      actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].play()
+    } else if (actualAction == "Perseguir") {
+      actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
+    } else if (actualAction == "Regresar") {
+      actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
+    }
+  }
+
+  const verAlgo = (e) => {
+    if (e.rigidBodyObject.name == "playerBody") {
+      playerBody = e.rigidBodyObject
+      actualAction = "Perseguir"
+      changeAnimation()
+    }
+  }
+
+  const dejarDeVer = (e) => {
+    if (e.rigidBodyObject.name == "playerBody") {
+      actualAction = props.action
+      changeAnimation()
+      playerBody = null
+    }
+  }
+
+  const tocarAlgo = (e) => {
+    if (e.rigidBodyObject.name == "playerBody") {
+      repetirAtaque = true
+      actualAction = "Attack"
+      changeAnimation()
+    }
+  }
+
+  const dejarDeTocar = (e) => {
+    if (e.rigidBodyObject.name == "playerBody") {
+      repetirAtaque = false
+    }
+  }
+
   useEffect(() => {
     goblinBody.current.lockRotations(true, true)
   }, [goblinBody.current])
 
   useEffect(() => {
-    if (props.action == 0) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Idle'].play()
-    } else if (props.action == 1) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
-    } else if (props.action == 2) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].play()
-    }
+    actualAction = props.action
+    changeAnimation()
   }, [actions, props.action])
 
   useFrame(({ clock }, delta) => {
     if (goblinBody.current) {
+      console.log(actualAction, playerBody, repetirAtaque)
       const position = goblinBody.current.translation()
       var velocity = goblinBody.current.linvel()
-      if (velocity.x == NaN) {
+      if (isNaN(velocity.x)) {
         velocity.x = 0
       }
-      if (velocity.y == NaN) {
+      if (isNaN(velocity.y)) {
         velocity.y = 0
       }
-      if (velocity.z == NaN) {
+      if (isNaN(velocity.z)) {
         velocity.z = 0
       }
+      
+      if (actualAction == "Attack") {
+        if (!actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].isRunning()) {
+          if (repetirAtaque) {
+            actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].reset()
+          } else {
+            actualAction = "Perseguir"
+            changeAnimation()
+          }
+          setPlayer({...player, life: player.life - 25})
+        }
 
-      if (props.action == 0) {
+        var posicionJugador = playerBody.position
+        var direccionJugador = { x: 0, y: 0, z: 0 }
+        direccionJugador.x = posicionJugador.x - position.x
+        direccionJugador.z = posicionJugador.z - position.z
+        velocity = normalize(direccionJugador)
+
+      } else if (actualAction == "Perseguir") {
+        var posicionJugador = playerBody.position
+        var direccionJugador = { x: 0, y: 0, z: 0 }
+        direccionJugador.x = posicionJugador.x - position.x
+        direccionJugador.z = posicionJugador.z - position.z
+        velocity = normalize(direccionJugador)
+        goblinBody.current.setLinvel(
+          { x: velocity.x, y: velocity.y, z: velocity.z },
+          true
+        )
+
+      } else if (props.action == "Idle") {
+        var nextAction = "Idle"
         if (position.x > props.position[0] + 0.05) {
           velocity.x = -1
+          nextAction = "Regresar"
         } else if (position.x < props.position[0] - 0.05) {
           velocity.x = 1
+          nextAction = "Regresar"
         } else {
           velocity.x = 0
         }
         if (position.z > props.position[2] + 0.05) {
           velocity.z = -1
+          nextAction = "Regresar"
         } else if (position.z < props.position[2] - 0.05) {
           velocity.z = 1
+          nextAction = "Regresar"
         } else {
           velocity.z = 0
         }
@@ -100,9 +173,11 @@ export function Goblin(props) {
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
-      }
-
-      if (props.action == 1) {
+        if (actualAction != nextAction) {
+          actualAction = nextAction
+          changeAnimation()
+        }
+      } else if (props.action == "Walk") {
         if (position.z <= props.position[2] - 2) {
           velocity.z = 1
         } else if (position.z >= props.position[2] + 2) {
@@ -144,6 +219,7 @@ export function Goblin(props) {
       position={props.position}
       type="dynamic"
       colliders={false}
+      name="goblinBody"
     >
       <group
         ref={goblinRef}
@@ -169,7 +245,8 @@ export function Goblin(props) {
               rotation={[-Math.PI / 2, 0, 0]}
               scale={147.976}
             />
-            <CuboidCollider args={[0.8, 1.5, 0.6]} />
+            <CuboidCollider args={[0.8, 1.5, 0.6]} onCollisionEnter={(e) => tocarAlgo(e)} onCollisionExit={(e) => dejarDeTocar(e)} />
+            <CylinderCollider args={[5, 20]} sensor onIntersectionEnter={(e) => verAlgo(e)} onIntersectionExit={(e) => dejarDeVer(e)} />
           </group>
         </group>
       </group>

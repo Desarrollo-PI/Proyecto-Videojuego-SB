@@ -3,11 +3,7 @@ import Lights from './Lights'
 import Collectibles from './collectibles/Collectibles'
 import Obstacles from './obstacles/Obstacles'
 import Checkpoints from './checkpoints/Checkpoints'
-import { Goblin } from '../../globals/enemies/goblin/Goblin'
-import { Skeleton } from '../../globals/enemies/skeleton/Skeleton'
-import { SkeletonMage } from '../../globals/enemies/skeletonMage/SkeletonMage'
-import { Troll } from '../../globals/enemies/troll/Troll'
-import { Witch } from '../../globals/enemies/witch/Witch'
+import Enemies from './enemies/Enemies'
 
 const LevelOnePage = () => {
   return (
@@ -17,12 +13,7 @@ const LevelOnePage = () => {
       <Collectibles />
       <Obstacles />
       <Checkpoints />
-      <Goblin position={[-2.5, 2.5, -34]} action={1} />
-      <Goblin position={[2.5, 2.5, -12]} action={1} />
-      <Skeleton position={[0, 0, -75]} action={1} />
-      <SkeletonMage position={[2.5, 5, -53]} action={1} />
-      <Troll position={[0, 0, -100]} action={1} />
-      <Witch position={[-2.5, 0, -34]} action={1} />
+      <Enemies />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Suspense } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
@@ -33,6 +33,7 @@ import {
 } from 'react-icons/gi'
 import { FaWandSparkles } from 'react-icons/fa6'
 import { useDialog } from '../../../providers/dialog/DialogProvider'
+import { usePlayer } from '../../../providers/player/PlayerProvider'
 
 const LayoutLevel = () => {
   const lightsPropsLevelOne = {
@@ -98,6 +99,12 @@ const LayoutLevel = () => {
     collectiblesLevelThree,
     collectiblesLevelFour,
   } = useAuth()
+
+  const { player, setPlayer } = usePlayer()
+
+  useEffect(() => {
+    setPlayer({...player, hearts: maxHearts})
+  }, [maxHearts])
 
   const movements = useMovements()
   const navigate = useNavigate()
@@ -283,7 +290,7 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics>
+            <Physics debug>
               <Outlet />
               <Ecctrl
                 camInitDis={-3}
@@ -295,6 +302,7 @@ const LayoutLevel = () => {
                 position={choosePosition()}
                 characterInitDir={Math.PI}
                 camInitDir={{ x: 0, y: Math.PI }}
+                name="playerBody"
               >
                 <Player />
               </Ecctrl>
