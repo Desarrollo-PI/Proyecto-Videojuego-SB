@@ -177,7 +177,7 @@ const Puddle = () => {
         geometry={nodes.Charco002_9.geometry}
         material={materials['Material.014']}
       />
-      <CuboidCollider args={[2.2, 5, 1.5]} position={[0.3, 1, -83]}/>
+      <CuboidCollider args={[2.2, 9, 1.5]} position={[0.3, 1, -83]}/>
       {/* colliders tecer charco */}
     </RigidBody>
     )
