@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import MenuGame from './MenuGame'
 import ControlsGame from './ControlsGame'
 import DialogBox from './DialogBox'
@@ -6,6 +6,7 @@ import DialogBox from './DialogBox'
 import { FaHeart } from 'react-icons/fa'
 import { FaHeartBroken } from 'react-icons/fa'
 import { GiOpenTreasureChest } from 'react-icons/gi'
+import GameOver from './GameOver'
 
 const HeartBar = ({ currentHearts, maxHearts }) => {
   return (
@@ -134,9 +135,9 @@ const InterfaceGame = ({
   return (
     <div className="game-indicators-container">
       <div className="game-indicators-info">
-        <HeartBar currentHearts={1} maxHearts={maxHearts} />
+        <HeartBar currentHearts={currentHearts} maxHearts={maxHearts} />
         <div className="game-indicators-health">
-          <HealthBar health={80} maxHealth={100} />
+          <HealthBar health={currentHealth} maxHealth={100} />
           {/* <ManaBar mana={50} maxMana={100} /> */}
         </div>
       </div>
@@ -154,6 +155,7 @@ const InterfaceGame = ({
       <MenuGame
         handleExit={handleExit}
         isOpenMenu={isOpenMenu}
+        isOpenGameOver={currentHearts === 0}
         toggleSettings={toggleSettings}
         toggleControls={toggleControls}
         toggleMenu={toggleMenu}
@@ -170,6 +172,7 @@ const InterfaceGame = ({
         closeDialog={closeDialog}
         dialogType={dialogType}
       />
+      <GameOver isOpenGameOver={currentHearts === 0} handleExit={handleExit} />
     </div>
   )
 }

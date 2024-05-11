@@ -2,8 +2,7 @@ import { useEffect, useRef } from 'react'
 import { useAvatar } from '../../../providers/avatar/AvatarProvider'
 import { useAnimations, useGLTF } from '@react-three/drei'
 
-export default function Player() {
-  const playerBodyRef = useRef()
+export default function Player({ isPlayerDeath = false }) {
   const playerRef = useRef()
   const { avatar, setAvatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(
@@ -12,12 +11,16 @@ export default function Player() {
   const { actions } = useAnimations(animations, playerRef)
 
   useEffect(() => {
-    actions['Attacking'].timeScale = 2
-    actions[avatar.animation]?.reset().fadeIn(0.5).play()
-    return () => {
-      if (actions[avatar.animation]) actions[avatar.animation].fadeOut(0.5)
+    if (isPlayerDeath) {
+      return
+    } else {
+      actions['Attacking'].timeScale = 2
+      actions[avatar.animation]?.reset().fadeIn(0.5).play()
+      return () => {
+        if (actions[avatar.animation]) actions[avatar.animation].fadeOut(0.5)
+      }
     }
-  }, [actions, avatar.animation])
+  }, [actions, avatar.animation, isPlayerDeath])
 
   return (
     <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>

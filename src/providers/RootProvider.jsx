@@ -4,6 +4,7 @@ import { AvatarProvider } from './avatar/AvatarProvider'
 import { MusicProvider } from './music/MusicProvider'
 import { MenuProvider } from './menu/MenuProvider'
 import { DialogProvider } from './dialog/DialogProvider'
+import { PlayerProvider } from './player/PlayerProvider'
 
 const RootProvider = ({ children }) => {
   return (
@@ -11,7 +12,9 @@ const RootProvider = ({ children }) => {
       <AvatarProvider>
         <MusicProvider>
           <MenuProvider>
-            <DialogProvider>{children}</DialogProvider>
+            <PlayerProvider>
+              <DialogProvider>{children}</DialogProvider>
+            </PlayerProvider>
           </MenuProvider>
         </MusicProvider>
       </AvatarProvider>

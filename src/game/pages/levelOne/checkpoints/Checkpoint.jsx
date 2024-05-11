@@ -40,8 +40,8 @@ const Checkpoint = (props) => {
     if (event.keyCode === 69 && isInRange) {
       const position = {
         x: refCheckpoint.current.translation().x,
-        y: 2.5,
-        z: refCheckpoint.current.translation().z - 1,
+        y: 5,
+        z: refCheckpoint.current.translation().z - 2,
       }
 
       handleOnTakeCheckpoint(numberCheckpoint, position)
