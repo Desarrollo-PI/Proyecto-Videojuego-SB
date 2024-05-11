@@ -60,7 +60,6 @@ export default function Player(props) {
       const posicion = playerBodyRef.current.translation()
       setPlayer({ ...player, spellExpelliarmus: true, expelliarmusInitPosition: [posicion.x + direccion.x * 0.5, posicion.y - 0.15, posicion.z + direccion.z * 0.5], expelliarmusInitRotation: direccion })
     }
-
   })
 
   return (

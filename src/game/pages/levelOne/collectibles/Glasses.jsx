@@ -15,8 +15,10 @@ export function Glasses(props) {
 
   const [GlassesCollected, setGlassesCollected] = useState(isCollected)
 
-  const handleGlassesCollision = () => {
-    onCollect(name, 'collectibles_level_one', 'glasses')
+  const handleGlassesIntersection = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      onCollect(name, 'collectibles_level_one', 'glasses')
+    }
   }
 
   useEffect(() => {
@@ -38,8 +40,8 @@ export function Glasses(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onIntersectionEnter={() => {
-          handleGlassesCollision()
+        onIntersectionEnter={(e) => {
+          handleGlassesIntersection(e)
         }}
         sensor
       >

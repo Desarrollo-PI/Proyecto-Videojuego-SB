@@ -17,8 +17,10 @@ export function ThunderLight(props) {
   const [thunderLightCollected, setThunderLightCollected] =
     useState(isCollected)
 
-  const handleThunderLightCollision = () => {
-    onCollect(name, 'collectibles_level_one', 'thunderLight')
+  const handleThunderLightIntersection = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      onCollect(name, 'collectibles_level_one', 'thunderLight')
+    }
   }
 
   useEffect(() => {
@@ -40,8 +42,8 @@ export function ThunderLight(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onIntersectionEnter={() => {
-          handleThunderLightCollision()
+        onIntersectionEnter={(e) => {
+          handleThunderLightIntersection(e)
         }}
         sensor
       >

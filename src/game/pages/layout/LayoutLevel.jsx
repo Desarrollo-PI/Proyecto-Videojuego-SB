@@ -56,24 +56,24 @@ const LayoutLevel = () => {
       name: 'Expelliarmus',
       key: '1',
     },
-    {
-      id: 1,
-      icon: <GiBoltSpellCast color="yellow" size={25} />,
-      name: 'Lumos',
-      key: '2',
-    },
-    {
-      id: 2,
-      icon: <GiFireSpellCast color="red" size={25} />,
-      name: 'Incendio',
-      key: '3',
-    },
-    {
-      id: 3,
-      icon: <GiIceSpellCast color="cyan" size={25} />,
-      name: 'Glacius',
-      key: '4',
-    },
+    // {
+    //   id: 1,
+    //   icon: <GiBoltSpellCast color="yellow" size={25} />,
+    //   name: 'Lumos',
+    //   key: '2',
+    // },
+    // {
+    //   id: 2,
+    //   icon: <GiFireSpellCast color="red" size={25} />,
+    //   name: 'Incendio',
+    //   key: '3',
+    // },
+    // {
+    //   id: 3,
+    //   icon: <GiIceSpellCast color="cyan" size={25} />,
+    //   name: 'Glacius',
+    //   key: '4',
+    // },
   ]
 
   const {
@@ -103,7 +103,7 @@ const LayoutLevel = () => {
 
   const { player, setPlayer } = usePlayer()
 
-  const { handleSound, pauseSound } = useMusic()
+  const { handleSound, pauseSound, isPlaying } = useMusic()
 
   const movements = useMovements()
   const navigate = useNavigate()
@@ -118,7 +118,7 @@ const LayoutLevel = () => {
       handleSound(['heartbeat'])
     }
 
-    if (player.hearts <= 0) {
+    if (player.hearts === 0) {
       closeDialog()
       closeMenu()
       closeControls()
@@ -213,7 +213,7 @@ const LayoutLevel = () => {
       case '/level/four':
         return formatPosition(posLevelFour)
       default:
-        return [0, 5, 0]
+        return [0, 10, 0]
     }
   }
 
@@ -345,12 +345,17 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics debug>
+            <Physics>
               <Outlet />
               <Player {...choosePropsECCtrl()} />
               {player.spellExpelliarmus && <Expelliarmus />}
             </Physics>
-            {player.hearts > 0 && !state.isOpenMenu && <Controls />}
+            {player.hearts > 0 && !state.isOpenMenu && (
+              <Controls
+                isPlaying={isPlaying}
+                isPlayerDeath={player.currentHearts === 0}
+              />
+            )}
           </Canvas>
         </KeyboardControls>
       </>

@@ -29,10 +29,13 @@ const initialState = {
   hurt: new Howl({
     src: ['/assets/sounds/hurt.mp3'],
   }),
+  mace: new Howl({
+    src: ['/assets/sounds/punch.mp3'],
+  }),
 }
 
 const music = ['mainTheme', 'thunder', 'level', 'heartbeat']
-const soundsEffects = ['collect', 'gameover', 'hurt']
+const soundsEffects = ['collect', 'gameover', 'hurt', 'mace']
 
 export const MusicProvider = ({ children }) => {
   const [sounds, setSounds] = useState(initialState)

@@ -52,22 +52,22 @@ const defaultUser = {
   lives: 3,
   pos_level_one: {
     x: 0,
-    y: 0,
+    y: 10,
     z: 0,
   },
   pos_level_two: {
     x: 0,
-    y: 0,
+    y: 10,
     z: 0,
   },
   pos_level_three: {
     x: 0,
-    y: 0,
+    y: 10,
     z: 0,
   },
   pos_level_four: {
     x: 0,
-    y: 0,
+    y: 10,
     z: 0,
   },
 }

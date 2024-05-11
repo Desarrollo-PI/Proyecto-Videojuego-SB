@@ -2,7 +2,6 @@ import { RigidBody } from "@react-three/rapier"
 import { useRef } from "react"
 import { usePlayer } from "../../../providers/player/PlayerProvider"
 import { useFrame } from "@react-three/fiber"
-import { SpotLight } from "@react-three/drei"
 
 export default function Expelliarmus() {
 	const expelliarmusBodyRef = useRef()

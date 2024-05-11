@@ -7,6 +7,7 @@ import { FaHeart } from 'react-icons/fa'
 import { FaHeartBroken } from 'react-icons/fa'
 import { GiOpenTreasureChest } from 'react-icons/gi'
 import GameOver from './GameOver'
+import Victory from './Victory'
 
 const HeartBar = ({ currentHearts, maxHearts }) => {
   return (
@@ -173,6 +174,7 @@ const InterfaceGame = ({
         dialogType={dialogType}
       />
       <GameOver isOpenGameOver={currentHearts === 0} handleExit={handleExit} />
+      <Victory isOpenVictory={false} handleExit={handleExit} />
     </div>
   )
 }

@@ -20,27 +20,31 @@ const Checkpoint = (props) => {
     }
   }, [isInRange])
 
-  const onEnterCollisionCheckpoint = () => {
-    if (itsTaken) {
-      setIsInRange(false)
-      dialogs.handleOpenDialogTaken()
-      return
-    }
+  const onEnterCollisionCheckpoint = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      if (itsTaken) {
+        setIsInRange(false)
+        dialogs.handleOpenDialogTaken()
+        return
+      }
 
-    dialogs.handleOpenDialogInRange()
-    setIsInRange(true)
+      dialogs.handleOpenDialogInRange()
+      setIsInRange(true)
+    }
   }
 
-  const onExitCollisionCheckpoint = () => {
-    dialogs.closeDialog()
-    setIsInRange(false)
+  const onExitCollisionCheckpoint = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      dialogs.handleCloseDialogInRange()
+      setIsInRange(false)
+    }
   }
 
   const onTakeCheckpoint = (event) => {
     if (event.keyCode === 69 && isInRange) {
       const position = {
         x: refCheckpoint.current.translation().x,
-        y: 5,
+        y: 10,
         z: refCheckpoint.current.translation().z - 2,
       }
 
