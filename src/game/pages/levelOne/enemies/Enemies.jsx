@@ -27,7 +27,7 @@ const Enemies = () => {
   return (
     <>
       <Goblin
-        position={[21.5, 5, -50]}
+        position={[21.5, 2.5, -50]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}
@@ -35,7 +35,7 @@ const Enemies = () => {
         isPlaying={isPlaying}
       />
       <Goblin
-        position={[21.5, 5, -30]}
+        position={[21.5, 2.5, -30]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}
@@ -43,7 +43,7 @@ const Enemies = () => {
         isPlaying={isPlaying}
       />
       <Goblin
-        position={[-21.5, 5, -50]}
+        position={[-21.5, 2.5, -50]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}
@@ -51,7 +51,7 @@ const Enemies = () => {
         isPlaying={isPlaying}
       />
       <Goblin
-        position={[-21.5, 5, -30]}
+        position={[-21.5, 2.5, -30]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}
@@ -59,7 +59,7 @@ const Enemies = () => {
         isPlaying={isPlaying}
       />
       <Goblin
-        position={[2.5, 5, -12]}
+        position={[2.5, 2.5, -12]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}
@@ -67,7 +67,7 @@ const Enemies = () => {
         isPlaying={isPlaying}
       />
       <Goblin
-        position={[0, 5, -75]}
+        position={[0, 2.5, -75]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}
@@ -75,7 +75,7 @@ const Enemies = () => {
         isPlaying={isPlaying}
       />
       <Goblin
-        position={[2.5, 5, -53]}
+        position={[2.5, 2.5, -53]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}
@@ -83,7 +83,7 @@ const Enemies = () => {
         isPlaying={isPlaying}
       />
       <Goblin
-        position={[-2.5, 5, -34]}
+        position={[-2.5, 2.5, -34]}
         action={'Walk'}
         takeLife={handleTakeLife}
         isPlayerDeath={currentHearts === 0}

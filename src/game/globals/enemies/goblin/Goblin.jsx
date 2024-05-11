@@ -218,6 +218,7 @@ export function Goblin(props) {
       type="dynamic"
       colliders={false}
       name="goblinBody"
+      density={0.0001}
     >
       <group
         ref={goblinRef}

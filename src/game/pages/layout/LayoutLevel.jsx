@@ -272,7 +272,7 @@ const LayoutLevel = () => {
         camInitDir: { x: 0, y: Math.PI },
         name: 'playerBody',
         type: 'dynamic',
-        isPlayerDeath: player.currentHearts === 0,
+        isPlayerDeath: false,
       }
     } else {
       return {
@@ -287,7 +287,7 @@ const LayoutLevel = () => {
         camInitDir: { x: 0, y: Math.PI },
         name: 'null',
         type: 'fixed',
-        isPlayerDeath: player.currentHearts === 0,
+        isPlayerDeath: true,
       }
     }
   }

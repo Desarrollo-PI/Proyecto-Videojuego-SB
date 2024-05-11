@@ -43,7 +43,12 @@ export default function Player(props) {
 
   useEffect(() => {
     if (props.isPlayerDeath) {
-      return
+      actions['Death'].clampWhenFinished = true
+      actions['Death'].repetitions = 0
+      actions['Death']?.reset().fadeIn(0.5).play()
+      return () => {
+        if (actions['Death']) actions['Death'].fadeOut(0.5)
+      }
     } else {
       actions['Attacking'].timeScale = 2
       actions['Attacking'].clampWhenFinished = true
