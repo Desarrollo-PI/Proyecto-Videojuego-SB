@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import {
+  useGLTF,
+  useAnimations,
+  PositionalAudio,
+  Text,
+} from '@react-three/drei'
 import { useFrame, useGraph } from '@react-three/fiber'
 import {
   CuboidCollider,
@@ -8,6 +13,21 @@ import {
 } from '@react-three/rapier'
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js'
 
+import {
+  normalize,
+  calculateAndSetDistance,
+  getPlayerDirection,
+  getVelocity,
+  setEnemyRotation,
+  watchPlayer,
+  stopWatchPlayer,
+  touchPlayer,
+  receiveDamage,
+  stopTouchPlayer,
+  touchSpell,
+} from '../../../../utils/enemies-utils'
+import { useMusic } from '../../../../providers/music/MusicProvider'
+
 export function Goblin(props) {
   const goblinRef = useRef()
   const goblinBody = useRef()
@@ -15,104 +35,85 @@ export function Goblin(props) {
   const [actualAction, setActualAction] = useState(null)
   const [playerBody, setPlayerBody] = useState(null)
   const [repeatAttack, setRepeatAttack] = useState(false)
+  const [isSoundPLaying, setIsSoundPlaying] = useState(false)
+  const [distance, setDistance] = useState(0)
+  const [life, setLife] = useState(100)
 
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Goblin.glb'
   )
 
+  const { handleSound } = useMusic()
+
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
   const { actions } = useAnimations(animations, goblinRef)
-
-  function eulerToQuaternion(alpha, beta, gamma) {
-    var qx =
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) -
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    var qy =
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2)
-    var qz =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2) -
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2)
-    var qw =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    return { x: qx, y: qy, z: qz, w: qw }
-  }
-
-  function normalize(vector) {
-    var magnitud = Math.sqrt(vector.x ** 2 + vector.z ** 2)
-    if (magnitud == 0) {
-      return vector
-    }
-    var normalizedVector = {
-      x: vector.x / magnitud,
-      y: vector.y,
-      z: vector.z / magnitud,
-    }
-    return normalizedVector
-  }
 
   function changeAnimation(actualAction) {
     Object.values(actions).forEach((action) => {
       action.stop()
     })
-    if (actualAction == 'Idle') {
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Idle'].play()
-    } else if (actualAction == 'Walk') {
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
-    } else if (actualAction == 'Attack') {
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].repetitions =
-        1
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack'].play()
-    } else if (actualAction == 'Chase') {
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
-    } else if (actualAction == 'GoBack') {
-      actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
+
+    switch (actualAction) {
+      case 'Idle':
+        actions['EnemyArmature|EnemyArmature|EnemyArmature|Idle'].play()
+        break
+      case 'Walk':
+      case 'Chase':
+      case 'GoBack':
+        actions['EnemyArmature|EnemyArmature|EnemyArmature|Walk'].play()
+        break
+      case 'Attack':
+        const attackAction =
+          actions['EnemyArmature|EnemyArmature|EnemyArmature|Attack']
+        attackAction.repetitions = 1
+        attackAction.play()
+        break
+      default:
+        break
     }
   }
 
-  const watchPlayer = (e) => {
-    if (e.rigidBodyObject.name == 'playerBody' && !props.isPlayerDeath) {
-      setPlayerBody(e.rigidBodyObject)
-      setActualAction('Chase')
-      changeAnimation('Chase')
-    }
+  const handleWatchPlayer = (e) => {
+    watchPlayer(
+      e,
+      setPlayerBody,
+      setActualAction,
+      changeAnimation,
+      setIsSoundPlaying,
+      props
+    )
   }
 
-  const stopWatchPlayer = (e) => {
-    if (e.rigidBodyObject.name == 'playerBody') {
-      setActualAction(props.action)
-      changeAnimation(props.action)
-      setPlayerBody(null)
-    }
+  const handleStopWatchPlayer = (e) => {
+    stopWatchPlayer(
+      e,
+      setActualAction,
+      changeAnimation,
+      setPlayerBody,
+      setIsSoundPlaying,
+      props
+    )
   }
 
-  const touchPlayer = (e) => {
-    if (e.rigidBodyObject.name == 'playerBody' && !props.isPlayerDeath) {
-      setRepeatAttack(true)
-      setActualAction('Attack')
-      changeAnimation('Attack')
-    }
+  const handleTouch = (e) => {
+    touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props)
+    touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound)
   }
 
-  const stopTouchPlayer = (e) => {
-    if (e.rigidBodyObject.name == 'playerBody') {
-      setRepeatAttack(false)
-    }
+  const handleStopTouchPlayer = (e) => {
+    stopTouchPlayer(e, setRepeatAttack)
   }
 
   useEffect(() => {
     if (props.isPlayerDeath) {
       setActualAction(props.action)
       changeAnimation(props.action)
+      setIsSoundPlaying(false)
+      setDistance(0)
       setPlayerBody(null)
     }
   }, [props.isPlayerDeath])
-
-  useEffect(() => {
-    goblinBody.current.lockRotations(true, true)
-  }, [goblinBody.current])
 
   useEffect(() => {
     setActualAction(props.action)
@@ -120,18 +121,11 @@ export function Goblin(props) {
   }, [actions, props.action])
 
   useFrame(({ clock }, delta) => {
+    calculateAndSetDistance(playerBody, goblinBody, setDistance)
     if (goblinBody.current) {
-      const position = goblinBody.current.translation()
-      var velocity = goblinBody.current.linvel()
-      if (isNaN(velocity.x)) {
-        velocity.x = 0
-      }
-      if (isNaN(velocity.y)) {
-        velocity.y = 0
-      }
-      if (isNaN(velocity.z)) {
-        velocity.z = 0
-      }
+      let velocity = getVelocity(goblinBody)
+      const goblinPosition = goblinBody.current.translation()
+      const playerPosition = playerBody?.position
 
       if (actualAction == 'Attack') {
         if (
@@ -145,45 +139,43 @@ export function Goblin(props) {
             setActualAction('Chase')
             changeAnimation('Chase')
           }
-          props.takeLife(25)
+          props.takeLife()
         }
 
-        var posicionJugador = playerBody.position
-        var direccionJugador = { x: 0, y: 0, z: 0 }
-        direccionJugador.x = posicionJugador.x - position.x
-        direccionJugador.z = posicionJugador.z - position.z
-        velocity = normalize(direccionJugador)
+        velocity = normalize(getPlayerDirection(goblinPosition, playerPosition))
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
       } else if (actualAction == 'Chase') {
-        var posicionJugador = playerBody.position
-        var direccionJugador = { x: 0, y: 0, z: 0 }
-        direccionJugador.x = posicionJugador.x - position.x
-        direccionJugador.z = posicionJugador.z - position.z
-        velocity = normalize(direccionJugador)
+        velocity = normalize(getPlayerDirection(goblinPosition, playerPosition))
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
         goblinBody.current.setLinvel(
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
       } else if (props.action == 'Idle') {
-        var nextAction = 'Idle'
-        if (position.x > props.position[0] + 0.05) {
+        let nextAction = 'Idle'
+        if (goblinPosition.x > props.position[0] + 0.05) {
           velocity.x = -1
           nextAction = 'GoBack'
-        } else if (position.x < props.position[0] - 0.05) {
+        } else if (goblinPosition.x < props.position[0] - 0.05) {
           velocity.x = 1
           nextAction = 'GoBack'
         } else {
           velocity.x = 0
         }
-        if (position.z > props.position[2] + 0.05) {
+        if (goblinPosition.z > props.position[2] + 0.05) {
           velocity.z = -1
           nextAction = 'GoBack'
-        } else if (position.z < props.position[2] - 0.05) {
+        } else if (goblinPosition.z < props.position[2] - 0.05) {
           velocity.z = 1
           nextAction = 'GoBack'
         } else {
           velocity.z = 0
         }
         velocity = normalize(velocity)
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
         goblinBody.current.setLinvel(
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
@@ -193,9 +185,9 @@ export function Goblin(props) {
           changeAnimation(nextAction)
         }
       } else if (props.action == 'Walk') {
-        if (position.z <= props.position[2] - 2) {
+        if (goblinPosition.z <= props.position[2] - 2) {
           velocity.z = 1
-        } else if (position.z >= props.position[2] + 2) {
+        } else if (goblinPosition.z >= props.position[2] + 2) {
           velocity.z = -1
         } else {
           if (velocity.z > 0) {
@@ -204,27 +196,23 @@ export function Goblin(props) {
             velocity.z = -1
           }
         }
-        if (position.x > props.position[0] + 0.05) {
+        if (goblinPosition.x > props.position[0] + 0.05) {
           velocity.x = -1
-        } else if (position.x < props.position[0] - 0.05) {
+        } else if (goblinPosition.x < props.position[0] - 0.05) {
           velocity.x = 1
         } else {
           velocity.x = 0
         }
         velocity = normalize(velocity)
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
         goblinBody.current.setLinvel(
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
       }
 
-      var theta = 0
-      if (velocity.z >= 0) {
-        theta = Math.atan(velocity.x / velocity.z)
-      } else {
-        theta = Math.atan(velocity.x / velocity.z) + Math.PI
-      }
-      goblinBody.current.setRotation(eulerToQuaternion(0, theta, 0))
+      setEnemyRotation(velocity, goblinBody)
     }
   })
 
@@ -235,6 +223,7 @@ export function Goblin(props) {
       type="dynamic"
       colliders={false}
       name="goblinBody"
+      density={0.0001}
     >
       <group
         ref={goblinRef}
@@ -243,6 +232,15 @@ export function Goblin(props) {
         scale={0.5}
         position={[0, -1.5, 0]}
       >
+        <Text
+          position={[0, 4, 0]}
+          color="#b0955e"
+          font="/assets/fonts/HARRYP__.TTF"
+          scale={[0.8, 0.8, 0.8]}
+        >
+          {'❤️'}
+          {life}
+        </Text>
         <group name="Root_Scene">
           <group name="RootNode">
             <group
@@ -262,15 +260,23 @@ export function Goblin(props) {
             />
             <CuboidCollider
               args={[0.8, 1.5, 0.6]}
-              onCollisionEnter={(e) => touchPlayer(e)}
-              onCollisionExit={(e) => stopTouchPlayer(e)}
+              onCollisionEnter={(e) => handleTouch(e)}
+              onCollisionExit={(e) => handleStopTouchPlayer(e)}
             />
             <CylinderCollider
               args={[5, 20]}
               sensor
-              onIntersectionEnter={(e) => watchPlayer(e)}
-              onIntersectionExit={(e) => stopWatchPlayer(e)}
+              onIntersectionEnter={(e) => handleWatchPlayer(e)}
+              onIntersectionExit={(e) => handleStopWatchPlayer(e)}
             />
+            {isSoundPLaying && props.isPlaying && (
+              <PositionalAudio
+                url="/assets/sounds/goblin.mp3"
+                autoplay
+                distance={distance * 100}
+                loop
+              />
+            )}
           </group>
         </group>
       </group>

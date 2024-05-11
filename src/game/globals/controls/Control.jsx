@@ -2,11 +2,17 @@ import { useKeyboardControls, OrbitControls } from '@react-three/drei'
 import { useAvatar } from '../../../providers/avatar/AvatarProvider'
 import { useEffect, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
+import { Howl } from 'howler'
 
-export default function Controls() {
+export default function Controls({ playerIsDeath, isPlaying }) {
   const { avatar, setAvatar } = useAvatar()
   const [sub, get] = useKeyboardControls()
-  const [runSound] = useState(new Audio('/assets/sounds/run.wav'))
+  const [runSound] = useState(
+    new Howl({ src: '/assets/sounds/run.mp3', volume: 0.2 })
+  )
+  const [walkSound] = useState(
+    new Howl({ src: '/assets/sounds/walk.mp3', volume: 0.2 })
+  )
   const [play, setPlay] = useState(false)
 
   useEffect(() => {
@@ -40,15 +46,33 @@ export default function Controls() {
     return () => unsubscribe()
   }, [avatar, setAvatar, sub, get])
 
-  // useEffect(() => {
-  //   if (play) {
-  //     runSound.currentTime = 0
-  //     runSound.volume = Math.random()
-  //     runSound.play()
-  //   } else {
-  //     runSound.pause()
-  //   }
-  // }, [play])
+  useEffect(() => {
+    if (play && isPlaying) {
+      if (avatar.animation === 'Running') {
+        runSound.play()
+      } else if (avatar.animation === 'Walking') {
+        walkSound.play()
+      }
+
+      if (avatar.animation != 'Running') {
+        runSound.pause()
+      }
+      if (avatar.animation != 'Walking') {
+        walkSound.pause()
+      }
+    } else {
+      runSound.pause()
+      walkSound.pause()
+    }
+  }, [play, avatar.animation])
+
+  useEffect(() => {
+    if (playerIsDeath) {
+      runSound.stop()
+      walkSound.stop()
+      setAvatar({ ...avatar, animation: 'Idle' })
+    }
+  }, [playerIsDeath])
 
   useFrame(() => {
     const { forward, backward, leftward, rightward } = get()
