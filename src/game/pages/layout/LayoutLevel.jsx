@@ -343,12 +343,12 @@ const LayoutLevel = () => {
             </Float>
             <StormEnvironment {...chooseProps()} />
             <OrbitControls />
-            <Physics>
+            <Physics debug>
               <Outlet />
               <Ecctrl {...choosePropsECCtrl()}>
                 <Player isPlayerDeath={player.currentHearts === 0} />
               </Ecctrl>
-              <Expelliarmus />
+              {player.spellExpelliarmus && <Expelliarmus />}
             </Physics>
             {player.hearts > 0 && !state.isOpenMenu && <Controls />}
           </Canvas>
