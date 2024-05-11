@@ -291,10 +291,6 @@ const BarrelsDynamic = () => {
       .map((_, i) => refs.current[i] || createRef())
   }
 
-  const onHitBox = (i) => {
-    refs.current[i].current.applyImpulse({ x: 0, y: -100, z: -10 }, true)
-  }
-
   return (
     <>
       {refs.current.map((ref, index) => (
@@ -307,7 +303,6 @@ const BarrelsDynamic = () => {
           collisionGroups={interactionGroups(2, [0])}
         >
           <mesh
-            onClick={() => onHitBox(index + 1)}
             castShadow
             receiveShadow
             geometry={nodes[`Barrel${index + 1}_1`].geometry}
@@ -345,10 +340,6 @@ const BoxesDynamic = () => {
       .map((_, i) => refs.current[i] || createRef())
   }
 
-  const onHitBox = (i) => {
-    refs.current[i].current.applyImpulse({ x: 0, y: -100, z: -10 }, true)
-  }
-
   return (
     <>
       {refs.current.map((ref, index) => (
@@ -361,7 +352,6 @@ const BoxesDynamic = () => {
           collisionGroups={interactionGroups(2, [0])}
         >
           <mesh
-            onClick={() => onHitBox(index + 1)}
             castShadow
             receiveShadow
             geometry={nodes[`Box${index + 1}_1`].geometry}

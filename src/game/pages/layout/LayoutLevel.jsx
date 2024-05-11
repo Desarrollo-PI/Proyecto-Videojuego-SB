@@ -342,12 +342,12 @@ const LayoutLevel = () => {
               </Center>
             </Float>
             <StormEnvironment {...chooseProps()} />
-            <OrbitControls enableZoom enableRotate />
-            <Physics debug>
+            <OrbitControls />
+            <Physics>
               <Outlet />
-              {/* <Ecctrl {...choosePropsECCtrl()}>
+              <Ecctrl {...choosePropsECCtrl()}>
                 <Player isPlayerDeath={player.currentHearts === 0} />
-              </Ecctrl> */}
+              </Ecctrl>
             </Physics>
             {player.hearts > 0 && !state.isOpenMenu && (
               <Controls

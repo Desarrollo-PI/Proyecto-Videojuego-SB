@@ -29,11 +29,10 @@ export default function Player({ isPlayerDeath = false }) {
   }, [actions, avatar.animation, isPlayerDeath])
 
   useFrame(() => {
-    if (avatar.animation == "Attacking" && !actions['Attacking'].isRunning()) {
+    if (avatar.animation == 'Attacking' && !actions['Attacking'].isRunning()) {
       actions['Attacking'].reset()
-      setPlayer({... player, spellExpelliarmus: true})
+      setPlayer({ ...player, spellExpelliarmus: true })
     }
-
   })
 
   return (
