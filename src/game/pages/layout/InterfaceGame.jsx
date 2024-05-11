@@ -7,6 +7,7 @@ import { FaHeart } from 'react-icons/fa'
 import { FaHeartBroken } from 'react-icons/fa'
 import { GiOpenTreasureChest } from 'react-icons/gi'
 import GameOver from './GameOver'
+import Victory from './Victory'
 
 const HeartBar = ({ currentHearts, maxHearts }) => {
   return (
@@ -107,7 +108,7 @@ const LevelCollectibles = ({ collectibles }) => {
 
   return (
     <div className="level-collectibles">
-      <GiOpenTreasureChest size={50} />5 / {collected}
+      <GiOpenTreasureChest size={50} />{collected} / 5
     </div>
   )
 }
@@ -131,6 +132,7 @@ const InterfaceGame = ({
   messageDialog,
   dialogType,
   collelctibles,
+  isOpenVictory,
 }) => {
   return (
     <div className="game-indicators-container">
@@ -173,6 +175,7 @@ const InterfaceGame = ({
         dialogType={dialogType}
       />
       <GameOver isOpenGameOver={currentHearts === 0} handleExit={handleExit} />
+      <Victory isOpenVictory={isOpenVictory} handleExit={handleExit} />
     </div>
   )
 }

@@ -14,8 +14,10 @@ export function Sword(props) {
 
   const [swordCollected, setSwordCollected] = useState(isCollected)
 
-  const handleSwordCollision = () => {
-    onCollect(name, 'collectibles_level_one', 'sword')
+  const handleSwordIntersection = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      onCollect(name, 'collectibles_level_one', 'sword')
+    }
   }
 
   useEffect(() => {
@@ -37,8 +39,8 @@ export function Sword(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onIntersectionEnter={() => {
-          handleSwordCollision()
+        onIntersectionEnter={(e) => {
+          handleSwordIntersection(e)
         }}
         sensor
       >

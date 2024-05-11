@@ -15,10 +15,12 @@ const Obstacles = () => {
   const { handleSound } = useMusic()
   const [keyCollected, setKeyCollected] = useState(false)
 
-  const handleKeyCollected = () => {
-    openDialog('!Has encontrado la llave! Revisa la puerta bloqueada.')
-    handleSound(['collect'])
-    setKeyCollected(true)
+  const handleKeyCollected = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      setKeyCollected(true)
+      handleSound(['collect'])
+      openDialog('¡Has encontrado la llave con exito!')
+    }
   }
 
   return (

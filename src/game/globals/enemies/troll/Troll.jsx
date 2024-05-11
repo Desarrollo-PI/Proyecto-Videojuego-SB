@@ -1,46 +1,103 @@
-import React, { useEffect, useMemo, useRef } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  useGLTF,
+  useAnimations,
+  PositionalAudio,
+  Text,
+} from '@react-three/drei'
 import { useFrame, useGraph } from '@react-three/fiber'
-import { CuboidCollider, RigidBody } from '@react-three/rapier'
+import {
+  CuboidCollider,
+  RigidBody,
+  CylinderCollider,
+} from '@react-three/rapier'
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js'
+
+import {
+  normalize,
+  calculateAndSetDistance,
+  getPlayerDirection,
+  getVelocity,
+  setEnemyRotation,
+  watchPlayer,
+  stopWatchPlayer,
+  touchPlayer,
+  touchSpell,
+  stopTouchPlayer,
+} from '../../../../utils/enemies-utils'
+import { useMusic } from '../../../../providers/music/MusicProvider'
 
 export function Troll(props) {
   const trollRef = useRef()
   const trollBody = useRef()
+
+  const [actualAction, setActualAction] = useState(null)
+  const [playerBody, setPlayerBody] = useState(null)
+  const [repeatAttack, setRepeatAttack] = useState(false)
+  const [isSoundPLaying, setIsSoundPlaying] = useState(false)
+  const [distance, setDistance] = useState(0)
+  const [life, setLife] = useState(400)
+
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Troll.glb'
   )
+
+  const { handleSound } = useMusic()
+
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
   const { actions } = useAnimations(animations, trollRef)
 
-  function eulerToQuaternion(alpha, beta, gamma) {
-    var qx =
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) -
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    var qy =
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2)
-    var qz =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2) -
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2)
-    var qw =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    return { x: qx, y: qy, z: qz, w: qw }
+  function changeAnimation(actualAction) {
+    Object.values(actions).forEach((action) => {
+      action.stop()
+    })
+
+    switch (actualAction) {
+      case 'Idle':
+      case 'Walk':
+      case 'Chase':
+      case 'GoBack':
+        actions['Walk'].play()
+        break
+      case 'Attack':
+        actions['Punch'].repetitions = 1
+        actions['Punch'].play()
+        break
+      default:
+        break
+    }
   }
 
-  function normalize(vector) {
-    var magnitud = Math.sqrt(vector.x ** 2 + vector.z ** 2)
-    if (magnitud == 0) {
-      return vector
-    }
-    var normalizedVector = {
-      x: vector.x / magnitud,
-      y: vector.y,
-      z: vector.z / magnitud,
-    }
-    return normalizedVector
+  const handleWatchPlayer = (e) => {
+    watchPlayer(
+      e,
+      setPlayerBody,
+      setActualAction,
+      changeAnimation,
+      setIsSoundPlaying,
+      props
+    )
+  }
+
+  const handleStopWatchPlayer = (e) => {
+    stopWatchPlayer(
+      e,
+      setActualAction,
+      changeAnimation,
+      setPlayerBody,
+      setIsSoundPlaying,
+      props
+    )
+  }
+
+  const handleTouchPlayer = (e) => {
+    touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props)
+    touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound)
+  }
+
+  const handleStopTouchPlayer = (e) => {
+    stopTouchPlayer(e, setRepeatAttack)
   }
 
   useEffect(() => {
@@ -48,64 +105,85 @@ export function Troll(props) {
   }, [trollBody.current])
 
   useEffect(() => {
-    if (props.action == 0) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['Idle'].play()
-    } else if (props.action == 1) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['Walk'].play()
-    } else if (props.action == 2) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['Punch'].play()
-    }
+    setActualAction(props.action)
+    changeAnimation(props.action)
   }, [actions, props.action])
 
-  useFrame(({ clock }, delta) => {
-    if (trollBody.current) {
-      const position = trollBody.current.translation()
-      var velocity = trollBody.current.linvel()
-      if (velocity.x == NaN) {
-        velocity.x = 0
-      }
-      if (velocity.y == NaN) {
-        velocity.y = 0
-      }
-      if (velocity.z == NaN) {
-        velocity.z = 0
-      }
+  useEffect(() => {
+    if (props.isPlayerDeath) {
+      setActualAction(props.action)
+      changeAnimation(props.action)
+      setIsSoundPlaying(false)
+      setDistance(0)
+      setPlayerBody(null)
+    }
+  }, [props.isPlayerDeath])
 
-      if (props.action == 0) {
-        if (position.x > props.position[0] + 0.05) {
-          velocity.x = -1
-        } else if (position.x < props.position[0] - 0.05) {
-          velocity.x = 1
-        } else {
-          velocity.x = 0
+  useFrame(({ clock }, delta) => {
+    calculateAndSetDistance(playerBody, trollBody, setDistance)
+    if (trollBody.current) {
+      let velocity = getVelocity(trollBody)
+      const trollPosition = trollBody.current.translation()
+      const playerPosition = playerBody?.position
+
+      if (actualAction == 'Attack') {
+        if (!actions['Punch'].isRunning()) {
+          if (repeatAttack) {
+            actions['Punch'].reset()
+          } else {
+            setActualAction('Chase')
+            changeAnimation('Chase')
+          }
+          props.takeLife()
         }
-        if (position.z > props.position[2] + 0.05) {
-          velocity.z = -1
-        } else if (position.z < props.position[2] - 0.05) {
-          velocity.z = 1
-        } else {
-          velocity.z = 0
-        }
-        velocity = normalize(velocity)
+
+        velocity = normalize(getPlayerDirection(trollPosition, playerPosition))
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
+      } else if (actualAction == 'Chase') {
+        velocity = normalize(getPlayerDirection(trollPosition, playerPosition))
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
         trollBody.current.setLinvel(
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
-      }
-
-      if (props.action == 1) {
-        if (position.z <= props.position[2] - 2) {
+      } else if (props.action == 'Idle') {
+        let nextAction = 'Idle'
+        if (trollPosition.x > props.position[0] + 0.05) {
+          velocity.x = -1
+          nextAction = 'GoBack'
+        } else if (trollPosition.x < props.position[0] - 0.05) {
+          velocity.x = 1
+          nextAction = 'GoBack'
+        } else {
+          velocity.x = 0
+        }
+        if (trollPosition.z > props.position[2] + 0.05) {
+          velocity.z = -1
+          nextAction = 'GoBack'
+        } else if (trollPosition.z < props.position[2] - 0.05) {
           velocity.z = 1
-        } else if (position.z >= props.position[2] + 2) {
+          nextAction = 'GoBack'
+        } else {
+          velocity.z = 0
+        }
+        velocity = normalize(velocity)
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
+        trollBody.current.setLinvel(
+          { x: velocity.x, y: velocity.y, z: velocity.z },
+          true
+        )
+
+        if (nextAction != actualAction) {
+          setActualAction(nextAction)
+          changeAnimation(nextAction)
+        }
+      } else if (props.action == 'Walk') {
+        if (trollPosition.z <= props.position[2] - 2) {
+          velocity.z = 1
+        } else if (trollPosition.z >= props.position[2] + 2) {
           velocity.z = -1
         } else {
           if (velocity.z > 0) {
@@ -114,27 +192,23 @@ export function Troll(props) {
             velocity.z = -1
           }
         }
-        if (position.x > props.position[0] + 0.05) {
+        if (trollPosition.x > props.position[0] + 0.05) {
           velocity.x = -1
-        } else if (position.x < props.position[0] - 0.05) {
+        } else if (trollPosition.x < props.position[0] - 0.05) {
           velocity.x = 1
         } else {
           velocity.x = 0
         }
         velocity = normalize(velocity)
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
         trollBody.current.setLinvel(
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
       }
 
-      var theta = 0
-      if (velocity.z >= 0) {
-        theta = Math.atan(velocity.x / velocity.z)
-      } else {
-        theta = Math.atan(velocity.x / velocity.z) + Math.PI
-      }
-      trollBody.current.setRotation(eulerToQuaternion(0, theta, 0))
+      setEnemyRotation(velocity, trollBody)
     }
   })
 
@@ -144,6 +218,7 @@ export function Troll(props) {
       position={props.position}
       type="dynamic"
       colliders={false}
+      name="trollBody"
     >
       <group
         ref={trollRef}
@@ -152,6 +227,15 @@ export function Troll(props) {
         position={[0, -1.3, 0]}
         scale={1.1}
       >
+        <Text
+          position={[0, 3, 0]}
+          color="#b0955e"
+          font="/assets/fonts/HARRYP__.TTF"
+          scale={[0.7, 0.7, 0.7]}
+        >
+          {'❤️'}
+          {life}
+        </Text>
         <group name="Scene">
           <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
             <skinnedMesh
@@ -382,10 +466,29 @@ export function Troll(props) {
               material={materials.LeatherB}
               skeleton={nodes.Waist.skeleton}
             />
-            <CuboidCollider args={[115, 120, 120]} />
+            <CuboidCollider
+              args={[115, 120, 120]}
+              onCollisionEnter={(e) => handleTouchPlayer(e)}
+              onCollisionExit={(e) => handleStopTouchPlayer(e)}
+            />
+
             <primitive object={nodes.mixamorigHips} />
           </group>
         </group>
+        <CylinderCollider
+          args={[5, 10]}
+          sensor
+          onIntersectionEnter={(e) => handleWatchPlayer(e)}
+          onIntersectionExit={(e) => handleStopWatchPlayer(e)}
+        />
+        {isSoundPLaying && props.isPlaying && (
+          <PositionalAudio
+            url="/assets/sounds/troll.mp3"
+            autoplay
+            distance={distance * 100}
+            loop
+          />
+        )}
       </group>
     </RigidBody>
   )

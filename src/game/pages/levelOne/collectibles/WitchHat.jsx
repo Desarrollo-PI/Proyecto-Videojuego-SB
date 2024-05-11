@@ -15,8 +15,10 @@ export function WitchHat(props) {
 
   const [witchHatCollected, setWitchHatCollected] = useState(isCollected)
 
-  const handleWitchHatCollision = () => {
-    onCollect(name, 'collectibles_level_one', 'witchHat')
+  const handleWitchHatIntersection = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      onCollect(name, 'collectibles_level_one', 'witchHat')
+    }
   }
 
   useEffect(() => {
@@ -38,8 +40,8 @@ export function WitchHat(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onIntersectionEnter={() => {
-          handleWitchHatCollision()
+        onIntersectionEnter={(e) => {
+          handleWitchHatIntersection(e)
         }}
         sensor
       >

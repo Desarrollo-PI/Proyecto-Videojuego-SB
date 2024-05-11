@@ -291,10 +291,6 @@ const BarrelsDynamic = () => {
       .map((_, i) => refs.current[i] || createRef())
   }
 
-  const onHitBox = (i) => {
-    refs.current[i].current.applyImpulse({ x: 0, y: -100, z: -10 }, true)
-  }
-
   return (
     <>
       {refs.current.map((ref, index) => (
@@ -305,9 +301,9 @@ const BarrelsDynamic = () => {
           colliders="cuboid"
           onCollisionEnter={null}
           collisionGroups={interactionGroups(2, [0])}
+          density = {20}
         >
           <mesh
-            onClick={() => onHitBox(index + 1)}
             castShadow
             receiveShadow
             geometry={nodes[`Barrel${index + 1}_1`].geometry}
@@ -345,10 +341,6 @@ const BoxesDynamic = () => {
       .map((_, i) => refs.current[i] || createRef())
   }
 
-  const onHitBox = (i) => {
-    refs.current[i].current.applyImpulse({ x: 0, y: -100, z: -10 }, true)
-  }
-
   return (
     <>
       {refs.current.map((ref, index) => (
@@ -359,9 +351,9 @@ const BoxesDynamic = () => {
           colliders="cuboid"
           onCollisionEnter={null}
           collisionGroups={interactionGroups(2, [0])}
+          density = {20}
         >
           <mesh
-            onClick={() => onHitBox(index + 1)}
             castShadow
             receiveShadow
             geometry={nodes[`Box${index + 1}_1`].geometry}
@@ -385,49 +377,49 @@ const WorldLevelOneDynamic = () => {
       initialPosition: [0, 8, -10.5],
       moveDirection: 1,
       maxPosition: -14.5,
-      speed: 0.06,
+      speed: 0.005,
     },
     {
       initialPosition: [16, 7, -35.5],
       moveDirection: 2,
       maxPosition: 13,
-      speed: 0.06,
+      speed: 0.005,
     },
     {
       initialPosition: [13, 7, -40.5],
       moveDirection: 3,
       maxPosition: 16,
-      speed: 0.06,
+      speed: 0.005,
     },
     {
       initialPosition: [16, 7, -45.5],
       moveDirection: 2,
       maxPosition: 13,
-      speed: 0.06,
+      speed: 0.005,
     },
     {
       initialPosition: [13, 7, -50.5],
       moveDirection: 3,
       maxPosition: 16,
-      speed: 0.06,
+      speed: 0.005,
     },
     {
       initialPosition: [16, 7, -55.5],
       moveDirection: 2,
       maxPosition: 13,
-      speed: 0.06,
+      speed: 0.005,
     },
     {
       initialPosition: [13, 7, -60.5],
       moveDirection: 3,
       maxPosition: 16,
-      speed: 0.06,
+      speed: 0.005,
     },
     {
       initialPosition: [16, 7, -65.5],
       moveDirection: 2,
       maxPosition: 13,
-      speed: 0.06,
+      speed: 0.005,
     },
   ]
 
