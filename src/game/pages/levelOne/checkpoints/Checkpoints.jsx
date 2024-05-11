@@ -7,13 +7,6 @@ const Checkpoints = () => {
   const { openDialog, closeDialog } = useDialog()
   const { checkpointLevelOne, onTakeCheckpoint } = useAuth()
 
-  const _isTakenCheckpoints = {
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  }
-
   const handleOnTakeCheckpoint = (numberCheckpoint, position) => {
     onTakeCheckpoint('level_one', numberCheckpoint, position)
   }

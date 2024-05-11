@@ -16,8 +16,10 @@ export function GreenPotion(props) {
 
   const greenPotionRef = useRef()
 
-  const handleGreenPotionCollision = () => {
-    onCollect(name, 'collectibles_level_one', 'greenPotion')
+  const handleGreenPotionIntersection = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      onCollect(name, 'collectibles_level_one', 'greenPotion')
+    }
   }
 
   useEffect(() => {
@@ -39,8 +41,8 @@ export function GreenPotion(props) {
       <RigidBody
         type={'fixed'}
         colliders="cuboid"
-        onIntersectionEnter={() => {
-          handleGreenPotionCollision()
+        onIntersectionEnter={(e) => {
+          handleGreenPotionIntersection(e)
         }}
         sensor
       >
