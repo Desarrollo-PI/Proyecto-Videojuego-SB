@@ -499,6 +499,54 @@ const WorldLevelOneTrimesh = () => {
         geometry={nodes.Train.geometry}
         material={materials.ColorPalette}
       />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs001_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs001_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs003_1.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs003_2.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs004.geometry}
+        material={materials.mat17}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stairs004_1.geometry}
+        material={materials.mat22}
+      />
     </>
   )
 }
@@ -586,36 +634,6 @@ export const WorldLevelOne = (props) => {
         receiveShadow
         geometry={nodes.Trashcan_Large011.geometry}
         material={materials.LightMetal}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ladder.geometry}
-        material={materials.brown}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ladder001.geometry}
-        material={materials.brown}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ladder003.geometry}
-        material={materials.brown}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ladder004.geometry}
-        material={materials.brown}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Ladder002.geometry}
-        material={materials.brown}
       />
       <mesh
         castShadow

@@ -1,6 +1,6 @@
-import React, { createRef, useRef } from 'react'
+import React from 'react'
 import { useGLTF } from '@react-three/drei'
-import { CuboidCollider, MeshCollider, RigidBody } from '@react-three/rapier'
+import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
 const BackPacks = () => {
   const { nodes, materials } = useGLTF(
