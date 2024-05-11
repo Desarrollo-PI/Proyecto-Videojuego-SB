@@ -22,6 +22,7 @@ import {
   watchPlayer,
   stopWatchPlayer,
   touchPlayer,
+  receiveDamage,
   stopTouchPlayer,
   touchSpell,
 } from '../../../../utils/enemies-utils'
@@ -222,6 +223,7 @@ export function Goblin(props) {
       type="dynamic"
       colliders={false}
       name="goblinBody"
+      density={0.0001}
     >
       <group
         ref={goblinRef}
