@@ -67,6 +67,7 @@ const TrashContainer = () => {
         geometry={nodes.TrashContainer005_3.geometry}
         material={materials.Grey}
       />
+
       <CuboidCollider args={[1.4, 10, 0.8]} position={[-1.2, 1, -80.3]}/>
 </RigidBody>
   )

@@ -42,6 +42,9 @@ const Limits = () => {
     nodes.Limit007.geometry,
     nodes.Limit008.geometry,
     nodes.Limit009.geometry,
+    nodes.Limit010.geometry,
+    nodes.Limit011.geometry,
+    nodes.Limit012.geometry,
   ]
 
   const transparentMaterial = useMemo(() => <meshPhongMaterial transparent />)
@@ -538,6 +541,24 @@ const WorldLevelOneTrimesh = () => {
         receiveShadow
         geometry={nodes.Stairs004_1.geometry}
         material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer010.geometry}
+        material={materials.Green}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer010_1.geometry}
+        material={materials.DarkGrey}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.TrashContainer010_2.geometry}
+        material={materials.Grey}
       />
     </>
   )
