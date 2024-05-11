@@ -75,7 +75,7 @@ export default function Player(props) {
         spellExpelliarmus: true,
         expelliarmusInitPosition: [
           posicion.x + direccion.x * 0.5,
-          posicion.y - 0.15,
+          posicion.y - 0.25,
           posicion.z + direccion.z * 0.5,
         ],
         expelliarmusInitRotation: direccion,
