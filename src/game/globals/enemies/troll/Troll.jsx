@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useGLTF, useAnimations, PositionalAudio } from '@react-three/drei'
+import {
+  useGLTF,
+  useAnimations,
+  PositionalAudio,
+  Text,
+} from '@react-three/drei'
 import { useFrame, useGraph } from '@react-three/fiber'
 import {
   CuboidCollider,
@@ -17,8 +22,10 @@ import {
   watchPlayer,
   stopWatchPlayer,
   touchPlayer,
+  touchSpell,
   stopTouchPlayer,
 } from '../../../../utils/enemies-utils'
+import { useMusic } from '../../../../providers/music/MusicProvider'
 
 export function Troll(props) {
   const trollRef = useRef()
@@ -29,10 +36,13 @@ export function Troll(props) {
   const [repeatAttack, setRepeatAttack] = useState(false)
   const [isSoundPLaying, setIsSoundPlaying] = useState(false)
   const [distance, setDistance] = useState(0)
+  const [life, setLife] = useState(400)
 
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Troll.glb'
   )
+
+  const { handleSound } = useMusic()
 
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
@@ -83,6 +93,7 @@ export function Troll(props) {
 
   const handleTouchPlayer = (e) => {
     touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props)
+    touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound)
   }
 
   const handleStopTouchPlayer = (e) => {
@@ -216,6 +227,15 @@ export function Troll(props) {
         position={[0, -1.3, 0]}
         scale={1.1}
       >
+        <Text
+          position={[0, 3, 0]}
+          color="#b0955e"
+          font="/assets/fonts/HARRYP__.TTF"
+          scale={[0.7, 0.7, 0.7]}
+        >
+          {'❤️'}
+          {life}
+        </Text>
         <group name="Scene">
           <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
             <skinnedMesh

@@ -132,6 +132,7 @@ const InterfaceGame = ({
   messageDialog,
   dialogType,
   collelctibles,
+  isOpenVictory,
 }) => {
   return (
     <div className="game-indicators-container">
@@ -174,7 +175,7 @@ const InterfaceGame = ({
         dialogType={dialogType}
       />
       <GameOver isOpenGameOver={currentHearts === 0} handleExit={handleExit} />
-      <Victory isOpenVictory={false} handleExit={handleExit} />
+      <Victory isOpenVictory={isOpenVictory} handleExit={handleExit} />
     </div>
   )
 }

@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
-import { useGLTF, useAnimations, PositionalAudio } from '@react-three/drei'
+import {
+  useGLTF,
+  useAnimations,
+  PositionalAudio,
+  Text,
+} from '@react-three/drei'
 import { useFrame, useGraph } from '@react-three/fiber'
 import {
   CuboidCollider,
@@ -18,7 +23,9 @@ import {
   stopWatchPlayer,
   touchPlayer,
   stopTouchPlayer,
+  touchSpell,
 } from '../../../../utils/enemies-utils'
+import { useMusic } from '../../../../providers/music/MusicProvider'
 
 export function Goblin(props) {
   const goblinRef = useRef()
@@ -29,10 +36,13 @@ export function Goblin(props) {
   const [repeatAttack, setRepeatAttack] = useState(false)
   const [isSoundPLaying, setIsSoundPlaying] = useState(false)
   const [distance, setDistance] = useState(0)
+  const [life, setLife] = useState(100)
 
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Goblin.glb'
   )
+
+  const { handleSound } = useMusic()
 
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
@@ -85,17 +95,14 @@ export function Goblin(props) {
     )
   }
 
-  const handleTouchPlayer = (e) => {
+  const handleTouch = (e) => {
     touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props)
+    touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound)
   }
 
   const handleStopTouchPlayer = (e) => {
     stopTouchPlayer(e, setRepeatAttack)
   }
-
-  useEffect(() => {
-    goblinBody.current.lockRotations(true, true)
-  }, [goblinBody.current])
 
   useEffect(() => {
     if (props.isPlayerDeath) {
@@ -223,6 +230,15 @@ export function Goblin(props) {
         scale={0.5}
         position={[0, -1.5, 0]}
       >
+        <Text
+          position={[0, 4, 0]}
+          color="#b0955e"
+          font="/assets/fonts/HARRYP__.TTF"
+          scale={[0.8, 0.8, 0.8]}
+        >
+          {'❤️'}
+          {life}
+        </Text>
         <group name="Root_Scene">
           <group name="RootNode">
             <group
@@ -242,7 +258,7 @@ export function Goblin(props) {
             />
             <CuboidCollider
               args={[0.8, 1.5, 0.6]}
-              onCollisionEnter={(e) => handleTouchPlayer(e)}
+              onCollisionEnter={(e) => handleTouch(e)}
               onCollisionExit={(e) => handleStopTouchPlayer(e)}
             />
             <CylinderCollider

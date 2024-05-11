@@ -164,6 +164,12 @@ export const AuthProvider = ({ children }) => {
     editUser(_user)
   }
 
+  const onPassLevel = (level) => {
+    const _user = { ...state.user }
+    _user.level = level
+    editUser(_user)
+  }
+
   useEffect(() => {
     const collectibles = state?.user?.collectibles_level_one
 
@@ -204,6 +210,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     onCollect,
     onTakeCheckpoint,
+    onPassLevel,
   }
 
   return (

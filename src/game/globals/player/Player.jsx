@@ -17,29 +17,29 @@ export default function Player(props) {
   const { player, setPlayer } = usePlayer()
 
   function quaternionToDirection(quaternion) {
-		var x = quaternion.x
-		var y = quaternion.y
-		var z = quaternion.z
-		var w = quaternion.w
-		var qx = 2 * (x * z + w * y);
-		var qy = 2 * (y * z - w * x);
-		var qz = 1 - 2 * (x * x + y * y);
-	
-		return { x: qx, y: qy, z: qz };
-	}
+    var x = quaternion.x
+    var y = quaternion.y
+    var z = quaternion.z
+    var w = quaternion.w
+    var qx = 2 * (x * z + w * y)
+    var qy = 2 * (y * z - w * x)
+    var qz = 1 - 2 * (x * x + y * y)
+
+    return { x: qx, y: qy, z: qz }
+  }
 
   function normalize(vector) {
-		var magnitud = Math.sqrt(vector.x ** 2 + vector.z ** 2)
-		if (magnitud == 0) {
-		  return vector
-		}
-		var normalizedVector = {
-		  x: vector.x / magnitud,
-		  y: vector.y,
-		  z: vector.z / magnitud,
-		}
-		return normalizedVector
-	  }
+    var magnitud = Math.sqrt(vector.x ** 2 + vector.z ** 2)
+    if (magnitud == 0) {
+      return vector
+    }
+    var normalizedVector = {
+      x: vector.x / magnitud,
+      y: vector.y,
+      z: vector.z / magnitud,
+    }
+    return normalizedVector
+  }
 
   useEffect(() => {
     if (props.isPlayerDeath) {
@@ -55,10 +55,26 @@ export default function Player(props) {
   }, [actions, avatar.animation, props.isPlayerDeath])
 
   useFrame(() => {
-    if (avatar.animation == "Attacking" && (actions['Attacking'].time >= 1.5 && actions['Attacking'].time <= 1.55) && !player.spellExpelliarmus) {
-      const direccion = normalize(quaternionToDirection(playerBodyRef.current.rotation()))
+    if (
+      avatar.animation == 'Attacking' &&
+      actions['Attacking'].time >= 1.5 &&
+      actions['Attacking'].time <= 1.55 &&
+      !player.spellExpelliarmus
+    ) {
+      const direccion = normalize(
+        quaternionToDirection(playerBodyRef.current.rotation())
+      )
       const posicion = playerBodyRef.current.translation()
-      setPlayer({ ...player, spellExpelliarmus: true, expelliarmusInitPosition: [posicion.x + direccion.x * 0.5, posicion.y - 0.15, posicion.z + direccion.z * 0.5], expelliarmusInitRotation: direccion })
+      setPlayer({
+        ...player,
+        spellExpelliarmus: true,
+        expelliarmusInitPosition: [
+          posicion.x + direccion.x * 0.5,
+          posicion.y - 0.15,
+          posicion.z + direccion.z * 0.5,
+        ],
+        expelliarmusInitRotation: direccion,
+      })
     }
   })
 
@@ -77,7 +93,8 @@ export default function Player(props) {
         name={props.name}
         type={props.type}
         isPlayerDeath={props.isPlayerDeath}
-        ref={playerBodyRef}>
+        ref={playerBodyRef}
+      >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group
             name="Auror"

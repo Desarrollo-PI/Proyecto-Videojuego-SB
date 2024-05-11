@@ -35,6 +35,7 @@ import { FaWandSparkles } from 'react-icons/fa6'
 import { useDialog } from '../../../providers/dialog/DialogProvider'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
 import Expelliarmus from '../../globals/player/Expelliarmus'
+import { useBosses } from '../../../providers/bosses/BossesProvider'
 
 const LayoutLevel = () => {
   const lightsPropsLevelOne = {
@@ -95,6 +96,7 @@ const LayoutLevel = () => {
     posLevelTwo,
     posLevelThree,
     posLevelFour,
+    onPassLevel,
     collectiblesLevelOne,
     collectiblesLevelTwo,
     collectiblesLevelThree,
@@ -103,11 +105,55 @@ const LayoutLevel = () => {
 
   const { player, setPlayer } = usePlayer()
 
+  const { bosses, reviveBosses } = useBosses()
+
   const { handleSound, pauseSound, isPlaying } = useMusic()
 
   const movements = useMovements()
   const navigate = useNavigate()
   const location = useLocation()
+
+  const [spells, setSpells] = useState(_spells)
+  const [selectedSpell, setSelectedSpell] = useState({
+    ..._spells[0],
+    icon: <FaWandSparkles color="white" size={50} />,
+  })
+  const [selectedSpellIndex, setSelectedSpellIndex] = useState(0)
+  const [isVictory, setIsVictory] = useState(false)
+
+  useEffect(() => {
+    switch (location.pathname) {
+      case '/level/one':
+        if (bosses.troll.isDeath) {
+          closeAll()
+          setIsVictory(true)
+          onPassLevel(2)
+          handleSound(['win'], ['level', 'thunder'])
+        }
+      case '/level/two':
+        if (bosses.spider.isDeath) {
+          closeAll()
+          setIsVictory(true)
+          onPassLevel(3)
+          handleSound(['win'], ['level', 'thunder'])
+        }
+      case '/level/three':
+        if (bosses.dementor.isDeath) {
+          closeAll()
+          setIsVictory(true)
+          onPassLevel(4)
+          handleSound(['win'], ['level', 'thunder'])
+        }
+      case '/level/four':
+        if (bosses.darkWizard.isDeath) {
+          closeAll()
+          setIsVictory(true)
+          handleSound(['win'], ['level', 'thunder'])
+        }
+      default:
+        break
+    }
+  }, [bosses])
 
   useEffect(() => {
     setPlayer({ ...player, hearts: maxHearts })
@@ -119,10 +165,7 @@ const LayoutLevel = () => {
     }
 
     if (player.hearts === 0) {
-      closeDialog()
-      closeMenu()
-      closeControls()
-      closeSettings()
+      closeAll()
       handleSound(['gameover'], ['heartbeat'])
       pauseSound('level')
     } else {
@@ -130,19 +173,9 @@ const LayoutLevel = () => {
     }
   }, [player.hearts])
 
-  const [spells, setSpells] = useState(_spells)
-  const [selectedSpell, setSelectedSpell] = useState({
-    ..._spells[0],
-    icon: <FaWandSparkles color="white" size={50} />,
-  })
-  const [selectedSpellIndex, setSelectedSpellIndex] = useState(0)
-
   useEffect(() => {
     return () => {
-      closeMenu()
-      closeControls()
-      closeSettings()
-      closeDialog()
+      closeAll()
     }
   }, [])
 
@@ -189,13 +222,20 @@ const LayoutLevel = () => {
     }
   }, [])
 
+  const closeAll = () => {
+    closeMenu()
+    closeControls()
+    closeSettings()
+    closeDialog()
+  }
+
   const handleExit = async () => {
     navigate('/level-router')
     closeMenu()
     handleSound(['mainTheme'], ['level', 'thunder'])
     navigate('/level-router')
-    closeMenu()
     pauseSound('gameover')
+    reviveBosses()
   }
 
   const formatPosition = (pos) => {
@@ -259,7 +299,7 @@ const LayoutLevel = () => {
   }
 
   const choosePropsECCtrl = () => {
-    if (player.hearts > 0 && !state.isOpenMenu) {
+    if (player.hearts > 0 && !state.isOpenMenu && !isVictory) {
       return {
         camInitDis: -3,
         camMaxDis: -3,
@@ -315,6 +355,7 @@ const LayoutLevel = () => {
           messageDialog={message}
           dialogType={dialogType}
           collelctibles={chooseCollectibles()}
+          isOpenVictory={isVictory}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>
@@ -344,7 +385,6 @@ const LayoutLevel = () => {
               </Center>
             </Float>
             <StormEnvironment {...chooseProps()} />
-            <OrbitControls />
             <Physics>
               <Outlet />
               <Player {...choosePropsECCtrl()} />

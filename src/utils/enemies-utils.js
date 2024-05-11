@@ -134,6 +134,24 @@ export const touchPlayer = (
   }
 }
 
+export const touchSpell = (
+  e,
+  life,
+  idEnemy,
+  setLife,
+  deathEnemy,
+  handleSound
+) => {
+  if (e.rigidBodyObject.name === 'expelliarmusBody') {
+    handleSound(['hit'])
+    const newLife = life - 50
+    setLife(newLife)
+    if (newLife <= 0) {
+      deathEnemy(idEnemy)
+    }
+  }
+}
+
 export const stopTouchPlayer = (e, setRepeatAttack) => {
   if (e.rigidBodyObject.name === 'playerBody') {
     setRepeatAttack(false)
