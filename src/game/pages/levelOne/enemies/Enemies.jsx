@@ -54,7 +54,7 @@ const Enemies = () => {
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}
@@ -64,8 +64,9 @@ const Enemies = () => {
           position={[21.5, 5, -30]}
           action={'Walk'}
           takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}
@@ -77,7 +78,7 @@ const Enemies = () => {
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}
@@ -89,7 +90,7 @@ const Enemies = () => {
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}
@@ -101,7 +102,7 @@ const Enemies = () => {
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}
@@ -113,7 +114,7 @@ const Enemies = () => {
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}
@@ -125,7 +126,7 @@ const Enemies = () => {
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}
@@ -137,7 +138,7 @@ const Enemies = () => {
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
-          speed={1.2}
+          speed={2}
           isPlaying={isPlaying}
         />
       )}

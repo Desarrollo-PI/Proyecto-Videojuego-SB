@@ -8,7 +8,7 @@ import Enemies from './enemies/Enemies'
 const LevelOnePage = () => {
   return (
     <>
-      <Lights />
+      {/* <Lights /> */}
       <WorldLevelOneWithPhysisc />
       <Collectibles />
       <Obstacles />
