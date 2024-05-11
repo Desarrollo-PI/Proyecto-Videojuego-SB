@@ -34,6 +34,7 @@ import {
 import { FaWandSparkles } from 'react-icons/fa6'
 import { useDialog } from '../../../providers/dialog/DialogProvider'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
+import Expelliarmus from '../../globals/player/Expelliarmus'
 
 const LayoutLevel = () => {
   const lightsPropsLevelOne = {

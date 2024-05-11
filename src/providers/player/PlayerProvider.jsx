@@ -15,6 +15,7 @@ export function PlayerProvider({ children }) {
     hearts: null,
     life: 100,
     mana: 100,
+    spellExpelliarmus: false,
   })
 
   const takeLife = (damage) => {
