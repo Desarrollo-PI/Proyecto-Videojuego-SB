@@ -45,6 +45,7 @@ const Limits = () => {
     nodes.Limit010.geometry,
     nodes.Limit011.geometry,
     nodes.Limit012.geometry,
+    nodes.Limit013.geometry,
   ]
 
   const transparentMaterial = useMemo(() => <meshPhongMaterial transparent />)
