@@ -2,6 +2,7 @@ import { RigidBody } from "@react-three/rapier"
 import { useRef } from "react"
 import { usePlayer } from "../../../providers/player/PlayerProvider"
 import { useFrame } from "@react-three/fiber"
+import { SpotLight } from "@react-three/drei"
 
 export default function Expelliarmus() {
 	const expelliarmusBodyRef = useRef()
@@ -13,17 +14,24 @@ export default function Expelliarmus() {
 
 	useFrame((state, delta) => {
 		expelliarmusBodyRef?.current?.setLinvel(
-			{ x: 0, y: 0, z: -10 },
+			{ x: player.expelliarmusInitRotation.x * 10, y: 0, z: player.expelliarmusInitRotation.z * 10 },
 			true
 		)
-		// console.log(player.expelliarmusInitPosition, player.expelliarmusInitRotation)
+		const desplazamiento = {
+			x: Math.abs(expelliarmusBodyRef?.current?.translation().x - player.expelliarmusInitPosition[0]),
+			z: Math.abs(expelliarmusBodyRef?.current?.translation().z - player.expelliarmusInitPosition[2])
+		}
+		const desplazamientoTotal = desplazamiento.x + desplazamiento.z
+		if (desplazamientoTotal > 8) {
+			setPlayer({ ...player, spellExpelliarmus: false })
+		}
 	})
 
 	return (
 		<RigidBody type="kinematicVelocity" ref={expelliarmusBodyRef} position={player.expelliarmusInitPosition} onCollisionEnter={(e) => hitObject(e)}>
 			<mesh>
 				<sphereGeometry args={[0.05, 16, 8]} />
-				<meshStandardMaterial color="MediumTurquoise" />
+				<meshStandardMaterial color="Gray" />
 			</mesh>
 		</RigidBody>
 	)

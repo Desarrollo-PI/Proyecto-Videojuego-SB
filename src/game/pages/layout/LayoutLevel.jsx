@@ -272,6 +272,7 @@ const LayoutLevel = () => {
         camInitDir: { x: 0, y: Math.PI },
         name: 'playerBody',
         type: 'dynamic',
+        isPlayerDeath: player.currentHearts === 0,
       }
     } else {
       return {
@@ -286,6 +287,7 @@ const LayoutLevel = () => {
         camInitDir: { x: 0, y: Math.PI },
         name: 'null',
         type: 'fixed',
+        isPlayerDeath: player.currentHearts === 0,
       }
     }
   }
@@ -345,9 +347,7 @@ const LayoutLevel = () => {
             <OrbitControls />
             <Physics debug>
               <Outlet />
-              <Ecctrl {...choosePropsECCtrl()}>
-                <Player isPlayerDeath={player.currentHearts === 0} />
-              </Ecctrl>
+              <Player {...choosePropsECCtrl()} />
               {player.spellExpelliarmus && <Expelliarmus />}
             </Physics>
             {player.hearts > 0 && !state.isOpenMenu && <Controls />}

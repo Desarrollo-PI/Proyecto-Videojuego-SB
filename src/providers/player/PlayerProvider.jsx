@@ -16,7 +16,7 @@ export function PlayerProvider({ children }) {
     life: 100,
     mana: 100,
     spellExpelliarmus: false,
-    expelliarmusInitRotation: [0,0,0],
+    expelliarmusInitRotation: [0,0,0,0],
     expelliarmusInitPosition: [0,0,0],
   })
 
