@@ -314,7 +314,23 @@ const LayoutLevel = () => {
         type: 'dynamic',
         isPlayerDeath: false,
       }
-    } else {
+    } else if (isVictory) {
+      return {
+        camInitDis: -3,
+        camMaxDis: -3,
+        maxVelLimit: 0,
+        sprintMult: 0,
+        jumpVel: 0,
+        sprintJumpMult: 0,
+        position: choosePosition(),
+        characterInitDir: Math.PI,
+        camInitDir: { x: 0, y: Math.PI },
+        name: 'null',
+        type: 'fixed',
+        isPlayerDeath: false,
+      }
+    }
+    else {
       return {
         camInitDis: -3,
         camMaxDis: -3,
