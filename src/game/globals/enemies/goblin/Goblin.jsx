@@ -17,6 +17,7 @@ import {
   watchPlayer,
   stopWatchPlayer,
   touchPlayer,
+  receiveDamage,
   stopTouchPlayer,
 } from '../../../../utils/enemies-utils'
 
@@ -29,6 +30,7 @@ export function Goblin(props) {
   const [repeatAttack, setRepeatAttack] = useState(false)
   const [isSoundPLaying, setIsSoundPlaying] = useState(false)
   const [distance, setDistance] = useState(0)
+  const [life, setLife] = useState(100)
 
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Goblin.glb'
@@ -85,8 +87,9 @@ export function Goblin(props) {
     )
   }
 
-  const handleTouchPlayer = (e) => {
+  const handleTouch = (e) => {
     touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props)
+    receiveDamage(e, life, setLife, props.ids, props.enemiesState, props.setEnemiesState)
   }
 
   const handleStopTouchPlayer = (e) => {
@@ -242,7 +245,7 @@ export function Goblin(props) {
             />
             <CuboidCollider
               args={[0.8, 1.5, 0.6]}
-              onCollisionEnter={(e) => handleTouchPlayer(e)}
+              onCollisionEnter={(e) => handleTouch(e)}
               onCollisionExit={(e) => handleStopTouchPlayer(e)}
             />
             <CylinderCollider

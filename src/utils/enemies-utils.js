@@ -134,6 +134,19 @@ export const touchPlayer = (
   }
 }
 
+export const receiveDamage = (
+  e,
+  life,
+  setLife,
+) => {
+  if (e.rigidBodyObject.name === 'expelliarmusBody') {
+    setLife(life - 50)
+    if(life - 50 <= 0) {
+      // Aqui lo matas supongo o no se XD
+    }
+  }
+}
+
 export const stopTouchPlayer = (e, setRepeatAttack) => {
   if (e.rigidBodyObject.name === 'playerBody') {
     setRepeatAttack(false)

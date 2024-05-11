@@ -27,7 +27,7 @@ export default function Expelliarmus() {
 	})
 
 	return (
-		<RigidBody type="kinematicVelocity" ref={expelliarmusBodyRef} position={player.expelliarmusInitPosition} onCollisionEnter={(e) => hitObject(e)}>
+		<RigidBody name="expelliarmusBody" type="kinematicVelocity" ref={expelliarmusBodyRef} position={player.expelliarmusInitPosition} onCollisionEnter={(e) => hitObject(e)}>
 			<mesh>
 				<sphereGeometry args={[0.05, 16, 8]} />
 				<meshStandardMaterial color="Gray" />

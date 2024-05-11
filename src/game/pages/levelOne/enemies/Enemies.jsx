@@ -2,6 +2,7 @@ import { Goblin } from '../../../globals/enemies/goblin/Goblin'
 import { Troll } from '../../../globals/enemies/troll/Troll'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
 import { useMusic } from '../../../../providers/music/MusicProvider'
+import { useState } from 'react'
 
 const Enemies = () => {
   const { handleSound, isPlaying } = useMusic()

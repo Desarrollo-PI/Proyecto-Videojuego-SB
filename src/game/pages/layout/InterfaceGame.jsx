@@ -108,7 +108,7 @@ const LevelCollectibles = ({ collectibles }) => {
 
   return (
     <div className="level-collectibles">
-      <GiOpenTreasureChest size={50} />5 / {collected}
+      <GiOpenTreasureChest size={50} />{collected} / 5
     </div>
   )
 }
