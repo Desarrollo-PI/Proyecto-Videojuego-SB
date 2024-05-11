@@ -4,6 +4,11 @@ import Key from './Key'
 
 import { useDialog } from '../../../../providers/dialog/DialogProvider'
 import { useMusic } from '../../../../providers/music/MusicProvider'
+import Fences from './Fences'
+import Puddle from './Puddle'
+import TrashContainer from './TrashContainer'
+import BackPacks from './Backpacks'
+import Chairs from './Chairs'
 
 const Obstacles = () => {
   const { openDialog } = useDialog()
@@ -20,6 +25,11 @@ const Obstacles = () => {
 
   return (
     <>
+      <Fences />
+      <Puddle />
+      <TrashContainer />
+      <BackPacks />
+      <Chairs />
       <Key
         keyCollected={keyCollected}
         handleKeyCollected={handleKeyCollected}
