@@ -329,8 +329,7 @@ const LayoutLevel = () => {
         type: 'fixed',
         isPlayerDeath: false,
       }
-    }
-    else {
+    } else {
       return {
         camInitDis: -3,
         camMaxDis: -3,

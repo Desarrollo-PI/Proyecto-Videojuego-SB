@@ -8,8 +8,8 @@ const TrashContainer = () => {
   )
 
   return (
-<RigidBody type='fixed' colliders={false} /*args={[10, 10, 10]}*/ >
-<mesh
+    <RigidBody type="fixed" colliders={false} /*args={[10, 10, 10]}*/>
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.TrashContainer003_1.geometry}
@@ -27,7 +27,7 @@ const TrashContainer = () => {
         geometry={nodes.TrashContainer003_3.geometry}
         material={materials.Grey}
       />
-      <CuboidCollider args={[0.8, 5, 1.1]} position={[0, 1, -30.7]}/>
+      <CuboidCollider args={[0.8, 5, 1.1]} position={[0, 1, -30.7]} />
 
       <mesh
         castShadow
@@ -47,7 +47,7 @@ const TrashContainer = () => {
         geometry={nodes.TrashContainer002_3.geometry}
         material={materials.Grey}
       />
-      <CuboidCollider args={[1.6, 10, 0.8]} position={[9, 1, -49.4]}/>
+      <CuboidCollider args={[1.6, 10, 0.8]} position={[9, 1, -49.4]} />
 
       <mesh
         castShadow
@@ -68,8 +68,8 @@ const TrashContainer = () => {
         material={materials.Grey}
       />
 
-      <CuboidCollider args={[1.4, 10, 0.8]} position={[-1.2, 1, -80.3]}/>
-</RigidBody>
+      <CuboidCollider args={[1.4, 10, 0.8]} position={[-1.2, 1, -80.3]} />
+    </RigidBody>
   )
 }
 

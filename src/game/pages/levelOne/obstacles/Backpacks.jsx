@@ -8,8 +8,8 @@ const BackPacks = () => {
   )
 
   return (
-<RigidBody type='fixed' colliders={false} /*args={[10, 10, 10]}*/ >
-<mesh
+    <RigidBody type="fixed" colliders={false} /*args={[10, 10, 10]}*/>
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.Backpack_1.geometry}
@@ -129,7 +129,7 @@ const BackPacks = () => {
         geometry={nodes.Backpack_20.geometry}
         material={materials.mat0}
       />
-      <CuboidCollider args={[0.7, 8, 0.5]} position={[5, 1, -79]}/>
+      <CuboidCollider args={[0.7, 8, 0.5]} position={[5, 1, -79]} />
 
       <mesh
         castShadow
@@ -383,8 +383,8 @@ const BackPacks = () => {
         geometry={nodes.Backpack006_21.geometry}
         material={materials.mat3}
       />
-      <CuboidCollider args={[1.4, 8, 0.8]} position={[4, 1, -70.8]}/>
-</RigidBody>
+      <CuboidCollider args={[1.4, 8, 0.8]} position={[4, 1, -70.8]} />
+    </RigidBody>
   )
 }
 

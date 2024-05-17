@@ -8,7 +8,7 @@ const Puddle = () => {
   )
 
   return (
-    <RigidBody type='fixed' colliders={false} /*args={[10, 10, 10]}*/ >
+    <RigidBody type="fixed" colliders={false} /*args={[10, 10, 10]}*/>
       <mesh
         castShadow
         receiveShadow
@@ -64,7 +64,7 @@ const Puddle = () => {
         material={materials['Material.014']}
       />
 
-    <CuboidCollider args={[2, 5, 2.3]} position={[-4, 1, -5]}/>
+      <CuboidCollider args={[2, 5, 2.3]} position={[-4, 1, -5]} />
       {/* colliders primer charco */}
 
       <mesh
@@ -121,7 +121,7 @@ const Puddle = () => {
         geometry={nodes.Charco001_9.geometry}
         material={materials['Material.014']}
       />
-      <CuboidCollider args={[1.6, 5, 2]} position={[5.85, 1, -50]}/>
+      <CuboidCollider args={[1.6, 5, 2]} position={[5.85, 1, -50]} />
       {/* colliders segundo charco */}
       <mesh
         castShadow
@@ -177,10 +177,10 @@ const Puddle = () => {
         geometry={nodes.Charco002_9.geometry}
         material={materials['Material.014']}
       />
-      <CuboidCollider args={[2.2, 9, 1.5]} position={[0.3, 1, -83]}/>
+      <CuboidCollider args={[2.2, 9, 1.5]} position={[0.3, 1, -83]} />
       {/* colliders tecer charco */}
     </RigidBody>
-    )
+  )
 }
 
 export default Puddle
