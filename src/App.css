@@ -887,9 +887,8 @@
   border: 6px solid #b0955e;
   border-radius: 8px;
   padding: 20px;
-  min-width: 40%;
   width: auto;
-  max-width: 80%;
+  max-width: 60%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -919,8 +918,13 @@
   text-shadow: #000 0px 0px 10px;
 }
 
-.dialog-continue strong {
+.dialog-continue strong,
+.dialog-message strong {
+  padding-left: 0.2em;
+  padding-right: 0.2em;
   color: #b0955e;
+  font-weight: 900;
+  font-size: 20px;
 }
 
 .house-carousel {

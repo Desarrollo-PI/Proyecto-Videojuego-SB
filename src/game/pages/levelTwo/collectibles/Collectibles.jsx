@@ -13,7 +13,10 @@ const Collectibles = () => {
   const { handleSound } = useMusic()
 
   const handleOnCollect = (name, level, collectible) => {
-    openDialog('!Has encontrado un coleccionable: ' + name + '!')
+    openDialog(
+      '!Has encontrado un coleccionable: ' + `<strong>${name}!</strong>`,
+      'collectible'
+    )
     handleSound(['collect'])
     onCollect(level, collectible)
   }

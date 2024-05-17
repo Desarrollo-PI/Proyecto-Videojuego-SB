@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Image } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import parse from 'html-react-parser'
 
 const DialogBox = ({
   message,
@@ -8,8 +8,44 @@ const DialogBox = ({
   closeDialog,
   dialogType,
 }) => {
+  const [displayedMessage, setDisplayedMessage] = useState('')
+  const [currentIndex, setCurrentIndex] = useState(0)
+
   useEffect(() => {
-    const onOpenDialog = (event) => {
+    let time = 0
+
+    if (isOpenDialog) {
+      const interval = setInterval(() => {
+        if (currentIndex < message.length) {
+          setDisplayedMessage(
+            (prevMessage) => prevMessage + message[currentIndex]
+          )
+          setCurrentIndex((prevIndex) => prevIndex + 1)
+        } else {
+          clearInterval(interval)
+          time = setTimeout(() => {
+            closeDialog()
+            clearTimeout(time)
+          }, 3000)
+        }
+      }, 10)
+
+      return () => {
+        clearInterval(interval)
+        clearTimeout(time)
+      }
+    }
+  }, [isOpenDialog, message, currentIndex])
+
+  useEffect(() => {
+    if (!isOpenDialog) {
+      setDisplayedMessage('')
+      setCurrentIndex(0)
+    }
+  }, [isOpenDialog])
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
       if (
         event.key === 'p' ||
         (event.key === 'e' && dialogType === 'checkpoint')
@@ -20,22 +56,24 @@ const DialogBox = ({
       }
     }
 
-    document.addEventListener('keydown', onOpenDialog)
+    document.addEventListener('keydown', handleKeyDown)
 
     return () => {
-      document.removeEventListener('keydown', onOpenDialog)
+      document.removeEventListener('keydown', handleKeyDown)
     }
   }, [isOpenDialog])
 
   if (!isOpenDialog) {
     return null
   }
+
   return (
     <>
       <div className="dialog">
-        <div className="dialog-message">{message}</div>
-        <div className="dialog-img">
-          <Image src={characterImage} alt="Character" width={100} />
+        <div className="dialog-message">
+          {dialogType === 'checkpoint' || dialogType === 'collectible'
+            ? parse(displayedMessage)
+            : displayedMessage}
         </div>
       </div>
       {dialogType !== 'checkpoint' && (
