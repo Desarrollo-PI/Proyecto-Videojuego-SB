@@ -8,8 +8,8 @@ const Chairs = () => {
   )
 
   return (
-<RigidBody type='fixed' colliders={false} /*args={[10, 10, 10]}*/ >
-<mesh
+    <RigidBody type="fixed" colliders={false} /*args={[10, 10, 10]}*/>
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.BenchLeft006_1.geometry}
@@ -21,9 +21,9 @@ const Chairs = () => {
         geometry={nodes.BenchLeft006_2.geometry}
         material={materials.brown}
       />
-        <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -6.9]}/>
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -6.9]} />
 
-        <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.BenchLeft011_1.geometry}
@@ -35,8 +35,8 @@ const Chairs = () => {
         geometry={nodes.BenchLeft011_2.geometry}
         material={materials.brown}
       />
-      <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -6.9]}/>
-    
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -6.9]} />
+
       <mesh
         castShadow
         receiveShadow
@@ -49,9 +49,9 @@ const Chairs = () => {
         geometry={nodes.BenchLeft009_2.geometry}
         material={materials.brown}
       />
-    <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -26.9]}/>
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -26.9]} />
 
-    <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.BenchLeft002_1.geometry}
@@ -63,7 +63,7 @@ const Chairs = () => {
         geometry={nodes.BenchLeft002_2.geometry}
         material={materials.brown}
       />
-    <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -26.9]}/>
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -26.9]} />
 
       <mesh
         castShadow
@@ -77,7 +77,7 @@ const Chairs = () => {
         geometry={nodes.BenchLeft010_2.geometry}
         material={materials.brown}
       />
-    <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -46.9]}/>
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -46.9]} />
 
       <mesh
         castShadow
@@ -91,7 +91,7 @@ const Chairs = () => {
         geometry={nodes.BenchLeft004_2.geometry}
         material={materials.brown}
       />
-    <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -46.9]}/>
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -46.9]} />
 
       <mesh
         castShadow
@@ -105,9 +105,9 @@ const Chairs = () => {
         geometry={nodes.BenchLeft012_2.geometry}
         material={materials.brown}
       />
-      
-      <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -87]}/>
-    
+
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[-1.3, 1, -87]} />
+
       <mesh
         castShadow
         receiveShadow
@@ -120,10 +120,9 @@ const Chairs = () => {
         geometry={nodes.BenchLeft007_2.geometry}
         material={materials.brown}
       />
-      <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -87]}/>
-
-</RigidBody>
-    )
+      <CuboidCollider args={[0.5, 5, 2.3]} position={[1.3, 1, -87]} />
+    </RigidBody>
+  )
 }
 
 export default Chairs

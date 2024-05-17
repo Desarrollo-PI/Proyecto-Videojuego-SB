@@ -305,7 +305,7 @@ const BarrelsDynamic = () => {
           colliders="cuboid"
           onCollisionEnter={null}
           collisionGroups={interactionGroups(2, [0])}
-          density = {20}
+          density={20}
         >
           <mesh
             castShadow
@@ -355,7 +355,7 @@ const BoxesDynamic = () => {
           colliders="cuboid"
           onCollisionEnter={null}
           collisionGroups={interactionGroups(2, [0])}
-          density = {20}
+          density={20}
         >
           <mesh
             castShadow
@@ -733,10 +733,7 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.BenchLeft001_2.geometry}
         material={materials.brown}
       />
-      
-      
-      
-      
+
       <mesh
         castShadow
         receiveShadow
@@ -749,10 +746,7 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.BenchLeft008_2.geometry}
         material={materials.brown}
       />
-      
-      
-      
-      
+
       <mesh
         castShadow
         receiveShadow
@@ -1162,7 +1156,7 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.Backpack004_21.geometry}
         material={materials.mat3}
       />
-      
+
       <mesh
         castShadow
         receiveShadow
@@ -1199,7 +1193,6 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.TrashContainer006_3.geometry}
         material={materials.Grey}
       />
-      
 
       <mesh
         castShadow
@@ -1255,7 +1248,7 @@ export const WorldLevelOne = (props) => {
         geometry={nodes.TrashContainer001_3.geometry}
         material={materials.Grey}
       />
-      
+
       <mesh
         castShadow
         receiveShadow
