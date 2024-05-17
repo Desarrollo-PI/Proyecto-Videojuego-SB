@@ -35,7 +35,7 @@ const Checkpoint = (props) => {
 
   const onExitCollisionCheckpoint = (e) => {
     if (e.rigidBodyObject.name === 'playerBody') {
-      dialogs.handleCloseDialogInRange()
+      dialogs.closeDialog()
       setIsInRange(false)
     }
   }

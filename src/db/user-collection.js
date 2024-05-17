@@ -22,7 +22,13 @@ const defaultUser = {
     thunderLight: false,
     witchHat: false,
   },
-  collectibles_level_two: {},
+  collectibles_level_two: {
+    wand: false,
+    broom: false,
+    cup: false,
+    diary: false,
+    map: false,
+  },
   collectibles_level_three: {},
   collectibles_level_four: {},
   checkpoint_level_one: {
