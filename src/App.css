@@ -1049,3 +1049,42 @@
   font-size: 100px;
   text-align: center;
 }
+
+.custom-alert {
+  font-family: 'HarryPotter7', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  z-index: 1000;
+  gap: 20px;
+}
+
+.custom-alert-danger {
+  background-color: #88001b;
+  color: #fff;
+}
+
+.custom-alert-success {
+  background-color: #19641c;
+  color: #fff;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.2s;
+}
+
+.close-button:hover {
+  transform: scale(1.1);
+}

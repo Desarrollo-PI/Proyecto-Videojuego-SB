@@ -2,14 +2,25 @@ import React, { useState } from 'react'
 import { Button, Form, Row, Col, InputGroup } from 'react-bootstrap'
 import HouseCarousel from './HouseCarousel'
 import { FaEye, FaEyeSlash } from 'react-icons/fa6'
+import { useAlert } from '../../../providers/alert/AlertProvider'
+import { handleErrosRegister } from '../../../utils/message-auth'
 
 const RegisterForm = ({ onRegister, onGoToLogin }) => {
+  const { openAlert } = useAlert()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
   const [hogwartsHouse, setHogwartsHouse] = useState(0)
 
   const [showPassword, setShowPassword] = useState(false)
+
+  const cleanForm = () => {
+    setEmail('')
+    setPassword('')
+    setName('')
+    setHogwartsHouse(0)
+  }
 
   const handleSelect = (selectedIndex) => {
     setHogwartsHouse(selectedIndex)
@@ -23,12 +34,25 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
       hogwartsHouse,
     }
     e.preventDefault()
+
+    if (!email || !password || !name) {
+      openAlert('Todos los campos son obligatorios', 'danger')
+      return
+    }
+
     onRegister(dataUser)
-      .then(() => {
-        onGoToLogin()
+      .then((res) => {
+        console.log(res)
+        if (res.success) {
+          openAlert('Usuario creado correctamente', 'success')
+          cleanForm()
+          onGoToLogin()
+        } else {
+          openAlert(handleErrosRegister(res.error), 'danger')
+        }
       })
       .catch((error) => {
-        console.error(error)
+        openAlert(handleErrosRegister(error), 'danger')
       })
   }
 

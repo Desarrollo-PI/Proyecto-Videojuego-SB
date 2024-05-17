@@ -3,14 +3,12 @@ import RegisterForm from './RegisterForm'
 
 import { useAuth } from '../../../providers/auth/AuthProvider'
 import { useNavigate } from 'react-router-dom'
+import AlertCustom from '../layout/Alert'
+import { useAlert } from '../../../providers/alert/AlertProvider'
 
 const RegisterPage = () => {
   const { register } = useAuth()
   const navigate = useNavigate()
-
-  const onRegister = async (dataUser) => {
-    register(dataUser)
-  }
 
   const onGoToLogin = () => {
     navigate('/login')
@@ -18,7 +16,8 @@ const RegisterPage = () => {
 
   return (
     <>
-      <RegisterForm onRegister={onRegister} onGoToLogin={onGoToLogin} />
+      <RegisterForm onRegister={register} onGoToLogin={onGoToLogin} />
+      <AlertCustom />
     </>
   )
 }
