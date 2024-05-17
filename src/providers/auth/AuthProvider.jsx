@@ -186,6 +186,22 @@ export const AuthProvider = ({ children }) => {
     state?.user?.collectibles_level_one?.witchHat,
   ])
 
+  useEffect(() => {
+    const collectibles = state?.user?.collectibles_level_two
+
+    for (const key in collectibles) {
+      if (collectibles[key]) {
+        editUser(state.user)
+      }
+    }
+  }, [
+    state?.user?.collectibles_level_two?.wand,
+    state?.user?.collectibles_level_two?.broom,
+    state?.user?.collectibles_level_two?.cup,
+    state?.user?.collectibles_level_two?.diary,
+    state?.user?.collectibles_level_two?.map,
+  ])
+
   const values = {
     user: state.user,
     loading: state.loading,
