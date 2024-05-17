@@ -57,12 +57,12 @@ const ProfilePage = () => {
             <h3>{state.user.email.toUpperCase()}</h3>
             <Row className="stadistic-info">
               <Col>
-                <h4>NIVEL:</h4>
-                <h5>{state.user.level}</h5>
+                <h4>NIVEL</h4>
+                <h5>{state.user.level} / 4</h5>
               </Col>
               <Col>
                 <h4>ITEMS</h4>
-                <h5>20 / {state.user.collectibles}</h5>
+                <h5>{state.user.collectibles} / 20</h5>
               </Col>
               <Col>
                 <Image

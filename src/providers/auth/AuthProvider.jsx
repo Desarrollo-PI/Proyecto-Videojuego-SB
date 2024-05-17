@@ -191,7 +191,7 @@ export const AuthProvider = ({ children }) => {
     loading: state.loading,
     maxHearts: state?.user?.lives,
     collectiblesLevelOne: state?.user?.collectibles_level_one,
-    collectiblesLevelTo: state?.user?.collectibles_level_two,
+    collectiblesLevelTwo: state?.user?.collectibles_level_two,
     collectiblesLevelThree: state?.user?.collectibles_level_three,
     collectiblesLevelFour: state?.user?.collectibles_level_four,
     checkpointLevelOne: state?.user?.checkpoint_level_one,
