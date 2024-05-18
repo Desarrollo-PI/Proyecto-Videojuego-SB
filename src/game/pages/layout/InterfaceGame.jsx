@@ -149,9 +149,8 @@ const InterfaceGame = ({
         <div className="options-spells">
           {spells.map(
             (spell, index) =>
-              spell?.id !== selectedSpellIndex && (
-                <OptionSpell key={spell.id} spell={spell} />
-              )
+              spell?.id !== selectedSpellIndex &&
+              spell.show && <OptionSpell key={spell.id} spell={spell} />
           )}
         </div>
       </div>

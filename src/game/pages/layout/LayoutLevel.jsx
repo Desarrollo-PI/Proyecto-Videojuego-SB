@@ -83,24 +83,37 @@ const LayoutLevel = () => {
       icon: <FaWandSparkles color="white" size={25} />,
       name: 'Expelliarmus',
       key: '1',
+      show:
+        location.pathname === '/level/one' ||
+        location.pathname === '/level/two' ||
+        location.pathname === '/level/three' ||
+        location.pathname === '/level/four',
     },
     {
       id: 1,
-      icon: <GiBoltSpellCast color="yellow" size={25} />,
-      name: 'Lumos',
+      icon: <GiIceSpellCast color="cyan" size={25} />,
+      name: 'Glacius',
       key: '2',
+      show:
+        location.pathname === '/level/two' ||
+        location.pathname === '/level/three' ||
+        location.pathname === '/level/four',
     },
     {
       id: 2,
       icon: <GiFireSpellCast color="red" size={25} />,
       name: 'Incendio',
       key: '3',
+      show:
+        location.pathname === '/level/three' ||
+        location.pathname === '/level/four',
     },
     {
       id: 3,
-      icon: <GiIceSpellCast color="cyan" size={25} />,
-      name: 'Glacius',
+      icon: <GiBoltSpellCast color="yellow" size={25} />,
+      name: 'Lumos',
       key: '4',
+      show: location.pathname === '/level/four',
     },
   ]
 
@@ -202,34 +215,44 @@ const LayoutLevel = () => {
     const handleKeyPress = (event) => {
       switch (event.key) {
         case '1':
-          setSelectedSpellIndex(0)
-          setSelectedSpell({
-            ..._spells[0],
-            icon: <FaWandSparkles color="white" size={50} />,
-          })
-          chooseSpell('spellExpelliarmus')
+          if (spells[0].show) {
+            setSelectedSpellIndex(0)
+            setSelectedSpell({
+              ..._spells[0],
+              icon: <FaWandSparkles color="white" size={50} />,
+            })
+            chooseSpell('spellExpelliarmus')
+          }
           break
         case '2':
-          setSelectedSpellIndex(1)
-          setSelectedSpell({
-            ..._spells[1],
-            icon: <GiBoltSpellCast color="yellow" size={50} />,
-          })
+          if (spells[1].show) {
+            setSelectedSpellIndex(1)
+            setSelectedSpell({
+              ..._spells[1],
+              icon: <GiIceSpellCast color="cyan" size={50} />,
+            })
+            chooseSpell('spellGlacius')
+          }
           break
         case '3':
-          setSelectedSpellIndex(2)
-          setSelectedSpell({
-            ..._spells[2],
-            icon: <GiFireSpellCast color="red" size={50} />,
-          })
+          if (spells[2].show) {
+            setSelectedSpellIndex(2)
+            setSelectedSpell({
+              ..._spells[2],
+              icon: <GiFireSpellCast color="red" size={50} />,
+            })
+            chooseSpell('spellIncendio')
+          }
           break
         case '4':
-          setSelectedSpellIndex(3)
-          setSelectedSpell({
-            ..._spells[3],
-            icon: <GiIceSpellCast color="cyan" size={50} />,
-          })
-          chooseSpell('spellGlacius')
+          if (spells[3].show) {
+            setSelectedSpellIndex(3)
+            setSelectedSpell({
+              ..._spells[3],
+              icon: <GiBoltSpellCast color="yellow" size={50} />,
+            })
+            chooseSpell('spellLumos')
+          }
           break
         default:
           break
