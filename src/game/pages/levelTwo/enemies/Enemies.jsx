@@ -41,7 +41,7 @@ const Enemies = () => {
       return
     }
     takeLife(100)
-    handleSound(['mace'])
+    handleSound(['hitDementor'])
   }
 
   return (

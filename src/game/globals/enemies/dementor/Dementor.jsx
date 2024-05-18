@@ -326,7 +326,7 @@ export function Dementor(props) {
             />
             {isSoundPLaying && props.isPlaying && (
               <PositionalAudio
-                url="/assets/sounds/goblin.mp3"
+                url="/assets/sounds/dementor.mp3"
                 autoplay
                 distance={distance * 100}
                 loop

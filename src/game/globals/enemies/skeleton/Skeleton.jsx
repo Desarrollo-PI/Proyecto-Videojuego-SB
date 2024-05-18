@@ -323,7 +323,7 @@ export function Skeleton(props) {
             />
             {isSoundPLaying && props.isPlaying && (
               <PositionalAudio
-                url="/assets/sounds/goblin.mp3"
+                url="/assets/sounds/skeleton.mp3"
                 autoplay
                 distance={distance * 100}
                 loop

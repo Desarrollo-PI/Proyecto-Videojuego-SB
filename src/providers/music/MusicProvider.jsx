@@ -38,6 +38,9 @@ const initialState = {
   hit: new Howl({
     src: ['/assets/sounds/hit.mp3'],
   }),
+  hitDementor: new Howl({
+    src: ['/assets/sounds/hitDementor.mp3'],
+  }),
 }
 
 const music = ['mainTheme', 'thunder', 'level', 'heartbeat']
@@ -49,6 +52,7 @@ const soundsEffects = [
   'spell',
   'win',
   'hit',
+  'hitDementor',
 ]
 
 export const MusicProvider = ({ children }) => {
