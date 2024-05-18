@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Environment } from '@react-three/drei'
 import LightsEnvironment from './LightsEnvironment'
+import { usePlayer } from '../../providers/player/PlayerProvider'
 
 const StormEnvironment = ({
   positionDirectionalLight,
   intensityDirectionalLight,
   intensityAmbientLight,
+  isFog,
+  nearDementor,
 }) => {
   const [background, setBackground] = useState('#10141b')
 
@@ -34,6 +37,9 @@ const StormEnvironment = ({
       <Environment preset="night" />
       <LightsEnvironment {...stormLightsProps} />
       <color attach="background" args={[background]} />
+      {isFog && (
+        <fog attach="fog" args={['#10141b', 0, nearDementor ? 10 : 50]} />
+      )}
     </>
   )
 }

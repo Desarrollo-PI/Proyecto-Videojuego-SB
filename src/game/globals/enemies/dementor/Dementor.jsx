@@ -76,6 +76,9 @@ export function Dementor(props) {
   }
 
   const handleWatchPlayer = (e) => {
+    e.rigidBodyObject.name === 'playerBody' &&
+      !props.isPlayerDeath &&
+      props.handleNearDementor(true)
     watchPlayer(
       e,
       setPlayerBody,
@@ -87,6 +90,9 @@ export function Dementor(props) {
   }
 
   const handleStopWatchPlayer = (e) => {
+    e.rigidBodyObject.name === 'playerBody' &&
+      !props.isPlayerDeath &&
+      props.handleNearDementor(false)
     stopWatchPlayer(
       e,
       setActualAction,
