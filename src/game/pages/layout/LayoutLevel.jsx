@@ -314,6 +314,7 @@ const LayoutLevel = () => {
         name: 'playerBody',
         type: 'dynamic',
         isPlayerDeath: false,
+        isMenuOpen: false,
       }
     } else if (isVictory) {
       return {
@@ -329,6 +330,23 @@ const LayoutLevel = () => {
         name: 'null',
         type: 'fixed',
         isPlayerDeath: false,
+        isMenuOpen: false,
+      }
+    } else if (state.isOpenMenu) {
+      return {
+        camInitDis: -3,
+        camMaxDis: -3,
+        maxVelLimit: 0,
+        sprintMult: 0,
+        jumpVel: 0,
+        sprintJumpMult: 0,
+        position: choosePosition(),
+        characterInitDir: Math.PI,
+        camInitDir: { x: 0, y: Math.PI },
+        name: 'null',
+        type: 'fixed',
+        isPlayerDeath: true,
+        isMenuOpen: true,
       }
     } else {
       return {
@@ -344,6 +362,7 @@ const LayoutLevel = () => {
         name: 'null',
         type: 'fixed',
         isPlayerDeath: true,
+        isMenuOpen: false,
       }
     }
   }
