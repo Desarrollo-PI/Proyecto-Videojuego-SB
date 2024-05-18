@@ -23,14 +23,8 @@ export default function Glacius({ initRotation, initPosition }) {
       true
     )
     const desplazamiento = {
-      x: Math.abs(
-        glaciusBodyRef?.current?.translation().x -
-          initPosition[0]
-      ),
-      z: Math.abs(
-        glaciusBodyRef?.current?.translation().z -
-          initPosition[2]
-      ),
+      x: Math.abs(glaciusBodyRef?.current?.translation().x - initPosition[0]),
+      z: Math.abs(glaciusBodyRef?.current?.translation().z - initPosition[2]),
     }
     const desplazamientoTotal = desplazamiento.x + desplazamiento.z
     if (desplazamientoTotal > 8) {

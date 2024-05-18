@@ -1,117 +1,244 @@
-import React, { useEffect, useMemo, useRef } from 'react'
-import { useGLTF, useAnimations } from '@react-three/drei'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import {
+  useGLTF,
+  useAnimations,
+  PositionalAudio,
+  Text,
+} from '@react-three/drei'
 import { useFrame, useGraph } from '@react-three/fiber'
-import { CuboidCollider, RigidBody } from '@react-three/rapier'
+import {
+  CuboidCollider,
+  CylinderCollider,
+  RigidBody,
+} from '@react-three/rapier'
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js'
+
+import {
+  normalize,
+  calculateAndSetDistance,
+  getPlayerDirection,
+  getVelocity,
+  setEnemyRotation,
+  watchPlayer,
+  stopWatchPlayer,
+  touchPlayer,
+  receiveDamage,
+  stopTouchPlayer,
+  touchSpell,
+} from '../../../../utils/enemies-utils'
+import { useMusic } from '../../../../providers/music/MusicProvider'
 
 export function Skeleton(props) {
   const skeletonRef = useRef()
+  const skeletonMeshRef = useRef()
   const skeletonBody = useRef()
+
+  const [actualAction, setActualAction] = useState(null)
+  const [playerBody, setPlayerBody] = useState(null)
+  const [repeatAttack, setRepeatAttack] = useState(false)
+  const [isSoundPLaying, setIsSoundPlaying] = useState(false)
+  const [distance, setDistance] = useState(0)
+  const [life, setLife] = useState(200)
+  const [frozen, setFrozen] = useState(0)
+  const [changeColor, setChangeColor] = useState(false)
+
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Skeleton.glb'
   )
+
+  const { handleSound } = useMusic()
+
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
   const { actions } = useAnimations(animations, skeletonRef)
 
-  function eulerToQuaternion(alpha, beta, gamma) {
-    var qx =
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) -
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    var qy =
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2)
-    var qz =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2) -
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2)
-    var qw =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    return { x: qx, y: qy, z: qz, w: qw }
+  function changeAnimation(actualAction) {
+    Object.values(actions).forEach((action) => {
+      action.stop()
+    })
+
+    switch (actualAction) {
+      case 'Idle':
+        actions['SkeletonArmature|Skeleton_Idle'].play()
+        break
+      case 'Walk':
+      case 'Chase':
+      case 'GoBack':
+        actions['SkeletonArmature|Skeleton_Running'].play()
+        break
+      case 'Attack':
+        const attackAction = actions['SkeletonArmature|Skeleton_Attack']
+        attackAction.repetitions = 1
+        attackAction.play()
+        break
+      default:
+        break
+    }
   }
 
-  function normalize(vector) {
-    var magnitud = Math.sqrt(vector.x ** 2 + vector.z ** 2)
-    if (magnitud == 0) {
-      return vector
-    }
-    var normalizedVector = {
-      x: vector.x / magnitud,
-      y: vector.y,
-      z: vector.z / magnitud,
-    }
-    return normalizedVector
+  const handleWatchPlayer = (e) => {
+    watchPlayer(
+      e,
+      setPlayerBody,
+      setActualAction,
+      changeAnimation,
+      setIsSoundPlaying,
+      props
+    )
+  }
+
+  const handleStopWatchPlayer = (e) => {
+    stopWatchPlayer(
+      e,
+      setActualAction,
+      changeAnimation,
+      setPlayerBody,
+      setIsSoundPlaying,
+      props
+    )
+  }
+
+  const handleTouch = (e) => {
+    touchPlayer(
+      e,
+      setRepeatAttack,
+      setActualAction,
+      changeAnimation,
+      props,
+      frozen
+    )
+    touchSpell(
+      e,
+      life,
+      props.idEnemy,
+      setLife,
+      props.deathEnemy,
+      handleSound,
+      frozen,
+      setFrozen,
+      setChangeColor
+    )
+  }
+  const handleStopTouchPlayer = (e) => {
+    stopTouchPlayer(e, setRepeatAttack)
   }
 
   useEffect(() => {
-    skeletonBody.current.lockRotations(true, true)
-  }, [skeletonBody.current])
+    if (props.isPlayerDeath) {
+      setActualAction(props.action)
+      changeAnimation(props.action)
+      setIsSoundPlaying(false)
+      setDistance(0)
+      setPlayerBody(null)
+    }
+  }, [props.isPlayerDeath])
 
   useEffect(() => {
-    actions['SkeletonArmature|Skeleton_Running'].timeScale = 0.8
-    if (props.action == 0) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['SkeletonArmature|Skeleton_Idle'].play()
-    } else if (props.action == 1) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['SkeletonArmature|Skeleton_Running'].play()
-    } else if (props.action == 2) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['SkeletonArmature|Skeleton_Attack'].play()
-    } else if (props.action == 3) {
-      Object.values(actions).forEach((action) => {
-        action.stop()
-      })
-      actions['SkeletonArmature|Skeleton_Death'].play()
-    }
+    setActualAction(props.action)
+    changeAnimation(props.action)
   }, [actions, props.action])
 
+  useEffect(() => {
+    if (changeColor) {
+      skeletonMeshRef.current.material.color.set('hsl(180,100%,80%)')
+    } else {
+      skeletonMeshRef.current.material.color.set('hsl(180,0%,100%)')
+    }
+  }, [changeColor])
+
   useFrame(({ clock }, delta) => {
+    calculateAndSetDistance(playerBody, skeletonBody, setDistance)
     if (skeletonBody.current) {
-      const position = skeletonBody.current.translation()
-      var velocity = skeletonBody.current.linvel()
-      if (velocity.x == NaN) {
-        velocity.x = 0
-      }
-      if (velocity.y == NaN) {
-        velocity.y = 0
-      }
-      if (velocity.z == NaN) {
-        velocity.z = 0
+      let velocity = getVelocity(skeletonBody)
+      const skeletonPosition = skeletonBody.current.translation()
+      const playerPosition = playerBody?.position
+
+      if (frozen < 0) {
+        setFrozen(0)
+        if (actualAction == 'Attack' && !repeatAttack) {
+          setActualAction('Chase')
+        } else {
+          changeAnimation(actualAction)
+        }
+        skeletonBody.current.lockTranslations(false, true)
+        skeletonBody.current.lockRotations(false, true)
+        setChangeColor(false)
       }
 
-      if (props.action == 0) {
-        if (position.x > props.position[0] + 0.05) {
-          velocity.x = -1
-        } else if (position.x < props.position[0] - 0.05) {
-          velocity.x = 1
-        } else {
-          velocity.x = 0
-        }
-        if (position.z > props.position[2] + 0.05) {
-          velocity.z = -1
-        } else if (position.z < props.position[2] - 0.05) {
-          velocity.z = 1
-        } else {
-          velocity.z = 0
-        }
-        velocity = normalize(velocity)
+      if (frozen > 0) {
+        setFrozen(frozen - delta)
+        changeAnimation('Frozen')
+        velocity.x = 0
+        velocity.z = 0
         skeletonBody.current.setLinvel(
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
-      }
+        skeletonBody.current.lockTranslations(true, true)
+        skeletonBody.current.lockRotations(true, true)
+      } else if (actualAction == 'Attack') {
+        if (!actions['SkeletonArmature|Skeleton_Attack'].isRunning()) {
+          if (repeatAttack) {
+            actions['SkeletonArmature|Skeleton_Attack'].reset()
+          } else {
+            setActualAction('Chase')
+            changeAnimation('Chase')
+          }
+          if (!frozen) {
+            props.takeLife()
+          }
+        }
 
-      if (props.action == 1) {
-        if (position.z <= props.position[2] - 2) {
+        velocity = normalize(
+          getPlayerDirection(skeletonPosition, playerPosition)
+        )
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
+      } else if (actualAction == 'Chase') {
+        velocity = normalize(
+          getPlayerDirection(skeletonPosition, playerPosition)
+        )
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
+        skeletonBody.current.setLinvel(
+          { x: velocity.x, y: velocity.y, z: velocity.z },
+          true
+        )
+      } else if (props.action == 'Idle') {
+        let nextAction = 'Idle'
+        if (skeletonPosition.x > props.position[0] + 0.05) {
+          velocity.x = -1
+          nextAction = 'GoBack'
+        } else if (skeletonPosition.x < props.position[0] - 0.05) {
+          velocity.x = 1
+          nextAction = 'GoBack'
+        } else {
+          velocity.x = 0
+        }
+        if (skeletonPosition.z > props.position[2] + 0.05) {
+          velocity.z = -1
+          nextAction = 'GoBack'
+        } else if (skeletonPosition.z < props.position[2] - 0.05) {
           velocity.z = 1
-        } else if (position.z >= props.position[2] + 2) {
+          nextAction = 'GoBack'
+        } else {
+          velocity.z = 0
+        }
+        velocity = normalize(velocity)
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
+        skeletonBody.current.setLinvel(
+          { x: velocity.x, y: velocity.y, z: velocity.z },
+          true
+        )
+        if (actualAction != nextAction) {
+          setActualAction(nextAction)
+          changeAnimation(nextAction)
+        }
+      } else if (props.action == 'Walk') {
+        if (skeletonPosition.z <= props.position[2] - 2) {
+          velocity.z = 1
+        } else if (skeletonPosition.z >= props.position[2] + 2) {
           velocity.z = -1
         } else {
           if (velocity.z > 0) {
@@ -120,27 +247,23 @@ export function Skeleton(props) {
             velocity.z = -1
           }
         }
-        if (position.x > props.position[0] + 0.05) {
+        if (skeletonPosition.x > props.position[0] + 0.05) {
           velocity.x = -1
-        } else if (position.x < props.position[0] - 0.05) {
+        } else if (skeletonPosition.x < props.position[0] - 0.05) {
           velocity.x = 1
         } else {
           velocity.x = 0
         }
         velocity = normalize(velocity)
+        velocity.x = velocity.x * props.speed
+        velocity.z = velocity.z * props.speed
         skeletonBody.current.setLinvel(
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
       }
 
-      var theta = 0
-      if (velocity.z >= 0) {
-        theta = Math.atan(velocity.x / velocity.z)
-      } else {
-        theta = Math.atan(velocity.x / velocity.z) + Math.PI
-      }
-      skeletonBody.current.setRotation(eulerToQuaternion(0, theta, 0))
+      setEnemyRotation(velocity, skeletonBody)
     }
   })
 
@@ -158,6 +281,15 @@ export function Skeleton(props) {
         position={[0, -1, 0]}
         scale={0.25}
       >
+        <Text
+          position={[0, 6, 0]}
+          color="#b0955e"
+          font="/assets/fonts/HARRYP__.TTF"
+          scale={[0.9, 0.9, 0.9]}
+        >
+          {'❤️'}
+          {life}
+        </Text>
         <group name="Root_Scene">
           <group name="RootNode">
             <group
@@ -176,8 +308,27 @@ export function Skeleton(props) {
               position={[0, 3.003, 0.124]}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={100}
+              ref={skeletonMeshRef}
             />
-            <CuboidCollider args={[1.1, 3, 1.1]} />
+            <CuboidCollider
+              args={[1.1, 3, 1.1]}
+              onCollisionEnter={handleTouch}
+              onCollisionExit={handleStopTouchPlayer}
+            />
+            <CylinderCollider
+              args={[5, 20]}
+              sensor
+              onIntersectionEnter={(e) => handleWatchPlayer(e)}
+              onIntersectionExit={(e) => handleStopWatchPlayer(e)}
+            />
+            {isSoundPLaying && props.isPlaying && (
+              <PositionalAudio
+                url="/assets/sounds/goblin.mp3"
+                autoplay
+                distance={distance * 100}
+                loop
+              />
+            )}
           </group>
         </group>
       </group>

@@ -44,7 +44,7 @@ export function PlayerProvider({ children }) {
   }
 
   const chooseSpell = (selectedSpell) => {
-    setPlayer((prev)=>({...prev, selectedSpell}))
+    setPlayer((prev) => ({ ...prev, selectedSpell }))
   }
 
   const values = {
