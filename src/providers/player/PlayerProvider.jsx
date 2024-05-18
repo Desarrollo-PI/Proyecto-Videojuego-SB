@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { Prev } from 'react-bootstrap/esm/PageItem'
 
 export const PlayerContext = createContext()
 
@@ -16,8 +17,14 @@ export function PlayerProvider({ children }) {
     life: 100,
     mana: 100,
     spellExpelliarmus: false,
-    expelliarmusInitRotation: [0, 0, 0, 0],
+    spellGlacius: false,
+    selectedSpell: 'spellExpelliarmus',
+    spellInitRotation: [0, 0, 0],
+    spellInitPosition: [0, 0, 0],
+    expelliarmusInitRotation: [0, 0, 0],
     expelliarmusInitPosition: [0, 0, 0],
+    glaciusInitRotation: [0, 0, 0],
+    glaciusInitPosition: [0, 0, 0],
   })
 
   const takeLife = (damage) => {
@@ -36,6 +43,10 @@ export function PlayerProvider({ children }) {
     setPlayer(_player)
   }
 
+  const chooseSpell = (selectedSpell) => {
+    setPlayer((prev)=>({...prev, selectedSpell}))
+  }
+
   const values = {
     player,
     currentHearts: player.hearts,
@@ -46,6 +57,7 @@ export function PlayerProvider({ children }) {
   const functions = {
     setPlayer,
     takeLife,
+    chooseSpell,
   }
 
   return (

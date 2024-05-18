@@ -1,3 +1,5 @@
+import { Color } from "three"
+
 export function eulerToQuaternion(alpha, beta, gamma) {
   const halfAlpha = alpha / 2
   const halfBeta = beta / 2
@@ -70,11 +72,11 @@ export const getPlayerDirection = (enemyPosition, playerPosition) => {
 
 export const getVelocity = (body) => {
   const _velocity = body?.current?.linvel()
-  ;['x', 'y', 'z'].forEach((component) => {
-    if (isNaN(_velocity[component])) {
-      _velocity[component] = 0
-    }
-  })
+    ;['x', 'y', 'z'].forEach((component) => {
+      if (isNaN(_velocity[component])) {
+        _velocity[component] = 0
+      }
+    })
   return _velocity
 }
 
@@ -140,7 +142,10 @@ export const touchSpell = (
   idEnemy,
   setLife,
   deathEnemy,
-  handleSound
+  handleSound,
+  frozen,
+  setFrozen,
+  setChangeColor
 ) => {
   if (e.rigidBodyObject.name === 'expelliarmusBody') {
     handleSound(['hit'])
@@ -149,6 +154,11 @@ export const touchSpell = (
     if (newLife <= 0) {
       deathEnemy(idEnemy)
     }
+  }
+  if (e.rigidBodyObject.name === 'glaciusBody') {
+    handleSound(['hit'])
+    setFrozen(3)
+    setChangeColor(true)
   }
 }
 
