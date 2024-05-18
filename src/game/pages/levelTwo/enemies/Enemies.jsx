@@ -36,11 +36,11 @@ const Enemies = () => {
     handleSound(['hurt'])
   }
 
-  const handleTakeLifeTroll = () => {
+  const handleTakeLifeDementor = () => {
     if (currentHearts <= 0) {
       return
     }
-    takeLife(75)
+    takeLife(100)
     handleSound(['mace'])
   }
 
@@ -60,13 +60,13 @@ const Enemies = () => {
       )}
       {!bosses?.dementor.isDeath && (
         <Dementor
-          idEnemy={'troll'}
-          position={[0, 0, -100]}
+          idEnemy={'dementor'}
+          position={[-10, 0, -10]}
           action={'Walk'}
-          takeLife={handleTakeLifeTroll}
+          takeLife={handleTakeLifeDementor}
           deathEnemy={handleDeathBoss}
           isPlayerDeath={currentHearts === 0}
-          speed={2}
+          speed={3}
           isPlaying={isPlaying}
         />
       )}
