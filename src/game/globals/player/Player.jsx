@@ -42,7 +42,7 @@ export default function Player(props) {
   }
 
   useEffect(() => {
-    if (props.isPlayerDeath) {
+    if (props.isPlayerDeath && !props.isMenuOpen) {
       actions['Death'].clampWhenFinished = true
       actions['Death'].repetitions = 0
       actions['Death']?.reset().fadeIn(0.5).play()
@@ -64,7 +64,6 @@ export default function Player(props) {
       avatar.animation == 'Attacking' &&
       actions['Attacking'].time >= 1.5 &&
       actions['Attacking'].time <= 1.55 &&
-      // !player.spellExpelliarmus &&
       !player[player.selectedSpell]
     ) {
       const direccion = normalize(
@@ -100,6 +99,7 @@ export default function Player(props) {
         type={props.type}
         isPlayerDeath={props.isPlayerDeath}
         ref={playerBodyRef}
+        isMenuOpen={props.isMenuOpen}
       >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group
