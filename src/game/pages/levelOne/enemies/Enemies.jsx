@@ -46,7 +46,7 @@ const Enemies = () => {
 
   return (
     <>
-      {!enemies[1].isDeath && (
+      {/* {!enemies[1].isDeath && (
         <Goblin
           idEnemy={1}
           position={[21.5, 5, -50]}
@@ -105,7 +105,7 @@ const Enemies = () => {
           speed={2}
           isPlaying={isPlaying}
         />
-      )}
+      )} */}
       {!enemies[6].isDeath && (
         <Goblin
           idEnemy={6}
@@ -118,7 +118,7 @@ const Enemies = () => {
           isPlaying={isPlaying}
         />
       )}
-      {!enemies[7].isDeath && (
+      {/* {!enemies[7].isDeath && (
         <Goblin
           idEnemy={7}
           position={[2.5, 5, -53]}
@@ -141,7 +141,7 @@ const Enemies = () => {
           speed={2}
           isPlaying={isPlaying}
         />
-      )}
+      )} */}
       {!bosses?.troll.isDeath && (
         <Troll
           idEnemy={'troll'}

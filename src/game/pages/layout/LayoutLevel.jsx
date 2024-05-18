@@ -16,7 +16,6 @@ import Controls from '../../globals/controls/Control'
 import InterfaceGame from './InterfaceGame'
 import Loader from './Loader'
 import Player from '../../globals/player/Player'
-import Ecctrl from 'ecctrl'
 import StormEnvironment from '../../globals/StormEnvironment'
 
 import { useMenu } from '../../../providers/menu/MenuProvider'
@@ -34,8 +33,8 @@ import {
 import { FaWandSparkles } from 'react-icons/fa6'
 import { useDialog } from '../../../providers/dialog/DialogProvider'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
-import Expelliarmus from '../../globals/player/Expelliarmus'
 import { useBosses } from '../../../providers/bosses/BossesProvider'
+import Spells from '../../globals/player/Spells'
 
 const LayoutLevel = () => {
   const lightsPropsLevelOne = {
@@ -57,24 +56,24 @@ const LayoutLevel = () => {
       name: 'Expelliarmus',
       key: '1',
     },
-    // {
-    //   id: 1,
-    //   icon: <GiBoltSpellCast color="yellow" size={25} />,
-    //   name: 'Lumos',
-    //   key: '2',
-    // },
-    // {
-    //   id: 2,
-    //   icon: <GiFireSpellCast color="red" size={25} />,
-    //   name: 'Incendio',
-    //   key: '3',
-    // },
-    // {
-    //   id: 3,
-    //   icon: <GiIceSpellCast color="cyan" size={25} />,
-    //   name: 'Glacius',
-    //   key: '4',
-    // },
+    {
+      id: 1,
+      icon: <GiBoltSpellCast color="yellow" size={25} />,
+      name: 'Lumos',
+      key: '2',
+    },
+    {
+      id: 2,
+      icon: <GiFireSpellCast color="red" size={25} />,
+      name: 'Incendio',
+      key: '3',
+    },
+    {
+      id: 3,
+      icon: <GiIceSpellCast color="cyan" size={25} />,
+      name: 'Glacius',
+      key: '4',
+    },
   ]
 
   const {
@@ -103,7 +102,7 @@ const LayoutLevel = () => {
     collectiblesLevelFour,
   } = useAuth()
 
-  const { player, setPlayer } = usePlayer()
+  const { player, setPlayer, chooseSpell } = usePlayer()
 
   const { bosses, reviveBosses } = useBosses()
 
@@ -188,6 +187,7 @@ const LayoutLevel = () => {
             ..._spells[0],
             icon: <FaWandSparkles color="white" size={50} />,
           })
+          chooseSpell('spellExpelliarmus')
           break
         case '2':
           setSelectedSpellIndex(1)
@@ -209,6 +209,7 @@ const LayoutLevel = () => {
             ..._spells[3],
             icon: <GiIceSpellCast color="cyan" size={50} />,
           })
+          chooseSpell('spellGlacius')
           break
         default:
           break
@@ -403,7 +404,7 @@ const LayoutLevel = () => {
             <Physics>
               <Outlet />
               <Player {...choosePropsECCtrl()} />
-              {player.spellExpelliarmus && <Expelliarmus />}
+              <Spells />
             </Physics>
             {player.hearts > 0 && !state.isOpenMenu && (
               <Controls

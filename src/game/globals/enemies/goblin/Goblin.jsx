@@ -30,6 +30,7 @@ import { useMusic } from '../../../../providers/music/MusicProvider'
 
 export function Goblin(props) {
   const goblinRef = useRef()
+  const goblinMeshRef = useRef()
   const goblinBody = useRef()
 
   const [actualAction, setActualAction] = useState(null)
@@ -38,6 +39,8 @@ export function Goblin(props) {
   const [isSoundPLaying, setIsSoundPlaying] = useState(false)
   const [distance, setDistance] = useState(0)
   const [life, setLife] = useState(100)
+  const [frozen, setFrozen] = useState(0)
+  const [changeColor, setChangeColor] = useState(false)
 
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Goblin.glb'
@@ -97,8 +100,8 @@ export function Goblin(props) {
   }
 
   const handleTouch = (e) => {
-    touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props)
-    touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound)
+    touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props, frozen)
+    touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound, frozen, setFrozen, setChangeColor)
   }
 
   const handleStopTouchPlayer = (e) => {
@@ -120,6 +123,14 @@ export function Goblin(props) {
     changeAnimation(props.action)
   }, [actions, props.action])
 
+  useEffect(() => {
+    if(changeColor) {
+      goblinMeshRef.current.material.color.set('hsl(180,100%,80%)')
+    } else {
+      goblinMeshRef.current.material.color.set('hsl(180,0%,100%)')
+    }
+  }, [changeColor])
+
   useFrame(({ clock }, delta) => {
     calculateAndSetDistance(playerBody, goblinBody, setDistance)
     if (goblinBody.current) {
@@ -127,7 +138,30 @@ export function Goblin(props) {
       const goblinPosition = goblinBody.current.translation()
       const playerPosition = playerBody?.position
 
-      if (actualAction == 'Attack') {
+      if( frozen < 0) {
+        setFrozen(0)
+        if (actualAction == 'Attack' && !repeatAttack) {
+          setActualAction('Chase')
+        } else {
+          changeAnimation(actualAction)
+        }
+        goblinBody.current.lockTranslations(false, true);
+        goblinBody.current.lockRotations(false, true);
+        setChangeColor(false)
+      }
+      
+      if (frozen > 0) {
+        setFrozen(frozen - delta)
+        changeAnimation('Frozen')
+        velocity.x = 0
+        velocity.z = 0
+        goblinBody.current.setLinvel(
+          { x: velocity.x, y: velocity.y, z: velocity.z },
+          true
+        )
+        goblinBody.current.lockTranslations(true, true);
+        goblinBody.current.lockRotations(true, true);
+      } else if (actualAction == 'Attack') {
         if (
           !actions[
             'EnemyArmature|EnemyArmature|EnemyArmature|Attack'
@@ -139,7 +173,9 @@ export function Goblin(props) {
             setActualAction('Chase')
             changeAnimation('Chase')
           }
-          props.takeLife()
+          if (!frozen) {
+            props.takeLife()
+          }
         }
 
         velocity = normalize(getPlayerDirection(goblinPosition, playerPosition))
@@ -257,6 +293,7 @@ export function Goblin(props) {
               skeleton={nodes.Goblin.skeleton}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={147.976}
+              ref={goblinMeshRef}
             />
             <CuboidCollider
               args={[0.8, 1.5, 0.6]}

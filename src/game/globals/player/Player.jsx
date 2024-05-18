@@ -64,7 +64,8 @@ export default function Player(props) {
       avatar.animation == 'Attacking' &&
       actions['Attacking'].time >= 1.5 &&
       actions['Attacking'].time <= 1.55 &&
-      !player.spellExpelliarmus
+      // !player.spellExpelliarmus &&
+      !player[player.selectedSpell]
     ) {
       const direccion = normalize(
         quaternionToDirection(playerBodyRef.current.rotation())
@@ -72,13 +73,13 @@ export default function Player(props) {
       const posicion = playerBodyRef.current.translation()
       setPlayer({
         ...player,
-        spellExpelliarmus: true,
-        expelliarmusInitPosition: [
+        [player.selectedSpell]: true,
+        spellInitPosition: [
           posicion.x + direccion.x * 0.5,
           posicion.y - 0.25,
           posicion.z + direccion.z * 0.5,
         ],
-        expelliarmusInitRotation: direccion,
+        spellInitRotation: direccion,
       })
     }
   })

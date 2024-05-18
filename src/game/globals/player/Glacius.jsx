@@ -4,16 +4,17 @@ import { usePlayer } from '../../../providers/player/PlayerProvider'
 import { useFrame } from '@react-three/fiber'
 import { PositionalAudio } from '@react-three/drei'
 
-export default function Expelliarmus({ initRotation, initPosition }) {
-  const expelliarmusBodyRef = useRef()
+export default function Glacius({ initRotation, initPosition }) {
+  console.log(initPosition)
+  const glaciusBodyRef = useRef()
   const { player, setPlayer } = usePlayer()
 
   function hitObject(e) {
-    setPlayer({ ...player, spellExpelliarmus: false })
+    setPlayer({ ...player, spellGlacius: false })
   }
 
   useFrame((state, delta) => {
-    expelliarmusBodyRef?.current?.setLinvel(
+    glaciusBodyRef?.current?.setLinvel(
       {
         x: initRotation.x * 10,
         y: 0,
@@ -23,31 +24,31 @@ export default function Expelliarmus({ initRotation, initPosition }) {
     )
     const desplazamiento = {
       x: Math.abs(
-        expelliarmusBodyRef?.current?.translation().x -
+        glaciusBodyRef?.current?.translation().x -
           initPosition[0]
       ),
       z: Math.abs(
-        expelliarmusBodyRef?.current?.translation().z -
+        glaciusBodyRef?.current?.translation().z -
           initPosition[2]
       ),
     }
     const desplazamientoTotal = desplazamiento.x + desplazamiento.z
     if (desplazamientoTotal > 8) {
-      setPlayer({ ...player, spellExpelliarmus: false })
+      setPlayer({ ...player, spellGlacius: false })
     }
   })
 
   return (
     <RigidBody
       type="kinematicVelocity"
-      ref={expelliarmusBodyRef}
+      ref={glaciusBodyRef}
       position={initPosition}
       onCollisionEnter={(e) => hitObject(e)}
-      name="expelliarmusBody"
+      name="glaciusBody"
     >
       <mesh>
         <sphereGeometry args={[0.05, 16, 8]} />
-        <meshStandardMaterial color="Gray" />
+        <meshStandardMaterial color="MediumTurquoise" />
         <PositionalAudio
           url="/assets/sounds/spell.mp3"
           autoplay
