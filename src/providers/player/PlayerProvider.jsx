@@ -27,6 +27,8 @@ export function PlayerProvider({ children }) {
     glaciusInitPosition: [0, 0, 0],
   })
 
+  const [nearDementor, setNearDementor] = useState(false)
+
   const takeLife = (damage) => {
     if (player.hearts <= 0) {
       return
@@ -47,8 +49,13 @@ export function PlayerProvider({ children }) {
     setPlayer((prev) => ({ ...prev, selectedSpell }))
   }
 
+  const handleNearDementor = (near) => {
+    setNearDementor(near)
+  }
+
   const values = {
     player,
+    nearDementor,
     currentHearts: player.hearts,
     currentHealth: player.life,
     currentMana: player.mana,
@@ -58,6 +65,7 @@ export function PlayerProvider({ children }) {
     setPlayer,
     takeLife,
     chooseSpell,
+    handleNearDementor,
   }
 
   return (

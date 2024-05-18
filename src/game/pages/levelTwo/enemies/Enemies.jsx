@@ -19,7 +19,7 @@ const Enemies = () => {
 
   const { bosses, handleDeathBoss } = useBosses()
   const { handleSound, isPlaying } = useMusic()
-  const { currentHearts, takeLife } = usePlayer()
+  const { currentHearts, takeLife, handleNearDementor } = usePlayer()
 
   const handleDeathEnemy = (id) => {
     setEnemies((prev) => ({
@@ -68,6 +68,7 @@ const Enemies = () => {
           isPlayerDeath={currentHearts === 0}
           speed={3}
           isPlaying={isPlaying}
+          handleNearDementor={handleNearDementor}
         />
       )}
     </>

@@ -37,17 +37,45 @@ import { useBosses } from '../../../providers/bosses/BossesProvider'
 import Spells from '../../globals/player/Spells'
 
 const LayoutLevel = () => {
-  const lightsPropsLevelOne = {
-    positionDirectionalLight: [20, 10, 0],
-    intensityDirectionalLight: 2,
-    intensityAmbientLight: 0.25,
-  }
+  const {
+    state,
+    toggleMenu,
+    toggleControls,
+    toggleSettings,
+    closeMenu,
+    closeControls,
+    closeSettings,
+  } = useMenu()
 
-  const lightsPropsLevelFour = {
-    positionDirectionalLight: [20, 10, 0],
-    intensityDirectionalLight: 2,
-    intensityAmbientLight: 0.25,
-  }
+  const { isOpenDialog, message, closeDialog, dialogType } = useDialog()
+
+  const {
+    loading,
+    maxHearts,
+    posLevelOne,
+    posLevelTwo,
+    posLevelThree,
+    posLevelFour,
+    onPassLevel,
+    collectiblesLevelOne,
+    collectiblesLevelTwo,
+    collectiblesLevelThree,
+    collectiblesLevelFour,
+  } = useAuth()
+
+  const { player, setPlayer, chooseSpell, nearDementor } = usePlayer()
+
+  const { bosses, reviveBosses } = useBosses()
+
+  const { handleSound, pauseSound, isPlaying } = useMusic()
+
+  const movements = useMovements()
+
+  const navigate = useNavigate()
+
+  const location = useLocation()
+
+  const [isVictory, setIsVictory] = useState(false)
 
   const _spells = [
     {
@@ -76,49 +104,41 @@ const LayoutLevel = () => {
     },
   ]
 
-  const {
-    state,
-    toggleMenu,
-    toggleControls,
-    toggleSettings,
-    closeMenu,
-    closeControls,
-    closeSettings,
-  } = useMenu()
-
-  const { isOpenDialog, message, closeDialog, dialogType } = useDialog()
-
-  const {
-    loading,
-    maxHearts,
-    posLevelOne,
-    posLevelTwo,
-    posLevelThree,
-    posLevelFour,
-    onPassLevel,
-    collectiblesLevelOne,
-    collectiblesLevelTwo,
-    collectiblesLevelThree,
-    collectiblesLevelFour,
-  } = useAuth()
-
-  const { player, setPlayer, chooseSpell } = usePlayer()
-
-  const { bosses, reviveBosses } = useBosses()
-
-  const { handleSound, pauseSound, isPlaying } = useMusic()
-
-  const movements = useMovements()
-  const navigate = useNavigate()
-  const location = useLocation()
-
   const [spells, setSpells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
     ..._spells[0],
     icon: <FaWandSparkles color="white" size={50} />,
   })
   const [selectedSpellIndex, setSelectedSpellIndex] = useState(0)
-  const [isVictory, setIsVictory] = useState(false)
+
+  const lightsPropsLevelOne = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+    isFog: false,
+  }
+
+  const lightsPropsLevelTwo = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+    isFog: true,
+    nearDementor: nearDementor,
+  }
+
+  const lightsPropsLevelThree = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+    isFog: true,
+  }
+
+  const lightsPropsLevelFour = {
+    positionDirectionalLight: [20, 10, 0],
+    intensityDirectionalLight: 2,
+    intensityAmbientLight: 0.25,
+    isFog: false,
+  }
 
   useEffect(() => {
     switch (location.pathname) {
@@ -262,6 +282,10 @@ const LayoutLevel = () => {
     switch (location.pathname) {
       case '/level/one':
         return lightsPropsLevelOne
+      case '/level/two':
+        return lightsPropsLevelTwo
+      case '/level/three':
+        return lightsPropsLevelThree
       case '/level/four':
         return lightsPropsLevelFour
       default:
