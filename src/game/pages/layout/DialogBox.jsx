@@ -48,7 +48,7 @@ const DialogBox = ({
     const handleKeyDown = (event) => {
       if (
         event.key === 'p' ||
-        (event.key === 'e' && dialogType === 'checkpoint')
+        (event.key === 'e' && dialogType === 'checkpoint') || (event.key === 'e' && dialogType === 'sign')
       ) {
         if (isOpenDialog) {
           closeDialog()
