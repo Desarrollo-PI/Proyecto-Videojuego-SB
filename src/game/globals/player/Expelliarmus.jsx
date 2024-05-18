@@ -23,12 +23,10 @@ export default function Expelliarmus({ initRotation, initPosition }) {
     )
     const desplazamiento = {
       x: Math.abs(
-        expelliarmusBodyRef?.current?.translation().x -
-          initPosition[0]
+        expelliarmusBodyRef?.current?.translation().x - initPosition[0]
       ),
       z: Math.abs(
-        expelliarmusBodyRef?.current?.translation().z -
-          initPosition[2]
+        expelliarmusBodyRef?.current?.translation().z - initPosition[2]
       ),
     }
     const desplazamientoTotal = desplazamiento.x + desplazamiento.z

@@ -100,8 +100,25 @@ export function Goblin(props) {
   }
 
   const handleTouch = (e) => {
-    touchPlayer(e, setRepeatAttack, setActualAction, changeAnimation, props, frozen)
-    touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound, frozen, setFrozen, setChangeColor)
+    touchPlayer(
+      e,
+      setRepeatAttack,
+      setActualAction,
+      changeAnimation,
+      props,
+      frozen
+    )
+    touchSpell(
+      e,
+      life,
+      props.idEnemy,
+      setLife,
+      props.deathEnemy,
+      handleSound,
+      frozen,
+      setFrozen,
+      setChangeColor
+    )
   }
 
   const handleStopTouchPlayer = (e) => {
@@ -124,7 +141,7 @@ export function Goblin(props) {
   }, [actions, props.action])
 
   useEffect(() => {
-    if(changeColor) {
+    if (changeColor) {
       goblinMeshRef.current.material.color.set('hsl(180,100%,80%)')
     } else {
       goblinMeshRef.current.material.color.set('hsl(180,0%,100%)')
@@ -138,18 +155,18 @@ export function Goblin(props) {
       const goblinPosition = goblinBody.current.translation()
       const playerPosition = playerBody?.position
 
-      if( frozen < 0) {
+      if (frozen < 0) {
         setFrozen(0)
         if (actualAction == 'Attack' && !repeatAttack) {
           setActualAction('Chase')
         } else {
           changeAnimation(actualAction)
         }
-        goblinBody.current.lockTranslations(false, true);
-        goblinBody.current.lockRotations(false, true);
+        goblinBody.current.lockTranslations(false, true)
+        goblinBody.current.lockRotations(false, true)
         setChangeColor(false)
       }
-      
+
       if (frozen > 0) {
         setFrozen(frozen - delta)
         changeAnimation('Frozen')
@@ -159,8 +176,8 @@ export function Goblin(props) {
           { x: velocity.x, y: velocity.y, z: velocity.z },
           true
         )
-        goblinBody.current.lockTranslations(true, true);
-        goblinBody.current.lockRotations(true, true);
+        goblinBody.current.lockTranslations(true, true)
+        goblinBody.current.lockRotations(true, true)
       } else if (actualAction == 'Attack') {
         if (
           !actions[

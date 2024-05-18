@@ -1,4 +1,4 @@
-import { Color } from "three"
+import { Color } from 'three'
 
 export function eulerToQuaternion(alpha, beta, gamma) {
   const halfAlpha = alpha / 2
@@ -72,11 +72,11 @@ export const getPlayerDirection = (enemyPosition, playerPosition) => {
 
 export const getVelocity = (body) => {
   const _velocity = body?.current?.linvel()
-    ;['x', 'y', 'z'].forEach((component) => {
-      if (isNaN(_velocity[component])) {
-        _velocity[component] = 0
-      }
-    })
+  ;['x', 'y', 'z'].forEach((component) => {
+    if (isNaN(_velocity[component])) {
+      _velocity[component] = 0
+    }
+  })
   return _velocity
 }
 
