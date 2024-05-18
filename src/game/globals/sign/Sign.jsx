@@ -11,7 +11,6 @@ const Sign = (props) => {
 
     const [isInRange, setIsInRange] = useState(false)
 
-    //Aqui creo que debo cambiar algo
     useEffect(() => {
         window.addEventListener('keydown', onTakeSign)
         return () => {
@@ -72,4 +71,3 @@ const Sign = (props) => {
 }
 
 export default Sign
-// useGLTF.preload('/Sign.glb')

@@ -8,9 +8,8 @@ const Signs = () => {
     const handleOnTakeSign = (numberSign) => {
         const messages = {
             1: '¡Has leido la señal 1 con éxito!',
-            // Puedes agregar más señales específicas aquí
         }
-        const message = messages[numberSign] || '¡Has leído la señal con éxito!'
+        const message = messages[numberSign] || 'Señal no definida'
         openDialog(message)
     }
     
