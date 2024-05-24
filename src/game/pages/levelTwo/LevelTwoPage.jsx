@@ -7,7 +7,7 @@ import Collectibles from './collectibles/Collectibles'
 import Enemies from './enemies/Enemies'
 import GrassPlatforms from './grassPlatforms/GrassPlatforms'
 import Spikes from './spikes/Spikes'
-import MazeEntries from './maze/MazeEntries'
+import MazeSensor from './maze/MazeSensor'
 import Door from './door/Door'
 
 const LevelTwoPage = () => {
@@ -16,7 +16,7 @@ const LevelTwoPage = () => {
   return (
     <>
       <WorldLevelTwo />
-      <MazeEntries />
+      <MazeSensor />
       <Signs />
       <Checkpoints />
       <Collectibles />

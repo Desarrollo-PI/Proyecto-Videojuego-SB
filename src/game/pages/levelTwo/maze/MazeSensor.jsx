@@ -1,10 +1,10 @@
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
 
-const MazeEntries = () => {
+const MazeSensor = () => {
   const { inMaze, handleInMaze } = usePlayer()
 
-  const handleIntersectionEnter = (e) => {
+  const handleIntersection = (e) => {
     if (e.rigidBodyObject.name === 'playerBody') {
       if (inMaze) {
         handleInMaze(false)
@@ -17,19 +17,14 @@ const MazeEntries = () => {
   return (
     <RigidBody colliders={false} type="fixed">
       <CuboidCollider
-        args={[1.5, 4, 0.4]}
-        position={[3.2, 0, -11.2]}
+        args={[21.5, 10, 17.7]}
+        position={[-1.5, 0, -29]}
         sensor
-        onIntersectionEnter={handleIntersectionEnter}
-      />
-      <CuboidCollider
-        args={[1.5, 4, 0.4]}
-        position={[-6.8, 0, -46.9]}
-        sensor
-        onIntersectionEnter={handleIntersectionEnter}
+        onIntersectionEnter={handleIntersection}
+        onIntersectionExit={handleIntersection}
       />
     </RigidBody>
   )
 }
 
-export default MazeEntries
+export default MazeSensor

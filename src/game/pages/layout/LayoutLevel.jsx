@@ -467,8 +467,9 @@ const LayoutLevel = () => {
                 </Text3D>
               </Center>
             </Float>
+            <OrbitControls enablePan enableZoom enableRotate />
             <StormEnvironment {...chooseProps()} />
-            <Physics>
+            <Physics debug>
               <Outlet />
               <Player {...choosePropsECCtrl()} />
               <Spells />
