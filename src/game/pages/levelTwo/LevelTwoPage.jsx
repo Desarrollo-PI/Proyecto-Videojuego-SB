@@ -4,11 +4,12 @@ import Checkpoints from './checkpoints/Checkpoints'
 import Signs from './signs/Signs'
 import Collectibles from './collectibles/Collectibles'
 import Enemies from './enemies/Enemies'
+import Elements from './Elements/Elements'
 
 const LevelTwoPage = () => {
   return (
     <>
-      <Lights />
+      {/*<Lights />*/}
       <WorldLevelTwo />
       <Signs/>
       <Checkpoints />
