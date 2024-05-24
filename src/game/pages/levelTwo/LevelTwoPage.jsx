@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import WorldLevelTwo from './World'
 import Lights from './Lights'
 import Checkpoints from './checkpoints/Checkpoints'
@@ -7,19 +8,22 @@ import Enemies from './enemies/Enemies'
 import GrassPlatforms from './grassPlatforms/GrassPlatforms'
 import Spikes from './spikes/Spikes'
 import MazeEntries from './maze/MazeEntries'
+import Door from './door/Door'
 
 const LevelTwoPage = () => {
+  const [openDoor, setOpenDoor] = useState(false)
+
   return (
     <>
-      {/*<Lights />*/}
       <WorldLevelTwo />
       <MazeEntries />
       <Signs />
       <Checkpoints />
       <Collectibles />
-      <Enemies />
+      <Enemies setOpenDoor={setOpenDoor} />
       <GrassPlatforms />
       <Spikes />
+      <Door openDoor={openDoor} setOpenDoor={setOpenDoor} />
     </>
   )
 }

@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Skeleton } from '../../../globals/enemies/skeleton/Skeleton'
 import { Dementor } from '../../../globals/enemies/dementor/Dementor'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
 import { useMusic } from '../../../../providers/music/MusicProvider'
 import { useBosses } from '../../../../providers/bosses/BossesProvider'
 
-const Enemies = () => {
+const Enemies = ({ setOpenDoor = { setOpenDoor } }) => {
   const [enemies, setEnemies] = useState({
     1: { isDeath: false },
     2: { isDeath: false },
@@ -44,6 +44,17 @@ const Enemies = () => {
     takeLife(100)
     handleSound(['hitDementor'])
   }
+
+  useEffect(() => {
+    if (
+      enemies[6].isDeath &&
+      enemies[7].isDeath &&
+      enemies[8].isDeath &&
+      enemies[9].isDeath
+    ) {
+      setOpenDoor(true)
+    }
+  }, [enemies])
 
   return (
     <>
@@ -158,7 +169,7 @@ const Enemies = () => {
       {!bosses?.dementor.isDeath && (
         <Dementor
           idEnemy={'dementor'}
-          position={[-1.5, 0, -110]}
+          position={[-1.5, 10, -110]}
           action={'Walk'}
           takeLife={handleTakeLifeDementor}
           deathEnemy={handleDeathBoss}
