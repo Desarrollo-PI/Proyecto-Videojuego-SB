@@ -63,7 +63,7 @@ const LayoutLevel = () => {
     collectiblesLevelFour,
   } = useAuth()
 
-  const { player, setPlayer, chooseSpell, nearDementor } = usePlayer()
+  const { player, setPlayer, chooseSpell, nearDementor, inMaze } = usePlayer()
 
   const { bosses, reviveBosses } = useBosses()
 
@@ -137,6 +137,7 @@ const LayoutLevel = () => {
     intensityAmbientLight: 0.25,
     isFog: true,
     nearDementor: nearDementor,
+    inMaze: inMaze,
   }
 
   const lightsPropsLevelThree = {

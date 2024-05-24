@@ -47,6 +47,7 @@ export function Dementor(props) {
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Dementor.glb'
   )
+  const [material, setMaterial] = useState(materials.lambert2.clone())
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
   const { actions } = useAnimations(animations, dementorRef)
@@ -309,7 +310,7 @@ export function Dementor(props) {
             <skinnedMesh
               name="polySurface26"
               geometry={nodes.polySurface26.geometry}
-              material={materials.lambert2}
+              material={material}
               skeleton={nodes.polySurface26.skeleton}
               ref={dementorMeshRef}
             />

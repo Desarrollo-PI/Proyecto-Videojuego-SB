@@ -46,6 +46,8 @@ export function Goblin(props) {
     '/assets/models/characters/enemies/Goblin.glb'
   )
 
+  const [material, setMaterial] = useState(materials.Atlas.clone())
+
   const { handleSound } = useMusic()
 
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
@@ -306,7 +308,7 @@ export function Goblin(props) {
             <skinnedMesh
               name="Goblin"
               geometry={nodes.Goblin.geometry}
-              material={materials.Atlas}
+              material={material}
               skeleton={nodes.Goblin.skeleton}
               rotation={[-Math.PI / 2, 0, 0]}
               scale={147.976}

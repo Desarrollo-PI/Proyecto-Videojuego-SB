@@ -42,7 +42,6 @@ const RegisterForm = ({ onRegister, onGoToLogin }) => {
 
     onRegister(dataUser)
       .then((res) => {
-        console.log(res)
         if (res.success) {
           openAlert('Usuario creado correctamente', 'success')
           cleanForm()

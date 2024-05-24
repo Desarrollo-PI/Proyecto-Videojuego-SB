@@ -46,6 +46,8 @@ export function Skeleton(props) {
     '/assets/models/characters/enemies/Skeleton.glb'
   )
 
+  const [material, setMaterial] = useState(materials.Skeleton.clone())
+
   const { handleSound } = useMusic()
 
   const clone = useMemo(() => SkeletonUtils.clone(scene), [scene])
@@ -303,7 +305,7 @@ export function Skeleton(props) {
             <skinnedMesh
               name="Cylinder001"
               geometry={nodes.Cylinder001.geometry}
-              material={materials.Skeleton}
+              material={material}
               skeleton={nodes.Cylinder001.skeleton}
               position={[0, 3.003, 0.124]}
               rotation={[-Math.PI / 2, 0, 0]}
@@ -316,7 +318,7 @@ export function Skeleton(props) {
               onCollisionExit={handleStopTouchPlayer}
             />
             <CylinderCollider
-              args={[5, 20]}
+              args={[10, 20]}
               sensor
               onIntersectionEnter={(e) => handleWatchPlayer(e)}
               onIntersectionExit={(e) => handleStopWatchPlayer(e)}

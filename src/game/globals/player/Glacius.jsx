@@ -5,7 +5,6 @@ import { useFrame } from '@react-three/fiber'
 import { PositionalAudio } from '@react-three/drei'
 
 export default function Glacius({ initRotation, initPosition }) {
-  console.log(initPosition)
   const glaciusBodyRef = useRef()
   const { player, setPlayer } = usePlayer()
 
