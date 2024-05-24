@@ -6,12 +6,16 @@ import { vec3 } from '@react-three/rapier'
 
 const GrassPlatform = (props) => {
   const ref = useRef()
-  const meshRef = useRef()
+  const dirtMeshRef = useRef()
+  const grassMeshRef = useRef()
   const { initialPosition, moveDirection, maxPosition, speed } = props
 
   const { scene, nodes, materials } = useGLTF(
     '/assets/models/elements/GrassPlatform.glb'
   )
+
+  const [dirtMaterial, setDirtMaterial] = useState(materials.Dirt.clone())
+  const [grassMaterial, setGrassMaterial] = useState(materials.Grass.clone())
 
   const [frozen, setFrozen] = useState(false)
   const [movSpeed, setMovSpeed] = useState(speed)
@@ -88,8 +92,12 @@ const GrassPlatform = (props) => {
   useEffect(() => {
     if (frozen) {
       setMovSpeed(0)
+      dirtMeshRef.current.material.color.set('hsl(36, 48%, 37%)')
+      grassMeshRef.current.material.color.set('hsl(150, 56%, 27%)')
     } else {
       setMovSpeed(speed)
+      dirtMeshRef.current.material.color.set('hsl(21,54%,33%)')
+      grassMeshRef.current.material.color.set('hsl(141,72%,18%)')
     }
   }, [frozen])
 
@@ -108,13 +116,15 @@ const GrassPlatform = (props) => {
             castShadow
             receiveShadow
             geometry={nodes.GrassPlatform_1.geometry}
-            material={materials.Dirt}
+            material={dirtMaterial}
+            ref={dirtMeshRef}
           />
           <mesh
             castShadow
             receiveShadow
             geometry={nodes.GrassPlatform_2.geometry}
-            material={materials.Grass}
+            material={grassMaterial}
+            ref={grassMeshRef}
           />
         </group>
       </RigidBody>

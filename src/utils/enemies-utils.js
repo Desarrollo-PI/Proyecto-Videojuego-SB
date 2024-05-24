@@ -117,7 +117,6 @@ export const stopWatchPlayer = (
   if (e.rigidBodyObject.name === 'playerBody') {
     setActualAction(props.action)
     changeAnimation(props.action)
-    setPlayerBody(null)
     setIsSoundPlaying(false)
   }
 }
