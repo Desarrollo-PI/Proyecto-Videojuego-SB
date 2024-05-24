@@ -9,6 +9,7 @@ const StormEnvironment = ({
   intensityAmbientLight,
   isFog,
   nearDementor,
+  inMaze,
 }) => {
   const [background, setBackground] = useState('#10141b')
 
@@ -38,7 +39,10 @@ const StormEnvironment = ({
       <LightsEnvironment {...stormLightsProps} />
       <color attach="background" args={[background]} />
       {isFog && (
-        <fog attach="fog" args={['#10141b', 0, nearDementor ? 10 : 50]} />
+        <fog
+          attach="fog"
+          args={['#10141b', 0, nearDementor || inMaze ? 10 : 50]}
+        />
       )}
     </>
   )

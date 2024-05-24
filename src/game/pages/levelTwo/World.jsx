@@ -3,25 +3,24 @@ import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 import { vec3 } from '@react-three/rapier'
 import { useFrame } from '@react-three/fiber'
-import {StoneBlock} from './Elements/StoneBlock'
+import { GrassPlatform } from './grassPlatforms/GrassPlatform'
 
-
-const withPhysics = (Component, ComponentTrimesh, ComponentNoPhysics) => (props) => {
-  const ref = useRef()
-  return (
-    <>
-      <RigidBody ref={ref} {...props} type="fixed">
-        <Component {...props} />
-      </RigidBody>
-      <RigidBody {...props} type="fixed" colliders="trimesh">
-        <ComponentTrimesh {...props} />
-      </RigidBody>
-      <ComponentNoPhysics {...props} />
-      <StoneBlock/>
-      {/* <ComponentDynamic/> */}
-    </>
-  )
-}
+const withPhysics =
+  (Component, ComponentTrimesh, ComponentNoPhysics) => (props) => {
+    const ref = useRef()
+    return (
+      <>
+        <RigidBody ref={ref} {...props} type="fixed">
+          <Component {...props} />
+        </RigidBody>
+        <RigidBody {...props} type="fixed" colliders="trimesh">
+          <ComponentTrimesh {...props} />
+        </RigidBody>
+        <ComponentNoPhysics {...props} />
+        {/* <ComponentDynamic/> */}
+      </>
+    )
+  }
 
 const WorldLevelTwo = (props) => {
   const { nodes, materials } = useGLTF(
@@ -29,8 +28,7 @@ const WorldLevelTwo = (props) => {
   )
   return (
     <>
- <group>
-        
+      <group>
         <mesh
           castShadow
           receiveShadow
@@ -4055,13 +4053,18 @@ const WorldLevelTwo = (props) => {
           />
         </group>
         {/* stone */}
-        <mesh castShadow receiveShadow geometry={nodes.Stone.geometry} material={materials.Atlas} />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Stone009.geometry}
-        material={materials.Atlas}
-      />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Stone.geometry}
+          material={materials.Atlas}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Stone009.geometry}
+          material={materials.Atlas}
+        />
       </group>
     </>
   )
@@ -4073,414 +4076,330 @@ const WorldLevelTwoTrimesh = () => {
   )
   return (
     <>
-          <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.gravestone.geometry}
-          material={materials['HalloweenBits.003']}
-        />
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door_1.geometry}
-            material={materials.DarkWood}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door_2.geometry}
-            material={materials.Metal}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door_3.geometry}
-            material={materials['Wood.003']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door_4.geometry}
-            material={materials.Metal_Light}
-          />
-        </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.gravestone.geometry}
+        material={materials['HalloweenBits.003']}
+      />
+      <group>
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Sword002.geometry}
-          material={materials['Material.004']}
+          geometry={nodes.Door_1.geometry}
+          material={materials.DarkWood}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Sword003.geometry}
-          material={materials['Material.004']}
+          geometry={nodes.Door_2.geometry}
+          material={materials.Metal}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Fountain.geometry}
-          material={materials['lambert2.001']}
+          geometry={nodes.Door_3.geometry}
+          material={materials['Wood.003']}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.DeadLargeTree001.geometry}
-          material={materials['HalloweenBits.001']}
+          geometry={nodes.Door_4.geometry}
+          material={materials.Metal_Light}
+        />
+      </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Sword002.geometry}
+        material={materials['Material.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Sword003.geometry}
+        material={materials['Material.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Fountain.geometry}
+        material={materials['lambert2.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DeadLargeTree001.geometry}
+        material={materials['HalloweenBits.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DeadLargeTree.geometry}
+        material={materials['HalloweenBits.001']}
+      />
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Door001_1.geometry}
+          material={materials.DarkWood}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.DeadLargeTree.geometry}
-          material={materials['HalloweenBits.001']}
+          geometry={nodes.Door001_2.geometry}
+          material={materials.Metal}
         />
-                <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door001_1.geometry}
-            material={materials.DarkWood}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door001_2.geometry}
-            material={materials.Metal}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door001_3.geometry}
-            material={materials['Wood.003']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Door001_4.geometry}
-            material={materials.Metal_Light}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1002_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1002_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1008_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1008_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1009_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1009_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1010_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1010_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1011_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1011_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1012_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1012_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1013_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree1013_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2002_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2002_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2007_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2007_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2008_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2008_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2009_1.geometry}
-            material={materials.Holzbraun}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Tree2009_2.geometry}
-            material={materials.Tannengrn}
-          />
-        </group>
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Trunk.geometry}
+          geometry={nodes.Door001_3.geometry}
+          material={materials['Wood.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Door001_4.geometry}
+          material={materials.Metal_Light}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1_1.geometry}
           material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Trunk002.geometry}
+          geometry={nodes.Tree1_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1002_1.geometry}
           material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Trunk008.geometry}
+          geometry={nodes.Tree1002_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1008_1.geometry}
           material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes010.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree1008_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1009_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes011.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree1009_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1010_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes012.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree1010_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1011_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes013.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree1011_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1012_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes017.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree1012_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1013_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes018.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree1013_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes019.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree2_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2002_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes001.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree2002_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2007_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes002.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree2007_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2008_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes003.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree2008_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2009_1.geometry}
+          material={materials.Holzbraun}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Spikes004.geometry}
-          material={materials['Metal.001']}
+          geometry={nodes.Tree2009_2.geometry}
+          material={materials.Tannengrn}
         />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Spikes006.geometry}
-          material={materials['Metal.001']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Spikes007.geometry}
-          material={materials['Metal.001']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Spikes005.geometry}
-          material={materials['Metal.001']}
-        />
-<mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Floor001.geometry}
-          material={materials['Material.001']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Floor002.geometry}
-          material={materials.Material}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Floor003.geometry}
-          material={materials.Material}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Floor004.geometry}
-          material={materials.Material}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Floor005.geometry}
-          material={materials.Material}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Floor006.geometry}
-          material={materials.Material}
-        />
+      </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Trunk.geometry}
+        material={materials.Holzbraun}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Trunk002.geometry}
+        material={materials.Holzbraun}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Trunk008.geometry}
+        material={materials.Holzbraun}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor001.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor002.geometry}
+        material={materials.Material}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor003.geometry}
+        material={materials.Material}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor004.geometry}
+        material={materials.Material}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor005.geometry}
+        material={materials.Material}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor006.geometry}
+        material={materials.Material}
+      />
     </>
   )
 }
@@ -4491,142 +4410,144 @@ const WorldLevelTwoNoPhysics = () => {
   )
   return (
     <>
-    <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Floor.geometry}
-          material={materials['Material.002']}
-        />
-    <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Tree_Swirl_1.geometry}
-          material={materials['Atlas.002']}
-        />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Floor.geometry}
+        material={materials['Material.002']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Swirl_1.geometry}
+        material={materials['Atlas.002']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Lava_2.geometry}
+        material={materials['Atlas.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Floating_3.geometry}
+        material={materials['Atlas.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Skeleton_Shield_Large_A.geometry}
+        material={materials.skeleton}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Floating_3001.geometry}
+        material={materials['Atlas.004']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Lava_2001.geometry}
+        material={materials['Atlas.003']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Swirl_1001.geometry}
+        material={materials['Atlas.002']}
+      />
+      <group>
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Tree_Lava_2.geometry}
-          material={materials['Atlas.003']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Tree_Floating_3.geometry}
-          material={materials['Atlas.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Skeleton_Shield_Large_A.geometry}
-          material={materials.skeleton}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Tree_Floating_3001.geometry}
-          material={materials['Atlas.004']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Tree_Lava_2001.geometry}
-          material={materials['Atlas.003']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Tree_Swirl_1001.geometry}
-          material={materials['Atlas.002']}
-        />
-                <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Circle_Material002_0.geometry}
-            material={materials['Material.006']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Circle_Material002_0_1.geometry}
-            material={materials['Material.005']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Circle_Material002_0_2.geometry}
-            material={materials['Material.004']}
-          />
-        </group>
-        <group>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Mausoleum001_1.geometry}
-            material={materials['Material.006']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Mausoleum001_2.geometry}
-            material={materials['Material.005']}
-          />
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Mausoleum001_3.geometry}
-            material={materials['Material.004']}
-          />
-        </group>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.post_skull.geometry}
-          material={materials['HalloweenBits.002']}>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Skull.geometry}
-            material={materials['HalloweenBits.002']}
-          />
-        </mesh>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.post_skull001.geometry}
-          material={materials['HalloweenBits.002']}>
-          <mesh
-            castShadow
-            receiveShadow
-            geometry={nodes.Skull001.geometry}
-            material={materials['HalloweenBits.002']}
-          />
-        </mesh>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Tree_Light_1.geometry}
-          material={materials['Atlas.001']}
+          geometry={nodes.Circle_Material002_0.geometry}
+          material={materials['Material.006']}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.Tree_Light_1001.geometry}
-          material={materials['Atlas.001']}
+          geometry={nodes.Circle_Material002_0_1.geometry}
+          material={materials['Material.005']}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.crypt.geometry}
-          material={materials.HalloweenBits}
+          geometry={nodes.Circle_Material002_0_2.geometry}
+          material={materials['Material.004']}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Mausoleum001_1.geometry}
+          material={materials['Material.006']}
         />
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.crypt001.geometry}
-          material={materials.HalloweenBits}
+          geometry={nodes.Mausoleum001_2.geometry}
+          material={materials['Material.005']}
         />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Mausoleum001_3.geometry}
+          material={materials['Material.004']}
+        />
+      </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.post_skull.geometry}
+        material={materials['HalloweenBits.002']}
+      >
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Skull.geometry}
+          material={materials['HalloweenBits.002']}
+        />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.post_skull001.geometry}
+        material={materials['HalloweenBits.002']}
+      >
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Skull001.geometry}
+          material={materials['HalloweenBits.002']}
+        />
+      </mesh>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Light_1.geometry}
+        material={materials['Atlas.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_Light_1001.geometry}
+        material={materials['Atlas.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.crypt.geometry}
+        material={materials.HalloweenBits}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.crypt001.geometry}
+        material={materials.HalloweenBits}
+      />
     </>
   )
 }
@@ -4734,6 +4655,10 @@ const WorldLevelTwoNoPhysics = () => {
 
 useGLTF.preload('/LevelTwo.glb')
 
-const WorldLevelTwoWithPhysics = withPhysics(WorldLevelTwo, WorldLevelTwoTrimesh, WorldLevelTwoNoPhysics)
+const WorldLevelTwoWithPhysics = withPhysics(
+  WorldLevelTwo,
+  WorldLevelTwoTrimesh,
+  WorldLevelTwoNoPhysics
+)
 
 export default WorldLevelTwoWithPhysics

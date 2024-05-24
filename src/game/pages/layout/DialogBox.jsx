@@ -48,7 +48,8 @@ const DialogBox = ({
     const handleKeyDown = (event) => {
       if (
         event.key === 'p' ||
-        (event.key === 'e' && dialogType === 'checkpoint') || (event.key === 'e' && dialogType === 'sign')
+        (event.key === 'e' && dialogType === 'checkpoint') ||
+        (event.key === 'e' && dialogType === 'sign')
       ) {
         if (isOpenDialog) {
           closeDialog()
@@ -71,7 +72,10 @@ const DialogBox = ({
     <>
       <div className="dialog">
         <div className="dialog-message">
-          {dialogType === 'checkpoint' || dialogType === 'collectible'
+          {dialogType === 'checkpoint' ||
+          dialogType === 'collectible' ||
+          dialogType === 'sign' ||
+          dialogType === 'signInfo'
             ? parse(displayedMessage)
             : displayedMessage}
         </div>

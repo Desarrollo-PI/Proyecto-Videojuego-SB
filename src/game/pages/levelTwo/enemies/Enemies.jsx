@@ -15,6 +15,7 @@ const Enemies = () => {
     6: { isDeath: false },
     7: { isDeath: false },
     8: { isDeath: false },
+    9: { isDeath: false },
   })
 
   const { bosses, handleDeathBoss } = useBosses()
@@ -49,7 +50,103 @@ const Enemies = () => {
       {!enemies[1].isDeath && (
         <Skeleton
           idEnemy={1}
-          position={[10, 5, -10]}
+          position={[10, 5, -20]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[2].isDeath && (
+        <Skeleton
+          idEnemy={2}
+          position={[11, 5, -40]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[3].isDeath && (
+        <Skeleton
+          idEnemy={3}
+          position={[-11, 5, -40]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[4].isDeath && (
+        <Skeleton
+          idEnemy={4}
+          position={[-10, 5, -15]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[5].isDeath && (
+        <Skeleton
+          idEnemy={5}
+          position={[-18, 5, -25]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[6].isDeath && (
+        <Skeleton
+          idEnemy={6}
+          position={[18, 5, -80]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[7].isDeath && (
+        <Skeleton
+          idEnemy={7}
+          position={[-18, 5, -80]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[8].isDeath && (
+        <Skeleton
+          idEnemy={8}
+          position={[10, 5, -80]}
+          action={'Walk'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[9].isDeath && (
+        <Skeleton
+          idEnemy={9}
+          position={[-10, 5, -80]}
           action={'Walk'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -61,7 +158,7 @@ const Enemies = () => {
       {!bosses?.dementor.isDeath && (
         <Dementor
           idEnemy={'dementor'}
-          position={[-10, 0, -10]}
+          position={[-1.5, 0, -110]}
           action={'Walk'}
           takeLife={handleTakeLifeDementor}
           deathEnemy={handleDeathBoss}

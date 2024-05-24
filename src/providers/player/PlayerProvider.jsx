@@ -28,6 +28,7 @@ export function PlayerProvider({ children }) {
   })
 
   const [nearDementor, setNearDementor] = useState(false)
+  const [inMaze, setInMaze] = useState(false)
 
   const takeLife = (damage) => {
     if (player.hearts <= 0) {
@@ -53,9 +54,18 @@ export function PlayerProvider({ children }) {
     setNearDementor(near)
   }
 
+  const handleInMaze = (maze) => {
+    setInMaze(maze)
+  }
+
+  const imediatelyDeath = () => {
+    setPlayer((prev) => ({ ...prev, hearts: 0 }))
+  }
+
   const values = {
     player,
     nearDementor,
+    inMaze,
     currentHearts: player.hearts,
     currentHealth: player.life,
     currentMana: player.mana,
@@ -66,6 +76,8 @@ export function PlayerProvider({ children }) {
     takeLife,
     chooseSpell,
     handleNearDementor,
+    imediatelyDeath,
+    handleInMaze,
   }
 
   return (

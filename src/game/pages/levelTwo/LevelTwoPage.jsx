@@ -4,17 +4,22 @@ import Checkpoints from './checkpoints/Checkpoints'
 import Signs from './signs/Signs'
 import Collectibles from './collectibles/Collectibles'
 import Enemies from './enemies/Enemies'
-import Elements from './Elements/Elements'
+import GrassPlatforms from './grassPlatforms/GrassPlatforms'
+import Spikes from './spikes/Spikes'
+import MazeEntries from './maze/MazeEntries'
 
 const LevelTwoPage = () => {
   return (
     <>
       {/*<Lights />*/}
       <WorldLevelTwo />
-      <Signs/>
+      <MazeEntries />
+      <Signs />
       <Checkpoints />
       <Collectibles />
       <Enemies />
+      <GrassPlatforms />
+      <Spikes />
     </>
   )
 }

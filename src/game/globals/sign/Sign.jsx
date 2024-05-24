@@ -3,71 +3,72 @@ import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
 const Sign = (props) => {
-    const {numberSign, handleOnTakeSign, dialogs} = props
-    
-    const { nodes, materials } = useGLTF('/assets/models/elements/Sign.glb')
+  const { numberSign, handleOnTakeSign, dialogs } = props
 
-    const refSign = useRef()
+  const { nodes, materials } = useGLTF('/assets/models/elements/Sign.glb')
 
-    const [isInRange, setIsInRange] = useState(false)
+  const refSign = useRef()
 
-    useEffect(() => {
-        window.addEventListener('keydown', onTakeSign)
-        return () => {
-            window.removeEventListener('keydown', onTakeSign)
-        }
-    }, [isInRange])
+  const [isInRange, setIsInRange] = useState(false)
 
-    const onEnterCollisionSign = (e) => {
-        if (e.rigidBodyObject.name === 'playerBody') {
-            dialogs.handleOpenDialogInRange()
-            setIsInRange(true)
-        }
+  useEffect(() => {
+    window.addEventListener('keydown', onTakeSign)
+    return () => {
+      window.removeEventListener('keydown', onTakeSign)
     }
+  }, [isInRange])
 
-    const onExitCollisionSign = (e) => {
-        if (e.rigidBodyObject.name === 'playerBody') {
-            dialogs.closeDialog()
-            setIsInRange(false)
-        }
+  const onEnterCollisionSign = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      dialogs.handleOpenDialogInRange()
+      setIsInRange(true)
     }
+  }
 
-    const onTakeSign = (event) => {
-        if (event.keyCode === 69 && isInRange) {
-            dialogs.closeDialog()
-            setIsInRange(true)
-            dialogs.handleOnTakeSign(numberSign)
-        }
+  const onExitCollisionSign = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      dialogs.closeDialog()
+      setIsInRange(false)
     }
+  }
 
-    return (
-        <RigidBody 
-        colliders="cuboid"
-        type='fixed'
-        onCollisionEnter={onEnterCollisionSign} onCollisionExit={onExitCollisionSign} 
-        ref={refSign}
-        {...props}
-        >
-                <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Sign_1.geometry}
-                material={materials['Material.001']}
-                />
-                <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Sign_2.geometry}
-                material={materials['Dark Wood']}
-                />
-                <mesh
-                castShadow
-                receiveShadow
-                geometry={nodes.Sign_3.geometry}
-                material={materials['Light Wood']}
-                />
+  const onTakeSign = (event) => {
+    if (event.keyCode === 69 && isInRange) {
+      dialogs.closeDialog()
+      setIsInRange(true)
+      dialogs.handleOnTakeSign(numberSign)
+    }
+  }
+
+  return (
+    <RigidBody
+      colliders="cuboid"
+      type="fixed"
+      onCollisionEnter={onEnterCollisionSign}
+      onCollisionExit={onExitCollisionSign}
+      ref={refSign}
+      {...props}
+    >
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Sign_1.geometry}
+        material={materials['Material.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Sign_2.geometry}
+        material={materials['Dark Wood']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Sign_3.geometry}
+        material={materials['Light Wood']}
+      />
     </RigidBody>
-    )
+  )
 }
 
 export default Sign

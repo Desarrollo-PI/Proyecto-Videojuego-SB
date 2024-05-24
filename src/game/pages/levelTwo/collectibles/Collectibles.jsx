@@ -27,31 +27,31 @@ const Collectibles = () => {
         name="La Varita de Sauco"
         isCollected={collectiblesLevelTwo.wand}
         onCollect={handleOnCollect}
-        position={[0, 0, -5]}
+        position={[1.5, 0, -23]}
       />
       <Map
         name="Mapa del Merodeador"
         isCollected={collectiblesLevelTwo.map}
         onCollect={handleOnCollect}
-        position={[0, -0.5, -3]}
+        position={[-10.5, -0.5, -41.5]}
       />
       <Cup
         name="La Copa de Helga Hufflepuff"
         isCollected={collectiblesLevelTwo.cup}
         onCollect={handleOnCollect}
-        position={[0, 0, -7]}
+        position={[-20, 1, -54]}
       />
       <Broom
         name="La Saeta de Fuego"
         isCollected={collectiblesLevelTwo.broom}
         onCollect={handleOnCollect}
-        position={[0, 0, -9]}
+        position={[25, 1, -67]}
       />
       <Diary
         name="El Diario de Tom Riddle"
         isCollected={collectiblesLevelTwo.diary}
         onCollect={handleOnCollect}
-        position={[0, 0, -11]}
+        position={[-1.5, 0, -86]}
       />
     </>
   )
