@@ -12,7 +12,6 @@ const Text2D = ({ text, position, rotation }) => {
         anchorY="middle"
         rotation={rotation}
         textAlign="center"
-        font="/assets/fonts/HarryPotter7.TTF"
       >
         {text}
       </Text>
