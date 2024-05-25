@@ -8,7 +8,7 @@ const Signs = () => {
   const handleOnTakeSign = (numberSign) => {
     const messages = {
       1: '¡El Laberinto maldito! Te recomendamos seguir el camino marcado por los coleccionables para evitar perderte.',
-      2: 'Utiliza el hechizo <strong>Glacis</strong> para congelar las plataformas móviles de forma indefinida y facilitar tu avance.',
+      2: 'Utiliza el hechizo <strong>Glacius</strong> para congelar las plataformas móviles de forma indefinida y facilitar tu avance. Lanzalo otra vez para descongelarlas.',
       3: 'Para desbloquear la puerta, primero debes derrotar a los 4 enemigos que la custodian. ¡Prepárate para el desafío!',
     }
     const message = messages[numberSign] || 'Señal no definida'

@@ -35,6 +35,7 @@ import { useDialog } from '../../../providers/dialog/DialogProvider'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
 import { useBosses } from '../../../providers/bosses/BossesProvider'
 import Spells from '../../globals/player/Spells'
+import Text2D from './Text2D'
 
 const LayoutLevel = () => {
   const {
@@ -418,6 +419,29 @@ const LayoutLevel = () => {
     }
   }
 
+  const choosePropsText2D = () => {
+    switch (location.pathname) {
+      case '/level/one':
+        return {
+          position: [-8, 3, 0],
+          rotation: [0, Math.PI / 2, 0],
+          text: 'W - Mover adelante\nS - Mover atras\nA - Mover izquierda\nD - Mover derecha\nF - Lanzar hechizo\nEspacio - Saltar\nShift - Correr\nEsc - Menu',
+        }
+      case '/level/two':
+        return {
+          position: [-5, 3, -10],
+          rotation: [0, 0, 0],
+          text: '¡Descubre el nuevo hechizo \n Glacius! \n ¡Presiona 2 para activarlo y \n congelar a tus enemigos y objetos!',
+        }
+      default:
+        return {
+          position: [0, 0, 0],
+          rotation: [0, 0, 0],
+          text: '',
+        }
+    }
+  }
+
   if (loading) return <Loader hasText />
 
   return (
@@ -445,23 +469,7 @@ const LayoutLevel = () => {
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>
-            {location.pathname === '/level/one' && (
-              <Float speed={10} rotationIntensity={0.1} floatIntensity={2}>
-                <Text
-                  position={[-8, 3, 0]}
-                  fontSize={0.5}
-                  anchorX="center"
-                  anchorY="middle"
-                  rotation={[0, Math.PI / 2, 0]}
-                  textAlign="center"
-                >
-                  W - Mover adelante{'\n'}S - Mover atras{'\n'}A - Mover
-                  izquierda
-                  {'\n'}D - Mover derecha{'\n'}F - Lanzar hechizo{'\n'}
-                  Espacio - Saltar{'\n'}Shift - Correr{'\n'}Esc - Menu
-                </Text>
-              </Float>
-            )}
+            <Text2D {...choosePropsText2D()} />
             <Float>
               <Center position={[0, 7, -5]}>
                 <Text3D font="/assets/fonts/HarryPotter7_Regular.json">
