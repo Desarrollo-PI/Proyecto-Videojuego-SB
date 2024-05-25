@@ -318,7 +318,7 @@ export function Skeleton(props) {
               onCollisionExit={handleStopTouchPlayer}
             />
             <CylinderCollider
-              args={[10, 20]}
+              args={[10, 40]}
               sensor
               onIntersectionEnter={(e) => handleWatchPlayer(e)}
               onIntersectionExit={(e) => handleStopWatchPlayer(e)}
