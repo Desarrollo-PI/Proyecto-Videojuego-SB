@@ -359,7 +359,7 @@ const LayoutLevel = () => {
         sprintMult: 4,
         jumpVel: 5,
         sprintJumpMult: 1,
-        position: [0, 10, -100],
+        position: choosePosition(),
         characterInitDir: Math.PI,
         camInitDir: { x: 0, y: Math.PI },
         name: 'playerBody',
@@ -470,7 +470,6 @@ const LayoutLevel = () => {
                 </Text3D>
               </Center>
             </Float>
-            <OrbitControls enablePan enableZoom enableRotate />
             <StormEnvironment {...chooseProps()} />
             <Physics>
               <Outlet />
