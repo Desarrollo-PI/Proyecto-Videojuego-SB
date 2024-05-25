@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Skeleton } from '../../../globals/enemies/skeleton/Skeleton'
+import { Goblin } from '../../../globals/enemies/goblin/Goblin'
 import { Dementor } from '../../../globals/enemies/dementor/Dementor'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
 import { useMusic } from '../../../../providers/music/MusicProvider'
@@ -16,6 +17,8 @@ const Enemies = ({ setOpenDoor = { setOpenDoor } }) => {
     7: { isDeath: false },
     8: { isDeath: false },
     9: { isDeath: false },
+    10: { isDeath: false },
+    11: { isDeath: false },
   })
 
   const { bosses, handleDeathBoss } = useBosses()
@@ -50,7 +53,9 @@ const Enemies = ({ setOpenDoor = { setOpenDoor } }) => {
       enemies[6].isDeath &&
       enemies[7].isDeath &&
       enemies[8].isDeath &&
-      enemies[9].isDeath
+      enemies[9].isDeath &&
+      enemies[10].isDeath &&
+      enemies[11].isDeath
     ) {
       setOpenDoor(true)
     }
@@ -121,8 +126,8 @@ const Enemies = ({ setOpenDoor = { setOpenDoor } }) => {
       {!enemies[6].isDeath && (
         <Skeleton
           idEnemy={6}
-          position={[18, 5, -80]}
-          action={'Walk'}
+          position={[14, 5, -80]}
+          action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
@@ -133,8 +138,8 @@ const Enemies = ({ setOpenDoor = { setOpenDoor } }) => {
       {!enemies[7].isDeath && (
         <Skeleton
           idEnemy={7}
-          position={[-18, 5, -80]}
-          action={'Walk'}
+          position={[-14, 5, -80]}
+          action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
@@ -143,10 +148,10 @@ const Enemies = ({ setOpenDoor = { setOpenDoor } }) => {
         />
       )}
       {!enemies[8].isDeath && (
-        <Skeleton
+        <Goblin
           idEnemy={8}
           position={[10, 5, -80]}
-          action={'Walk'}
+          action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
@@ -155,10 +160,34 @@ const Enemies = ({ setOpenDoor = { setOpenDoor } }) => {
         />
       )}
       {!enemies[9].isDeath && (
-        <Skeleton
+        <Goblin
           idEnemy={9}
           position={[-10, 5, -80]}
-          action={'Walk'}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[10].isDeath && (
+        <Skeleton
+          idEnemy={10}
+          position={[10, 5, -84]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[11].isDeath && (
+        <Skeleton
+          idEnemy={11}
+          position={[-10, 5, -84]}
+          action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
           isPlayerDeath={currentHearts === 0}
