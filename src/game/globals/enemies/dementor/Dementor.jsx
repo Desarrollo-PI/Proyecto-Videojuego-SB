@@ -38,7 +38,7 @@ export function Dementor(props) {
   const [repeatAttack, setRepeatAttack] = useState(false)
   const [isSoundPLaying, setIsSoundPlaying] = useState(false)
   const [distance, setDistance] = useState(0)
-  const [life, setLife] = useState(600)
+  const [life, setLife] = useState(1)
   const [frozen, setFrozen] = useState(0)
   const [changeColor, setChangeColor] = useState(false)
 

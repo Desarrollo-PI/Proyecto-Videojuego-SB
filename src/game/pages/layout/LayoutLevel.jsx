@@ -67,7 +67,7 @@ const LayoutLevel = () => {
 
   const { bosses, reviveBosses } = useBosses()
 
-  const { handleSound, pauseSound, isPlaying } = useMusic()
+  const { handleSound, pauseSound, isPlaying, handlePositionalSound, resetPositionalSound } = useMusic()
 
   const movements = useMovements()
 
@@ -161,27 +161,27 @@ const LayoutLevel = () => {
           closeAll()
           setIsVictory(true)
           onPassLevel(2)
-          handleSound(['win'], ['level', 'thunder'])
+          handlePositionalSound(['win'], ['level', 'thunder'])
         }
       case '/level/two':
         if (bosses.spider.isDeath) {
           closeAll()
           setIsVictory(true)
           onPassLevel(3)
-          handleSound(['win'], ['level', 'thunder'])
+          handlePositionalSound(['win'], ['level', 'thunder'])
         }
       case '/level/three':
         if (bosses.dementor.isDeath) {
           closeAll()
           setIsVictory(true)
           onPassLevel(4)
-          handleSound(['win'], ['level', 'thunder'])
+          handlePositionalSound(['win'], ['level', 'thunder'])
         }
       case '/level/four':
         if (bosses.darkWizard.isDeath) {
           closeAll()
           setIsVictory(true)
-          handleSound(['win'], ['level', 'thunder'])
+          handlePositionalSound(['win'], ['level', 'thunder'])
         }
       default:
         break
@@ -194,15 +194,12 @@ const LayoutLevel = () => {
 
   useEffect(() => {
     if (player.hearts === 1) {
-      handleSound(['heartbeat'])
+      handlePositionalSound(['heartbeat'])
     }
 
     if (player.hearts === 0) {
       closeAll()
-      handleSound(['gameover'], ['heartbeat'])
-      pauseSound('level')
-    } else {
-      pauseSound('gameover')
+      handlePositionalSound(['gameover'], ['heartbeat', 'level'])
     }
   }, [player.hearts])
 
@@ -277,9 +274,9 @@ const LayoutLevel = () => {
   const handleExit = async () => {
     navigate('/level-router')
     closeMenu()
-    handleSound(['mainTheme'], ['level', 'thunder'])
+    resetPositionalSound()
+    handleSound(['mainTheme'])
     navigate('/level-router')
-    pauseSound('gameover')
     reviveBosses()
   }
 
@@ -356,7 +353,7 @@ const LayoutLevel = () => {
         sprintMult: 4,
         jumpVel: 5,
         sprintJumpMult: 1,
-        position: choosePosition(),
+        position: [0,10,-100],
         characterInitDir: Math.PI,
         camInitDir: { x: 0, y: Math.PI },
         name: 'playerBody',
@@ -469,7 +466,7 @@ const LayoutLevel = () => {
             </Float>
             <OrbitControls enablePan enableZoom enableRotate />
             <StormEnvironment {...chooseProps()} />
-            <Physics debug>
+            <Physics>
               <Outlet />
               <Player {...choosePropsECCtrl()} />
               <Spells />

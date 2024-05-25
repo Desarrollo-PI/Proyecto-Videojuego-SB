@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { Environment } from '@react-three/drei'
+import React, { useState, useEffect, useRef } from 'react'
+import { Environment, PositionalAudio } from '@react-three/drei'
 import LightsEnvironment from './LightsEnvironment'
-import { usePlayer } from '../../providers/player/PlayerProvider'
+import { useMusic } from '../../providers/music/MusicProvider'
 
 const StormEnvironment = ({
   positionDirectionalLight,
@@ -12,6 +12,43 @@ const StormEnvironment = ({
   inMaze,
 }) => {
   const [background, setBackground] = useState('#10141b')
+
+  const { positionalSounds, isPlaying } = useMusic()
+
+  const refThunderAudio = useRef()
+  const refLevelAudio = useRef()
+  const refHeartbeatAudio = useRef()
+  const refGameoverAudio = useRef()
+  const refWinAudio = useRef()
+
+  useEffect(() => {
+    const soundRefs = {
+      thunder: refThunderAudio?.current,
+      level: refLevelAudio?.current,
+      heartbeat: refHeartbeatAudio?.current,
+      gameover: refGameoverAudio?.current,
+      win: refWinAudio?.current
+    };
+
+    
+    if (!isPlaying) {
+      return;
+    }
+  
+    Object.entries(positionalSounds).forEach(([sound, shouldPlay]) => {
+      const audio = soundRefs[sound];
+      if (audio) {
+        if (shouldPlay) {
+          audio.play();
+        } 
+        else {
+          audio.pause();
+        }
+      } else {
+        console.warn(`Reference for ${sound} audio not found.`);
+      }
+    });
+  }, [positionalSounds.thunder, positionalSounds.level, positionalSounds.heartbeat, positionalSounds.gameover, isPlaying]);
 
   const stormLightsProps = {
     positionDirectionalLight,
@@ -44,6 +81,12 @@ const StormEnvironment = ({
           args={['#10141b', 0, nearDementor || inMaze ? 10 : 50]}
         />
       )}
+      <PositionalAudio url="/assets/sounds/thunder.mp3" distance={10} loop ref={refThunderAudio}/>
+      <PositionalAudio url="/assets/music/level-theme.mp3" distance={10} loop ref={refLevelAudio}/>
+      <PositionalAudio url="/assets/music/heartbeat.mp3" distance={10} loop ref={refHeartbeatAudio}/>
+      <PositionalAudio url="/assets/music/gameover.mp3" distance={10} loop={false} ref={refGameoverAudio}/>
+      <PositionalAudio url="/assets/sounds/win.mp3" distance={10} loop={false} ref={refWinAudio}/>
+      
     </>
   )
 }
