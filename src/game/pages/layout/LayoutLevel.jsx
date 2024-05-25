@@ -67,7 +67,13 @@ const LayoutLevel = () => {
 
   const { bosses, reviveBosses } = useBosses()
 
-  const { handleSound, pauseSound, isPlaying, handlePositionalSound, resetPositionalSound } = useMusic()
+  const {
+    handleSound,
+    pauseSound,
+    isPlaying,
+    handlePositionalSound,
+    resetPositionalSound,
+  } = useMusic()
 
   const movements = useMovements()
 
@@ -353,7 +359,7 @@ const LayoutLevel = () => {
         sprintMult: 4,
         jumpVel: 5,
         sprintJumpMult: 1,
-        position: [0,10,-100],
+        position: [0, 10, -100],
         characterInitDir: Math.PI,
         camInitDir: { x: 0, y: Math.PI },
         name: 'playerBody',

@@ -42,15 +42,13 @@ export const MusicProvider = ({ children }) => {
   const [activeSounds, setActiveSounds] = useState([])
   const [isPlaying, setIsPlaying] = useState(true)
 
-  const [positionalSounds, setPositionalSounds] = useState(
-    {
-      thunder: true,
-      level: true,
-      gameover: false,
-      heartbeat: false,
-      win: false,
-    }
-  )
+  const [positionalSounds, setPositionalSounds] = useState({
+    thunder: true,
+    level: true,
+    gameover: false,
+    heartbeat: false,
+    win: false,
+  })
 
   useEffect(() => {
     const activeSounds = JSON.parse(localStorage.getItem('activeSounds'))
@@ -100,7 +98,7 @@ export const MusicProvider = ({ children }) => {
   }
 
   const handlePositionalSound = (soundKeysActive, soundsKeysDesactive) => {
-    let _sounds = {...positionalSounds}
+    let _sounds = { ...positionalSounds }
     if (soundKeysActive && soundKeysActive.length > 0) {
       soundKeysActive.forEach((soundKey) => {
         if (isPlaying) {
@@ -108,7 +106,7 @@ export const MusicProvider = ({ children }) => {
           _sounds = {
             ..._sounds,
             [soundKey]: true,
-          } 
+          }
         }
       })
     }
@@ -117,7 +115,7 @@ export const MusicProvider = ({ children }) => {
         _sounds = {
           ..._sounds,
           [soundKey]: false,
-        } 
+        }
       })
     }
 
@@ -125,15 +123,13 @@ export const MusicProvider = ({ children }) => {
   }
 
   const resetPositionalSound = () => {
-    setPositionalSounds(
-      {
-        thunder: true,
-        level: true,
-        gameover: false,
-        heartbeat: false,
-        win: false,
-      }
-    )
+    setPositionalSounds({
+      thunder: true,
+      level: true,
+      gameover: false,
+      heartbeat: false,
+      win: false,
+    })
   }
 
   const pauseSound = (soundKey) => {
