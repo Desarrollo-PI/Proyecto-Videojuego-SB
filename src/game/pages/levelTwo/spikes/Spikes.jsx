@@ -1,23 +1,31 @@
+import React, { useRef } from 'react'
 import { CuboidCollider, RigidBody } from '@react-three/rapier'
-import { useGLTF } from '@react-three/drei'
+import { PositionalAudio, useGLTF } from '@react-three/drei'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
+import { useMusic } from '../../../../providers/music/MusicProvider'
 
 const Spikes = () => {
   const { nodes, materials } = useGLTF(
     '/assets/models/worldLevelTwo/LevelTwo.glb'
   )
 
+  const { isPlaying } = useMusic()
+
+  const audioRef = useRef()
+
   const { imediatelyDeath } = usePlayer()
 
   const handleIntersectionPlayer = (e) => {
     if (e.rigidBodyObject.name === 'playerBody') {
       imediatelyDeath()
+      isPlaying && audioRef.current.play()
     }
   }
 
   const handleTouchPlayer = (e) => {
     if (e.rigidBodyObject.name === 'playerBody') {
       imediatelyDeath()
+      isPlaying && audioRef.current.play()
     }
   }
 
@@ -121,6 +129,11 @@ const Spikes = () => {
           onIntersectionEnter={handleIntersectionPlayer}
         />
       </RigidBody>
+      <PositionalAudio
+        url="/assets/sounds/fall.mp3"
+        ref={audioRef}
+        loop={false}
+      />
     </>
   )
 }

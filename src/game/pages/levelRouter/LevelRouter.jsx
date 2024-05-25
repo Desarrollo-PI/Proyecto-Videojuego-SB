@@ -37,7 +37,7 @@ const LevelRouterPage = () => {
   }
 
   const handleGoToLevel = async () => {
-    handleSound(['level', 'thunder'], ['mainTheme'])
+    handleSound([], ['mainTheme'])
     switch (index) {
       case 0:
         onGoToFirsLevel()

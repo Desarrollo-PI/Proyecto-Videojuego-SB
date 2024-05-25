@@ -32,12 +32,6 @@ const WorldLevelTwo = (props) => {
         <mesh
           castShadow
           receiveShadow
-          geometry={nodes.gravestone001.geometry}
-          material={materials['HalloweenBits.003']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
           geometry={nodes.gravemarker.geometry}
           material={materials['HalloweenBits.004']}
         />
@@ -46,6 +40,36 @@ const WorldLevelTwo = (props) => {
           receiveShadow
           geometry={nodes.gravemarker001.geometry}
           material={materials['HalloweenBits.004']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravemarker002.geometry}
+          material={materials['HalloweenBits.004']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravemarker003.geometry}
+          material={materials['HalloweenBits.004']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravemarker004.geometry}
+          material={materials['HalloweenBits.004']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravemarker005.geometry}
+          material={materials['HalloweenBits.004']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone001.geometry}
+          material={materials['HalloweenBits.003']}
         />
         <mesh
           castShadow
@@ -69,6 +93,120 @@ const WorldLevelTwo = (props) => {
           castShadow
           receiveShadow
           geometry={nodes.gravestone005.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Skeleton_Shield_Large_A.geometry}
+          material={materials.skeleton}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone007.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone008.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone009.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone010.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone011.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone012.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone013.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone014.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone015.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone016.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone018.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone019.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone021.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone022.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone023.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone025.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone026.geometry}
+          material={materials['HalloweenBits.003']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.gravestone006.geometry}
           material={materials['HalloweenBits.003']}
         />
         <mesh
@@ -99,6 +237,18 @@ const WorldLevelTwo = (props) => {
           castShadow
           receiveShadow
           geometry={nodes.HorizontalFence002.geometry}
+          material={materials.ma}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.HorizontalFence003.geometry}
+          material={materials.ma}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.HorizontalFence004.geometry}
           material={materials.ma}
         />
         <group>
@@ -4052,19 +4202,6 @@ const WorldLevelTwo = (props) => {
             material={materials['Wall_Highlights.001']}
           />
         </group>
-        {/* stone */}
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Stone.geometry}
-          material={materials.Atlas}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Stone009.geometry}
-          material={materials.Atlas}
-        />
       </group>
     </>
   )
@@ -4079,35 +4216,15 @@ const WorldLevelTwoTrimesh = () => {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.Statue4.geometry}
+        material={materials.Statue4}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.gravestone.geometry}
         material={materials['HalloweenBits.003']}
       />
-      <group>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door_1.geometry}
-          material={materials.DarkWood}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door_2.geometry}
-          material={materials.Metal}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door_3.geometry}
-          material={materials['Wood.003']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door_4.geometry}
-          material={materials.Metal_Light}
-        />
-      </group>
       <mesh
         castShadow
         receiveShadow
@@ -4138,32 +4255,6 @@ const WorldLevelTwoTrimesh = () => {
         geometry={nodes.DeadLargeTree.geometry}
         material={materials['HalloweenBits.001']}
       />
-      <group>
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door001_1.geometry}
-          material={materials.DarkWood}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door001_2.geometry}
-          material={materials.Metal}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door001_3.geometry}
-          material={materials['Wood.003']}
-        />
-        <mesh
-          castShadow
-          receiveShadow
-          geometry={nodes.Door001_4.geometry}
-          material={materials.Metal_Light}
-        />
-      </group>
       <group>
         <mesh
           castShadow
@@ -4364,6 +4455,142 @@ const WorldLevelTwoTrimesh = () => {
         geometry={nodes.Trunk008.geometry}
         material={materials.Holzbraun}
       />
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1001_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1001_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1003_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1003_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2001_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2001_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2003_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2003_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Trunk001.geometry}
+        material={materials.Holzbraun}
+      />
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1004_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1004_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1005_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree1005_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2004_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2004_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2005_1.geometry}
+          material={materials.Holzbraun}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Tree2005_2.geometry}
+          material={materials.Tannengrn}
+        />
+      </group>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Trunk.geometry}
+        material={materials.Holzbraun}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Trunk002.geometry}
+        material={materials.Holzbraun}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Trunk008.geometry}
+        material={materials.Holzbraun}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -4482,6 +4709,46 @@ const WorldLevelTwoNoPhysics = () => {
         <mesh
           castShadow
           receiveShadow
+          geometry={nodes.Circle_Material002_0001.geometry}
+          material={materials['Material.006']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle_Material002_0001_1.geometry}
+          material={materials['Material.005']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle_Material002_0001_2.geometry}
+          material={materials['Material.004']}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle_Material002_0001.geometry}
+          material={materials['Material.006']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle_Material002_0001_1.geometry}
+          material={materials['Material.005']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Circle_Material002_0001_2.geometry}
+          material={materials['Material.004']}
+        />
+      </group>
+      <group>
+        <mesh
+          castShadow
+          receiveShadow
           geometry={nodes.Mausoleum001_1.geometry}
           material={materials['Material.006']}
         />
@@ -4546,6 +4813,18 @@ const WorldLevelTwoNoPhysics = () => {
         castShadow
         receiveShadow
         geometry={nodes.crypt001.geometry}
+        material={materials.HalloweenBits}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.crypt002.geometry}
+        material={materials.HalloweenBits}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.crypt003.geometry}
         material={materials.HalloweenBits}
       />
     </>

@@ -8,32 +8,14 @@ const initialState = {
     src: ['/assets/music/main-theme.mp3'],
     loop: true,
   }),
-  thunder: new Howl({
-    src: ['/assets/sounds/thunder.mp3'],
-    loop: true,
-  }),
-  level: new Howl({
-    src: ['/assets/music/level-theme.mp3'],
-    loop: true,
-  }),
   collect: new Howl({
     src: ['/assets/sounds/collect.mp3'],
-  }),
-  gameover: new Howl({
-    src: ['/assets/music/gameover.mp3'],
-  }),
-  heartbeat: new Howl({
-    src: ['/assets/music/heartbeat.mp3'],
-    loop: true,
   }),
   hurt: new Howl({
     src: ['/assets/sounds/hurt.mp3'],
   }),
   mace: new Howl({
     src: ['/assets/sounds/punch.mp3'],
-  }),
-  win: new Howl({
-    src: ['/assets/sounds/win.mp3'],
   }),
   hit: new Howl({
     src: ['/assets/sounds/hit.mp3'],
@@ -59,6 +41,16 @@ export const MusicProvider = ({ children }) => {
   const [sounds, setSounds] = useState(initialState)
   const [activeSounds, setActiveSounds] = useState([])
   const [isPlaying, setIsPlaying] = useState(true)
+
+  const [positionalSounds, setPositionalSounds] = useState(
+    {
+      thunder: true,
+      level: true,
+      gameover: false,
+      heartbeat: false,
+      win: false,
+    }
+  )
 
   useEffect(() => {
     const activeSounds = JSON.parse(localStorage.getItem('activeSounds'))
@@ -94,7 +86,6 @@ export const MusicProvider = ({ children }) => {
         }
       })
     }
-
     if (soundsKeysDesactive && soundsKeysDesactive.length > 0) {
       soundsKeysDesactive.forEach((soundKey) => {
         if (sounds[soundKey]) {
@@ -106,6 +97,43 @@ export const MusicProvider = ({ children }) => {
 
     setActiveSounds(_sounds)
     localStorage.setItem('activeSounds', JSON.stringify(_sounds))
+  }
+
+  const handlePositionalSound = (soundKeysActive, soundsKeysDesactive) => {
+    let _sounds = {...positionalSounds}
+    if (soundKeysActive && soundKeysActive.length > 0) {
+      soundKeysActive.forEach((soundKey) => {
+        if (isPlaying) {
+          console.log('soundKey', soundKey)
+          _sounds = {
+            ..._sounds,
+            [soundKey]: true,
+          } 
+        }
+      })
+    }
+    if (soundsKeysDesactive && soundsKeysDesactive.length > 0) {
+      soundsKeysDesactive.forEach((soundKey) => {
+        _sounds = {
+          ..._sounds,
+          [soundKey]: false,
+        } 
+      })
+    }
+
+    setPositionalSounds(_sounds)
+  }
+
+  const resetPositionalSound = () => {
+    setPositionalSounds(
+      {
+        thunder: true,
+        level: true,
+        gameover: false,
+        heartbeat: false,
+        win: false,
+      }
+    )
   }
 
   const pauseSound = (soundKey) => {
@@ -138,10 +166,13 @@ export const MusicProvider = ({ children }) => {
     isPlaying,
     activeSound: activeSounds,
     sounds,
+    positionalSounds,
   }
 
   const functions = {
     handleSound,
+    handlePositionalSound,
+    resetPositionalSound,
     pauseSound,
     unmute,
     mute,
