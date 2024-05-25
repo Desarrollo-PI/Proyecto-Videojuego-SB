@@ -46,11 +46,6 @@ export default function Expelliarmus({ initRotation, initPosition }) {
       <mesh>
         <sphereGeometry args={[0.05, 16, 8]} />
         <meshStandardMaterial color="Gray" />
-        <PositionalAudio
-          url="/assets/sounds/spell.mp3"
-          autoplay
-          distance={50}
-        />
       </mesh>
     </RigidBody>
   )
