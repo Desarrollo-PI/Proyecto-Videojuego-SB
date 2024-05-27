@@ -29,7 +29,13 @@ const defaultUser = {
     diary: false,
     map: false,
   },
-  collectibles_level_three: {},
+  collectibles_level_three: {
+    fawkes: false,
+    diadem: false,
+    chocolateFrog: false,
+    prongs: false,
+    nagini: false,
+  },
   collectibles_level_four: {},
   checkpoint_level_one: {
     1: false,
