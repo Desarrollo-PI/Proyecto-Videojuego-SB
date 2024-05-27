@@ -203,6 +203,22 @@ export const AuthProvider = ({ children }) => {
     state?.user?.collectibles_level_two?.map,
   ])
 
+  useEffect(() => {
+    const collectibles = state?.user?.collectibles_level_three
+
+    for (const key in collectibles) {
+      if (collectibles[key]) {
+        editUser(state.user)
+      }
+    }
+  }, [
+    state?.user?.collectibles_level_three?.fawkes,
+    state?.user?.collectibles_level_three?.diadem,
+    state?.user?.collectibles_level_three?.chocolateFrog,
+    state?.user?.collectibles_level_three?.prongs,
+    state?.user?.collectibles_level_three?.nagini,
+  ])
+
   const values = {
     user: state.user,
     loading: state.loading,
