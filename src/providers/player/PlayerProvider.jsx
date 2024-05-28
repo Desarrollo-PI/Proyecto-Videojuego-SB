@@ -26,6 +26,8 @@ export function PlayerProvider({ children }) {
 
   const [nearDementor, setNearDementor] = useState(false)
   const [inMaze, setInMaze] = useState(false)
+  const [isPosioned, setIsPosioned] = useState(false)
+  const [isHitPoisoned, setIsHitPoisoned] = useState(false)
 
   const takeLife = (damage) => {
     if (player.hearts <= 0) {
@@ -59,10 +61,46 @@ export function PlayerProvider({ children }) {
     setPlayer((prev) => ({ ...prev, hearts: 0 }))
   }
 
+  const handleIsPosioned = (posioned) => {
+    setIsHitPoisoned(true)
+  }
+
+  useEffect(() => {
+    let positionTimer
+
+    if (isPosioned) {
+      clearTimeout(positionTimer)
+      positionTimer = setTimeout(() => {
+        setIsPosioned(false)
+      }, 5000)
+    }
+
+    if (isHitPoisoned) {
+      setIsPosioned(true)
+      setIsHitPoisoned(false)
+    }
+
+    return () => clearTimeout(positionTimer)
+  }, [isHitPoisoned])
+
+  useEffect(() => {
+    let interval
+    if (isPosioned) {
+      interval = setInterval(() => {
+        takeLife(5)
+      }, 1000)
+    } else {
+      clearInterval(interval)
+    }
+
+    return () => clearInterval(interval)
+  }, [isPosioned, player.life])
+
   const values = {
     player,
     nearDementor,
     inMaze,
+    isPosioned,
     currentHearts: player.hearts,
     currentHealth: player.life,
     currentMana: player.mana,
@@ -75,6 +113,7 @@ export function PlayerProvider({ children }) {
     handleNearDementor,
     imediatelyDeath,
     handleInMaze,
+    handleIsPosioned,
   }
 
   return (
