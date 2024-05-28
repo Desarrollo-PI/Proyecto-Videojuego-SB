@@ -18,13 +18,10 @@ export function PlayerProvider({ children }) {
     mana: 100,
     spellExpelliarmus: false,
     spellGlacius: false,
+    spellIncendio: false,
     selectedSpell: 'spellExpelliarmus',
     spellInitRotation: [0, 0, 0],
     spellInitPosition: [0, 0, 0],
-    expelliarmusInitRotation: [0, 0, 0],
-    expelliarmusInitPosition: [0, 0, 0],
-    glaciusInitRotation: [0, 0, 0],
-    glaciusInitPosition: [0, 0, 0],
   })
 
   const [nearDementor, setNearDementor] = useState(false)

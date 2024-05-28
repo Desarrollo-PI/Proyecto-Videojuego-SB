@@ -102,7 +102,6 @@ export const MusicProvider = ({ children }) => {
     if (soundKeysActive && soundKeysActive.length > 0) {
       soundKeysActive.forEach((soundKey) => {
         if (isPlaying) {
-          console.log('soundKey', soundKey)
           _sounds = {
             ..._sounds,
             [soundKey]: true,
