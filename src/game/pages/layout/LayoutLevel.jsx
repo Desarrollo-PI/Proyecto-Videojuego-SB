@@ -171,14 +171,14 @@ const LayoutLevel = () => {
           handlePositionalSound(['win'], ['level', 'thunder'])
         }
       case '/level/two':
-        if (bosses.spider.isDeath) {
+        if (bosses.dementor.isDeath) {
           closeAll()
           setIsVictory(true)
           onPassLevel(3)
           handlePositionalSound(['win'], ['level', 'thunder'])
         }
       case '/level/three':
-        if (bosses.dementor.isDeath) {
+        if (bosses.spider.isDeath) {
           closeAll()
           setIsVictory(true)
           onPassLevel(4)

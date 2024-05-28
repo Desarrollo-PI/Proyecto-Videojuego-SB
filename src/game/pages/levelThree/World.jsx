@@ -26,7 +26,7 @@ export const WorldLevelThreeFixed = (props) => {
 
   return (
     <>
-      <mesh
+      {/* <mesh
         castShadow
         receiveShadow
         geometry={nodes.Rock001.geometry}
@@ -271,7 +271,7 @@ export const WorldLevelThreeFixed = (props) => {
         receiveShadow
         geometry={nodes.Rock042.geometry}
         material={materials.Rock}
-      />
+      /> */}
       <mesh
         castShadow
         receiveShadow

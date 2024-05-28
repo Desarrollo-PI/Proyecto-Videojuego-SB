@@ -144,7 +144,9 @@ export const touchSpell = (
   handleSound,
   frozen,
   setFrozen,
-  setChangeColor
+  setChangeColor,
+  setFired,
+  fired
 ) => {
   if (e.rigidBodyObject.name === 'expelliarmusBody') {
     handleSound(['hit'])
@@ -158,6 +160,16 @@ export const touchSpell = (
     handleSound(['hit'])
     setFrozen(3)
     setChangeColor(true)
+  }
+  if (e.rigidBodyObject.name === 'incendioBody') {
+    handleSound(['hit'])
+    const newLife = life - 20
+    setLife(newLife)
+    setFired(3)
+    setChangeColor(true)
+    if (newLife <= 0) {
+      deathEnemy(idEnemy)
+    }
   }
 }
 
