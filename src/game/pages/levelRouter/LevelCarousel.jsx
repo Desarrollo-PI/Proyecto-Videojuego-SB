@@ -76,8 +76,8 @@ const LevelCarousel = ({
           </LayoutPreview>
         )}
         <Carousel.Caption>
-          <h2>1</h2>
-          <h3>NIVEL</h3>
+          <h2>NIVEL 1</h2>
+          <h3>Estacion Kingcross</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item
@@ -91,8 +91,8 @@ const LevelCarousel = ({
           </LayoutPreview>
         )}
         <Carousel.Caption>
-          <h2>2</h2>
-          <h3>NIVEL</h3>
+          <h2>NIVEL 2</h2>
+          <h3>Cementerio de Hogsmeade</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item
@@ -106,8 +106,8 @@ const LevelCarousel = ({
           </LayoutPreview>
         )}
         <Carousel.Caption>
-          <h2>3</h2>
-          <h3>NIVEL</h3>
+          <h2>NIVEL 3</h2>
+          <h3>Bosque Prohibido</h3>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item
@@ -121,8 +121,8 @@ const LevelCarousel = ({
           </LayoutPreview>
         )}
         <Carousel.Caption>
-          <h2>4</h2>
-          <h3>NIVEL</h3>
+          <h2>NIVEL 4</h2>
+          <h3>Hogwarts</h3>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

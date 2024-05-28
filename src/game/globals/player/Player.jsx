@@ -8,13 +8,22 @@ import Ecctrl from 'ecctrl'
 export default function Player(props) {
   const playerRef = useRef()
   const playerBodyRef = useRef()
+
+  const meshOneRef = useRef()
+  const meshTwoRef = useRef()
+  const meshThreeRef = useRef()
+  const meshFourRef = useRef()
+  const meshFiveRef = useRef()
+  const meshSixRef = useRef()
+  const meshSevenRef = useRef()
+
   const { avatar, setAvatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(
     '/assets/models/characters/avatar/Auror.glb'
   )
   const { actions } = useAnimations(animations, playerRef)
 
-  const { player, setPlayer } = usePlayer()
+  const { player, setPlayer, isPosioned } = usePlayer()
 
   function quaternionToDirection(quaternion) {
     var x = quaternion.x
@@ -58,6 +67,26 @@ export default function Player(props) {
       }
     }
   }, [actions, avatar.animation, props.isPlayerDeath])
+
+  useEffect(() => {
+    if (isPosioned) {
+      meshOneRef.current.material.color.set('#00FF00')
+      meshTwoRef.current.material.color.set('#00FF00')
+      meshThreeRef.current.material.color.set('#00FF00')
+      meshFourRef.current.material.color.set('#00FF00')
+      meshFiveRef.current.material.color.set('#00FF00')
+      meshSixRef.current.material.color.set('#00FF00')
+      meshSevenRef.current.material.color.set('#00FF00')
+    } else {
+      meshOneRef.current.material.color.set('#E6E6E6')
+      meshTwoRef.current.material.color.set('#E6E6E6')
+      meshThreeRef.current.material.color.set('#E6E6E6')
+      meshFourRef.current.material.color.set('#E6E6E6')
+      meshFiveRef.current.material.color.set('#E6E6E6')
+      meshSixRef.current.material.color.set('#E6E6E6')
+      meshSevenRef.current.material.color.set('#E6E6E6')
+    }
+  }, [isPosioned])
 
   useFrame(() => {
     if (
@@ -115,6 +144,7 @@ export default function Player(props) {
               skeleton={nodes.Cube024.skeleton}
               castShadow
               receiveShadow
+              ref={meshOneRef}
             />
             <skinnedMesh
               name="Cube025"
@@ -123,6 +153,7 @@ export default function Player(props) {
               skeleton={nodes.Cube025.skeleton}
               castShadow
               receiveShadow
+              ref={meshTwoRef}
             />
             <skinnedMesh
               name="Cube026"
@@ -131,6 +162,7 @@ export default function Player(props) {
               skeleton={nodes.Cube026.skeleton}
               castShadow
               receiveShadow
+              ref={meshThreeRef}
             />
             <skinnedMesh
               name="Cube027"
@@ -139,6 +171,7 @@ export default function Player(props) {
               skeleton={nodes.Cube027.skeleton}
               castShadow
               receiveShadow
+              ref={meshFourRef}
             />
             <skinnedMesh
               name="Cube028"
@@ -147,6 +180,7 @@ export default function Player(props) {
               skeleton={nodes.Cube028.skeleton}
               castShadow
               receiveShadow
+              ref={meshFiveRef}
             />
             <skinnedMesh
               name="Cube029"
@@ -155,6 +189,7 @@ export default function Player(props) {
               skeleton={nodes.Cube029.skeleton}
               castShadow
               receiveShadow
+              ref={meshSixRef}
             />
             <skinnedMesh
               name="Cube030"
@@ -163,6 +198,7 @@ export default function Player(props) {
               skeleton={nodes.Cube030.skeleton}
               castShadow
               receiveShadow
+              ref={meshSevenRef}
             />
             <group name="Wand">
               <skinnedMesh

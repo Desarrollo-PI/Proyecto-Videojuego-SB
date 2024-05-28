@@ -37,7 +37,7 @@ export function Spider(props) {
   const [repeatAttack, setRepeatAttack] = useState(false)
   const [isSoundPLaying, setIsSoundPlaying] = useState(false)
   const [distance, setDistance] = useState(0)
-  const [life, setLife] = useState(800)
+  const [life, setLife] = useState(props.life)
   const [frozen, setFrozen] = useState(0)
   const [fired, setFired] = useState(0)
   const [changeColor, setChangeColor] = useState(false)
@@ -141,15 +141,19 @@ export function Spider(props) {
   }, [actions, props.action])
 
   useEffect(() => {
+    material.color.set(props.color)
+  }, [])
+
+  useEffect(() => {
     if (changeColor) {
       if (frozen) {
-        spiderMeshRef.current.material.color.set('hsl(180,100%,50%)')
+        material.color.set('hsl(180,100%,50%)')
       }
       if (fired) {
-        spiderMeshRef.current.material.color.set('hsl(0,100%,50%)')
+        material.color.set('hsl(0,100%,50%)')
       }
     } else {
-      spiderMeshRef.current.material.color.set('hsl(0,0%,4.18%)')
+      material.color.set(props.color)
     }
   }, [changeColor])
 
@@ -301,7 +305,7 @@ export function Spider(props) {
         {...props}
         dispose={null}
         position={[0, 0.01, 0]}
-        scale={0.9}
+        scale={props.scale}
       >
         <Text
           position={[0, 3, 0]}
@@ -324,7 +328,7 @@ export function Spider(props) {
               <skinnedMesh
                 name="Cube_1"
                 geometry={nodes.Cube_1.geometry}
-                material={materials.Material}
+                material={material}
                 skeleton={nodes.Cube_1.skeleton}
                 ref={spiderMeshRef}
               />
