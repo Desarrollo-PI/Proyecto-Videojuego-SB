@@ -1,9 +1,9 @@
 import WorldLevelThree from './World'
 import Lights from './Lights'
-import { Spider } from '../../globals/enemies/spider/Spider'
 import Collectibles from './collectibles/Collectibles'
 import Checkpoints from './checkpoints/Checkpoints'
 import Obstacles from './obstacles/Obstacles'
+import Enemies from './enemies/Enemies'
 
 const LevelThreePage = () => {
   return (
@@ -13,7 +13,7 @@ const LevelThreePage = () => {
       <Collectibles />
       <Checkpoints />
       <Obstacles />
-      <Spider position={[-15, 0, -7]} action={0} />
+      <Enemies />
     </>
   )
 }
