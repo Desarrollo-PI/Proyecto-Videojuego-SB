@@ -350,6 +350,14 @@ export function Spider(props) {
                 onIntersectionEnter={(e) => handleWatchPlayer(e)}
                 onIntersectionExit={(e) => handleStopWatchPlayer(e)}
               />
+              {isSoundPLaying && props.isPlaying && (
+                <PositionalAudio
+                  url="/assets/sounds/spider.mp3"
+                  autoplay
+                  distance={distance * 100}
+                  loop
+                />
+              )}
             </group>
           </group>
         </group>

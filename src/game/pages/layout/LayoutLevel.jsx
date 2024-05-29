@@ -64,7 +64,15 @@ const LayoutLevel = () => {
     collectiblesLevelFour,
   } = useAuth()
 
-  const { player, setPlayer, chooseSpell, nearDementor, inMaze } = usePlayer()
+  const {
+    player,
+    setPlayer,
+    chooseSpell,
+    nearDementor,
+    inMaze,
+    resetStates,
+    isPoisoned,
+  } = usePlayer()
 
   const { bosses, reviveBosses } = useBosses()
 
@@ -284,6 +292,7 @@ const LayoutLevel = () => {
     resetPositionalSound()
     handleSound(['mainTheme'])
     navigate('/level-router')
+    resetStates()
     reviveBosses()
   }
 
@@ -466,6 +475,7 @@ const LayoutLevel = () => {
           dialogType={dialogType}
           collelctibles={chooseCollectibles()}
           isOpenVictory={isVictory}
+          isPoisoned={isPoisoned}
         />
         <KeyboardControls map={movements}>
           <Canvas shadows dpr={[1, 1.5]}>

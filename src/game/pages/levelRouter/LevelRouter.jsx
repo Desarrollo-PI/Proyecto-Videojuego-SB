@@ -8,9 +8,8 @@ const LevelRouterPage = () => {
   const navigate = useNavigate()
   const { handleSound } = useMusic()
 
-  const [index, setIndex] = useState(0)
-
-  const { state } = useAuth()
+  const { state, level } = useAuth()
+  const [index, setIndex] = useState(level - 1 || 0)
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex)

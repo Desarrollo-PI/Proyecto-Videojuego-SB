@@ -1,14 +1,17 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useGLTF } from '@react-three/drei'
+import { PositionalAudio, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { RigidBody } from '@react-three/rapier'
+import { useMusic } from '../../../providers/music/MusicProvider'
 
 export function Ivy(props) {
   const { nodes, materials } = useGLTF('/assets/models/elements/Ivy.glb')
   const [material] = useState(materials.Material.clone())
   const [isFired, setIsFired] = useState(false)
   const [isBurned, setIsBurned] = useState(false)
+  const { isPlaying } = useMusic()
   const ivyRef = useRef()
+  const fireSoundRef = useRef()
 
   const onCollisionEnter = (e) => {
     if (e.rigidBodyObject.name === 'incendioBody') {
@@ -18,6 +21,7 @@ export function Ivy(props) {
 
   useEffect(() => {
     if (isFired) {
+      isPlaying && fireSoundRef.current.play()
       material.color.set('red')
     }
   }, [isFired, material])
@@ -25,9 +29,9 @@ export function Ivy(props) {
   useFrame(() => {
     if (isFired) {
       const currentColor = material.color
-      currentColor.r *= 0.95
-      currentColor.g *= 0.95
-      currentColor.b *= 0.95
+      currentColor.r *= 0.99
+      currentColor.g *= 0.99
+      currentColor.b *= 0.99
       material.color = currentColor
 
       if (
@@ -60,6 +64,12 @@ export function Ivy(props) {
           material={material}
         />
       </RigidBody>
+      <PositionalAudio
+        url="/assets/sounds/fire.mp3"
+        ref={fireSoundRef}
+        distance={10}
+        loop={false}
+      />
     </group>
   )
 }

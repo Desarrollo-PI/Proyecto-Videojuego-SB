@@ -26,7 +26,7 @@ export function PlayerProvider({ children }) {
 
   const [nearDementor, setNearDementor] = useState(false)
   const [inMaze, setInMaze] = useState(false)
-  const [isPosioned, setIsPosioned] = useState(false)
+  const [isPoisoned, setIsPoisoned] = useState(false)
   const [isHitPoisoned, setIsHitPoisoned] = useState(false)
 
   const takeLife = (damage) => {
@@ -65,18 +65,36 @@ export function PlayerProvider({ children }) {
     setIsHitPoisoned(true)
   }
 
+  const resetStates = () => {
+    setPlayer({
+      hearts: null,
+      life: 100,
+      mana: 100,
+      spellExpelliarmus: false,
+      spellGlacius: false,
+      spellIncendio: false,
+      selectedSpell: 'spellExpelliarmus',
+      spellInitRotation: [0, 0, 0],
+      spellInitPosition: [0, 0, 0],
+    })
+    setNearDementor(false)
+    setInMaze(false)
+    setIsPoisoned(false)
+    setIsHitPoisoned(false)
+  }
+
   useEffect(() => {
     let positionTimer
 
-    if (isPosioned) {
+    if (isPoisoned) {
       clearTimeout(positionTimer)
       positionTimer = setTimeout(() => {
-        setIsPosioned(false)
+        setIsPoisoned(false)
       }, 5000)
     }
 
     if (isHitPoisoned) {
-      setIsPosioned(true)
+      setIsPoisoned(true)
       setIsHitPoisoned(false)
     }
 
@@ -85,7 +103,7 @@ export function PlayerProvider({ children }) {
 
   useEffect(() => {
     let interval
-    if (isPosioned) {
+    if (isPoisoned) {
       interval = setInterval(() => {
         takeLife(5)
       }, 1000)
@@ -94,13 +112,13 @@ export function PlayerProvider({ children }) {
     }
 
     return () => clearInterval(interval)
-  }, [isPosioned, player.life])
+  }, [isPoisoned, player.life])
 
   const values = {
     player,
     nearDementor,
     inMaze,
-    isPosioned,
+    isPoisoned,
     currentHearts: player.hearts,
     currentHealth: player.life,
     currentMana: player.mana,
@@ -114,6 +132,7 @@ export function PlayerProvider({ children }) {
     imediatelyDeath,
     handleInMaze,
     handleIsPosioned,
+    resetStates,
   }
 
   return (
