@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Spider } from '../../../globals/enemies/spider/Spider'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
 import { useMusic } from '../../../../providers/music/MusicProvider'
 import { useBosses } from '../../../../providers/bosses/BossesProvider'
+import { PositionalAudio } from '@react-three/drei'
 
 const Enemies = (props) => {
   const [enemies, setEnemies] = useState({
@@ -11,9 +12,11 @@ const Enemies = (props) => {
     3: { isDeath: false },
   })
 
+  const attackSoundRef = useRef()
+
   const { bosses, handleDeathBoss } = useBosses()
-  const { handleSound, isPlaying } = useMusic()
-  const { currentHearts, takeLife, handleIsPosioned, isPosioned } = usePlayer()
+  const { isPlaying, handlePositionalSound } = useMusic()
+  const { currentHearts, takeLife, handleIsPosioned, isPoisoned } = usePlayer()
 
   const handleDeathEnemy = (id) => {
     setEnemies((prev) => ({
@@ -26,19 +29,28 @@ const Enemies = (props) => {
     if (currentHearts <= 0) {
       return
     }
+    isPlaying && attackSoundRef.current.play()
     takeLife(25)
     handleIsPosioned(true)
-    handleSound(['hurt'])
   }
 
   const handleTakeLifeSpider = () => {
     if (currentHearts <= 0) {
       return
     }
-    handleIsPosioned(true)
+    isPlaying && attackSoundRef.current.play()
     takeLife(75)
-    // handleSound(['hitDementor'])
+    handleIsPosioned(true)
   }
+
+  useEffect(() => {
+    if (isPoisoned && currentHearts > 0) {
+      handlePositionalSound(['heartbeat'])
+    }
+    if ((!isPoisoned && currentHearts > 1) || currentHearts === 0) {
+      handlePositionalSound([], ['heartbeat'])
+    }
+  }, [isPoisoned])
 
   return (
     <>
@@ -102,6 +114,12 @@ const Enemies = (props) => {
           isPlaying={isPlaying}
         />
       )}
+      <PositionalAudio
+        url="/assets/sounds/hitSpider.mp3"
+        distance={10}
+        loop={false}
+        ref={attackSoundRef}
+      />
     </>
   )
 }

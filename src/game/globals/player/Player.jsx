@@ -23,7 +23,7 @@ export default function Player(props) {
   )
   const { actions } = useAnimations(animations, playerRef)
 
-  const { player, setPlayer, isPosioned } = usePlayer()
+  const { player, setPlayer, isPoisoned } = usePlayer()
 
   function quaternionToDirection(quaternion) {
     var x = quaternion.x
@@ -69,7 +69,7 @@ export default function Player(props) {
   }, [actions, avatar.animation, props.isPlayerDeath])
 
   useEffect(() => {
-    if (isPosioned) {
+    if (isPoisoned) {
       meshOneRef.current.material.color.set('#00FF00')
       meshTwoRef.current.material.color.set('#00FF00')
       meshThreeRef.current.material.color.set('#00FF00')
@@ -86,7 +86,7 @@ export default function Player(props) {
       meshSixRef.current.material.color.set('#E6E6E6')
       meshSevenRef.current.material.color.set('#E6E6E6')
     }
-  }, [isPosioned])
+  }, [isPoisoned])
 
   useFrame(() => {
     if (
