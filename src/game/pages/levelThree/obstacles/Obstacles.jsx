@@ -4,8 +4,8 @@ const Obstacles = () => {
   return (
     <>
       <Ivy position={[11.8, -0.2, -14]} rotation={[0, Math.PI / 2, 0 ]}/>
-      <Ivy position={[17, -0.2, -50]} rotation={[0, Math.PI / 2, 0 ]}/>
-      <Ivy position={[22.2, -0.2, -55]} rotation={[0, Math.PI / 2, 0 ]}/>
+      <Ivy position={[17, -0.2, -50]} rotation={[0, Math.PI / 2, 0 ]} scale={[1,1,0.7]}/>
+      <Ivy position={[22.2, -0.2, -46]} rotation={[0, Math.PI / 2, 0 ]}/>
       <Ivy position={[-15, -0.2, 4]} />
       <Ivy position={[20, -0.2, -8]} />
 

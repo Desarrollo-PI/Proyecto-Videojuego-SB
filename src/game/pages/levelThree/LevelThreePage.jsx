@@ -5,6 +5,7 @@ import Checkpoints from './checkpoints/Checkpoints'
 import Obstacles from './obstacles/Obstacles'
 import Enemies from './enemies/Enemies'
 import Portals from './elements/Portal'
+import Signs from './elements/Signs'
 
 const LevelThreePage = () => {
   return (
@@ -14,8 +15,9 @@ const LevelThreePage = () => {
       <Collectibles />
       <Checkpoints />
       <Obstacles />
-      <Enemies />
+      {/* <Enemies /> */}
       <Portals />
+      <Signs/>
     </>
   )
 }
