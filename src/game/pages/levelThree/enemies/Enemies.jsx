@@ -105,7 +105,7 @@ const Enemies = (props) => {
           color={'#0A0A0A'}
           scale={0.9}
           idEnemy={'spider'}
-          position={[-14.5, 3, -6]}
+          position={[-14.5, 3, -40]}
           action={'Idle'}
           takeLife={handleTakeLifeSpider}
           deathEnemy={handleDeathBoss}

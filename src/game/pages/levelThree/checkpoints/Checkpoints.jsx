@@ -38,7 +38,8 @@ const Checkpoints = () => {
       <Checkpoint
         numberCheckpoint={1}
         itsTaken={checkpointLevelThree[1]}
-        position={[-2, 1, 6]}
+        position={[-18, 0.8, -24]}
+        rotation={[0, Math.PI  * 3/2, 0]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
@@ -46,21 +47,24 @@ const Checkpoints = () => {
       <Checkpoint
         numberCheckpoint={2}
         itsTaken={checkpointLevelThree[2]}
-        position={[-4, 1, 6]}
+        position={[18.2, 0.8, -48]}
+        rotation={[0, Math.PI/2, 0]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoint
         numberCheckpoint={3}
         itsTaken={checkpointLevelThree[3]}
-        position={[-6, 1, 6]}
+        position={[22.5, 0.8, -6.5]}
+      rotation={[0, Math.PI*4, 0]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoint
         numberCheckpoint={4}
         itsTaken={checkpointLevelThree[4]}
-        position={[-8, 1, 6]}
+        position={[24, 0.8, -54]}
+        rotation={[0, Math.PI/2, 0]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
