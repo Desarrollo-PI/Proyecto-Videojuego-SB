@@ -443,11 +443,11 @@ const LayoutLevel = () => {
           text: '¡Descubre el nuevo hechizo \n Glacius! \n ¡Presiona 2 para activarlo y \n congelar a tus enemigos y objetos!',
         }
       case '/level/three':
-          return {
-            position: [-5, 3, 0],
-            rotation: [0, 0, 0],
-            text: '¡Descubre el nuevo hechizo \n Incendio! \n ¡Presiona 3 para activarlo y \n quemar a tus enemigos y algunos obstaculos!',
-          }
+        return {
+          position: [-5, 3, 0],
+          rotation: [0, 0, 0],
+          text: '¡Descubre el nuevo hechizo \n Incendio! \n ¡Presiona 3 para activarlo y \n quemar a tus enemigos y algunos obstaculos!',
+        }
       default:
         return {
           position: [0, 0, 0],
