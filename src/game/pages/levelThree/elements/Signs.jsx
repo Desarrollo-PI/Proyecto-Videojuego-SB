@@ -7,7 +7,7 @@ const Signs = () => {
 
   const handleOnTakeSign = (numberSign) => {
     const messages = {
-      1: 'Tienes un nuevo hechizo en el numero 3, con este puedes quemar a los enemigos o enredadaderas como las que hay a la izquierda.',
+      1: 'Este obstaculo podra ser quemado con tu nuevo hechizo de fuego',
       2: 'La luz será tu esperanza para poder encontrar tu destino',
       3: 'Si estas listo entra al portal para la batalla final de este nivel',
     }
@@ -32,14 +32,14 @@ const Signs = () => {
     <>
       <Sign
         numberSign={1}
-        position={[-15, 0, 0.5]}
-        rotation={[0, Math.PI / 2, 0]}
+        position={[-6, 0, -3]}
         handleOnTakeSign={handleOnTakeSign}
         dialogs={dialogs}
       />
       <Sign
         numberSign={2}
-        position={[-6, 0, -3]}
+        position={[-15, 0, 0.5]}
+        rotation={[0, Math.PI / 2, 0]}
         handleOnTakeSign={handleOnTakeSign}
         dialogs={dialogs}
       />

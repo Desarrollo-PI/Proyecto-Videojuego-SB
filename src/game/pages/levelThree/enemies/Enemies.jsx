@@ -10,6 +10,19 @@ const Enemies = (props) => {
     1: { isDeath: false },
     2: { isDeath: false },
     3: { isDeath: false },
+    4: { isDeath: false },
+    5: { isDeath: false },
+    6: { isDeath: false },
+    7: { isDeath: false },
+    8: { isDeath: false },
+    9: { isDeath: false },
+    10: { isDeath: false },
+    11: { isDeath: false },
+    12: { isDeath: false },
+    13: { isDeath: false },
+    14: { isDeath: false },
+    15: { isDeath: false },
+    16: { isDeath: false },
   })
 
   const attackSoundRef = useRef()
@@ -60,7 +73,7 @@ const Enemies = (props) => {
           color={'#E6E6E6'}
           scale={0.4}
           idEnemy={1}
-          position={[-2, 3, 2]}
+          position={[-14, 3, -5]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -75,7 +88,7 @@ const Enemies = (props) => {
           color={'#3b2f2f'}
           scale={0.4}
           idEnemy={2}
-          position={[-2, 3, -2]}
+          position={[-22, 1.5, -5]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -90,7 +103,202 @@ const Enemies = (props) => {
           color={'#274227'}
           scale={0.4}
           idEnemy={3}
-          position={[2, 3, 6]}
+          position={[0, 1.5, -22]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[4].isDeath && (
+        <Spider
+          life={250}
+          color={'#274227'}
+          scale={0.4}
+          idEnemy={3}
+          position={[0, 1.5, -26]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[5].isDeath && (
+        <Spider
+          life={250}
+          color={'#274227'}
+          scale={0.4}
+          idEnemy={3}
+          position={[0, 1.5, -30]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[6].isDeath && (
+        <Spider
+          life={250}
+          color={'#3b2f2f'}
+          scale={0.4}
+          idEnemy={2}
+          position={[12, 1.5, -10]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[7].isDeath && (
+        <Spider
+          life={250}
+          color={'#E6E6E6'}
+          scale={0.4}
+          idEnemy={1}
+          position={[11, 1.5, -15]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[8].isDeath && (
+        <Spider
+          life={250}
+          color={'#3b2f2f'}
+          scale={0.4}
+          idEnemy={2}
+          position={[8, 1.5, -29]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[9].isDeath && (
+        <Spider
+          life={250}
+          color={'#3b2f2f'}
+          scale={0.4}
+          idEnemy={2}
+          position={[8, 1.5, -39]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[10].isDeath && (
+        <Spider
+          life={250}
+          color={'#E6E6E6'}
+          scale={0.4}
+          idEnemy={1}
+          position={[11, 1.5, -55]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[11].isDeath && (
+        <Spider
+          life={250}
+          color={'#E6E6E6'}
+          scale={0.4}
+          idEnemy={1}
+          position={[6, 1.5, -55]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[12].isDeath && (
+        <Spider
+          life={250}
+          color={'#E6E6E6'}
+          scale={0.4}
+          idEnemy={1}
+          position={[15, 1.5, -55]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[13].isDeath && (
+        <Spider
+          life={250}
+          color={'#3b2f2f'}
+          scale={0.4}
+          idEnemy={2}
+          position={[-6, 3, -52]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[14].isDeath && (
+        <Spider
+          life={250}
+          color={'#3b2f2f'}
+          scale={0.4}
+          idEnemy={2}
+          position={[-17, 3, -52]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[15].isDeath && (
+        <Spider
+          life={250}
+          color={'#E6E6E6'}
+          scale={0.4}
+          idEnemy={1}
+          position={[16, 1.5, -30]}
+          action={'Idle'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[16].isDeath && (
+        <Spider
+          life={250}
+          color={'#3b2f2f'}
+          scale={0.4}
+          idEnemy={1}
+          position={[22, 1.5, -38]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -105,7 +313,7 @@ const Enemies = (props) => {
           color={'#0A0A0A'}
           scale={0.9}
           idEnemy={'spider'}
-          position={[-14.5, 3, -40]}
+          position={[-11, 3, -52]}
           action={'Idle'}
           takeLife={handleTakeLifeSpider}
           deathEnemy={handleDeathBoss}

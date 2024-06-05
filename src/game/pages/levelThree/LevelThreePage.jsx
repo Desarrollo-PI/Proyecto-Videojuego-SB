@@ -15,7 +15,7 @@ const LevelThreePage = () => {
       <Collectibles />
       <Checkpoints />
       <Obstacles />
-      {/* <Enemies /> */}
+      <Enemies />
       <Portals />
       <Signs />
     </>
