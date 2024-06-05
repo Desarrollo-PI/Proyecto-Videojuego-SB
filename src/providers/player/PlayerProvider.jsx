@@ -28,6 +28,7 @@ export function PlayerProvider({ children }) {
   const [inMaze, setInMaze] = useState(false)
   const [isPoisoned, setIsPoisoned] = useState(false)
   const [isHitPoisoned, setIsHitPoisoned] = useState(false)
+  const [teleportPosition, setTeleportPosition] = useState(null)
 
   const takeLife = (damage) => {
     if (player.hearts <= 0) {
@@ -119,6 +120,7 @@ export function PlayerProvider({ children }) {
     nearDementor,
     inMaze,
     isPoisoned,
+    teleportPosition,
     currentHearts: player.hearts,
     currentHealth: player.life,
     currentMana: player.mana,
@@ -133,6 +135,7 @@ export function PlayerProvider({ children }) {
     handleInMaze,
     handleIsPosioned,
     resetStates,
+    setTeleportPosition,
   }
 
   return (

@@ -23,7 +23,13 @@ export default function Player(props) {
   )
   const { actions } = useAnimations(animations, playerRef)
 
-  const { player, setPlayer, isPoisoned } = usePlayer()
+  const {
+    player,
+    setPlayer,
+    isPoisoned,
+    teleportPosition,
+    setTeleportPosition,
+  } = usePlayer()
 
   function quaternionToDirection(quaternion) {
     var x = quaternion.x
@@ -87,6 +93,23 @@ export default function Player(props) {
       meshSevenRef.current.material.color.set('#E6E6E6')
     }
   }, [isPoisoned])
+
+  useEffect(() => {
+    if (teleportPosition) {
+      playerBodyRef?.current?.setTranslation({
+        x: teleportPosition[0],
+        y: teleportPosition[1],
+        z: teleportPosition[2],
+      })
+      playerBodyRef?.current?.setRotation({
+        x: 0,
+        y: 0,
+        z: 0,
+        w: 0,
+      })
+      setTeleportPosition(null)
+    }
+  }, [teleportPosition])
 
   useFrame(() => {
     if (
