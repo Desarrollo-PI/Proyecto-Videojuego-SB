@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Portal from '../../../globals/portal/Portal'
-import { vec3 } from '@react-three/rapier'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
 
 const Portals = () => {

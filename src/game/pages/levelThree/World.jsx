@@ -7,9 +7,7 @@ import { useMemo } from 'react'
 const withPhysics =
   (Component, ComponentFixed, ComponentNoPhysics) => (props) => {
     const ref = useRef()
-    const { nodes, materials } = useGLTF(
-      '/assets/models/worldLevelThree/LevelThree.glb'
-    )
+
     return (
       <>
         <RigidBody type="fixed" collisionGroups={interactionGroups(0)}>

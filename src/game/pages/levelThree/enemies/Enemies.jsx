@@ -88,7 +88,7 @@ const Enemies = (props) => {
           color={'#3b2f2f'}
           scale={0.4}
           idEnemy={2}
-          position={[-22, 1.5, -5]}
+          position={[-22, 3, -5]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -103,7 +103,7 @@ const Enemies = (props) => {
           color={'#274227'}
           scale={0.4}
           idEnemy={3}
-          position={[0, 1.5, -22]}
+          position={[0, 3, -22]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -117,8 +117,8 @@ const Enemies = (props) => {
           life={250}
           color={'#274227'}
           scale={0.4}
-          idEnemy={3}
-          position={[0, 1.5, -26]}
+          idEnemy={4}
+          position={[0, 3, -26]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -132,8 +132,8 @@ const Enemies = (props) => {
           life={250}
           color={'#274227'}
           scale={0.4}
-          idEnemy={3}
-          position={[0, 1.5, -30]}
+          idEnemy={5}
+          position={[0, 3, -30]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -147,8 +147,8 @@ const Enemies = (props) => {
           life={250}
           color={'#3b2f2f'}
           scale={0.4}
-          idEnemy={2}
-          position={[12, 1.5, -10]}
+          idEnemy={6}
+          position={[12, 3, -10]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -162,8 +162,8 @@ const Enemies = (props) => {
           life={250}
           color={'#E6E6E6'}
           scale={0.4}
-          idEnemy={1}
-          position={[11, 1.5, -15]}
+          idEnemy={7}
+          position={[11, 3, -15]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -177,8 +177,8 @@ const Enemies = (props) => {
           life={250}
           color={'#3b2f2f'}
           scale={0.4}
-          idEnemy={2}
-          position={[8, 1.5, -29]}
+          idEnemy={8}
+          position={[8, 3, -29]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -192,8 +192,8 @@ const Enemies = (props) => {
           life={250}
           color={'#3b2f2f'}
           scale={0.4}
-          idEnemy={2}
-          position={[8, 1.5, -39]}
+          idEnemy={9}
+          position={[8, 3, -39]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -207,8 +207,8 @@ const Enemies = (props) => {
           life={250}
           color={'#E6E6E6'}
           scale={0.4}
-          idEnemy={1}
-          position={[11, 1.5, -55]}
+          idEnemy={10}
+          position={[11, 3, -55]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -222,8 +222,8 @@ const Enemies = (props) => {
           life={250}
           color={'#E6E6E6'}
           scale={0.4}
-          idEnemy={1}
-          position={[6, 1.5, -55]}
+          idEnemy={11}
+          position={[6, 3, -55]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -237,8 +237,8 @@ const Enemies = (props) => {
           life={250}
           color={'#E6E6E6'}
           scale={0.4}
-          idEnemy={1}
-          position={[15, 1.5, -55]}
+          idEnemy={12}
+          position={[15, 3, -55]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -252,7 +252,7 @@ const Enemies = (props) => {
           life={250}
           color={'#3b2f2f'}
           scale={0.4}
-          idEnemy={2}
+          idEnemy={13}
           position={[-6, 3, -52]}
           action={'Idle'}
           takeLife={handleTakeLife}
@@ -267,7 +267,7 @@ const Enemies = (props) => {
           life={250}
           color={'#3b2f2f'}
           scale={0.4}
-          idEnemy={2}
+          idEnemy={14}
           position={[-17, 3, -52]}
           action={'Idle'}
           takeLife={handleTakeLife}
@@ -282,8 +282,8 @@ const Enemies = (props) => {
           life={250}
           color={'#E6E6E6'}
           scale={0.4}
-          idEnemy={1}
-          position={[16, 1.5, -30]}
+          idEnemy={15}
+          position={[16, 3, -30]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -297,8 +297,8 @@ const Enemies = (props) => {
           life={250}
           color={'#3b2f2f'}
           scale={0.4}
-          idEnemy={1}
-          position={[22, 1.5, -38]}
+          idEnemy={16}
+          position={[22, 3, -38]}
           action={'Idle'}
           takeLife={handleTakeLife}
           deathEnemy={handleDeathEnemy}
@@ -309,7 +309,7 @@ const Enemies = (props) => {
       )}
       {!bosses?.spider.isDeath && (
         <Spider
-          life={800}
+          life={500}
           color={'#0A0A0A'}
           scale={0.9}
           idEnemy={'spider'}

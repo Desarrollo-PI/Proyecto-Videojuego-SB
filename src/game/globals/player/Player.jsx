@@ -17,7 +17,7 @@ export default function Player(props) {
   const meshSixRef = useRef()
   const meshSevenRef = useRef()
 
-  const { avatar, setAvatar } = useAvatar()
+  const { avatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(
     '/assets/models/characters/avatar/Auror.glb'
   )
@@ -45,7 +45,7 @@ export default function Player(props) {
 
   function normalize(vector) {
     var magnitud = Math.sqrt(vector.x ** 2 + vector.z ** 2)
-    if (magnitud == 0) {
+    if (magnitud === 0) {
       return vector
     }
     var normalizedVector = {
@@ -113,7 +113,7 @@ export default function Player(props) {
 
   useFrame(() => {
     if (
-      avatar.animation == 'Attacking' &&
+      avatar.animation === 'Attacking' &&
       actions['Attacking'].time >= 1.5 &&
       actions['Attacking'].time <= 1.55 &&
       !player[player.selectedSpell]
