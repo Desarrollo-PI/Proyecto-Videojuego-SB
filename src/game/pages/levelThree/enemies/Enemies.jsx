@@ -9,18 +9,18 @@ const Enemies = (props) => {
   const [enemies, setEnemies] = useState({
     1: { isDeath: false },
     2: { isDeath: false },
-    3: { isDeath: false },
+    // 3: { isDeath: false },
     4: { isDeath: false },
-    5: { isDeath: false },
+    // 5: { isDeath: false },
     6: { isDeath: false },
     7: { isDeath: false },
-    8: { isDeath: false },
+    // 8: { isDeath: false },
     9: { isDeath: false },
     10: { isDeath: false },
-    11: { isDeath: false },
+    // 11: { isDeath: false },
     12: { isDeath: false },
-    13: { isDeath: false },
-    14: { isDeath: false },
+    // 13: { isDeath: false },
+    // 14: { isDeath: false },
     15: { isDeath: false },
     16: { isDeath: false },
   })
@@ -97,7 +97,7 @@ const Enemies = (props) => {
           isPlaying={isPlaying}
         />
       )}
-      {!enemies[3].isDeath && (
+      {/* {!enemies[3].isDeath && (
         <Spider
           life={250}
           color={'#274227'}
@@ -111,7 +111,7 @@ const Enemies = (props) => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )}
+      )} */}
       {!enemies[4].isDeath && (
         <Spider
           life={250}
@@ -127,7 +127,7 @@ const Enemies = (props) => {
           isPlaying={isPlaying}
         />
       )}
-      {!enemies[5].isDeath && (
+      {/* {!enemies[5].isDeath && (
         <Spider
           life={250}
           color={'#274227'}
@@ -141,7 +141,7 @@ const Enemies = (props) => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )}
+      )} */}
       {!enemies[6].isDeath && (
         <Spider
           life={250}
@@ -171,8 +171,8 @@ const Enemies = (props) => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )}
-      {!enemies[8].isDeath && (
+      )} 
+      {/* {!enemies[8].isDeath && (
         <Spider
           life={250}
           color={'#3b2f2f'}
@@ -186,7 +186,7 @@ const Enemies = (props) => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )}
+      )} */}
       {!enemies[9].isDeath && (
         <Spider
           life={250}
@@ -217,7 +217,7 @@ const Enemies = (props) => {
           isPlaying={isPlaying}
         />
       )}
-      {!enemies[11].isDeath && (
+      {/* {!enemies[11].isDeath && (
         <Spider
           life={250}
           color={'#E6E6E6'}
@@ -231,7 +231,7 @@ const Enemies = (props) => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )}
+      )} */}
       {!enemies[12].isDeath && (
         <Spider
           life={250}
@@ -247,7 +247,7 @@ const Enemies = (props) => {
           isPlaying={isPlaying}
         />
       )}
-      {!enemies[13].isDeath && (
+      {/* {!enemies[13].isDeath && (
         <Spider
           life={250}
           color={'#3b2f2f'}
@@ -276,7 +276,7 @@ const Enemies = (props) => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )}
+      )} */}
       {!enemies[15].isDeath && (
         <Spider
           life={250}

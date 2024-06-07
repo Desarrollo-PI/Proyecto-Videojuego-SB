@@ -345,7 +345,7 @@ export function Spider(props) {
               />
               <CylinderCollider
                 rotation={[Math.PI / 2, 0, 0]}
-                args={[0.1, props.idEnemy === 'spider' ? 0.2 : 0.1]}
+                args={[0.1, props.idEnemy === 'spider' ? 0.2 : 0.2]}
                 sensor
                 onIntersectionEnter={(e) => handleWatchPlayer(e)}
                 onIntersectionExit={(e) => handleStopWatchPlayer(e)}

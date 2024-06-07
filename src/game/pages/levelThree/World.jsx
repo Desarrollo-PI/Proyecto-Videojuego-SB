@@ -1468,7 +1468,18 @@ export const WorldLevelThreeFixed = (props) => {
         geometry={nodes.GraveYard002_5.geometry}
         material={materials.rock}
       />
-      <mesh
+     
+    </>
+  )
+}
+
+export const WorldLevelThree = (props) => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelThree/LevelThree.glb'
+  )
+  return (
+    <>
+     <mesh
         castShadow
         receiveShadow
         geometry={nodes.Pine053_1.geometry}
@@ -3250,16 +3261,6 @@ export const WorldLevelThreeFixed = (props) => {
         geometry={nodes.Pine173_2.geometry}
         material={materials.LightLeavesMaterial}
       />
-    </>
-  )
-}
-
-export const WorldLevelThree = (props) => {
-  const { nodes, materials } = useGLTF(
-    '/assets/models/worldLevelThree/LevelThree.glb'
-  )
-  return (
-    <>
       <mesh
         castShadow
         receiveShadow
