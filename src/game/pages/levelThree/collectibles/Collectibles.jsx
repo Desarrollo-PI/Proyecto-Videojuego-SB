@@ -27,31 +27,31 @@ const Collectibles = () => {
         name="Una Rana de Chocolate"
         isCollected={collectiblesLevelThree.chocolateFrog}
         onCollect={handleOnCollect}
-        position={[-2, 0, 0]}
+        position={[20, 1, 3]}
       />
       <Fawkes
         name="Al Fénix Fawkes"
         isCollected={collectiblesLevelThree.fawkes}
         onCollect={handleOnCollect}
-        position={[-4, 0, 0]}
+        position={[-14, 3.2, -16]}
       />
       <Nagini
         name="La Serpiente Nagini"
         isCollected={collectiblesLevelThree.nagini}
         onCollect={handleOnCollect}
-        position={[-6, 0, 0]}
+        position={[22.5, 0.5, -17.5]}
       />
       <Prongs
         name="Al Ciervo Prongs"
         isCollected={collectiblesLevelThree.prongs}
         onCollect={handleOnCollect}
-        position={[-8, 0, 0]}
+        position={[7, 1, -10]}
       />
       <Diadem
         name="La Diadema de Rowena Ravenclaw"
         isCollected={collectiblesLevelThree.diadem}
         onCollect={handleOnCollect}
-        position={[-10, 0, 0]}
+        position={[-1, 1, -40]}
       />
     </>
   )

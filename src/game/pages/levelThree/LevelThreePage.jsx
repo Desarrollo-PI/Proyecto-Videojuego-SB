@@ -1,20 +1,26 @@
-import WorldLevelThree from './World'
-import Lights from './Lights'
-import Collectibles from './collectibles/Collectibles'
-import Checkpoints from './checkpoints/Checkpoints'
-import Obstacles from './obstacles/Obstacles'
-import Enemies from './enemies/Enemies'
+import React, { Suspense } from 'react';
+
+const WorldLevelThree = React.lazy(() => import('./World'));
+const Lights = React.lazy(() => import('./Lights'));
+const Collectibles = React.lazy(() => import('./collectibles/Collectibles'));
+const Checkpoints = React.lazy(() => import('./checkpoints/Checkpoints'));
+const Obstacles = React.lazy(() => import('./obstacles/Obstacles'));
+const Enemies = React.lazy(() => import('./enemies/Enemies'));
+const Portals = React.lazy(() => import('./elements/Portals'));
+const Signs = React.lazy(() => import('./elements/Signs'));
 
 const LevelThreePage = () => {
   return (
-    <>
-      <Lights />
+    <Suspense fallback={null}>
+      {/* <Lights /> */}
       <WorldLevelThree />
       <Collectibles />
       <Checkpoints />
       <Obstacles />
       <Enemies />
-    </>
+      <Portals />
+      <Signs />
+    </Suspense>
   )
 }
 
