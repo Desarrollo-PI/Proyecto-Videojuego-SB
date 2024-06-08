@@ -138,108 +138,6 @@ export const WorldLevelThreeFixed = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.DarkTree003.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree004.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree005.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree006.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree007.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree008.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree010.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree011.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree012.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree013.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree015.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree017.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree019.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree020.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree021.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree023.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree025.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
         geometry={nodes.FallenTrunk.geometry}
         material={materials.Trunk}
       />
@@ -1411,6 +1309,118 @@ export const WorldLevelThreeFixed = (props) => {
       <mesh
         castShadow
         receiveShadow
+        geometry={nodes.DarkTree025.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree019.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree020.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+    </>
+  )
+}
+
+export const WorldLevelThree = (props) => {
+  const { nodes, materials } = useGLTF(
+    '/assets/models/worldLevelThree/LevelThree.glb'
+  )
+  return (
+    <>
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree003.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree004.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree005.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree006.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree007.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree008.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree010.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree011.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree012.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree013.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree015.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree017.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree021.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree023.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
+      <mesh
+        castShadow
+        receiveShadow
         geometry={nodes.GraveYard001_1.geometry}
         material={materials.grond}
       />
@@ -1468,18 +1478,7 @@ export const WorldLevelThreeFixed = (props) => {
         geometry={nodes.GraveYard002_5.geometry}
         material={materials.rock}
       />
-     
-    </>
-  )
-}
-
-export const WorldLevelThree = (props) => {
-  const { nodes, materials } = useGLTF(
-    '/assets/models/worldLevelThree/LevelThree.glb'
-  )
-  return (
-    <>
-     <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.Pine053_1.geometry}

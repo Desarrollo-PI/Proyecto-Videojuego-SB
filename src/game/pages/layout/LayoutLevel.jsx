@@ -3,7 +3,13 @@ import { Suspense } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
-import { Center, Float, KeyboardControls, Text3D } from '@react-three/drei'
+import {
+  Center,
+  Float,
+  KeyboardControls,
+  OrbitControls,
+  Text3D,
+} from '@react-three/drei'
 import { FaWandSparkles } from 'react-icons/fa6'
 import { useDialog } from '../../../providers/dialog/DialogProvider'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
