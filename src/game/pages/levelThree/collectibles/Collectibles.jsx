@@ -27,7 +27,7 @@ const Collectibles = () => {
         name="Una Rana de Chocolate"
         isCollected={collectiblesLevelThree.chocolateFrog}
         onCollect={handleOnCollect}
-        position={[20, 1, 3]}
+        position={[4, 0, -57]}
       />
       <Fawkes
         name="Al Fénix Fawkes"

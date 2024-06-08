@@ -1324,6 +1324,12 @@ export const WorldLevelThreeFixed = (props) => {
         geometry={nodes.DarkTree020.geometry}
         material={materials['TrunkMaterial.001']}
       />
+            <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.DarkTree023.geometry}
+        material={materials['TrunkMaterial.001']}
+      />
     </>
   )
 }
@@ -1410,12 +1416,6 @@ export const WorldLevelThree = (props) => {
         castShadow
         receiveShadow
         geometry={nodes.DarkTree021.geometry}
-        material={materials['TrunkMaterial.001']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.DarkTree023.geometry}
         material={materials['TrunkMaterial.001']}
       />
       <mesh
