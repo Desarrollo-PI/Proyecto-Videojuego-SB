@@ -171,7 +171,7 @@ const Enemies = (props) => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )} 
+      )}
       {/* {!enemies[8].isDeath && (
         <Spider
           life={250}

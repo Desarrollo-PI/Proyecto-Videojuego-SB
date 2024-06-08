@@ -32,14 +32,14 @@ const Signs = () => {
     <>
       <Sign
         numberSign={1}
-        position={[-6, 0, -3]}
+        position={[-15, 0, 0.5]}
         handleOnTakeSign={handleOnTakeSign}
+        rotation={[0, Math.PI / 2, 0]}
         dialogs={dialogs}
       />
       <Sign
         numberSign={2}
-        position={[-15, 0, 0.5]}
-        rotation={[0, Math.PI / 2, 0]}
+        position={[-6, 0, -3]}
         handleOnTakeSign={handleOnTakeSign}
         dialogs={dialogs}
       />
