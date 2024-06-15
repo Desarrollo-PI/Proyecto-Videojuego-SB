@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier'
+import { CuboidCollider, RigidBody } from '@react-three/rapier'
 
 const Sign = (props) => {
   const { numberSign, handleOnTakeSign, dialogs } = props
@@ -19,6 +19,7 @@ const Sign = (props) => {
   }, [isInRange])
 
   const onEnterCollisionSign = (e) => {
+    console.log('onEnterCollisionSign', e)
     if (e.rigidBodyObject.name === 'playerBody') {
       dialogs.handleOpenDialogInRange()
       setIsInRange(true)
@@ -34,6 +35,7 @@ const Sign = (props) => {
 
   const onTakeSign = (event) => {
     if (event.keyCode === 69 && isInRange) {
+      console.log('Take Sign')
       dialogs.closeDialog()
       setIsInRange(true)
       dialogs.handleOnTakeSign(numberSign)
@@ -41,33 +43,35 @@ const Sign = (props) => {
   }
 
   return (
-    <RigidBody
-      colliders="cuboid"
-      type="fixed"
-      onCollisionEnter={onEnterCollisionSign}
-      onCollisionExit={onExitCollisionSign}
-      ref={refSign}
-      {...props}
-    >
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Sign_1.geometry}
-        material={materials['Material.001']}
+    <group {...props}>
+      <RigidBody colliders="cuboid" type="fixed" ref={refSign}>
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Sign_1.geometry}
+          material={materials['Material.001']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Sign_2.geometry}
+          material={materials['Dark Wood']}
+        />
+        <mesh
+          castShadow
+          receiveShadow
+          geometry={nodes.Sign_3.geometry}
+          material={materials['Light Wood']}
+        />
+      </RigidBody>
+      <CuboidCollider
+        args={[0.5, 0.5, 0.5]}
+        position={[0, 1, 0]}
+        sensor
+        onIntersectionEnter={onEnterCollisionSign}
+        onIntersectionExit={onExitCollisionSign}
       />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Sign_2.geometry}
-        material={materials['Dark Wood']}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.Sign_3.geometry}
-        material={materials['Light Wood']}
-      />
-    </RigidBody>
+    </group>
   )
 }
 

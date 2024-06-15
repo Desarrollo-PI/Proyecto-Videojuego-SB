@@ -36,7 +36,13 @@ const defaultUser = {
     prongs: false,
     nagini: false,
   },
-  collectibles_level_four: {},
+  collectibles_level_four: {
+    EyeOjoLoco: false,
+    TimeTurner: false,
+    PhilosopherStone: false,
+    ResurrectionStone: false,
+    Profeta: false,
+  },
   checkpoint_level_one: {
     1: false,
     2: false,

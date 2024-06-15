@@ -18,13 +18,19 @@ export default function Player(props) {
   const meshSixRef = useRef()
   const meshSevenRef = useRef()
 
-  const { avatar, setAvatar } = useAvatar()
+  const { avatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(
     '/assets/models/characters/avatar/Auror.glb'
   )
   const { actions } = useAnimations(animations, playerRef)
 
-  const { player, setPlayer, isPoisoned } = usePlayer()
+  const {
+    player,
+    setPlayer,
+    isPoisoned,
+    teleportPosition,
+    setTeleportPosition,
+  } = usePlayer()
 
   function quaternionToDirection(quaternion) {
     var x = quaternion.x
@@ -40,7 +46,7 @@ export default function Player(props) {
 
   function normalize(vector) {
     var magnitud = Math.sqrt(vector.x ** 2 + vector.z ** 2)
-    if (magnitud == 0) {
+    if (magnitud === 0) {
       return vector
     }
     var normalizedVector = {
@@ -93,9 +99,26 @@ export default function Player(props) {
     }
   }, [isPoisoned])
 
+  useEffect(() => {
+    if (teleportPosition) {
+      playerBodyRef?.current?.setTranslation({
+        x: teleportPosition[0],
+        y: teleportPosition[1],
+        z: teleportPosition[2],
+      })
+      playerBodyRef?.current?.setRotation({
+        x: 0,
+        y: 0,
+        z: 0,
+        w: 0,
+      })
+      setTeleportPosition(null)
+    }
+  }, [teleportPosition])
+
   useFrame(() => {
     if (
-      avatar.animation == 'Attacking' &&
+      avatar.animation === 'Attacking' &&
       actions['Attacking'].time >= 1.5 &&
       actions['Attacking'].time <= 1.55 &&
       !player[player.selectedSpell]
@@ -134,6 +157,7 @@ export default function Player(props) {
         isPlayerDeath={props.isPlayerDeath}
         ref={playerBodyRef}
         isMenuOpen={props.isMenuOpen}
+        autoBalance={false}
       >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group

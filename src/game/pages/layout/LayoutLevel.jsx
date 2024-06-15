@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Suspense } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
@@ -10,30 +10,26 @@ import {
   OrbitControls,
   Text3D,
 } from '@react-three/drei'
-import { Text } from '@react-three/drei'
-
-import Controls from '../../globals/controls/Control'
-import InterfaceGame from './InterfaceGame'
-import Loader from './Loader'
-import Player from '../../globals/player/Player'
-import StormEnvironment from '../../globals/StormEnvironment'
-
+import { FaWandSparkles } from 'react-icons/fa6'
+import { useDialog } from '../../../providers/dialog/DialogProvider'
+import { usePlayer } from '../../../providers/player/PlayerProvider'
+import { useBosses } from '../../../providers/bosses/BossesProvider'
 import { useMenu } from '../../../providers/menu/MenuProvider'
 import { useMusic } from '../../../providers/music/MusicProvider'
 import { useAuth } from '../../../providers/auth/AuthProvider'
 import { Outlet } from 'react-router-dom'
-
-import useMovements from '../../../utils/key-movements'
-
 import {
   GiBoltSpellCast,
   GiFireSpellCast,
   GiIceSpellCast,
 } from 'react-icons/gi'
-import { FaWandSparkles } from 'react-icons/fa6'
-import { useDialog } from '../../../providers/dialog/DialogProvider'
-import { usePlayer } from '../../../providers/player/PlayerProvider'
-import { useBosses } from '../../../providers/bosses/BossesProvider'
+
+import Controls from '../../globals/controls/Control'
+import InterfaceGame from './InterfaceGame'
+import Loader from './Loader'
+import StormEnvironment from '../../globals/StormEnvironment'
+import Player from '../../globals/player/Player'
+import useMovements from '../../../utils/key-movements'
 import Spells from '../../globals/player/Spells'
 import Text2D from './Text2D'
 
@@ -78,7 +74,6 @@ const LayoutLevel = () => {
 
   const {
     handleSound,
-    pauseSound,
     isPlaying,
     handlePositionalSound,
     resetPositionalSound,
@@ -132,7 +127,7 @@ const LayoutLevel = () => {
     },
   ]
 
-  const [spells, setSpells] = useState(_spells)
+  const [spells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
     ..._spells[0],
     icon: <FaWandSparkles color="white" size={50} />,
@@ -178,6 +173,7 @@ const LayoutLevel = () => {
           onPassLevel(2)
           handlePositionalSound(['win'], ['level', 'thunder'])
         }
+        break
       case '/level/two':
         if (bosses.dementor.isDeath) {
           closeAll()
@@ -185,6 +181,7 @@ const LayoutLevel = () => {
           onPassLevel(3)
           handlePositionalSound(['win'], ['level', 'thunder'])
         }
+        break
       case '/level/three':
         if (bosses.spider.isDeath) {
           closeAll()
@@ -192,12 +189,14 @@ const LayoutLevel = () => {
           onPassLevel(4)
           handlePositionalSound(['win'], ['level', 'thunder'])
         }
+        break
       case '/level/four':
         if (bosses.darkWizard.isDeath) {
           closeAll()
           setIsVictory(true)
           handlePositionalSound(['win'], ['level', 'thunder'])
         }
+        break
       default:
         break
     }
@@ -441,6 +440,12 @@ const LayoutLevel = () => {
           position: [-5, 3, -10],
           rotation: [0, 0, 0],
           text: '¡Descubre el nuevo hechizo \n Glacius! \n ¡Presiona 2 para activarlo y \n congelar a tus enemigos y objetos!',
+        }
+      case '/level/three':
+        return {
+          position: [-5, 3, 0],
+          rotation: [0, 0, 0],
+          text: '¡Descubre el nuevo hechizo \n Incendio! \n ¡Presiona 3 para activarlo y \n quemar a tus enemigos y algunos obstaculos!',
         }
       default:
         return {
