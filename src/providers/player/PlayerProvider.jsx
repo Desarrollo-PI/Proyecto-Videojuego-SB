@@ -22,6 +22,7 @@ export function PlayerProvider({ children }) {
     selectedSpell: 'spellExpelliarmus',
     spellInitRotation: [0, 0, 0],
     spellInitPosition: [0, 0, 0],
+    leader: true,
   })
 
   const [nearDementor, setNearDementor] = useState(false)
@@ -76,6 +77,7 @@ export function PlayerProvider({ children }) {
       selectedSpell: 'spellExpelliarmus',
       spellInitRotation: [0, 0, 0],
       spellInitPosition: [0, 0, 0],
+      leader: true,
     })
     setNearDementor(false)
     setInMaze(false)

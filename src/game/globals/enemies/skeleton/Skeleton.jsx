@@ -27,6 +27,7 @@ import {
   touchSpell,
 } from '../../../../utils/enemies-utils'
 import { useMusic } from '../../../../providers/music/MusicProvider'
+import { usePlayer } from '../../../../providers/player/PlayerProvider'
 
 export function Skeleton(props) {
   const skeletonRef = useRef()
@@ -41,6 +42,7 @@ export function Skeleton(props) {
   const [life, setLife] = useState(200)
   const [frozen, setFrozen] = useState(0)
   const [changeColor, setChangeColor] = useState(false)
+  const [player, setPlayer] = usePlayer()
 
   const { scene, materials, animations } = useGLTF(
     '/assets/models/characters/enemies/Skeleton.glb'
@@ -269,73 +271,138 @@ export function Skeleton(props) {
     }
   })
 
-  return (
-    <RigidBody
-      ref={skeletonBody}
-      position={props.position}
-      type="dynamic"
-      colliders={false}
-    >
-      <group
-        ref={skeletonRef}
-        {...props}
-        dispose={null}
-        position={[0, -1, 0]}
-        scale={0.25}
+  if (player.leader) {
+    return (
+      <RigidBody
+        ref={skeletonBody}
+        position={props.position}
+        type="dynamic"
+        colliders={false}
       >
-        <Text
-          position={[0, 6, 0]}
-          color="#b0955e"
-          font="/assets/fonts/HARRYP__.TTF"
-          scale={[0.9, 0.9, 0.9]}
+        <group
+          ref={skeletonRef}
+          {...props}
+          dispose={null}
+          position={[0, -1, 0]}
+          scale={0.25}
         >
-          {'❤️'}
-          {life}
-        </Text>
-        <group name="Root_Scene">
-          <group name="RootNode">
-            <group
-              name="SkeletonArmature"
-              position={[0.014, 1.355, 0.002]}
-              rotation={[-Math.PI / 2, 0, 0]}
-              scale={100}
-            >
-              <primitive object={nodes.Hips} />
-            </group>
-            <skinnedMesh
-              name="Cylinder001"
-              geometry={nodes.Cylinder001.geometry}
-              material={material}
-              skeleton={nodes.Cylinder001.skeleton}
-              position={[0, 3.003, 0.124]}
-              rotation={[-Math.PI / 2, 0, 0]}
-              scale={100}
-              ref={skeletonMeshRef}
-            />
-            <CuboidCollider
-              args={[1.1, 3, 1.1]}
-              onCollisionEnter={handleTouch}
-              onCollisionExit={handleStopTouchPlayer}
-            />
-            <CylinderCollider
-              args={[10, 40]}
-              sensor
-              onIntersectionEnter={(e) => handleWatchPlayer(e)}
-              onIntersectionExit={(e) => handleStopWatchPlayer(e)}
-            />
-            {isSoundPLaying && props.isPlaying && (
-              <PositionalAudio
-                url="/assets/sounds/skeleton.mp3"
-                autoplay
-                distance={distance * 100}
-                loop
+          <Text
+            position={[0, 6, 0]}
+            color="#b0955e"
+            font="/assets/fonts/HARRYP__.TTF"
+            scale={[0.9, 0.9, 0.9]}
+          >
+            {'❤️'}
+            {life}
+          </Text>
+          <group name="Root_Scene">
+            <group name="RootNode">
+              <group
+                name="SkeletonArmature"
+                position={[0.014, 1.355, 0.002]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={100}
+              >
+                <primitive object={nodes.Hips} />
+              </group>
+              <skinnedMesh
+                name="Cylinder001"
+                geometry={nodes.Cylinder001.geometry}
+                material={material}
+                skeleton={nodes.Cylinder001.skeleton}
+                position={[0, 3.003, 0.124]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={100}
+                ref={skeletonMeshRef}
               />
-            )}
+              <CuboidCollider
+                args={[1.1, 3, 1.1]}
+                onCollisionEnter={handleTouch}
+                onCollisionExit={handleStopTouchPlayer}
+              />
+              <CylinderCollider
+                args={[10, 40]}
+                sensor
+                onIntersectionEnter={(e) => handleWatchPlayer(e)}
+                onIntersectionExit={(e) => handleStopWatchPlayer(e)}
+              />
+              {isSoundPLaying && props.isPlaying && (
+                <PositionalAudio
+                  url="/assets/sounds/skeleton.mp3"
+                  autoplay
+                  distance={distance * 100}
+                  loop
+                />
+              )}
+            </group>
           </group>
         </group>
-      </group>
-    </RigidBody>
-  )
+      </RigidBody>
+    )
+  } else {
+    return (
+      <RigidBody
+        ref={skeletonBody}
+        position={props.position}
+        type="fixed"
+        colliders={false}
+      >
+        <group
+          ref={skeletonRef}
+          {...props}
+          dispose={null}
+          position={[0, -1, 0]}
+          scale={0.25}
+        >
+          <Text
+            position={[0, 6, 0]}
+            color="#b0955e"
+            font="/assets/fonts/HARRYP__.TTF"
+            scale={[0.9, 0.9, 0.9]}
+          >
+            {'❤️'}
+            {life}
+          </Text>
+          <group name="Root_Scene">
+            <group name="RootNode">
+              <group
+                name="SkeletonArmature"
+                position={[0.014, 1.355, 0.002]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={100}
+              >
+                <primitive object={nodes.Hips} />
+              </group>
+              <skinnedMesh
+                name="Cylinder001"
+                geometry={nodes.Cylinder001.geometry}
+                material={material}
+                skeleton={nodes.Cylinder001.skeleton}
+                position={[0, 3.003, 0.124]}
+                rotation={[-Math.PI / 2, 0, 0]}
+                scale={100}
+                ref={skeletonMeshRef}
+              />
+              <CuboidCollider
+                args={[1.1, 3, 1.1]}
+                onCollisionEnter={handleTouch}
+                onCollisionExit={handleStopTouchPlayer}
+              />
+              {isSoundPLaying && props.isPlaying && (
+                <PositionalAudio
+                  url="/assets/sounds/skeleton.mp3"
+                  autoplay
+                  distance={distance * 100}
+                  loop
+                />
+              )}
+            </group>
+          </group>
+        </group>
+      </RigidBody>
+    )
+  }
+
 }
 
 useGLTF.preload('/assets/models/characters/enemies/Skeleton.glb')

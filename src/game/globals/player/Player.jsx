@@ -4,6 +4,7 @@ import { useAnimations, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
 import Ecctrl from 'ecctrl'
+import { socket } from '../../../socket/socket-manager'
 
 export default function Player(props) {
   const playerRef = useRef()
@@ -49,6 +50,10 @@ export default function Player(props) {
     }
     return normalizedVector
   }
+
+  useEffect(() => {
+    setAvatar({...avatar, ref: playerRef?.current, body: playerBodyRef?.current})
+  }, [playerBodyRef?.current, playerRef?.current])
 
   useEffect(() => {
     if (props.isPlayerDeath && !props.isMenuOpen) {
@@ -222,4 +227,4 @@ export default function Player(props) {
   )
 }
 
-useGLTF.preload('/Auror.glb')
+useGLTF.preload('/assets/models/characters/avatar/Auror.glb')
