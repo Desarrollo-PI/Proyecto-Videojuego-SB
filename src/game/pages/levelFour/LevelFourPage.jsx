@@ -2,6 +2,7 @@ import WorldLevelFourWithPhysisc from './World'
 import { EvilWizard } from '../../globals/enemies/evilWizard/EvilWizard'
 import Lights from './Lights'
 import Collectibles from './collectibles/Collectibles'
+import Checkpoints from './checkpoints/Checkpoints'
 
 const LevelFourPage = () => {
   return (
@@ -9,7 +10,8 @@ const LevelFourPage = () => {
       {/* <Lights /> */}
       <WorldLevelFourWithPhysisc />
       <Collectibles />
-      <EvilWizard position={[0, -1, -48]} action={0} />
+      <Checkpoints />
+      <EvilWizard position={[0, 5, -48]} action={0} />
     </>
   )
 }

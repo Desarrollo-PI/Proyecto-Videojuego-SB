@@ -5,10 +5,10 @@ import { useAuth } from '../../../../providers/auth/AuthProvider'
 
 const Checkpoints = () => {
   const { openDialog, closeDialog } = useDialog()
-  const { checkpointLevelThree, onTakeCheckpoint } = useAuth()
+  const { checkpointLevelFour, onTakeCheckpoint } = useAuth()
 
   const handleOnTakeCheckpoint = (numberCheckpoint, position) => {
-    onTakeCheckpoint('level_three', numberCheckpoint, position)
+    onTakeCheckpoint('level_four', numberCheckpoint, position)
   }
 
   const handleOpenDialogInRange = () => {
@@ -37,34 +37,30 @@ const Checkpoints = () => {
     <>
       <Checkpoint
         numberCheckpoint={1}
-        itsTaken={checkpointLevelThree[1]}
-        position={[-18, 1.2, -24]}
-        rotation={[0, (Math.PI * 3) / 2, 0]}
+        itsTaken={checkpointLevelFour[1]}
+        position={[-4, 0, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
 
       <Checkpoint
         numberCheckpoint={2}
-        itsTaken={checkpointLevelThree[2]}
-        position={[18.2, 1.2, -48]}
-        rotation={[0, Math.PI / 2, 0]}
+        itsTaken={checkpointLevelFour[2]}
+        position={[-2, 0, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoint
         numberCheckpoint={3}
-        itsTaken={checkpointLevelThree[3]}
-        position={[22.5, 1.2, -6.5]}
-        rotation={[0, Math.PI * 4, 0]}
+        itsTaken={checkpointLevelFour[3]}
+        position={[0, 0, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoint
         numberCheckpoint={4}
-        itsTaken={checkpointLevelThree[4]}
-        position={[24, 1.2, -54]}
-        rotation={[0, Math.PI / 2, 0]}
+        itsTaken={checkpointLevelFour[4]}
+        position={[2, 0, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
