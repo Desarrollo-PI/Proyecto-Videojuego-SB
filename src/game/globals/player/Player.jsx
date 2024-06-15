@@ -152,6 +152,7 @@ export default function Player(props) {
         isPlayerDeath={props.isPlayerDeath}
         ref={playerBodyRef}
         isMenuOpen={props.isMenuOpen}
+        autoBalance={false}
       >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group
