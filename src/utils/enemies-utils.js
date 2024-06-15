@@ -123,12 +123,14 @@ export const stopWatchPlayer = (
 
 export const touchPlayer = (
   e,
+  setPlayerBody,
   setRepeatAttack,
   setActualAction,
   changeAnimation,
   props
 ) => {
   if (e.rigidBodyObject.name === 'playerBody' && !props.isPlayerDeath) {
+    setPlayerBody(e.rigidBodyObject)
     setRepeatAttack(true)
     setActualAction('Attack')
     changeAnimation('Attack')

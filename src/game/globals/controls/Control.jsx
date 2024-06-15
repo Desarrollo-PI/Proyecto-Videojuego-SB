@@ -3,6 +3,7 @@ import { useAvatar } from '../../../providers/avatar/AvatarProvider'
 import { useEffect, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Howl } from 'howler'
+import { socket } from '../../../socket/socket-manager'
 
 export default function Controls({ playerIsDeath, isPlaying }) {
   const { avatar, setAvatar } = useAvatar()
@@ -32,14 +33,19 @@ export default function Controls({ playerIsDeath, isPlaying }) {
       ({ walk, run, jump, attack }) => {
         if (jump) {
           setAvatar({ ...avatar, animation: 'Jumping' })
+          socket.emit('change-animation', 'Jumping')
         } else if (run) {
           setAvatar({ ...avatar, animation: 'Running' })
+          socket.emit('change-animation', 'Running')
         } else if (walk) {
           setAvatar({ ...avatar, animation: 'Walking' })
+          socket.emit('change-animation', 'Walking')
         } else if (attack) {
           setAvatar({ ...avatar, animation: 'Attacking' })
+          socket.emit('change-animation', 'Attacking')
         } else {
           setAvatar({ ...avatar, animation: 'Idle' })
+          socket.emit('change-animation', 'Idle')
         }
       }
     )
@@ -75,16 +81,17 @@ export default function Controls({ playerIsDeath, isPlaying }) {
   }, [playerIsDeath])
 
   useFrame(() => {
-    const { forward, backward, leftward, rightward } = get()
+    const { forward, backward, leftward, rightward, jump } = get()
     if (forward || backward || leftward || rightward) {
       setPlay(true)
-      // socket.emit('moving-player', {
-      //   position: avatar.rigidBodyAvatarRef?.translation(),
-      //   rotation: avatar.rigidBodyAvatarRef?.rotation(),
-      // })
     } else {
       setPlay(false)
     }
+
+    socket.emit('moving-player', {
+      position: avatar.body?.translation(),
+      rotation: avatar.body?.rotation(),
+    })
     const pressed = get().back
   })
 }

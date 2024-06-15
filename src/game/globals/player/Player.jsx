@@ -4,6 +4,7 @@ import { useAnimations, useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
 import Ecctrl from 'ecctrl'
+import { socket } from '../../../socket/socket-manager'
 
 export default function Player(props) {
   const playerRef = useRef()
@@ -17,7 +18,7 @@ export default function Player(props) {
   const meshSixRef = useRef()
   const meshSevenRef = useRef()
 
-  const { avatar } = useAvatar()
+  const { avatar, setAvatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(
     '/assets/models/characters/avatar/Auror.glb'
   )
@@ -55,6 +56,10 @@ export default function Player(props) {
     }
     return normalizedVector
   }
+
+  useEffect(() => {
+    setAvatar({...avatar, ref: playerRef?.current, body: playerBodyRef?.current})
+  }, [playerBodyRef?.current, playerRef?.current])
 
   useEffect(() => {
     if (props.isPlayerDeath && !props.isMenuOpen) {
@@ -152,7 +157,7 @@ export default function Player(props) {
         isPlayerDeath={props.isPlayerDeath}
         ref={playerBodyRef}
         isMenuOpen={props.isMenuOpen}
-        autoBalance={false}
+        jugador={1}
       >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group
@@ -246,4 +251,4 @@ export default function Player(props) {
   )
 }
 
-useGLTF.preload('/Auror.glb')
+useGLTF.preload('/assets/models/characters/avatar/Auror.glb')
