@@ -18,7 +18,7 @@ export default function Player(props) {
   const meshSixRef = useRef()
   const meshSevenRef = useRef()
 
-  const { avatar } = useAvatar()
+  const { avatar, setAvatar } = useAvatar()
   const { nodes, materials, animations } = useGLTF(
     '/assets/models/characters/avatar/Auror.glb'
   )
@@ -157,7 +157,7 @@ export default function Player(props) {
         isPlayerDeath={props.isPlayerDeath}
         ref={playerBodyRef}
         isMenuOpen={props.isMenuOpen}
-        autoBalance={false}
+        jugador={1}
       >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group

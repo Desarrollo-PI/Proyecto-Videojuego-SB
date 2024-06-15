@@ -45,7 +45,8 @@ export function SecondPlayer(props) {
 			position={props.position}
 			type="fixed"
 			colliders={false}
-			name="goblinBody"
+			name="playerBody"
+			jugador={2}
 		>
 			<group ref={secondPlayerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
 				<group
