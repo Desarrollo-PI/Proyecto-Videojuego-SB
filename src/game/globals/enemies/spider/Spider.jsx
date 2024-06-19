@@ -101,6 +101,7 @@ export function Spider(props) {
   const handleTouch = (e) => {
     touchPlayer(
       e,
+      setPlayerBody,
       setRepeatAttack,
       setActualAction,
       changeAnimation,
