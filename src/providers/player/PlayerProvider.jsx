@@ -18,10 +18,12 @@ export function PlayerProvider({ children }) {
     spellExpelliarmus: false,
     spellGlacius: false,
     spellIncendio: false,
+    spellLeviosa: false,
     selectedSpell: 'spellExpelliarmus',
     spellInitRotation: [0, 0, 0],
     spellInitPosition: [0, 0, 0],
     leader: true,
+    haveLeviosa: false,
   })
 
   const [nearDementor, setNearDementor] = useState(false)
@@ -74,10 +76,12 @@ export function PlayerProvider({ children }) {
       spellExpelliarmus: false,
       spellGlacius: false,
       spellIncendio: false,
+      spellLeviosa: false,
       selectedSpell: 'spellExpelliarmus',
       spellInitRotation: [0, 0, 0],
       spellInitPosition: [0, 0, 0],
       leader: true,
+      haveLeviosa: false,
     })
     setNearDementor(false)
     setInMaze(false)

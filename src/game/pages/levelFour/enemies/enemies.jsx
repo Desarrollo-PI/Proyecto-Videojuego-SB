@@ -7,16 +7,16 @@ import { useBosses } from '../../../../providers/bosses/BossesProvider'
 
 const Enemies = () => {
   return (
-        <Skeleton
-          idEnemy={1}
-          position={[10, 5, -20]}
-          action={'Walk'}
-          takeLife={null}
-          deathEnemy={null}
-          isPlayerDeath={false}
-          speed={3}
-          isPlaying={null}
-        />
+    <Skeleton
+      idEnemy={1}
+      position={[10, 5, -20]}
+      action={'Walk'}
+      takeLife={null}
+      deathEnemy={null}
+      isPlayerDeath={false}
+      speed={3}
+      isPlaying={null}
+    />
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Suspense } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Canvas } from '@react-three/fiber'
@@ -87,47 +87,46 @@ const LayoutLevel = () => {
 
   const [isVictory, setIsVictory] = useState(false)
 
-  const _spells = [
-    {
-      id: 0,
-      icon: <FaWandSparkles color="white" size={25} />,
-      name: 'Expelliarmus',
-      key: '1',
-      show:
-        location.pathname === '/level/one' ||
-        location.pathname === '/level/two' ||
-        location.pathname === '/level/three' ||
-        location.pathname === '/level/four',
-    },
-    {
-      id: 1,
-      icon: <GiIceSpellCast color="cyan" size={25} />,
-      name: 'Glacius',
-      key: '2',
-      show:
-        location.pathname === '/level/two' ||
-        location.pathname === '/level/three' ||
-        location.pathname === '/level/four',
-    },
-    {
-      id: 2,
-      icon: <GiFireSpellCast color="red" size={25} />,
-      name: 'Incendio',
-      key: '3',
-      show:
-        location.pathname === '/level/three' ||
-        location.pathname === '/level/four',
-    },
-    {
-      id: 3,
-      icon: <GiBoltSpellCast color="yellow" size={25} />,
-      name: 'Lumos',
-      key: '4',
-      show: location.pathname === '/level/four',
-    },
-  ]
+  const _spells = useMemo(
+    () => [
+      {
+        id: 0,
+        icon: <FaWandSparkles color="white" size={25} />,
+        name: 'Expelliarmus',
+        key: '1',
+        show:
+          location.pathname === '/level/one' ||
+          location.pathname === '/level/two' ||
+          location.pathname === '/level/three' ||
+          location.pathname === '/level/four',
+      },
+      {
+        id: 1,
+        icon: <GiIceSpellCast color="cyan" size={25} />,
+        name: 'Glacius',
+        key: '2',
+        show:
+          location.pathname === '/level/two' ||
+          location.pathname === '/level/three' ||
+          location.pathname === '/level/four',
+      },
+      {
+        id: 2,
+        icon: player?.haveLeviosa ? (
+          <GiBoltSpellCast color="yellow" size={25} />
+        ) : (
+          <GiFireSpellCast color="red" size={25} />
+        ),
+        name: player?.haveLeviosa ? 'Leviosa' : 'Incendio',
+        key: '3',
+        show:
+          location.pathname === '/level/three' ||
+          location.pathname === '/level/four',
+      },
+    ],
+    [player?.haveLeviosa, location.pathname]
+  )
 
-  const [spells] = useState(_spells)
   const [selectedSpell, setSelectedSpell] = useState({
     ..._spells[0],
     icon: <FaWandSparkles color="white" size={50} />,
@@ -227,7 +226,7 @@ const LayoutLevel = () => {
     const handleKeyPress = (event) => {
       switch (event.key) {
         case '1':
-          if (spells[0].show) {
+          if (_spells[0].show) {
             setSelectedSpellIndex(0)
             setSelectedSpell({
               ..._spells[0],
@@ -237,7 +236,7 @@ const LayoutLevel = () => {
           }
           break
         case '2':
-          if (spells[1].show) {
+          if (_spells[1].show) {
             setSelectedSpellIndex(1)
             setSelectedSpell({
               ..._spells[1],
@@ -247,23 +246,17 @@ const LayoutLevel = () => {
           }
           break
         case '3':
-          if (spells[2].show) {
+          if (_spells[2].show) {
             setSelectedSpellIndex(2)
             setSelectedSpell({
               ..._spells[2],
-              icon: <GiFireSpellCast color="red" size={50} />,
+              icon: player.haveLeviosa ? (
+                <GiBoltSpellCast color="yellow" size={50} />
+              ) : (
+                <GiFireSpellCast color="red" size={50} />
+              ),
             })
-            chooseSpell('spellIncendio')
-          }
-          break
-        case '4':
-          if (spells[3].show) {
-            setSelectedSpellIndex(3)
-            setSelectedSpell({
-              ..._spells[3],
-              icon: <GiBoltSpellCast color="yellow" size={50} />,
-            })
-            chooseSpell('spellLumos')
+            chooseSpell(player.haveLeviosa ? 'spellLeviosa' : 'spellIncendio')
           }
           break
         default:
@@ -468,7 +461,7 @@ const LayoutLevel = () => {
           toggleMenu={toggleMenu}
           toggleControls={toggleControls}
           toggleSettings={toggleSettings}
-          spells={spells}
+          spells={_spells}
           selectedSpell={selectedSpell}
           selectedSpellIndex={selectedSpellIndex}
           maxHearts={maxHearts}

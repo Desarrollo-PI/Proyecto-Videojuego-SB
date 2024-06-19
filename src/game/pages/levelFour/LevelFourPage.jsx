@@ -8,23 +8,33 @@ import { usePlayer } from '../../../providers/player/PlayerProvider'
 import { Skeleton } from '../../globals/enemies/skeleton/Skeleton'
 import Collectibles from './collectibles/Collectibles'
 import Checkpoints from './checkpoints/Checkpoints'
+import Obstacles from './obstacles/Obstacles'
 
 const LevelFourPage = () => {
-
   const { player, setPlayer, takeLife, currentHearts } = usePlayer()
-  
+
   socket.on('status-leader', (players) => {
-    const thisPlayer = players.find(player => player.id === socket.id)
-    setPlayer({ ...player, leader: thisPlayer.leader })
+    const thisPlayer = players.find((player) => player.id === socket.id)
+    setPlayer({
+      ...player,
+      leader: thisPlayer.leader,
+      haveLeviosa: thisPlayer.haveLeviosa,
+    })
   })
   socket.on('hit-player', () => {
     handleTakeLife(1)
   })
-  
+
   useEffect(() => {
     socket.emit('player-connected')
     socket.emit('leader')
-    socket.emit('create-enemies', [{id: 0, position: null, rotation: null, life: null, dead: false}])
+    socket.emit('create-enemies', [
+      { id: 0, position: null, rotation: null, life: null, dead: false },
+    ])
+    socket.emit('create-ivys', [
+      { id: 1, isFired: false, isBurned: false },
+      { id: 2, isFired: false, isBurned: false },
+    ])
   }, [])
 
   useEffect(() => {
@@ -52,18 +62,19 @@ const LevelFourPage = () => {
       <WorldLevelFourWithPhysisc />
       <Collectibles />
       <Checkpoints />
-      <SecondPlayer position={[0,0,0]} />
-      <Skeleton
-          idEnemy={0}
-          position={[0, 2, -15]}
-          action={'Walk'}
-          takeLife={handleTakeLife}
-          deathEnemy={null}
-          isPlayerDeath={null}
-          speed={3}
-          isPlaying={null}
-        />
+      <SecondPlayer position={[0, 0, 0]} />
+      {/* <Skeleton
+        idEnemy={0}
+        position={[0, 2, -15]}
+        action={'Walk'}
+        takeLife={handleTakeLife}
+        deathEnemy={null}
+        isPlayerDeath={null}
+        speed={3}
+        isPlaying={null}
+      /> */}
       <EvilWizard position={[0, 5, -48]} action={0} />
+      <Obstacles />
     </>
   )
 }

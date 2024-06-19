@@ -435,7 +435,6 @@ export function Skeleton(props) {
       </RigidBody>
     )
   }
-
 }
 
 useGLTF.preload('/assets/models/characters/enemies/Skeleton.glb')

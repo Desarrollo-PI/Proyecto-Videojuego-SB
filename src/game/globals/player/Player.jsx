@@ -58,7 +58,11 @@ export default function Player(props) {
   }
 
   useEffect(() => {
-    setAvatar({...avatar, ref: playerRef?.current, body: playerBodyRef?.current})
+    setAvatar({
+      ...avatar,
+      ref: playerRef?.current,
+      body: playerBodyRef?.current,
+    })
   }, [playerBodyRef?.current, playerRef?.current])
 
   useEffect(() => {
@@ -140,6 +144,16 @@ export default function Player(props) {
     }
   })
 
+  useEffect(() => {
+    return () => {
+      socket.off('updates-values-leviosa')
+    }
+  }, [])
+
+  socket.on('updates-values-leviosa', () => {
+    playerBodyRef.current?.setLinvel({ x: 0, y: 15, z: 0 }, true)
+  })
+
   return (
     <>
       <Ecctrl
@@ -158,6 +172,7 @@ export default function Player(props) {
         ref={playerBodyRef}
         isMenuOpen={props.isMenuOpen}
         jugador={1}
+        gravityScale={0}
       >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group
