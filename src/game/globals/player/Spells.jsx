@@ -2,6 +2,7 @@ import React, { useRef } from 'react'
 import Expelliarmus from './Expelliarmus'
 import Glacius from './Glacius'
 import Incendio from './Incendio'
+import Leviosa from './Leviosa'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
 import { PositionalAudio } from '@react-three/drei'
 import { useEffect } from 'react'
@@ -17,12 +18,18 @@ const Spells = () => {
     if (
       (player.spellExpelliarmus ||
         player.spellGlacius ||
-        player.spellIncendio) &&
+        player.spellIncendio ||
+        player.spellLeviosa) &&
       isPlaying
     ) {
       refSpellAudio.current.play()
     }
-  }, [player.spellExpelliarmus, player.spellGlacius, player.spellIncendio])
+  }, [
+    player.spellExpelliarmus,
+    player.spellGlacius,
+    player.spellIncendio,
+    player.spellLeviosa,
+  ])
 
   return (
     <>
@@ -40,6 +47,12 @@ const Spells = () => {
       )}
       {player.spellIncendio && (
         <Incendio
+          initRotation={player.spellInitRotation}
+          initPosition={player.spellInitPosition}
+        />
+      )}
+      {player.spellLeviosa && (
+        <Leviosa
           initRotation={player.spellInitRotation}
           initPosition={player.spellInitPosition}
         />
