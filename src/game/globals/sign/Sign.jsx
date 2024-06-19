@@ -19,7 +19,6 @@ const Sign = (props) => {
   }, [isInRange])
 
   const onEnterCollisionSign = (e) => {
-    console.log('onEnterCollisionSign', e)
     if (e.rigidBodyObject.name === 'playerBody') {
       dialogs.handleOpenDialogInRange()
       setIsInRange(true)
@@ -35,7 +34,6 @@ const Sign = (props) => {
 
   const onTakeSign = (event) => {
     if (event.keyCode === 69 && isInRange) {
-      console.log('Take Sign')
       dialogs.closeDialog()
       setIsInRange(true)
       dialogs.handleOnTakeSign(numberSign)
