@@ -35,6 +35,11 @@ const LevelFourPage = () => {
       { id: 1, isFired: false, isBurned: false },
       { id: 2, isFired: false, isBurned: false },
     ])
+    socket.emit('create-keys', [
+      { id: 1, isCollected: false },
+      { id: 2, isCollected: false },
+    ])
+    socket.emit('create-boxes')
   }, [])
 
   useEffect(() => {

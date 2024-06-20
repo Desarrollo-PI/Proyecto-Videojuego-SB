@@ -9,7 +9,7 @@ export function IvyServer(props) {
   const { nodes, materials } = useGLTF('/assets/models/elements/Ivy.glb')
   const [material] = useState(materials.Material.clone())
   const [isFired, setIsFired] = useState(props.isFired)
-  const [isBurned, setIsBurned] = useState(props.isBurned)
+  const [isBurned, setIsBurned] = useState(false)
   const { isPlaying } = useMusic()
   const ivyRef = useRef()
   const fireSoundRef = useRef()
@@ -19,10 +19,6 @@ export function IvyServer(props) {
       socket.emit('hit-incendio-in-ivy', { id: props.idIvy })
     }
   }
-
-  useEffect(() => {
-    setIsFired(props.isFired)
-  }, [props.isFired])
 
   useEffect(() => {
     setIsFired(props.isFired)
