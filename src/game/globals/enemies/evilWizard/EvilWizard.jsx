@@ -15,19 +15,7 @@ export function EvilWizard(props) {
   const { actions } = useAnimations(animations, evilWizardRef)
 
   function eulerToQuaternion(alpha, beta, gamma) {
-    var qx =
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) -
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    var qy =
-      Math.cos(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2)
-    var qz =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.sin(gamma / 2) -
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.cos(gamma / 2)
-    var qw =
-      Math.cos(alpha / 2) * Math.cos(beta / 2) * Math.cos(gamma / 2) +
-      Math.sin(alpha / 2) * Math.sin(beta / 2) * Math.sin(gamma / 2)
-    return { x: qx, y: qy, z: qz, w: qw }
+    return { x: 0, y: 0, z: 0, w: 0 }
   }
 
   function normalize(vector) {
