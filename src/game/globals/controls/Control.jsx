@@ -88,10 +88,13 @@ export default function Controls({ playerIsDeath, isPlaying }) {
       setPlay(false)
     }
 
-    socket.emit('moving-player', {
-      position: avatar.body?.translation(),
-      rotation: avatar.body?.rotation(),
-    })
+    if (avatar.body) {
+      socket.emit('moving-player', {
+        position: avatar.body?.translation(),
+        rotation: avatar.body?.rotation(),
+      })
+    }
+
     const pressed = get().back
   })
 }

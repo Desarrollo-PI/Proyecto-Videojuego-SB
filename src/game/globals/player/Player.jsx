@@ -66,6 +66,16 @@ export default function Player(props) {
   }, [playerBodyRef?.current, playerRef?.current])
 
   useEffect(() => {
+    return () => {
+      setAvatar({
+        ...avatar,
+        ref: undefined,
+        body: undefined,
+      })
+    }
+  },[])
+
+  useEffect(() => {
     if (props.isPlayerDeath && !props.isMenuOpen) {
       actions['Death'].clampWhenFinished = true
       actions['Death'].repetitions = 0
