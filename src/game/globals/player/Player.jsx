@@ -80,6 +80,7 @@ export default function Player(props) {
       actions['Death'].clampWhenFinished = true
       actions['Death'].repetitions = 0
       actions['Death']?.reset().fadeIn(0.5).play()
+      socket.emit('player-dead')
       return () => {
         if (actions['Death']) actions['Death'].fadeOut(0.5)
       }
