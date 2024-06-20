@@ -20,7 +20,6 @@ const Obstacles = () => {
   }, [])
 
   socket.on('updates-values-ivys', (data) => {
-    console.log(data)
     setIvys(data)
   })
 
@@ -53,16 +52,16 @@ const Obstacles = () => {
         idIvy={1}
         position={[2, -1, -10]}
         rotation={[0, Math.PI / 2, 0]}
-        isFired={ivys[0].isFired}
-        isBurned={ivys[0].isBurned}
+        isFired={ivys[0]?.isFired}
+        isBurned={ivys[0]?.isBurned}
         burnIvy={burnIvy}
       />
       <IvyServer
         idIvy={2}
         position={[-2, -1, -10]}
         rotation={[0, Math.PI / 2, 0]}
-        isFired={ivys[1].isFired}
-        isBurned={ivys[1].isBurned}
+        isFired={ivys[1]?.isFired}
+        isBurned={ivys[1]?.isBurned}
         burnIvy={burnIvy}
       />
     </>

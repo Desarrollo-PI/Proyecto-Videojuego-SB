@@ -22,7 +22,6 @@ export function IvyServer(props) {
 
   useEffect(() => {
     setIsFired(props.isFired)
-    console.log('props.isFired', props.isFired)
   }, [props.isFired])
 
   useEffect(() => {

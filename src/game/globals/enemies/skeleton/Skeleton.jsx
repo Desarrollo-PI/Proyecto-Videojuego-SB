@@ -82,51 +82,59 @@ export function Skeleton(props) {
   }
 
   const handleWatchPlayer = (e) => {
-    watchPlayer(
-      e,
-      setPlayerBody,
-      setActualAction,
-      changeAnimation,
-      setIsSoundPlaying,
-      props
-    )
+    if (player.leader) {
+      watchPlayer(
+        e,
+        setPlayerBody,
+        setActualAction,
+        changeAnimation,
+        setIsSoundPlaying,
+        props
+      )
+    }
   }
 
   const handleStopWatchPlayer = (e) => {
-    stopWatchPlayer(
-      e,
-      setActualAction,
-      changeAnimation,
-      setPlayerBody,
-      setIsSoundPlaying,
-      props
-    )
+    if (player.leader) {
+      stopWatchPlayer(
+        e,
+        setActualAction,
+        changeAnimation,
+        setPlayerBody,
+        setIsSoundPlaying,
+        props
+      )
+    }
   }
 
   const handleTouch = (e) => {
-    touchPlayer(
-      e,
-      setPlayerBody,
-      setRepeatAttack,
-      setActualAction,
-      changeAnimation,
-      props,
-      frozen
-    )
-    touchSpell(
-      e,
-      life,
-      props.idEnemy,
-      setLife,
-      props.deathEnemy,
-      handleSound,
-      frozen,
-      setFrozen,
-      setChangeColor
-    )
+    if (player.leader) {
+      touchPlayer(
+        e,
+        setPlayerBody,
+        setRepeatAttack,
+        setActualAction,
+        changeAnimation,
+        props,
+        frozen
+      )
+      touchSpell(
+        e,
+        life,
+        props.idEnemy,
+        setLife,
+        props.deathEnemy,
+        handleSound,
+        frozen,
+        setFrozen,
+        setChangeColor
+      )
+    }
   }
   const handleStopTouchPlayer = (e) => {
-    stopTouchPlayer(e, setRepeatAttack)
+    if (player.leader) {
+      stopTouchPlayer(e, setRepeatAttack)
+    }
   }
 
   socket.on('updates-values-enemy', (enemy) => {
@@ -136,12 +144,6 @@ export function Skeleton(props) {
         skeletonBody.current?.setRotation(enemy.rotation, true)
       }
     }
-  })
-
-  socket.on('updates-enemy-animation', (enemy) => {
-    // if (enemy.id === props.id) {
-    //   changeAnimation(enemy.animation)
-    // }
   })
 
   useEffect(() => {

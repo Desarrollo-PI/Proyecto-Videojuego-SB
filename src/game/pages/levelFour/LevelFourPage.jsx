@@ -29,7 +29,7 @@ const LevelFourPage = () => {
     socket.emit('player-connected')
     socket.emit('leader')
     socket.emit('create-enemies', [
-      { id: 0, position: null, rotation: null, life: null, dead: false },
+      { id: 0, position: null, rotation: null, life: null, dead: false, animation: 'Walk' },
     ])
     socket.emit('create-ivys', [
       { id: 1, isFired: false, isBurned: false },
@@ -63,7 +63,7 @@ const LevelFourPage = () => {
       <Collectibles />
       <Checkpoints />
       <SecondPlayer position={[0, 0, 0]} />
-      {/* <Skeleton
+      <Skeleton
         idEnemy={0}
         position={[0, 2, -15]}
         action={'Walk'}
@@ -72,7 +72,7 @@ const LevelFourPage = () => {
         isPlayerDeath={null}
         speed={3}
         isPlaying={null}
-      /> */}
+      />
       <EvilWizard position={[0, 5, -48]} action={0} />
       <Obstacles />
     </>
