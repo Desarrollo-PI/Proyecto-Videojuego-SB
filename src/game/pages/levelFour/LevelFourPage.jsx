@@ -5,10 +5,10 @@ import { socket } from '../../../socket/socket-manager'
 import { useEffect } from 'react'
 import { SecondPlayer } from '../../globals/player/SecondPlayer'
 import { usePlayer } from '../../../providers/player/PlayerProvider'
-import { Skeleton } from '../../globals/enemies/skeleton/Skeleton'
 import Collectibles from './collectibles/Collectibles'
 import Checkpoints from './checkpoints/Checkpoints'
 import Obstacles from './obstacles/Obstacles'
+import Enemies from './enemies/Enemies'
 
 const LevelFourPage = () => {
   const { player, setPlayer, takeLife, currentHearts } = usePlayer()
@@ -29,7 +29,7 @@ const LevelFourPage = () => {
     socket.emit('player-connected')
     socket.emit('leader')
     socket.emit('create-enemies', [
-      { id: 0, position: null, rotation: null, life: null, dead: false, animation: 'Walk' },
+      { id: 1, position: null, rotation: null, life: 200, dead: false },
     ])
     socket.emit('create-ivys', [
       { id: 1, isFired: false, isBurned: false },
@@ -67,17 +67,8 @@ const LevelFourPage = () => {
       <WorldLevelFourWithPhysisc />
       <Collectibles />
       <Checkpoints />
-      <SecondPlayer position={[0, 0, 0]} />
-      <Skeleton
-        idEnemy={0}
-        position={[0, 2, -15]}
-        action={'Walk'}
-        takeLife={handleTakeLife}
-        deathEnemy={null}
-        isPlayerDeath={null}
-        speed={3}
-        isPlaying={null}
-      />
+      <Enemies />
+      <SecondPlayer position={[0, -30, 0]} />
       <EvilWizard position={[0, 5, -48]} action={0} />
       <Obstacles />
     </>
