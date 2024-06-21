@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
 import { Skeleton } from '../../../globals/enemies/skeleton/Skeleton'
-import { Dementor } from '../../../globals/enemies/dementor/Dementor'
 import { usePlayer } from '../../../../providers/player/PlayerProvider'
 import { useMusic } from '../../../../providers/music/MusicProvider'
 import { useBosses } from '../../../../providers/bosses/BossesProvider'
 import { socket } from '../../../../socket/socket-manager'
+import { EvilWizard } from '../../../globals/enemies/evilWizard/EvilWizard'
 
 const Enemies = () => {
   const [enemies, setEnemies] = useState({
     1: { isDeath: false },
   })
 
-  const { bosses, handleDeathBoss } = useBosses()
+  const { bosses, handleDeathBoss, handleDeathBossNoEmit } = useBosses()
   const { handleSound, isPlaying } = useMusic()
   const { currentHearts, takeLife } = usePlayer()
 
@@ -23,24 +23,41 @@ const Enemies = () => {
     socket.emit('death-enemy', id)
   }
 
-  const handleTakeLife = () => {
-    if (currentHearts <= 0) {
-      return
-    }
-    takeLife(25)
-    handleSound(['hurt'])
+  const handleDeathEnemyNoEmit = (id) => {
+    setEnemies((prev) => ({
+      ...prev,
+      [id]: { isDeath: true },
+    }))
   }
 
-  const handleTakeLifeEvilWizard = () => {
-    if (currentHearts <= 0) {
-      return
+  const handleTakeLife = (id) => {
+    if (id === 1) {
+      if (currentHearts <= 0) {
+        return
+      }
+      takeLife(25)
+    } else {
+      socket.emit('hit-second-player', 25)
     }
-    takeLife(100)
-    handleSound(['hit'])
+  }
+
+  const handleTakeLifeEvilWizard = (id) => {
+    if (id === 1) {
+      if (currentHearts <= 0) {
+        return
+      }
+      takeLife(100)
+    } else {
+      socket.emit('hit-second-player', 100)
+    }
   }
 
   socket.on('enemy-death', (enemy) => {
-    handleDeathEnemy(enemy.id)
+    handleDeathEnemyNoEmit(enemy.id)
+  })
+
+  socket.on('dead-boss', () => {
+    handleDeathBossNoEmit('darkWizard')
   })
 
   socket.on('alive-enemies', (enemies) => {
@@ -53,6 +70,7 @@ const Enemies = () => {
 
   useEffect(() => {
     socket.off('enemy-death')
+    socket.off('dead-boss')
   }, [])
 
   useEffect(() => {
@@ -61,7 +79,7 @@ const Enemies = () => {
 
   return (
     <>
-      {!enemies[1].isDeath && (
+      {/* {!enemies[1].isDeath && (
         <Skeleton
           idEnemy={1}
           position={[0, 2, -15]}
@@ -73,18 +91,18 @@ const Enemies = () => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )}
-      {!bosses?.dementor.isDeath && (
-        <Dementor
-          idEnemy={'dementor'}
-          position={[-1.5, 10, -110]}
+      )} */}
+      {!bosses?.darkWizard.isDeath && (
+        <EvilWizard
+          idEnemy={'darkWizard'}
+          position={[-1.5, 10, -40]}
           action={'Walk'}
+          color={'hsl(0,0%,0%)'}
           takeLife={handleTakeLifeEvilWizard}
           deathEnemy={handleDeathBoss}
           isPlayerDeath={currentHearts === 0}
-          speed={3}
+          speed={5}
           isPlaying={isPlaying}
-          handleNearDementor={null}
         />
       )}
     </>

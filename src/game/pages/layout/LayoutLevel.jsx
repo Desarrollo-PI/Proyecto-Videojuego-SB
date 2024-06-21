@@ -487,7 +487,7 @@ const LayoutLevel = () => {
               </Center>
             </Float>
             <StormEnvironment {...chooseProps()} />
-            <Physics>
+            <Physics debug>
               <Outlet />
               <Player {...choosePropsECCtrl()} />
               <Spells />
