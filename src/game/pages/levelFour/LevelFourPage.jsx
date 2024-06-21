@@ -34,10 +34,20 @@ const LevelFourPage = () => {
     socket.emit('create-ivys', [
       { id: 1, isFired: false, isBurned: false },
       { id: 2, isFired: false, isBurned: false },
+      { id: 3, isFired: false, isBurned: false },
+      { id: 4, isFired: false, isBurned: false },
+      { id: 5, isFired: false, isBurned: false },
+      { id: 6, isFired: false, isBurned: false },
+      { id: 7, isFired: false, isBurned: false },
+      { id: 8, isFired: false, isBurned: false },
     ])
     socket.emit('create-keys', [
       { id: 1, isCollected: false },
       { id: 2, isCollected: false },
+    ])
+    socket.emit('create-blackWall', [
+      { id: 1},
+      { id: 2},
     ])
     socket.emit('create-boxes')
   }, [])
@@ -67,9 +77,9 @@ const LevelFourPage = () => {
       <WorldLevelFourWithPhysisc />
       <Collectibles />
       <Checkpoints />
-      <Enemies />
+      {/* <Enemies /> */}
       <SecondPlayer position={[0, -30, 0]} />
-      <EvilWizard position={[0, 5, -48]} action={0} />
+      {/* <EvilWizard position={[0, 5, -48]} action={0} /> */}
       <Obstacles />
     </>
   )

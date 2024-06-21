@@ -38,7 +38,7 @@ const Checkpoints = () => {
       <Checkpoint
         numberCheckpoint={1}
         itsTaken={checkpointLevelFour[1]}
-        position={[-4, 0, -4]}
+        position={[-4, -0.7, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
@@ -46,21 +46,21 @@ const Checkpoints = () => {
       <Checkpoint
         numberCheckpoint={2}
         itsTaken={checkpointLevelFour[2]}
-        position={[-2, 0, -4]}
+        position={[-2, -0.7, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoint
         numberCheckpoint={3}
         itsTaken={checkpointLevelFour[3]}
-        position={[0, 0, -4]}
+        position={[0, -0.7, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />
       <Checkpoint
         numberCheckpoint={4}
         itsTaken={checkpointLevelFour[4]}
-        position={[2, 0, -4]}
+        position={[2, -0.7, -4]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
       />

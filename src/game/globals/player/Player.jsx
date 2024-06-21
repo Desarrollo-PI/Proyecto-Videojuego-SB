@@ -184,6 +184,7 @@ export default function Player(props) {
         isMenuOpen={props.isMenuOpen}
         jugador={1}
         gravityScale={0}
+        EnableRotation={[false, true, false]}
       >
         <group ref={playerRef} name="Scene" scale={0.7} position={[0, -0.9, 0]}>
           <group
