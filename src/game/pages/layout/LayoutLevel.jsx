@@ -70,6 +70,8 @@ const LayoutLevel = () => {
     isPoisoned,
   } = usePlayer()
 
+  console.log('player', player)
+
   const { bosses, reviveBosses } = useBosses()
 
   const {
@@ -127,11 +129,16 @@ const LayoutLevel = () => {
     [player?.haveLeviosa, location.pathname]
   )
 
+  console.log('spells', _spells)
+
   const [selectedSpell, setSelectedSpell] = useState({
     ..._spells[0],
     icon: <FaWandSparkles color="white" size={50} />,
   })
   const [selectedSpellIndex, setSelectedSpellIndex] = useState(0)
+
+  console.log('selectedSpell', selectedSpell)
+
 
   const lightsPropsLevelOne = {
     positionDirectionalLight: [20, 10, 0],
@@ -247,6 +254,7 @@ const LayoutLevel = () => {
           break
         case '3':
           if (_spells[2].show) {
+            console.log('player.haveLeviosa', player.haveLeviosa)
             setSelectedSpellIndex(2)
             setSelectedSpell({
               ..._spells[2],
@@ -269,7 +277,7 @@ const LayoutLevel = () => {
     return () => {
       document.removeEventListener('keydown', handleKeyPress)
     }
-  }, [])
+  }, [player.haveLeviosa, _spells, chooseSpell])
 
   const closeAll = () => {
     closeMenu()

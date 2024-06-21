@@ -37,7 +37,7 @@ export default function Expelliarmus({ initRotation, initPosition }) {
 
   return (
     <RigidBody
-      type="dinamic"
+      type="kinematicVelocity"
       ref={expelliarmusBodyRef}
       position={initPosition}
       onCollisionEnter={(e) => hitObject(e)}
