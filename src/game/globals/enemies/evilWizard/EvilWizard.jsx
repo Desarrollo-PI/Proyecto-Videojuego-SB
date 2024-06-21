@@ -60,25 +60,34 @@ export function EvilWizard(props) {
 
   function changeAnimation(actualAction) {
     Object.values(actions).forEach((action) => {
-      action.stop()
+      action?.stop()
     })
 
     switch (actualAction) {
       case 'Idle':
-        actions['Idle'].play()
+        actions['Idle']?.play()
         break
       case 'Walk':
       case 'Chase':
       case 'GoBack':
-        actions['Walking'].play()
+        actions['Walking']?.play()
         break
       case 'Attack':
         const attackAction = actions['Punch']
-        attackAction.repetitions = 1
-        attackAction.play()
+        if(attackAction) {
+          attackAction.repetitions = 1
+          attackAction.play()
+        }
         break
       default:
         break
+    }
+    
+    if (player.leader) {
+      if (player.leaderSetted) {
+        console.log("soy lider y mando una animacion")
+        socket.emit('change-enemy-animation', {id: props.idEnemy, animation: actualAction})
+      }
     }
   }
 
@@ -149,6 +158,14 @@ export function EvilWizard(props) {
         evilWizardBody.current?.setTranslation(enemy.position, true)
         evilWizardBody.current?.setRotation(enemy.rotation, true)
         setLife(enemy.life)
+      }
+    }
+  })
+
+  socket.on('updates-enemy-animation', (values) => {
+    if (values.id === props.idEnemy) {
+      if (actions) {
+        changeAnimation(values.animation)
       }
     }
   })
@@ -266,6 +283,7 @@ export function EvilWizard(props) {
           if (!actions['Punch'].isRunning()) {
             if (repeatAttack) {
               actions['Punch'].reset()
+              socket.emit('change-enemy-animation', {id: props.idEnemy, animation: 'Attack'})
             } else {
               setActualAction('Chase')
               changeAnimation('Chase')

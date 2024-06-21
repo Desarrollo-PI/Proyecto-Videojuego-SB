@@ -60,25 +60,34 @@ export function Skeleton(props) {
 
   function changeAnimation(actualAction) {
     Object.values(actions).forEach((action) => {
-      action.stop()
+      action?.stop()
     })
 
     switch (actualAction) {
       case 'Idle':
-        actions['SkeletonArmature|Skeleton_Idle'].play()
+        actions['SkeletonArmature|Skeleton_Idle']?.play()
         break
       case 'Walk':
       case 'Chase':
       case 'GoBack':
-        actions['SkeletonArmature|Skeleton_Running'].play()
+        actions['SkeletonArmature|Skeleton_Running']?.play()
         break
       case 'Attack':
         const attackAction = actions['SkeletonArmature|Skeleton_Attack']
-        attackAction.repetitions = 1
-        attackAction.play()
+        if(attackAction) {
+          attackAction.repetitions = 1
+          attackAction.play()
+        }
         break
       default:
         break
+    }
+
+    if (player.leader) {
+      if (player.leaderSetted) {
+        console.log("soy lider y mando una animacion")
+        socket.emit('change-enemy-animation', {id: props.idEnemy, animation: actualAction})
+      }
     }
   }
 
@@ -149,6 +158,14 @@ export function Skeleton(props) {
         skeletonBody.current?.setTranslation(enemy.position, true)
         skeletonBody.current?.setRotation(enemy.rotation, true)
         setLife(enemy.life)
+      }
+    }
+  })
+
+  socket.on('updates-enemy-animation', (values) => {
+    if (values.id === props.idEnemy) {
+      if (actions) {
+        changeAnimation(values.animation)
       }
     }
   })
@@ -265,6 +282,7 @@ export function Skeleton(props) {
           if (!actions['SkeletonArmature|Skeleton_Attack'].isRunning()) {
             if (repeatAttack) {
               actions['SkeletonArmature|Skeleton_Attack'].reset()
+              socket.emit('change-enemy-animation', {id: props.idEnemy, animation: 'Attack'})
             } else {
               setActualAction('Chase')
               changeAnimation('Chase')
