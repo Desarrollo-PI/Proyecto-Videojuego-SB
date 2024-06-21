@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { socket } from '../../socket/socket-manager'
 
 export const BossesContext = createContext()
 
@@ -11,6 +12,17 @@ export function BossesProvider({ children }) {
   })
 
   const handleDeathBoss = (boss) => {
+    setBosses((prev) => ({
+      ...prev,
+      [boss]: { isDeath: true },
+    }))
+    if (boss === 'darkWizard') {
+      socket.emit('boss-dead')
+    }
+  }
+
+  const handleDeathBossNoEmit = (boss) => {
+    console.log("Boss murio")
     setBosses((prev) => ({
       ...prev,
       [boss]: { isDeath: true },
@@ -39,6 +51,7 @@ export function BossesProvider({ children }) {
 
   const functions = {
     handleDeathBoss,
+    handleDeathBossNoEmit,
     handleLiveBoss,
     reviveBosses,
   }

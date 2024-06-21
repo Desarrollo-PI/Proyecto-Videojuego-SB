@@ -21,8 +21,8 @@ const LevelFourPage = () => {
       haveLeviosa: thisPlayer.haveLeviosa,
     })
   })
-  socket.on('hit-player', () => {
-    handleTakeLife(1)
+  socket.on('hit-player', (damage) => {
+    handleTakeLife(1, damage)
   })
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const LevelFourPage = () => {
     socket.emit('leader')
     socket.emit('create-enemies', [
       { id: 1, position: null, rotation: null, life: 200, dead: false },
+      { id: 'darkWizard', position: null, rotation: null, life: 1500, dead: false }
     ])
     socket.emit('create-ivys', [
       { id: 1, isFired: false, isBurned: false },
@@ -50,12 +51,12 @@ const LevelFourPage = () => {
     }
   }, [])
 
-  const handleTakeLife = (id) => {
+  const handleTakeLife = (id, damage) => {
     if (id === 1) {
       if (currentHearts <= 0) {
         return
       }
-      takeLife(25)
+      takeLife(damage)
     } else {
       socket.emit('hit-second-player')
     }
@@ -69,7 +70,6 @@ const LevelFourPage = () => {
       <Checkpoints />
       <Enemies />
       <SecondPlayer position={[0, -30, 0]} />
-      <EvilWizard position={[0, 5, -48]} action={0} />
       <Obstacles />
     </>
   )
