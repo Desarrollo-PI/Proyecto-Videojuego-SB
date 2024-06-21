@@ -23,6 +23,7 @@ export function PlayerProvider({ children }) {
     spellInitRotation: [0, 0, 0],
     spellInitPosition: [0, 0, 0],
     leader: true,
+    leaderSetted: false,
     haveLeviosa: false,
   })
 
@@ -81,6 +82,7 @@ export function PlayerProvider({ children }) {
       spellInitRotation: [0, 0, 0],
       spellInitPosition: [0, 0, 0],
       leader: true,
+      leaderSetted: false,
       haveLeviosa: false,
     })
     setNearDementor(false)

@@ -18,6 +18,7 @@ const LevelFourPage = () => {
     setPlayer({
       ...player,
       leader: thisPlayer.leader,
+      leaderSetted: true,
       haveLeviosa: thisPlayer.haveLeviosa,
     })
   })
