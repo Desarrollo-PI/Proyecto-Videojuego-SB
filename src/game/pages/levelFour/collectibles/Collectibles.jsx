@@ -27,31 +27,33 @@ const Collectibles = () => {
         name="El Giratiempo"
         isCollected={collectiblesLevelFour.TimeTurner}
         onCollect={handleOnCollect}
-        position={[4, 0, -2]}
+        position={[2.7, 0.5, -54]}
       />
       <ResurrectionStone
         name="La Piedra de la Resurrección"
         isCollected={collectiblesLevelFour.ResurrectionStone}
         onCollect={handleOnCollect}
-        position={[2, -0.5, -2]}
+        position={[33, 1, -122]}
+        scale = {[1.3, 1.3, 1.3]}
       />
       <PhilosopherStone
         name="La Piedra Filosofal"
         isCollected={collectiblesLevelFour.PhilosopherStone}
         onCollect={handleOnCollect}
-        position={[0, 0, -2]}
+        position={[-4, 8, -45]}
       />
       <Profeta
         name="El Profeta"
         isCollected={collectiblesLevelFour.Profeta}
         onCollect={handleOnCollect}
-        position={[-2, 0, -2]}
+        position={[-24.5, 2, -145]}
       />
       <EyeOjoLoco
         name="El Ojo Loco de Moody"
         isCollected={collectiblesLevelFour.EyeOjoLoco}
         onCollect={handleOnCollect}
-        position={[-4, 0, -2]}
+        position={[-7.5, 1, -190]}
+        scale={[2, 2, 2]}
       />
     </>
   )

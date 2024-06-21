@@ -112,7 +112,7 @@ const Obstacles = () => {
       {!ivys[0]?.isBurned && (
         <IvyServer
           idIvy={1}
-          position={[-2, -2, -10]}
+          position={[-1, -2, -10]}
           rotation={[0, -Math.PI / 2, 0]}
           isFired={ivys[0]?.isFired}
           burnIvy={burnIvy}
@@ -121,7 +121,7 @@ const Obstacles = () => {
       {!ivys[1]?.isBurned && (
         <IvyServer
           idIvy={2}
-          position={[2, -2, -10]}
+          position={[3, -2, -10]}
           rotation={[0, Math.PI / 2, 0]}
           isFired={ivys[1]?.isFired}
           burnIvy={burnIvy}
@@ -130,7 +130,7 @@ const Obstacles = () => {
       {!ivys[2]?.isBurned && (
         <IvyServer
           idIvy={3}
-          position={[-2, 2.1, -47.8]}
+          position={[-1, 2.1, -47.8]}
           rotation={[0, Math.PI / 2, 0]}
           isFired={ivys[2]?.isFired}
           burnIvy={burnIvy}
@@ -139,7 +139,7 @@ const Obstacles = () => {
       {!ivys[3]?.isBurned && (
         <IvyServer
           idIvy={4}
-          position={[2, 2.1, -47.8]}
+          position={[3, 2.1, -47.8]}
           rotation={[0, Math.PI / 2, 0]}
           isFired={ivys[3]?.isFired}
           burnIvy={burnIvy}
@@ -148,7 +148,7 @@ const Obstacles = () => {
       {!ivys[4]?.isBurned && (
         <IvyServer
           idIvy={5}
-          position={[-2, 2.3, -92.2]}
+          position={[-1, 2.3, -92.2]}
           rotation={[0, Math.PI / 2, 0]}
           isFired={ivys[4]?.isFired}
           burnIvy={burnIvy}
@@ -157,7 +157,7 @@ const Obstacles = () => {
       {!ivys[5]?.isBurned && (
         <IvyServer
           idIvy={6}
-          position={[2, 2.3, -92.2]}
+          position={[3, 2.3, -92.2]}
           rotation={[0, Math.PI / 2, 0]}
           isFired={ivys[5]?.isFired}
           burnIvy={burnIvy}
@@ -189,15 +189,15 @@ const Obstacles = () => {
           handleKeyCollected={handleKeyCollected}
         />
       )}
-      {!keys[1]?.isCollected && (
+      {(!keys[1]?.isCollected && !keys[0]?.isCollected) && (
         <KeyServer
           idKey={2}
-          position={[33, 8, -122]}
+          position={[25, 8, -159]}
           rotation={[0, 0, 0]}
           handleKeyCollected={handleKeyCollected}
         />
       )}
-      {!keys[1]?.isCollected && (
+      {!keys[0]?.isCollected && (
         <BlackWallServer
           idBlackWall={1}
           position={[0, 0, -90]}
@@ -206,12 +206,12 @@ const Obstacles = () => {
         />
       )}
 
-      <BoxServer idBox={1} position={[-1, 3.5, -43.8]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={2} position={[3, 3.5, -43.8]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={3} position={[-5, 3.5, -43.8]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={4} position={[-1, 4.2, -88.2]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={5} position={[3, 4.2, -88.2]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={6} position={[-5, 4.2, -88.2]} scale={[1,1.5,1]}/>
+      <BoxServer idBox={1} position={[0.5, 3.5, -43.8]} scale={[1,1.5,1]}/>
+      <BoxServer idBox={2} position={[4.5, 3.5, -43.8]} scale={[1,1.5,1]}/>
+      <BoxServer idBox={3} position={[-3, 3.5, -43.8]} scale={[1,1.5,1]}/>
+      <BoxServer idBox={4} position={[0.5, 4.2, -88.2]} scale={[1,1.5,1]}/>
+      <BoxServer idBox={5} position={[4.5, 4.2, -88.2]} scale={[1,1.5,1]}/>
+      <BoxServer idBox={6} position={[-3, 4.2, -88.2]} scale={[1,1.5,1]}/>
     </>
   )
 }

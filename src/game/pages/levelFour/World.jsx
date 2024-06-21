@@ -150,7 +150,7 @@ const WorldLevelFourTrimesh = (props) => {
         geometry={nodes.obstacleWall005_2.geometry}
         material={materials['Wood.008']}
       />
-      {/* <mesh
+            <mesh
         castShadow
         receiveShadow
         geometry={nodes.obstacleWall003_1.geometry}
@@ -171,21 +171,39 @@ const WorldLevelFourTrimesh = (props) => {
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.obstacleWall004_1.geometry}
+        geometry={nodes.obstacleWall002_1.geometry}
         material={materials['Stone.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.obstacleWall004_2.geometry}
+        geometry={nodes.obstacleWall002_2.geometry}
         material={materials['Stone_Light.002']}
       />
       <mesh
         castShadow
         receiveShadow
-        geometry={nodes.obstacleWall004_3.geometry}
+        geometry={nodes.obstacleWall002_3.geometry}
         material={materials['Wood.008']} 
-        />*/}
+        />
+              <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.LionStatue_1.geometry}
+        material={materials.Metal}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.LionStatue_2.geometry}
+        material={materials.Stone}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.LionStatue_3.geometry}
+        material={materials.Dark_Stone}
+      />
     </>
   )
 }
@@ -522,24 +540,6 @@ const WorldLevelFour = (props) => {
         receiveShadow
         geometry={nodes.Bench008.geometry}
         material={materials.DarkWood}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.LionStatue_1.geometry}
-        material={materials.Metal}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.LionStatue_2.geometry}
-        material={materials.Stone}
-      />
-      <mesh
-        castShadow
-        receiveShadow
-        geometry={nodes.LionStatue_3.geometry}
-        material={materials.Dark_Stone}
       />
       <mesh
         castShadow

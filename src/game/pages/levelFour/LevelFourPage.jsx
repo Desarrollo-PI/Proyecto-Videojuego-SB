@@ -29,7 +29,10 @@ const LevelFourPage = () => {
     socket.emit('player-connected')
     socket.emit('leader')
     socket.emit('create-enemies', [
-      { id: 1, position: null, rotation: null, life: 200, dead: false },
+      { id: 1, position: null, rotation: null, life: 400, dead: false },
+      { id: 2, position: null, rotation: null, life: 400, dead: false },
+      { id: 3, position: null, rotation: null, life: 400, dead: false },
+      { id: 4, position: null, rotation: null, life: 200, dead: false },
       { id: 'darkWizard', position: null, rotation: null, life: 1500, dead: false }
     ])
     socket.emit('create-ivys', [
@@ -46,10 +49,10 @@ const LevelFourPage = () => {
       { id: 1, isCollected: false },
       { id: 2, isCollected: false },
     ])
-    socket.emit('create-blackWall', [
-      { id: 1},
-      { id: 2},
-    ])
+    // socket.emit('create-blackWall', [
+    //   { id: 1},
+    //   { id: 2},
+    // ])
     socket.emit('create-boxes')
   }, [])
 
@@ -78,7 +81,7 @@ const LevelFourPage = () => {
       <WorldLevelFourWithPhysisc />
       <Collectibles />
       <Checkpoints />
-      {/* <Enemies /> */}
+      <Enemies />
       <SecondPlayer position={[0, -30, 0]} />
       <Obstacles />
     </>
