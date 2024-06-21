@@ -29,17 +29,30 @@ const LevelFourPage = () => {
     socket.emit('player-connected')
     socket.emit('leader')
     socket.emit('create-enemies', [
-      { id: 1, position: null, rotation: null, life: 200, dead: false },
+      { id: 1, position: null, rotation: null, life: 400, dead: false },
+      { id: 2, position: null, rotation: null, life: 400, dead: false },
+      { id: 3, position: null, rotation: null, life: 400, dead: false },
+      { id: 4, position: null, rotation: null, life: 200, dead: false },
       { id: 'darkWizard', position: null, rotation: null, life: 1500, dead: false }
     ])
     socket.emit('create-ivys', [
       { id: 1, isFired: false, isBurned: false },
       { id: 2, isFired: false, isBurned: false },
+      { id: 3, isFired: false, isBurned: false },
+      { id: 4, isFired: false, isBurned: false },
+      { id: 5, isFired: false, isBurned: false },
+      { id: 6, isFired: false, isBurned: false },
+      { id: 7, isFired: false, isBurned: false },
+      { id: 8, isFired: false, isBurned: false },
     ])
     socket.emit('create-keys', [
       { id: 1, isCollected: false },
       { id: 2, isCollected: false },
     ])
+    // socket.emit('create-blackWall', [
+    //   { id: 1},
+    //   { id: 2},
+    // ])
     socket.emit('create-boxes')
   }, [])
 

@@ -5,11 +5,19 @@ import { useMusic } from '../../../../providers/music/MusicProvider'
 import { useBosses } from '../../../../providers/bosses/BossesProvider'
 import { socket } from '../../../../socket/socket-manager'
 import { EvilWizard } from '../../../globals/enemies/evilWizard/EvilWizard'
+import BlackWallServer from '../../../globals/obstacles/BlackWallServer'
 
 const Enemies = () => {
   const [enemies, setEnemies] = useState({
     1: { isDeath: false },
+    2: { isDeath: false },
+    3: { isDeath: false },
+    4: { isDeath: false },
   })
+  const [blackWall, setBlackWall] = useState([
+    { id: 1, isDestroyed: false },
+
+  ])
 
   const { bosses, handleDeathBoss, handleDeathBossNoEmit } = useBosses()
   const { handleSound, isPlaying } = useMusic()
@@ -82,7 +90,46 @@ const Enemies = () => {
       {!enemies[1].isDeath && (
         <Skeleton
           idEnemy={1}
-          position={[0, 2, -15]}
+          position={[0, 2, -210]}
+          action={'Walk'}
+          color={'hsl(180,0%,100%)'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[2].isDeath && (
+        <Skeleton
+          idEnemy={2}
+          position={[15, 2, -210]}
+          action={'Walk'}
+          color={'hsl(180,0%,100%)'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[3].isDeath && (
+        <Skeleton
+          idEnemy={3}
+          position={[-15, 2, -210]}
+          action={'Walk'}
+          color={'hsl(180,0%,100%)'}
+          takeLife={handleTakeLife}
+          deathEnemy={handleDeathEnemy}
+          isPlayerDeath={currentHearts === 0}
+          speed={3}
+          isPlaying={isPlaying}
+        />
+      )}
+      {!enemies[4].isDeath && (
+        <Skeleton
+          idEnemy={4}
+          position={[0, 1, -80]}
           action={'Walk'}
           color={'hsl(180,0%,100%)'}
           takeLife={handleTakeLife}
@@ -95,7 +142,7 @@ const Enemies = () => {
       {!bosses?.darkWizard.isDeath && (
         <EvilWizard
           idEnemy={'darkWizard'}
-          position={[-1.5, 10, -40]}
+          position={[-1.5, 1, -255]}
           action={'Walk'}
           color={'hsl(0,0%,0%)'}
           takeLife={handleTakeLifeEvilWizard}
@@ -103,6 +150,14 @@ const Enemies = () => {
           isPlayerDeath={currentHearts === 0}
           speed={5}
           isPlaying={isPlaying}
+        />
+      )}
+      {(!enemies[1].isDeath && !enemies[2].isDeath && !enemies[3].isDeath) && (
+        <BlackWallServer
+          idBlackWall={1}
+          position={[0, 0, -116]}
+          rotation={[0, 0, 0]}
+          scale={[32, 45, 1]}
         />
       )}
     </>
