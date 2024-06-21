@@ -40,7 +40,7 @@ export function EvilWizard(props) {
   const [repeatAttack, setRepeatAttack] = useState(false)
   const [isSoundPLaying, setIsSoundPlaying] = useState(false)
   const [distance, setDistance] = useState(0)
-  const [life, setLife] = useState(100)
+  const [life, setLife] = useState(1500)
   const [frozen, setFrozen] = useState(0)
   const [fired, setFired] = useState(0)
   const [changeColor, setChangeColor] = useState(false)

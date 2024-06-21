@@ -79,7 +79,7 @@ const Enemies = () => {
 
   return (
     <>
-      {/* {!enemies[1].isDeath && (
+      {!enemies[1].isDeath && (
         <Skeleton
           idEnemy={1}
           position={[0, 2, -15]}
@@ -91,7 +91,7 @@ const Enemies = () => {
           speed={3}
           isPlaying={isPlaying}
         />
-      )} */}
+      )}
       {!bosses?.darkWizard.isDeath && (
         <EvilWizard
           idEnemy={'darkWizard'}
