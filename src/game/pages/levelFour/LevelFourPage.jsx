@@ -9,6 +9,7 @@ import Collectibles from './collectibles/Collectibles'
 import Checkpoints from './checkpoints/Checkpoints'
 import Obstacles from './obstacles/Obstacles'
 import Enemies from './enemies/Enemies'
+import Signs from './elements/Signs'
 
 const LevelFourPage = () => {
   const { player, setPlayer, takeLife, currentHearts } = usePlayer()
@@ -34,7 +35,13 @@ const LevelFourPage = () => {
       { id: 2, position: null, rotation: null, life: 400, dead: false },
       { id: 3, position: null, rotation: null, life: 400, dead: false },
       { id: 4, position: null, rotation: null, life: 200, dead: false },
-      { id: 'darkWizard', position: null, rotation: null, life: 1500, dead: false }
+      {
+        id: 'darkWizard',
+        position: null,
+        rotation: null,
+        life: 1500,
+        dead: false,
+      },
     ])
     socket.emit('create-ivys', [
       { id: 1, isFired: false, isBurned: false },
@@ -85,6 +92,7 @@ const LevelFourPage = () => {
       <Enemies />
       <SecondPlayer position={[0, -30, 0]} />
       <Obstacles />
+      <Signs />
     </>
   )
 }

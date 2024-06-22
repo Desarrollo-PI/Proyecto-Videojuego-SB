@@ -92,7 +92,14 @@ export function Troll(props) {
   }
 
   const handleTouchPlayer = (e) => {
-    touchPlayer(e, setPlayerBody, setRepeatAttack, setActualAction, changeAnimation, props)
+    touchPlayer(
+      e,
+      setPlayerBody,
+      setRepeatAttack,
+      setActualAction,
+      changeAnimation,
+      props
+    )
     touchSpell(e, life, props.idEnemy, setLife, props.deathEnemy, handleSound)
   }
 

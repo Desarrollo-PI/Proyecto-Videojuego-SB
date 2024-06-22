@@ -74,7 +74,7 @@ export function Skeleton(props) {
         break
       case 'Attack':
         const attackAction = actions['SkeletonArmature|Skeleton_Attack']
-        if(attackAction) {
+        if (attackAction) {
           attackAction.repetitions = 1
           attackAction.play()
         }
@@ -85,8 +85,10 @@ export function Skeleton(props) {
 
     if (player.leader) {
       if (player.leaderSetted) {
-        console.log("soy lider y mando una animacion")
-        socket.emit('change-enemy-animation', {id: props.idEnemy, animation: actualAction})
+        socket.emit('change-enemy-animation', {
+          id: props.idEnemy,
+          animation: actualAction,
+        })
       }
     }
   }
@@ -154,7 +156,11 @@ export function Skeleton(props) {
 
   socket.on('updates-values-enemy', (enemy) => {
     if (enemy.id === props.idEnemy) {
-      if (enemy.position !== null && enemy.rotation !== null && enemy.life !== null) {
+      if (
+        enemy.position !== null &&
+        enemy.rotation !== null &&
+        enemy.life !== null
+      ) {
         skeletonBody.current?.setTranslation(enemy.position, true)
         skeletonBody.current?.setRotation(enemy.rotation, true)
         setLife(enemy.life)
@@ -221,15 +227,24 @@ export function Skeleton(props) {
     if (changeColor) {
       if (frozen) {
         material.color.set('hsl(180,100%,80%)')
-        socket.emit('enemy-change-color', { id: props.idEnemy, color: 'hsl(180,100%,80%)' })
+        socket.emit('enemy-change-color', {
+          id: props.idEnemy,
+          color: 'hsl(180,100%,80%)',
+        })
       }
       if (fired) {
         material.color.set('hsl(0,100%,50%)')
-        socket.emit('enemy-change-color', { id: props.idEnemy, color: 'hsl(0,100%,50%)' })
+        socket.emit('enemy-change-color', {
+          id: props.idEnemy,
+          color: 'hsl(0,100%,50%)',
+        })
       }
     } else {
       material.color.set(props.color)
-      socket.emit('enemy-change-color', { id: props.idEnemy, color: props.color })
+      socket.emit('enemy-change-color', {
+        id: props.idEnemy,
+        color: props.color,
+      })
     }
   }, [changeColor])
 
@@ -282,7 +297,10 @@ export function Skeleton(props) {
           if (!actions['SkeletonArmature|Skeleton_Attack'].isRunning()) {
             if (repeatAttack) {
               actions['SkeletonArmature|Skeleton_Attack'].reset()
-              socket.emit('change-enemy-animation', {id: props.idEnemy, animation: 'Attack'})
+              socket.emit('change-enemy-animation', {
+                id: props.idEnemy,
+                animation: 'Attack',
+              })
             } else {
               setActualAction('Chase')
               changeAnimation('Chase')

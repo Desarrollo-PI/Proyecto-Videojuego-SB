@@ -16,16 +16,23 @@ export default function BoxServer(props) {
   }, [])
 
   useEffect(() => {
-    return () => {
-      socket.off('updates-values-boxes')
+    const handleUpdateValuesBox = (box) => {
+      try {
+        if (box.id === props.idBox) {
+          boxBodyRef.current?.setTranslation(box.position)
+        }
+      } catch (e) {
+        console.log(e)
+      }
     }
-  }, [])
 
-  socket.on('updates-values-box', (box) => {
-    if (box.id === props.idBox) {
-      boxBodyRef?.current?.setTranslation(box.position, true)
+    socket.on('updates-values-box', handleUpdateValuesBox)
+
+    return () => {
+      socket.off('updates-values-box', handleUpdateValuesBox)
     }
-  })
+  }, [props.idBox])
+
   const frameCountRef = useRef(0)
   const frameSkip = 10
 

@@ -23,8 +23,8 @@ export function SecondPlayer(props) {
     setAnimation(player.animation)
   })
 
-  socket.on ('updates-player-dead', (player) => {
-    secondPlayerBodyRef.current?.setTranslation({x:0, y:-30, z:0}, true)
+  socket.on('updates-player-dead', (player) => {
+    secondPlayerBodyRef.current?.setTranslation({ x: 0, y: -30, z: 0 }, true)
   })
 
   useEffect(() => {

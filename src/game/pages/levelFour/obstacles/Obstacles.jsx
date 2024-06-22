@@ -4,8 +4,12 @@ import KeyServer from '../../../globals/obstacles/KeyServer'
 import BoxServer from '../../../globals/obstacles/BoxServer'
 import BlackWallServer from '../../../globals/obstacles/BlackWallServer'
 import { socket } from '../../../../socket/socket-manager'
+import { usePlayer } from '../../../../providers/player/PlayerProvider'
+import { CuboidCollider } from '@react-three/rapier'
 
 const Obstacles = () => {
+  const { imediatelyDeath } = usePlayer()
+
   const [ivys, setIvys] = useState([
     { id: 1, isFired: false, isBurned: false },
     { id: 2, isFired: false, isBurned: false },
@@ -24,7 +28,7 @@ const Obstacles = () => {
 
   const [blackWall, setBlackWall] = useState([
     { id: 1, isDestroyed: false },
-    { id: 2, isDestroyed: false },  
+    { id: 2, isDestroyed: false },
   ])
 
   useEffect(() => {
@@ -95,17 +99,11 @@ const Obstacles = () => {
     }
   }
 
-  // const destroyBlackWall = (id) => {
-  //   setBlackWall((prev) =>
-  //     prev.map((blackWall) => {
-  //       if (blackWall.id === id) {
-  //         return { ...blackWall, isDestroyed: true }
-  //       }
-  //       return blackWall
-  //     })
-  //   )
-  //   socket.emit('destroy-blackWall', { id })
-  // }
+  const handleIntersectionPlayer = (e) => {
+    if (e.rigidBodyObject.name === 'playerBody') {
+      imediatelyDeath()
+    }
+  }
 
   return (
     <>
@@ -189,7 +187,7 @@ const Obstacles = () => {
           handleKeyCollected={handleKeyCollected}
         />
       )}
-      {(!keys[1]?.isCollected && !keys[0]?.isCollected) && (
+      {!keys[1]?.isCollected && !keys[0]?.isCollected && (
         <KeyServer
           idKey={2}
           position={[25, 8, -159]}
@@ -205,13 +203,18 @@ const Obstacles = () => {
           scale={[13, 40, 1]}
         />
       )}
-
-      <BoxServer idBox={1} position={[0.5, 3.5, -43.8]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={2} position={[4.5, 3.5, -43.8]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={3} position={[-3, 3.5, -43.8]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={4} position={[0.5, 4.2, -88.2]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={5} position={[4.5, 4.2, -88.2]} scale={[1,1.5,1]}/>
-      <BoxServer idBox={6} position={[-3, 4.2, -88.2]} scale={[1,1.5,1]}/>
+      <BoxServer idBox={1} position={[0.5, 3.5, -43.8]} scale={[1, 1.5, 1]} />
+      <BoxServer idBox={2} position={[4.5, 3.5, -43.8]} scale={[1, 1.5, 1]} />
+      <BoxServer idBox={3} position={[-3, 3.5, -43.8]} scale={[1, 1.5, 1]} />
+      <BoxServer idBox={4} position={[0.5, 4.2, -88.2]} scale={[1, 1.5, 1]} />
+      <BoxServer idBox={5} position={[4.5, 4.2, -88.2]} scale={[1, 1.5, 1]} />
+      <BoxServer idBox={6} position={[-3, 4.2, -88.2]} scale={[1, 1.5, 1]} />
+      <CuboidCollider
+        args={[30, 0.5, 10]}
+        position={[0, -5, -60]}
+        sensor
+        onIntersectionEnter={handleIntersectionPlayer}
+      />
     </>
   )
 }

@@ -19,37 +19,36 @@ const withPhysics =
     )
   }
 
+const Limits = () => {
+  const { nodes } = useGLTF('/assets/models/worldLevelFour/LevelFour.glb')
 
-  const Limits = () => {
-    const { nodes } = useGLTF('/assets/models/worldLevelFour/LevelFour.glb')
-  
-    const geometries = [
-      nodes.Plane.geometry,
-      nodes.Plane001.geometry,
-      nodes.Plane002.geometry,
-      nodes.Plane003.geometry,
-      nodes.Plane004.geometry,
-      nodes.Plane005.geometry,
-      nodes.Plane006.geometry
-    ]
-  
-    const transparentMaterial = useMemo(() => <meshPhongMaterial transparent />)
-  
-    return (
-      <>
-        {geometries.map((geometry, index) => (
-          <mesh
-            key={index}
-            castShadow
-            receiveShadow
-            geometry={geometry}
-            material={transparentMaterial}
-          />
-        ))}
-      </>
-    )
-  }
-  
+  const geometries = [
+    nodes.Plane.geometry,
+    nodes.Plane001.geometry,
+    nodes.Plane002.geometry,
+    nodes.Plane003.geometry,
+    nodes.Plane004.geometry,
+    nodes.Plane005.geometry,
+    nodes.Plane006.geometry,
+  ]
+
+  const transparentMaterial = useMemo(() => <meshPhongMaterial transparent />)
+
+  return (
+    <>
+      {geometries.map((geometry, index) => (
+        <mesh
+          key={index}
+          castShadow
+          receiveShadow
+          geometry={geometry}
+          material={transparentMaterial}
+        />
+      ))}
+    </>
+  )
+}
+
 const WorldLevelFourDynamic = () => {
   return <></>
 }
@@ -114,7 +113,7 @@ const WorldLevelFourTrimesh = (props) => {
         geometry={nodes.Floor005.geometry}
         material={materials['grey.001']}
       /> */}
-            <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.obstacleWall001_1.geometry}
@@ -150,7 +149,7 @@ const WorldLevelFourTrimesh = (props) => {
         geometry={nodes.obstacleWall005_2.geometry}
         material={materials['Wood.008']}
       />
-            <mesh
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.obstacleWall003_1.geometry}
@@ -184,9 +183,9 @@ const WorldLevelFourTrimesh = (props) => {
         castShadow
         receiveShadow
         geometry={nodes.obstacleWall002_3.geometry}
-        material={materials['Wood.008']} 
-        />
-              <mesh
+        material={materials['Wood.008']}
+      />
+      <mesh
         castShadow
         receiveShadow
         geometry={nodes.LionStatue_1.geometry}
@@ -268,9 +267,24 @@ const WorldLevelFour = (props) => {
         geometry={nodes.Roof005.geometry}
         material={materials['Material.003']}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Cliff.geometry} material={materials.Cliff} />
-      <mesh castShadow receiveShadow geometry={nodes.Stones.geometry} material={materials.mat22} />
-      <mesh castShadow receiveShadow geometry={nodes.Shield.geometry} material={materials.Metal} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Cliff.geometry}
+        material={materials.Cliff}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Stones.geometry}
+        material={materials.mat22}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Shield.geometry}
+        material={materials.Metal}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -481,12 +495,42 @@ const WorldLevelFour = (props) => {
         geometry={nodes.LightWindow027.geometry}
         material={materials['Material.002']}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Bush.geometry} material={materials.mat9} />
-      <mesh castShadow receiveShadow geometry={nodes.Bush001.geometry} material={materials.mat9} />
-      <mesh castShadow receiveShadow geometry={nodes.Bush002.geometry} material={materials.mat9} />
-      <mesh castShadow receiveShadow geometry={nodes.Bush003.geometry} material={materials.mat9} />
-      <mesh castShadow receiveShadow geometry={nodes.Bush004.geometry} material={materials.mat9} />
-      <mesh castShadow receiveShadow geometry={nodes.Bush005.geometry} material={materials.mat9} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bush.geometry}
+        material={materials.mat9}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bush001.geometry}
+        material={materials.mat9}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bush002.geometry}
+        material={materials.mat9}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bush003.geometry}
+        material={materials.mat9}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bush004.geometry}
+        material={materials.mat9}
+      />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Bush005.geometry}
+        material={materials.mat9}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -667,7 +711,12 @@ const WorldLevelFour = (props) => {
         geometry={nodes.Torchs_1.geometry}
         material={materials.DarkMetal}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Torchs_2.geometry} material={materials.Fire} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Torchs_2.geometry}
+        material={materials.Fire}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -962,7 +1011,12 @@ const WorldLevelFour = (props) => {
         geometry={nodes.Tree_1.geometry}
         material={materials['Wood.003']}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Tree_2.geometry} material={materials.Green} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Tree_2.geometry}
+        material={materials.Green}
+      />
       <mesh
         castShadow
         receiveShadow
@@ -1515,7 +1569,12 @@ const WorldLevelFour = (props) => {
         geometry={nodes.Banner006_3.geometry}
         material={materials.mat19}
       />
-      <mesh castShadow receiveShadow geometry={nodes.Banner_1.geometry} material={materials.Wood} />
+      <mesh
+        castShadow
+        receiveShadow
+        geometry={nodes.Banner_1.geometry}
+        material={materials.Wood}
+      />
       <mesh
         castShadow
         receiveShadow

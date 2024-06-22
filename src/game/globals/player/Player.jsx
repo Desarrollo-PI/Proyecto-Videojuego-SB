@@ -73,7 +73,7 @@ export default function Player(props) {
         body: undefined,
       })
     }
-  },[])
+  }, [])
 
   useEffect(() => {
     if (props.isPlayerDeath && !props.isMenuOpen) {

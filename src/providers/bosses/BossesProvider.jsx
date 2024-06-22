@@ -22,7 +22,6 @@ export function BossesProvider({ children }) {
   }
 
   const handleDeathBossNoEmit = (boss) => {
-    console.log("Boss murio")
     setBosses((prev) => ({
       ...prev,
       [boss]: { isDeath: true },

@@ -34,7 +34,7 @@ const Collectibles = () => {
         isCollected={collectiblesLevelFour.ResurrectionStone}
         onCollect={handleOnCollect}
         position={[33, 1, -122]}
-        scale = {[1.3, 1.3, 1.3]}
+        scale={[1.3, 1.3, 1.3]}
       />
       <PhilosopherStone
         name="La Piedra Filosofal"
