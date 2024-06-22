@@ -62,7 +62,7 @@ const Checkpoints = () => {
       <Checkpoint
         numberCheckpoint={4}
         itsTaken={checkpointLevelFour[4]}
-        position={[13, 5.3]}
+        position={[13, 5.3, -240.5]}
         rotation={[0, Math.PI / 2, 0]}
         handleOnTakeCheckpoint={handleOnTakeCheckpoint}
         dialogs={dialogs}
