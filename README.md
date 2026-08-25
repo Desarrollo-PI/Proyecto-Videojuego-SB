@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+# El Rescate de Hogwarts: La Misión del Auror
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Videojuego de aventura 3D que corre en el navegador, con modo un jugador y multijugador
+en tiempo real. Construido con React Three Fiber sobre Three.js, con físicas, cuatro
+niveles jugables, sistema de hechizos y persistencia de progreso.
 
-## Available Scripts
+**▶ Jugar: https://proyecto-videojuego-sb.vercel.app**
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Sobre el proyecto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Un hechicero oscuro ha tomado el castillo de Hogwarts. El jugador encarna a un Auror que
+debe recorrer cuatro escenarios —la estación de King's Cross, Hogsmeade, el Bosque
+Prohibido y Hogwarts— recogiendo objetos, esquivando obstáculos y enfrentando enemigos
+hasta llegar al enfrentamiento final.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Desarrollado como proyecto integrador del programa de Ingeniería de Sistemas de la
+Universidad del Valle. El alcance no fue solo técnico: el proyecto incluyó un ciclo
+completo de investigación de usuario, modelado 3D propio y gestión ágil documentada.
 
-### `npm test`
+## Características
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Jugabilidad**
 
-### `npm run build`
+- Cuatro niveles con mundos, iluminación y previsualización independientes
+- Movimiento con motor de físicas (correr, agacharse, saltar), cámara en tercera persona
+- Sistema de hechizos: Expelliarmus, Incendio, Glacius y Leviosa
+- Ocho tipos de enemigos: dementor, troll, araña, duende, esqueleto, mago esqueleto,
+  bruja y el hechicero oscuro como jefe final
+- 22 objetos coleccionables modelados individualmente
+- Barra de vida y de maná, checkpoints, portales y obstáculos interactivos
+- Banda sonora original por nivel y 19 efectos de sonido
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Cuenta y progreso**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Registro e inicio de sesión con Firebase Authentication
+- Selección de casa de Hogwarts en el registro
+- Progreso persistido en Firestore: nivel alcanzado y objetos recogidos
+- Rutas protegidas: no se accede al juego sin sesión iniciada
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Multijugador**
 
-### `npm run eject`
+- Sincronización en tiempo real con Socket.IO
+- Segundo jugador y variantes de obstáculos sincronizadas por servidor
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Stack
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Área | Tecnologías |
+|---|---|
+| 3D y renderizado | Three.js, @react-three/fiber, @react-three/drei |
+| Físicas | @react-three/rapier |
+| Frontend | React 18, React Router, React Bootstrap |
+| Backend y datos | Firebase Authentication, Cloud Firestore |
+| Tiempo real | Socket.IO |
+| Modelado 3D | Blender (fuentes `.blend` incluidas), formato glTF/GLB |
+| Despliegue | Vercel |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Estructura
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+├── game/
+│   ├── globals/          jugador, hechizos, enemigos, obstáculos, checkpoints
+│   ├── pages/
+│   │   ├── levelOne..levelFour/   mundo, luces, coleccionables, enemigos por nivel
+│   │   ├── levelRouter/           carrusel de niveles y bloqueo por progreso
+│   │   ├── login, register/       autenticación y selección de casa
+│   │   └── layout/                HUD, menús, diálogos, game over, victoria
+├── providers/            contextos: auth, jugador, avatar, jefes, música, menú, diálogo
+├── routes/               enrutado y rutas protegidas
+├── socket/               cliente de Socket.IO
+├── db/                   acceso a Firestore
+└── utils/                movimiento, rotación de coleccionables, utilidades de enemigos
 
-## Learn More
+public/assets/
+├── blender/              archivos fuente .blend de personajes y niveles
+├── models/               modelos exportados en .glb
+├── music/, sounds/       audio
+├── fonts/, img/, hdr/    tipografías, imágenes y mapa de entorno HDR
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Ejecución local
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Requiere Node.js 18 o superior.
 
-### Code Splitting
+```bash
+git clone https://github.com/Desarrollo-PI/Proyecto-Videojuego-SB.git
+cd Proyecto-Videojuego-SB
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+La aplicación queda en `http://localhost:3000`.
 
-### Analyzing the Bundle Size
+Para el modo multijugador hace falta levantar además el servidor de sockets
+([Proyecto-Videojuego-SB-Sockets](https://github.com/Desarrollo-PI/Proyecto-Videojuego-SB-Sockets))
+y apuntar el cliente a él:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```
+REACT_APP_SOCKET_URL=http://localhost:5000
+```
 
-### Making a Progressive Web App
+Sin esa variable, el cliente usa `http://localhost:5000` por defecto.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Proceso de diseño y documentación
 
-### Advanced Configuration
+El juego partió de investigación con usuarios reales y se validó con pruebas por nivel.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Documento | |
+|---|---|
+| Game Design Document | [Ver](https://docs.google.com/document/u/0/d/1Vzq0T5ZupWVzu9A_PGy6gbOtxoSCY6BezZQ_h8T6eeU/edit) |
+| Guion de entrevista | [Ver](https://docs.google.com/document/u/0/d/1ANP0lcKGlyd9bkUVy3j90jFMlhP6Dq1caH4G6ESi2CY/edit) |
+| Mapa de afinidad | [Ver](https://drive.google.com/file/d/1qlV1pLiFFqRRNkW5IlnyGFGcgJ0QlzMf/view?usp=sharing) |
+| Protopersonas | [Ver en Miro](https://miro.com/app/board/uXjVKWLysp0=/?share_link_id=451338976277) |
+| Gestión del proyecto | [Taiga](https://tree.taiga.io/project/herreran903-desarrollo-pi/timeline) |
+| Modelos de Blender | [Carpeta](https://drive.google.com/drive/folders/14DyMLkbRrujd2NG-KWA9gZV9JNNmoSZN?usp=sharing) |
+| Video de experiencia de usuario y Web3D | [Ver](https://drive.google.com/file/d/1YFoIKDf59BZWBlwfaoBgaz8PxHHIf49i/view?usp=drive_link) |
 
-### Deployment
+<!-- ENLACES PENDIENTES DE REVISIÓN DE PRIVACIDAD
+     Estas carpetas pueden contener grabaciones, nombres o rostros de participantes.
+     Revisar antes de publicarlas en un README público y borrar este bloque al decidir.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+| Entrevistas | https://drive.google.com/drive/folders/1bxVizbZ6APFyM5U8n3kzt1y9vt0ySnTd |
+| Test de usuario nivel 1 | https://drive.google.com/drive/folders/11mbgpisJcj47_e3ueg3JBQZL9NZt5FLL |
+| Test de usuario nivel 2 | https://drive.google.com/drive/folders/1VnqmmQ6tc2USWV2qPBBStPmgTz1FnZyZ |
+| Test de usuario nivel 3 | https://drive.google.com/drive/folders/1XppwRniRpeC44SRa3iWZGrDwHjDCHdO5 |
+-->
 
-### `npm run build` fails to minify
+## Equipo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Nicolás Herrera Marulanda · Samuel Galindo · Christian Vargas · John Belalcázar
+
+## Nota
+
+Proyecto académico sin ánimo de lucro. El universo de Harry Potter y sus nombres son
+propiedad de sus respectivos titulares; se usan aquí únicamente con fines educativos.
+Los modelos 3D, texturas, animaciones y código son originales del equipo.
